@@ -20,28 +20,27 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="2020 年 DDCTF 中 web 签到题题解。（web🐶只做出来这道题，第二天有事）">
+  <meta name="description" content="成就：1 题，再接再厉。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2020年DDCTF题解">
-<meta property="og:url" content="http://example.com/2020/09/14/2020%E5%B9%B4DDCTF-web%E7%AD%BE%E5%88%B0%E9%A2%98%E9%A2%98%E8%A7%A3/index.html">
+<meta property="og:title" content="2020年9月DDCTF题解">
+<meta property="og:url" content="http://example.com/2020/09/14/20200914-DDCTF/index.html">
 <meta property="og:site_name" content="slug01sh&#39;s blog">
-<meta property="og:description" content="2020 年 DDCTF 中 web 签到题题解。（web🐶只做出来这道题，第二天有事）">
+<meta property="og:description" content="成就：1 题，再接再厉。">
 <meta property="og:locale">
 <meta property="og:image" content="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20200913233709.png">
 <meta property="og:image" content="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20200913233726.png">
 <meta property="og:image" content="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20200913233927.png">
 <meta property="og:image" content="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/image-20200913234130453.png">
 <meta property="article:published_time" content="2020-09-14T11:26:52.000Z">
-<meta property="article:modified_time" content="2020-09-21T15:39:19.000Z">
+<meta property="article:modified_time" content="2020-10-27T15:52:59.689Z">
 <meta property="article:author" content="slug01sh">
-<meta property="article:tag" content="生活">
-<meta property="article:tag" content="安全">
-<meta property="article:tag" content="编程">
-<meta property="article:tag" content="英语">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="JWT">
+<meta property="article:tag" content="Java命令执行">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20200913233709.png">
 
-<link rel="canonical" href="http://example.com/2020/09/14/2020%E5%B9%B4DDCTF-web%E7%AD%BE%E5%88%B0%E9%A2%98%E9%A2%98%E8%A7%A3/">
+<link rel="canonical" href="http://example.com/2020/09/14/20200914-DDCTF/">
 
 
 <script id="page-configurations">
@@ -54,7 +53,7 @@
   };
 </script>
 
-  <title>2020年DDCTF题解 | slug01sh's blog</title>
+  <title>2020年9月DDCTF题解 | slug01sh's blog</title>
   
 
 
@@ -132,6 +131,11 @@
     <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
+        <li class="menu-item menu-item-标签">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
         <li class="menu-item menu-item-归档">
 
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
@@ -170,7 +174,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/14/2020%E5%B9%B4DDCTF-web%E7%AD%BE%E5%88%B0%E9%A2%98%E9%A2%98%E8%A7%A3/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/14/20200914-DDCTF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -183,7 +187,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          2020年DDCTF题解
+          2020年9月DDCTF题解
         </h1>
 
         <div class="post-meta">
@@ -200,7 +204,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-21 23:39:19" itemprop="dateModified" datetime="2020-09-21T23:39:19+08:00">2020-09-21</time>
+                <time title="Modified: 2020-10-27 23:52:59" itemprop="dateModified" datetime="2020-10-27T23:52:59+08:00">2020-10-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -223,10 +227,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>2020 年 DDCTF 中 web 签到题题解。（web🐶只做出来这道题，第二天有事）</p>
+        <p>成就：1 题，再接再厉。</p>
 <a id="more"></a>
 
-<h1 id="web：web签到题"><a href="#web：web签到题" class="headerlink" title="web：web签到题"></a>web：web签到题</h1><h2 id="步骤1：JWT绕过"><a href="#步骤1：JWT绕过" class="headerlink" title="步骤1：JWT绕过"></a>步骤1：JWT绕过</h2><p>图1:题目给定初始条件。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20200913233709.png"></p>
+<h1 id="web：web签到题"><a href="#web：web签到题" class="headerlink" title="web：web签到题"></a>web：web签到题</h1><p>个人觉得挺难的，只做出来一道题，而且这道题需要 pwn 和 web 相结合。</p>
+<h2 id="步骤1：JWT绕过"><a href="#步骤1：JWT绕过" class="headerlink" title="步骤1：JWT绕过"></a>步骤1：JWT绕过</h2><p>图1:题目给定初始条件。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20200913233709.png"></p>
 <p>向 api 发送请求，得到响应如下，data 的数据格式和 jwt 相似，猜测为 jwt 绕过。</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">&quot;code&quot;</span>: <span class="number">0</span>,</span><br><span class="line">	<span class="attr">&quot;message&quot;</span>: <span class="string">&quot;success&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;data&quot;</span>: 		<span class="string">&quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6InN0ciIsInB3ZCI6InN0ciIsInVzZXJSb2xlIjoiR1VFU1QiLCJleHAiOjE1OTkyODY0NzB9.z-i_zjudu5yejiFbCnE9P5NIjOJE61Bzpw75OX1SHmg&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -244,8 +249,6 @@
 
 <p>图4：使用 readAllBytes 读出数据<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/image-20200913234130453.png" alt="image-20200913234130453"></p>
 <p>将读出的数据使用 base64 解开即可。</p>
-<p>如有错误🙅，欢迎指正。赠人玫瑰，手有余香。</p>
-<p>欢迎大家来到<a target="_blank" rel="noopener" href="https://slug01sh.github.io/">我的博客</a>，我会在我的博客上发表一些自己在学习和生活上的思考。</p>
 
     </div>
 
@@ -254,6 +257,11 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CTF/" rel="tag"># CTF</a>
+              <a href="/tags/JWT/" rel="tag"># JWT</a>
+              <a href="/tags/Java%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" rel="tag"># Java命令执行</a>
+          </div>
 
         
 
@@ -262,7 +270,7 @@
     <div class="post-nav">
       <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2020/09/30/%E8%A7%A3%E5%86%B3%E5%8D%B0%E8%B1%A1%E7%AC%94%E8%AE%B0%E7%B2%98%E8%B4%B4%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F%E6%B7%B7%E4%B9%B1%E7%9A%84%E9%97%AE%E9%A2%98/" rel="next" title="解决印象笔记粘贴代码缩进混乱的问题">
+    <a href="/2020/09/30/20200930-%E5%8D%B0%E8%B1%A1%E7%AC%94%E8%AE%B0/" rel="next" title="解决印象笔记粘贴代码缩进混乱的问题">
       解决印象笔记粘贴代码缩进混乱的问题 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -344,6 +352,11 @@
             <a href="/categories/">
         <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
