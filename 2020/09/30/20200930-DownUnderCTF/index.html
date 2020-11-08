@@ -20,16 +20,16 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="成就：1 题，再接再厉。">
+  <meta name="description" content="官方 writeup 地址：https:&#x2F;&#x2F;github.com&#x2F;DownUnderCTF&#x2F;Challenges_2020_public题目地址：https:&#x2F;&#x2F;play.duc.tf&#x2F;challenges">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2020年9月DownUnderCTF">
 <meta property="og:url" content="http://example.com/2020/09/30/20200930-DownUnderCTF/index.html">
 <meta property="og:site_name" content="slug01sh&#39;s blog">
-<meta property="og:description" content="成就：1 题，再接再厉。">
+<meta property="og:description" content="官方 writeup 地址：https:&#x2F;&#x2F;github.com&#x2F;DownUnderCTF&#x2F;Challenges_2020_public题目地址：https:&#x2F;&#x2F;play.duc.tf&#x2F;challenges">
 <meta property="og:locale">
 <meta property="og:image" content="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20200930102222.png">
 <meta property="article:published_time" content="2020-09-30T02:05:03.000Z">
-<meta property="article:modified_time" content="2020-10-27T15:52:10.982Z">
+<meta property="article:modified_time" content="2020-11-08T01:08:57.150Z">
 <meta property="article:author" content="slug01sh">
 <meta property="article:tag" content="生活">
 <meta property="article:tag" content="安全">
@@ -202,7 +202,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-27 23:52:10" itemprop="dateModified" datetime="2020-10-27T23:52:10+08:00">2020-10-27</time>
+                <time title="Modified: 2020-11-08 09:08:57" itemprop="dateModified" datetime="2020-11-08T09:08:57+08:00">2020-11-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -225,11 +225,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>成就：1 题，再接再厉。</p>
+        <p>官方 writeup 地址：<a target="_blank" rel="noopener" href="https://github.com/DownUnderCTF/Challenges_2020_public">https://github.com/DownUnderCTF/Challenges_2020_public</a><br>题目地址：<a target="_blank" rel="noopener" href="https://play.duc.tf/challenges">https://play.duc.tf/challenges</a></p>
 <hr>
 <a id="more"></a>
 
-<p>官方 writeup 地址：<a target="_blank" rel="noopener" href="https://github.com/DownUnderCTF/Challenges_2020_public">https://github.com/DownUnderCTF/Challenges_2020_public</a><br>题目地址：<a target="_blank" rel="noopener" href="https://play.duc.tf/challenges">https://play.duc.tf/challenges</a></p>
 <h1 id="Web-Badmin（DNS配置）"><a href="#Web-Badmin（DNS配置）" class="headerlink" title="Web Badmin（DNS配置）"></a>Web Badmin（DNS配置）</h1><p>题目：web badmin</p>
 <p>提示：We launched a game and now it is no longer launched :( can you figure out what happened plox. HALP</p>
 <p>视频上方：me rn。windows</p>
@@ -239,7 +238,7 @@
 <p>hint：Boss: we are firing you. The game doesn’t even load. Web admin: it was just a simple misconfiguration, i clicked the wrong button 😞</p>
 <p>发现注释中有提示信息，使用浏览器、ping工具、curl工具（几种常用的工具）都没有任何响应，束手无策。</p>
 <p>最后查看题解才知道，无法连接是由于DNS的原因，使用dig、host即可获得flag。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">host -t txt epicgame.play.duc.tf</span><br><span class="line"></span><br><span class="line">dig epicgame.play.duc.tf TXT         <span class="comment"># dig 命令主要用来从 DNS 域名服务器查询主机地址信息。</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">host -t txt epicgame.play.duc.tf</span><br><span class="line"></span><br><span class="line">dig epicgame.play.duc.tf TXT         <span class="comment"># dig 命令主要用来从 DNS 域名服务器查询主机地址信息。</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>在 DNS 协议中有很多的资源协议类型，TXT 属于其中一种。</p>
 <ul>
@@ -254,7 +253,9 @@
 <h1 id="Robotsss（SSTI）"><a href="#Robotsss（SSTI）" class="headerlink" title="Robotsss（SSTI）"></a>Robotsss（SSTI）</h1><p>题目地址：<a target="_blank" rel="noopener" href="https://chal.duc.tf:30106/">https://chal.duc.tf:30106/</a><br>Us robot devs use better templates than those stupid humans!</p>
 <p>注册并登陆系统，可以得到两个提示信息。第一个信息暗示 humans.txt 中有其他信息（<code>dirsearch</code> 工具也可以扫到），第二个提示暗示 flag 位于 /s3cr3t_p4th/robot_fl4g.txt。在第一个提示的源码中有一串二进制码，解码可得 humen.txt（二进制转ascii），第二篇文章的二进制解码得 fl4g.txt。</p>
 <p>根据第一个暗示我们找到另一个地址(<a target="_blank" rel="noopener" href="https://chal.duc.tf:30106/4dm1n_Cr3ds)%EF%BC%8C%E8%BF%99%E4%B8%AA%E5%9C%B0%E5%9D%80%E7%BB%99%E5%87%BA%E4%B8%80%E6%AE%B5">https://chal.duc.tf:30106/4dm1n_Cr3ds)，这个地址给出一段</a> admin credit 为 6zMLV46JRp6kAmTs3nx5AG4WJgYeY.</p>
-<p>访问 humen.txt 地址发现一张图片，使用 <code>strings</code> 工具处理图片（<code>binwalk</code>、<code>foremost</code> 都测试过），得到一串二进制码011000010110010001101101011010010110111000111010010101000110100001101001011100110010110101001001011100110010110101010100011010000110010100101101010000010110010001101101011010010110111000101101010100000110000101110011011100110111011101101111011100100110010000101101010110000100010000100001，解码得到 admin:This-Is-The-Admin-Password-XD!，看上去很像是账号密码。</p>
+<p>访问 humen.txt 地址发现一张图片，使用 <code>strings</code> 工具处理图片（<code>binwalk</code>、<code>foremost</code> 都测试过），得到一串二进制码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">011000010110010001101101011010010110111000111010010101000110100001101001011100110010110101001001011100110010110101010100011010000110010100101101010000010110010001101101011010010110111000101101010100000110000101110011011100110111011101101111011100100110010000101101010110000100010000100001</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>解码得到 admin:This-Is-The-Admin-Password-XD!，看上去很像是账号密码。</p>
 <p>使用 admin 账号登陆成功。前几天做了很多命令注入的题目（<code>Python</code>、<code>Java</code>），以为这个题目还是命令注入，最后发现是模版注入。并且还在控制台发现：Werkzeug/0.16.0 Python/3.7.9。</p>
 <p>测试代码</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;1+1&#125;&#125;                  =&gt; jinja2 </span><br><span class="line">&#x27;a&#x27;&#x27;a&#x27;                   =&gt; shell </span><br><span class="line">&#x27;a&#x27;.length               =&gt; js </span><br><span class="line">len(&#x27;a&#x27;)                 =&gt; python </span><br><span class="line">&#x27;a&#x27;.charAt(0)            =&gt; java</span><br><span class="line"></span><br><span class="line">&#123;&#123;1+1&#125;&#125;                  =&gt; 模版注入</span><br></pre></td></tr></table></figure>
@@ -266,11 +267,13 @@
 <p>官方题解：<a target="_blank" rel="noopener" href="https://github.com/DownUnderCTF/Challenges_2020_public/tree/master/web/robotssss">https://github.com/DownUnderCTF/Challenges_2020_public/tree/master/web/robotssss</a></p>
 <p>通过题解可知，6zMLV46JRp6kAmTs3nx5AG4WJgYeY 为 <code>base58</code> 编码，可以通过 <code>&#123;&#123; config.items() &#125;&#125;</code> 查看系统配置信息，配置信息中的函数用于暗示该函数可以使用。还可以使用 Jinja 自带的语法（<code>&#123;&#123; getFile("/fl4g.txt") &#125;&#125;</code>）来读取 flag 文件。</p>
 <hr>
-<h1 id="Cookie-Clicker（逻辑漏洞）"><a href="#Cookie-Clicker（逻辑漏洞）" class="headerlink" title="Cookie Clicker（逻辑漏洞）"></a>Cookie Clicker（逻辑漏洞）</h1><p>题目地址：<a target="_blank" rel="noopener" href="https://cookie-clicker1.web.app/">https://cookie-clicker1.web.app/</a></p>
+<h1 id="Cookie-Clicker（逻辑漏洞）"><a href="#Cookie-Clicker（逻辑漏洞）" class="headerlink" title="Cookie Clicker（逻辑漏洞）"></a>Cookie Clicker（逻辑漏洞）</h1><ul>
+<li>题目地址：<a target="_blank" rel="noopener" href="https://cookie-clicker1.web.app/">https://cookie-clicker1.web.app/</a></li>
+<li>官方题解：<a target="_blank" rel="noopener" href="https://github.com/DownUnderCTF/Challenges_2020_public/blob/master/web/cookie-clicker/solution.md">https://github.com/DownUnderCTF/Challenges_2020_public/blob/master/web/cookie-clicker/solution.md</a></li>
+<li>题解地址：<a target="_blank" rel="noopener" href="https://github.com/joaofcmb/DownUnderCTF-writeups/tree/master/web/cookie-clicker">https://github.com/joaofcmb/DownUnderCTF-writeups/tree/master/web/cookie-clicker</a></li>
+</ul>
 <p>Click da cookie and you get to increase da cookie. Built this using epic Firebase. Built this in a day HOW COOL is firebase! Didn’t need to worry about security because it’s all handled by Google :) just click cookies and enjoy</p>
 <p>WriteUp：我从题目中提取到的关键词是 epic Firebase，Flag 可能和 Firebase 有关。将相关简单流程操作了一下，并未发现异常情况（看了一下请求参数，太复杂了）。题目中还涉及 Google，心生敬畏之心，简单查看源文件之后果断放弃（这种大型网站从来没做过。</p>
-<p>官方题解：<a target="_blank" rel="noopener" href="https://github.com/DownUnderCTF/Challenges_2020_public/blob/master/web/cookie-clicker/solution.md">https://github.com/DownUnderCTF/Challenges_2020_public/blob/master/web/cookie-clicker/solution.md</a></p>
-<p>题解地址：<a target="_blank" rel="noopener" href="https://github.com/joaofcmb/DownUnderCTF-writeups/tree/master/web/cookie-clicker">https://github.com/joaofcmb/DownUnderCTF-writeups/tree/master/web/cookie-clicker</a></p>
 <p>查看题解过后发现第一步的思路是正确的，但是没有去搜索 Firebase。Firestore 是一个数据库服务，并且 WriteUp 提到「Firebase 有一个关键的安全问题——设置访问控制，否则任意用户都能访问数据」。</p>
 <blockquote>
 <p>note：大型服务商（Google）提供的服务通常的问题都出在配置问题。（不然早就修复了</p>
@@ -279,10 +282,12 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">curl -H <span class="string">&quot;Authorization:Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjczNzVhZmY3MGRmZTNjMzNlOTBjYTM2OWUzYTBlZjQxMzE3MmZkODIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY29va2llLWNsaWNrZXIxIiwiYXVkIjoiY29va2llLWNsaWNrZXIxIiwiYXV0aF90aW1lIjoxNjAwNjE1MDYzLCJ1c2VyX2lkIjoiRXVhUkdDU2t0R040Nnh0MWdBRUgzbEw5MkFyMSIsInN1YiI6IkV1YVJHQ1NrdEdONDZ4dDFnQUVIM2xMOTJBcjEiLCJpYXQiOjE2MDA2MTgzNjYsImV4cCI6MTYwMDYyMTk2NiwiZW1haWwiOiJrZWt3QGtla3cua2VrdyIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJrZWt3QGtla3cua2VrdyJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.cHgPEFjfZ0J408lkrRfow_3iIsiLYTd1EVIP28NSvj9ZQIKdY6sZtIJ7XPpeVCcxWcswx9tv4Ftv6uNkgF67HeAccyY7I9YwDQuhWrPIAGMNBbQ2qoq19YbpfLy_Ot-0LRE8z9jpPL8uwEDyy8vX_PPPZAmcFHX3nQe1ltvMWDLGVeIUP4F-tDtHX5NGL-UngGPvEAg6qfpzY5tax6NzPwi-HDRDLHLPa4ayiQurwAw2hs0CTOwvbMDjf8YzoNeL0fscukyOPsFZOw-0L0nQbO4FF0GdfZLLski4VvD0XK8N9lkc_Vtn0cqZ1bN3f7Sof28KAvNf5Is-_JnO6fxz1g&quot;</span> <span class="string">&quot;https://firestore.googleapis.com/v1/projects/cookie-clicker1/databases/(default)/documents/cookies&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>官方的 writeup 则是使用 firestore 在源码中搜索能找到登陆的关键凭证，但后面的步骤就很难联想到。（这个题脑洞是真滴大</p>
 <hr>
-<h1 id="CicleSpace（SQL注入）"><a href="#CicleSpace（SQL注入）" class="headerlink" title="CicleSpace（SQL注入）"></a>CicleSpace（SQL注入）</h1><p>题目链接：<a target="_blank" rel="noopener" href="https://chal.duc.tf:30103/">https://chal.duc.tf:30103/</a></p>
+<h1 id="CicleSpace（SQL注入）"><a href="#CicleSpace（SQL注入）" class="headerlink" title="CicleSpace（SQL注入）"></a>CicleSpace（SQL注入）</h1><ul>
+<li>题目链接：<a target="_blank" rel="noopener" href="https://chal.duc.tf:30103/">https://chal.duc.tf:30103/</a></li>
+<li>题解链接：<a target="_blank" rel="noopener" href="https://github.com/DownUnderCTF/Challenges_2020_public/blob/master/web/circlespace/writeup.md">https://github.com/DownUnderCTF/Challenges_2020_public/blob/master/web/circlespace/writeup.md</a></li>
+</ul>
 <p>Oh, how I miss /r/place and /r/circleoftrust. That’s why I decided to create my own one for y’all to play with.<br>/* some bruteforce may be required */</p>
 <p>猜测为SQL注入，但是没有成功注入。发送空数据时，返回报错（400）。</p>
-<p>题解链接：<a target="_blank" rel="noopener" href="https://github.com/DownUnderCTF/Challenges_2020_public/blob/master/web/circlespace/writeup.md">https://github.com/DownUnderCTF/Challenges_2020_public/blob/master/web/circlespace/writeup.md</a></p>
 <p>查看题解后发现，fuzz SQL注入时，最好把自己写入的参数删掉（参数为空）。参考题解的 payload，添加名为 1 的 Person，然后再分别使用：<code>1&quot; AND 1=0  #</code>，<code>1&quot; AND 1=1  #</code> 进行查询，即可发现为 Boolean 注入，然后使用 Boolean 注入的方法进行爆破即可。（使用 <code>2&quot; # </code> 也能查出来）</p>
 <blockquote>
 <p>细心一点测试，这个题应该能做（</p>
@@ -396,18 +401,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
