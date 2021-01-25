@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>渗透测试之信息搜集</title>
+    <link href="/2021/01/25/2021%E5%B9%B41%E6%9C%8825%E6%97%A5-%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/"/>
+    <url>/2021/01/25/2021%E5%B9%B41%E6%9C%8825%E6%97%A5-%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/</url>
+    
+    <content type="html"><![CDATA[<p>收集信息采用一种由外到内的收集方式，保证信息的收集尽可能的全面。在渗透测试过程中，我们从各个角度进行测试，需要尽可能的找出网站中的漏洞来编写测试报告，所以只要是与目标网站相关的信息，我们都要尽可能的去收集。</p><p>我们得到一个网站的地址，以 <a href="https://www.baidu.com/">https://www.baidu.com</a> 为例。</p><ul><li>直观信息：利用Google搜索语法搜索网站的信息，可能可以找到后台，或者找到注入点。</li><li>应用层：我们需要收集网站的域名信息，这个网站是谁注册的？这个人的邮箱号是多少？（可以用于密码爆破等）当前域名有多少子域名?</li><li>传输层：我们要知道传输层的UDP和TCP通常没有什么信息，他们通常用于保证网络质量等功能，所以这一层我们不做任何操作。</li><li>网络层：目标网站有哪些IP？那些IP上有哪些服务？那些IP上有哪些端口对外开放？真实世界中域名很有可能会使用CDN的技术，而CDN中只有通常没有我们想要的信息，我们的目标是网站的服务器主机，所以我们需要找到。</li><li>数据链路层：也没有什么关键的信息。</li></ul><p>还有一种比较特殊且常用的方法，指纹识别。</p><h1 id="0x01-直观信息"><a href="#0x01-直观信息" class="headerlink" title="0x01 直观信息"></a>0x01 直观信息</h1><p>圈内常说的Google hacker（逃<br>常用语法：</p><ul><li>site：指定域名。site:edu.cn（所有edu.cn的网站）</li><li>inurl：URL中存在关键词。inurl:?id=（SQL注入等功能）</li><li>intext：网页正文存在关键词。intext:后台（找后台）</li><li>filetype：指定文件类型。filetype:pdf（找电子书）</li><li>link：和当前链接有关联的网页。link:slug01sh.github.com（和我的博客做了友链的博客）</li><li>cache：Google中的缓存</li></ul><p>还可以进行组合搜索。site:edu.cn inurl:?id=</p><p>同理可以在其他搜索引擎进行搜索</p><ul><li>百度</li><li>雅虎</li><li>Bing</li><li>Shodan</li><li>Github</li></ul><h1 id="0x02-应用层"><a href="#0x02-应用层" class="headerlink" title="0x02 应用层"></a>0x02 应用层</h1><p>问：这个网站是谁注册的？他的邮箱是多少？</p><p>收集域名注册。域名服务商、注册人信息（姓名、邮箱信息、地址）、IP地址、备案信息查询</p><ol><li>whois查询</li><li>站长之家</li><li>爱站工具网</li><li>VirusTotal</li><li>ICP备案查询网</li><li>天眼查</li></ol><p>通常主域名会设立一些防护，而一些刚刚开的新子域名没来得及防护，就可以考虑从侧面进行攻击。而在这之前我们最好先把子域名的信息先收集好。收集方法：</p><ul><li>搜索引擎枚举。site:baidu.com，简单暴力</li><li>第三方应用。DNSdumpster、在线DNS侦查、子域名爆破网站（<a href="https://phpinfo.me/domin">https://phpinfo.me/domin</a> ）、IP反查绑定域名网站（<a href="http://dns.aizhan.com/">http://dns.aizhan.com</a> ）</li><li>日志透明度公开日志枚举。<a href="https://crt.sh/">https://crt.sh</a> 和 <a href="https://censys.io/">https://censys.io</a></li><li>子域名扫描器。如：Layer子域名挖掘器、subDomainBrute、Sublist3r</li></ul><h1 id="0x03-网络层"><a href="#0x03-网络层" class="headerlink" title="0x03 网络层"></a>0x03 网络层</h1><p>问：如何判断是否采用CDN？</p><blockquote><p>采用多地ping服务的在线网站（<a href="https://www.17ce.com/">https://www.17ce.com</a> ）</p></blockquote><p>问：如果使用了CDN，应该如何获取真实IP？</p><ul><li>国外访问当前域名（CDN国内外收费不同）</li><li>查看域名的解析记录（可能过去有IP的记录）</li><li>扫描网站测试文件。如phpinfo、test（测试文件没有挂CDN）</li><li>ping分站（分站没有挂CDN）</li><li>抓包分析（数据交互会和真正的服务器交互）</li><li>内部邮箱溯源。邮件服务器IP、ping邮件服务器域名（网站自己的邮件服务器）</li></ul><p>问：如何验证找到的IP的真实性？</p><blockquote><p>测试「80端口的网站」是否和「你域名访问得到的网站」相同。</p></blockquote><p>问：找到IP之后做什么？</p><ul><li>端口信息</li><li>Web路径信息</li></ul><p>问：收集端口信息常用工具有哪些？</p><ul><li>nmap</li><li>masscan</li><li>zmap</li><li>御剑高速TCP端口扫描工具</li></ul><p>TCP/UDP端口列表：<a href="https://zh.wikipedia.org/wiki/TCP/UDP%E7%AB%AF%E5%8F%A3%E5%88%97%E8%A1%A8">https://zh.wikipedia.org/wiki/TCP/UDP%E7%AB%AF%E5%8F%A3%E5%88%97%E8%A1%A8</a></p><p>常见的URL：<a href="http://localhost:4000/article">http://localhost:4000/article</a> 。URL中的域名端口信息都已经进行搜集，在确定了需要攻击的域名和端口之后，如果想要攻击Web服务，就需要先搜集Web目录文件。</p><p>问：如何搜集Web目录文件？</p><blockquote><p>使用扫描器扫描，常用工具：dirsearch。</p></blockquote><h1 id="0x04-指纹识别（博客类）"><a href="#0x04-指纹识别（博客类）" class="headerlink" title="0x04 指纹识别（博客类）"></a>0x04 指纹识别（博客类）</h1><p>CMS是用来管理网站的文章的，通常会有一些框架来套用。这些框架可能由于种种原因被挖掘出了漏洞存在，而管理员又没有及时的更新。可以采用在线的工具进行识别，也可以采用本地识别。<br>常用的本地工具有：</p><ul><li>御剑Web指纹识别</li><li>WhatWeb</li><li>WebRobo</li><li>椰树</li><li>轻量Web指纹识别<br>常用在线工具：</li><li>BugScaner</li><li>云悉指纹</li><li>WhatWeb</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>安全</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>渗透测试</tag>
+      
+      <tag>信息搜集</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>网络安全行业个人发展浅析</title>
     <link href="/2021/01/24/2021%E5%B9%B41%E6%9C%8824%E6%97%A5-%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%A1%8C%E4%B8%9A%E4%B8%AA%E4%BA%BA%E5%8F%91%E5%B1%95%E6%B5%85%E6%9E%90/"/>
     <url>/2021/01/24/2021%E5%B9%B41%E6%9C%8824%E6%97%A5-%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%A1%8C%E4%B8%9A%E4%B8%AA%E4%BA%BA%E5%8F%91%E5%B1%95%E6%B5%85%E6%9E%90/</url>
