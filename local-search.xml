@@ -4,6 +4,58 @@
   
   
   <entry>
+    <title>解决MySQL启动问题</title>
+    <link href="/2021/01/25/2021%E5%B9%B41%E6%9C%8825%E6%97%A5-%E8%A7%A3%E5%86%B3MySQL%E5%90%AF%E5%8A%A8%E9%97%AE%E9%A2%98/"/>
+    <url>/2021/01/25/2021%E5%B9%B41%E6%9C%8825%E6%97%A5-%E8%A7%A3%E5%86%B3MySQL%E5%90%AF%E5%8A%A8%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-报错信息"><a href="#1-报错信息" class="headerlink" title="1 报错信息"></a>1 报错信息</h1><p>今天在启动MySQL时，发现启动失败。MxSrvs的报错信息如下：</p><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs smali">MySQL Start Failure,Please<span class="hljs-built_in"> check </span>the related logs<br>MySQL Start Failure,Please<span class="hljs-built_in"> check </span>the related logs<br></code></pre></td></tr></table></figure><h1 id="2-查看日志"><a href="#2-查看日志" class="headerlink" title="2 查看日志"></a>2 查看日志</h1><p>定位到今天的ERROR日志<br><img src="https://img-blog.csdnimg.cn/20210114104933306.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMDg1NjEx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>具体的错误信息如下：</p><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-14</span>T10:<span class="hljs-number">05</span>:<span class="hljs-number">04.821628</span>+<span class="hljs-number">08</span>:<span class="hljs-number">00</span> <span class="hljs-number">0</span> [ERROR] [MY<span class="hljs-number">-010259</span>] [Server] Another process with pid <span class="hljs-number">1033</span> <span class="hljs-keyword">is</span> using unix socket file.<br><span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-14</span>T10:<span class="hljs-number">05</span>:<span class="hljs-number">04.822136</span>+<span class="hljs-number">08</span>:<span class="hljs-number">00</span> <span class="hljs-number">0</span> [ERROR] [MY<span class="hljs-number">-010268</span>] [Server] Unable to setup unix socket lock file.<br><span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-14</span>T10:<span class="hljs-number">05</span>:<span class="hljs-number">04.823013</span>+<span class="hljs-number">08</span>:<span class="hljs-number">00</span> <span class="hljs-number">0</span> [ERROR] [MY<span class="hljs-number">-010119</span>] [Server] Aborting<br></code></pre></td></tr></table></figure><p><code>mysql.lock</code>文件的作用：mysql的主机和客户机在同一host（物理服务器）上的时候，使用unix domain socket做为通讯协议的载体，它比tcp快。</p><h1 id="3-解决办法"><a href="#3-解决办法" class="headerlink" title="3 解决办法"></a>3 解决办法</h1><ul><li><p>在日志文件中找到 <code>mysql.lock</code>文件。<br><img src="https://img-blog.csdnimg.cn/20210114105437875.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMDg1NjEx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>（如果害怕出问题，可以先备份一下再删除）</p></li><li><p>删除sock文件（下面的两个文件都删掉）<br><img src="https://img-blog.csdnimg.cn/20210114105559615.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMDg1NjEx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p></li><li><p>重启服务即可</p></li></ul><p>参考文章：</p><ol><li><a href="https://zhuanlan.zhihu.com/p/38949932">https://zhuanlan.zhihu.com/p/38949932</a></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>编程</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>mysql</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>RST攻击扫盲</title>
+    <link href="/2021/01/25/2021%E5%B9%B41%E6%9C%8825%E6%97%A5-RST%E6%94%BB%E5%87%BB%E6%89%AB%E7%9B%B2/"/>
+    <url>/2021/01/25/2021%E5%B9%B41%E6%9C%8825%E6%97%A5-RST%E6%94%BB%E5%87%BB%E6%89%AB%E7%9B%B2/</url>
+    
+    <content type="html"><![CDATA[<p>RST 攻击也叫 TCP 重置攻击。TCP 重置攻击是指黑客伪造 TCP 的 RST 包来断开用户与网站的连接，这个技术也被运用在防火墙中，例如著名的 GFW。</p><p><strong>什么是RST？</strong></p><p>RST 是 Reset 的简称。在我看来，RST 有点类似于手机的强制重启。当我们手机死机时，我们通常会长按电源键来将手机直接关机，这时手机不会保存任何内容。RST 也类似与这样，当 A 和 B 正在通信时，B 收到 A 发送的 RST 时，A 和 B 会直接进行中断，而不会采用四次分手的方式发送 FIN 信号。</p><p><strong>什么是RST攻击？</strong></p><p>通过第三方的 C 伪造 TCP 的包，让 B 误以为 A 发送了 RST 包，从而使得 A 和 B 之间的连接断开。</p><p><strong>预防方式</strong></p><p>通过 VPN 加密，让攻击者无法准确判断「被攻击者」，此时攻击者只能盲目的攻击所有的加密链接，增大攻击的难度。</p><p>参考文章</p><ol><li>TCP协议：<a href="https://www.ruanyifeng.com/blog/2017/06/tcp-protocol.html">https://www.ruanyifeng.com/blog/2017/06/tcp-protocol.html</a></li><li>详解RST、RST攻击：<a href="https://blog.csdn.net/weixin_36750623/article/details/84953067">https://blog.csdn.net/weixin_36750623/article/details/84953067</a></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>安全</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>php</tag>
+      
+      <tag>tcp重置攻击</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>渗透测试之信息搜集</title>
     <link href="/2021/01/25/2021%E5%B9%B41%E6%9C%8825%E6%97%A5-%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/"/>
     <url>/2021/01/25/2021%E5%B9%B41%E6%9C%8825%E6%97%A5-%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/</url>

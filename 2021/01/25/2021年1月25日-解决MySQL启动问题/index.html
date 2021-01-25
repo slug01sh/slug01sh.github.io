@@ -17,9 +17,25 @@
   <meta name="description" content="cter, web security, red team">
   <meta name="author" content="slug01sh">
   <meta name="keywords" content="生活,安全,编程,英语">
-  <title>归档 - slug01sh&#39;s blog</title>
+  <title>解决MySQL启动问题 - slug01sh&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
 
@@ -47,7 +63,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -146,9 +162,46 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="归档">
+            <span class="h2" id="subtitle" title="解决MySQL启动问题">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-25 16:07" pubdate>
+        2021年1月25日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      231 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      3
+       分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -161,76 +214,102 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 22 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2021</p>
-    
-    <a href="/2021/01/22/2021%E5%B9%B41%E6%9C%8822%E6%97%A5-XSS%E5%9F%BA%E7%A1%80%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%A5%E5%8F%8A%E6%AF%94%E8%BE%83-from-%E3%80%8AWeb%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E3%80%8B/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">XSS基础基本概念以及比较 from 《Web安全攻防》</span>
-      <time style="float: right;">01-22</time>
-    </a>
-  
-    
-    <a href="/2021/01/22/2021%E5%B9%B41%E6%9C%8822%E6%97%A5-Linux-Or-Mac%E5%AE%89%E8%A3%85pip2-Or-pip3/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Linux Or Mac安装pip2 Or pip3</span>
-      <time style="float: right;">01-22</time>
-    </a>
-  
-    
-    <a href="/2021/01/22/2021%E5%B9%B41%E6%9C%8822%E6%97%A5-Python%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8Bsocket%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Python网络编程之socket简单使用</span>
-      <time style="float: right;">01-22</time>
-    </a>
-  
-    
-    <a href="/2021/01/20/2021%E5%B9%B41%E6%9C%8820%E6%97%A5-%E5%A4%8D%E7%8E%B0-CTF%E9%A2%98%E8%A7%A3/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">复现*CTF题解</span>
-      <time style="float: right;">01-20</time>
-    </a>
-  
-    
-    <a href="/2021/01/18/2021%E5%B9%B41%E6%9C%8818%E6%97%A5-sql%E6%B3%A8%E5%85%A5%E9%80%9F%E6%9F%A5%E6%89%8B%E5%86%8C%EF%BC%88%E4%B8%8D%E5%AE%9A%E6%9C%9F%E6%9B%B4%E6%96%B0%EF%BC%89/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">sql注入速查手册（不定期更新）</span>
-      <time style="float: right;">01-18</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">解决MySQL启动问题</h1>
+            
+            <div class="markdown-body">
+              <h1 id="1-报错信息"><a href="#1-报错信息" class="headerlink" title="1 报错信息"></a>1 报错信息</h1><p>今天在启动MySQL时，发现启动失败。MxSrvs的报错信息如下：</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs smali">MySQL Start Failure,Please<span class="hljs-built_in"> check </span>the related logs<br>MySQL Start Failure,Please<span class="hljs-built_in"> check </span>the related logs<br></code></pre></td></tr></table></figure>
 
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/archives/2021/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/archives/2021/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2021/page/3/">3</a><a class="extend next" rel="next" href="/archives/2021/page/3/"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
-  
-  <script>
-    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
-      ele.href += '#board';
-    }
-  </script>
+<h1 id="2-查看日志"><a href="#2-查看日志" class="headerlink" title="2 查看日志"></a>2 查看日志</h1><p>定位到今天的ERROR日志<br><img src="https://img-blog.csdnimg.cn/20210114104933306.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMDg1NjEx,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>具体的错误信息如下：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-14</span>T10:<span class="hljs-number">05</span>:<span class="hljs-number">04.821628</span>+<span class="hljs-number">08</span>:<span class="hljs-number">00</span> <span class="hljs-number">0</span> [ERROR] [MY<span class="hljs-number">-010259</span>] [Server] Another process with pid <span class="hljs-number">1033</span> <span class="hljs-keyword">is</span> using unix socket file.<br><span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-14</span>T10:<span class="hljs-number">05</span>:<span class="hljs-number">04.822136</span>+<span class="hljs-number">08</span>:<span class="hljs-number">00</span> <span class="hljs-number">0</span> [ERROR] [MY<span class="hljs-number">-010268</span>] [Server] Unable to setup unix socket lock file.<br><span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-14</span>T10:<span class="hljs-number">05</span>:<span class="hljs-number">04.823013</span>+<span class="hljs-number">08</span>:<span class="hljs-number">00</span> <span class="hljs-number">0</span> [ERROR] [MY<span class="hljs-number">-010119</span>] [Server] Aborting<br></code></pre></td></tr></table></figure>
+<p><code>mysql.lock</code>文件的作用：mysql的主机和客户机在同一host（物理服务器）上的时候，使用unix domain socket做为通讯协议的载体，它比tcp快。</p>
+<h1 id="3-解决办法"><a href="#3-解决办法" class="headerlink" title="3 解决办法"></a>3 解决办法</h1><ul>
+<li><p>在日志文件中找到 <code>mysql.lock</code>文件。<br><img src="https://img-blog.csdnimg.cn/20210114105437875.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMDg1NjEx,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>（如果害怕出问题，可以先备份一下再删除）</p>
+</li>
+<li><p>删除sock文件（下面的两个文件都删掉）<br><img src="https://img-blog.csdnimg.cn/20210114105559615.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMDg1NjEx,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
+</li>
+<li><p>重启服务即可</p>
+</li>
+</ul>
+<p>参考文章：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/38949932">https://zhuanlan.zhihu.com/p/38949932</a></li>
+</ol>
 
-
-
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/mysql/">mysql</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/25/2021%E5%B9%B41%E6%9C%8825%E6%97%A5-RST%E6%94%BB%E5%87%BB%E6%89%AB%E7%9B%B2/">
+                        <span class="hidden-mobile">RST攻击扫盲</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -310,9 +389,15 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
 
 
 
