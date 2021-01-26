@@ -193,6 +193,67 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/01/26/2021%E5%B9%B41%E6%9C%8826%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BSQLmap%E4%BD%BF%E7%94%A8/">Web安全攻防之SQLmap使用</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/01/26/2021%E5%B9%B41%E6%9C%8826%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BSQLmap%E4%BD%BF%E7%94%A8/">
+          
+          
+            
+          
+          《Web安全攻防》使用sqli-labs来熟悉一下SQLmap这个神器，我也大致的熟悉一下这个工具的使用吧。
+SQL注入的基本步骤：
+
+判断注入类型
+获取数据库名
+获取数据表名
+获取字段名
+获取数据
+
+1 判断注入类型1.1 Get类型使用 -u 参数指定url（sqlmap关卡1）
+1sqlmap -u &quot;http://localhost:4000/Less-1?id=1&quot;
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-26 19:10" pubdate>
+              2021-01-26
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%AE%89%E5%85%A8/">安全</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/sql%E6%B3%A8%E5%85%A5/">sql注入</a>
+            
+              <a href="/tags/%E3%80%8AWeb%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E3%80%8B/">《Web安全攻防》</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/01/26/2021%E5%B9%B41%E6%9C%8826%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BXSS%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/">Web安全攻防之XSS平台搭建</a>
       </h1>
 
@@ -202,14 +263,15 @@
           
             
           
-          不推荐自己搭建，建议使用 https://xs.sb/ 平台。
-自己搭建需要准备：
+          
+XSS测试平台：主要用与接收测试XSS得到的cookie，或者托管 exp（在打CTF时可能会需要使用这种平台。
+XSS game：有XSS漏洞的游戏，用来训练XSS技术。
+
+不推荐自己搭建，建议使用 https://xs.sb/ 平台。自己在本地搭建了只能收到自己的Cookie，作用不大。
+如果自己搭建则需要准备：
 
 一个可用域名（越短越好）；
-如果你需要测试HTTPS网站，请准备SSL证书（可从Cloudflare或Let’s Encrypt获取免费的SSL证书）；
-
-即麻烦还难以维护（我就是懒，逃
-
+如果你需要测试HTTPS网站，请准备SSL证书（
         </a>
       </p>
 
@@ -661,66 +723,6 @@ Dom 型（文档对象模型，Document Object Model）：一次性、不需经�
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/python/">python</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/22/2021%E5%B9%B41%E6%9C%8822%E6%97%A5-Python%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8Bsocket%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">Python网络编程之socket简单使用</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/22/2021%E5%B9%B41%E6%9C%8822%E6%97%A5-Python%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8Bsocket%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">
-          
-          
-            
-          
-          1 简介Python 提供两个级别的服务：
-
-Socket（低级别）
-SocketServer（高级别）
-
-什么是 Socket？俗称「套接字」，对 TCP 协议的抽象，可以用于主机之间或者进程之间的通信。
-首先用一个简单实例来了解 socket 创建、连接、通信的基本步骤。server 端的基本步骤：
-
-绑定 hostname、port
-使用 accept 方法进行等待
-将消息发送给 clien
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-22 16:55" pubdate>
-              2021-01-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%BC%96%E7%A8%8B/">编程</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/python/">python</a>
-            
-              <a href="/tags/socket/">socket</a>
             
           </div>
         
