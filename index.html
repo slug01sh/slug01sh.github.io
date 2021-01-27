@@ -193,6 +193,124 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BXSS%E5%9F%BA%E7%A1%80%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3/">Web安全攻防之XSS基础基本概念和基本思想</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BXSS%E5%9F%BA%E7%A1%80%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3/">
+          
+          
+            
+          
+          1 简介与对比XSS攻击可以分为三种
+
+反射型：一次性、通过邮件传播、需要经过服务器
+Dom 型（文档对象模型，Document Object Model）：一次性、不需经过服务器（不发送消息）
+存储型：持久性、通常出现在留言板中、通常是处于信任的链接中（熟悉的论坛网站）
+
+反射型和存储型都需要向外部发送信息，经过服务器后传回，而 DOM 型由本地的浏览器进行解析执行。
+区别反射型和 DOM 型最
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-27 17:24" pubdate>
+              2021-01-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%AE%89%E5%85%A8/">安全</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/xss/">xss</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BCSRF%E6%94%BB%E5%87%BB%E4%B8%8EXSS%E6%94%BB%E5%87%BB%E5%8C%BA%E5%88%AB/">2021年1月27日-Web安全攻防之CSRF攻击与XSS攻击区别</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BCSRF%E6%94%BB%E5%87%BB%E4%B8%8EXSS%E6%94%BB%E5%87%BB%E5%8C%BA%E5%88%AB/">
+          
+          
+            
+          
+          反射型XSS和CSRF的相同点：
+
+都需要用户点击链接，访问恶意构造的链接。
+
+反射型XSS和CSRF的不同点：
+
+XSS偏向于代码执行。代码可以被黑客构造，能够实现复杂的功能，更加的危险。
+CSRF则偏向于结果。通常情况是利用系统自带的功能来实现黑客想要达到的结果，比如刷访问量、发布文章。XSS也能实现CSRF的功能，不过能GetShell，你会只用来刷访问量？（逃🤡
+
+参考教程：
+
+用大白话
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-27 14:36" pubdate>
+              2021-01-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%AE%89%E5%85%A8/">安全</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E3%80%8AWeb%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E3%80%8B/">《Web安全攻防》</a>
+            
+              <a href="/tags/XSS/">XSS</a>
+            
+              <a href="/tags/CSRF/">CSRF</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/01/26/2021%E5%B9%B41%E6%9C%8826%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BSQLmap%E4%BD%BF%E7%94%A8/">Web安全攻防之SQLmap使用</a>
       </h1>
 
@@ -296,9 +414,9 @@ XSS game：有XSS漏洞的游戏，用来训练XSS技术。
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/xss/">xss</a>
-            
               <a href="/tags/%E3%80%8AWeb%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E3%80%8B/">《Web安全攻防》</a>
+            
+              <a href="/tags/XSS/">XSS</a>
             
           </div>
         
@@ -618,111 +736,6 @@ RST 是 Reset 的简称。在我看来，RST 有点类似于手机的强制重�
               <a href="/tags/docker/">docker</a>
             
               <a href="/tags/kali/">kali</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/22/2021%E5%B9%B41%E6%9C%8822%E6%97%A5-XSS%E5%9F%BA%E7%A1%80%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%A5%E5%8F%8A%E6%AF%94%E8%BE%83-from-%E3%80%8AWeb%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E3%80%8B/">XSS基础基本概念以及比较 from 《Web安全攻防》</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/22/2021%E5%B9%B41%E6%9C%8822%E6%97%A5-XSS%E5%9F%BA%E7%A1%80%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%A5%E5%8F%8A%E6%AF%94%E8%BE%83-from-%E3%80%8AWeb%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E3%80%8B/">
-          
-          
-            
-          
-          1 简介与对比XSS攻击可以分为三种
-
-反射型：一次性、通过邮件传播、需要经过服务器
-Dom 型（文档对象模型，Document Object Model）：一次性、不需经过服务器（不发送消息）
-存储型：持久性、通常出现在留言板中、通常是处于信任的链接中（熟悉的论坛网站）
-
-反射型和存储型都需要向外部发送信息，经过服务器后传回，而 DOM 型由本地的浏览器进行解析执行。
-区别反射型和 DOM 型最
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-22 17:24" pubdate>
-              2021-01-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%AE%89%E5%85%A8/">安全</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/xss/">xss</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/22/2021%E5%B9%B41%E6%9C%8822%E6%97%A5-Linux-Or-Mac%E5%AE%89%E8%A3%85pip2-Or-pip3/">Linux Or Mac安装pip2 Or pip3</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/22/2021%E5%B9%B41%E6%9C%8822%E6%97%A5-Linux-Or-Mac%E5%AE%89%E8%A3%85pip2-Or-pip3/">
-          
-          
-            
-          
-          🙃为什么 Kali 的 Python 不自带 pip？为什么？为什么？
-1 Python21234567# 下载代码wget https://bootstrap.pypa.io/2.6/get-pip.py# python 进行安装python2 get-pip.py# 验证是否安装成功pip -V
-2 Python31234567# 下载代码wget https://bootstrap.pyp
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-22 17:16" pubdate>
-              2021-01-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%BC%96%E7%A8%8B/">编程</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/python/">python</a>
             
           </div>
         

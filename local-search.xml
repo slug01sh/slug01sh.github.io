@@ -4,6 +4,60 @@
   
   
   <entry>
+    <title>Web安全攻防之XSS基础基本概念和基本思想</title>
+    <link href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BXSS%E5%9F%BA%E7%A1%80%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3/"/>
+    <url>/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BXSS%E5%9F%BA%E7%A1%80%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-简介与对比"><a href="#1-简介与对比" class="headerlink" title="1 简介与对比"></a>1 简介与对比</h1><p>XSS攻击可以分为三种</p><ol><li>反射型：一次性、通过邮件传播、需要经过服务器</li><li>Dom 型（文档对象模型，Document Object Model）：一次性、不需经过服务器（不发送消息）</li><li>存储型：持久性、通常出现在留言板中、通常是处于信任的链接中（熟悉的论坛网站）</li></ol><p>反射型和存储型都需要向外部发送信息，经过服务器后传回，而 DOM 型由本地的浏览器进行解析执行。</p><p>区别反射型和 DOM 型最简单的检验方法就是「Burp 抓包」，如果 Burp 抓到数据就是反射型，抓不到数据就是DOM型。（面试时童童师傅教的</p><p>DOM 型和反射型通常都是攻击者构造 URL，存储型则是构造 Payload 测试网站的输入点。</p><ul><li>DOM型：数据=&gt;客户端</li><li>反射型：数据=&gt;服务器=&gt;客户端</li><li>存储型：数据=&gt;服务器=&gt;数据库=&gt;客户端</li></ul><h1 id="2-防御XSS"><a href="#2-防御XSS" class="headerlink" title="2 防御XSS"></a>2 防御XSS</h1><p>XSS 的修复分为输入和输出两部分。通过过滤将输入的恶意代码拦截到外面（类似乘飞机的安检）。在输出时也必须要留意，否则过去输入的恶意代码可能也会造成 XSS。</p><ol><li>过滤’、“、&lt;、&gt;、on*等非法字符。</li><li>输出的到页面的数据，需要进行HTML实体编码、Javascript编码。</li></ol><h1 id="3-基本思想"><a href="#3-基本思想" class="headerlink" title="3 基本思想"></a>3 基本思想</h1><ul><li>XSS的存在，一定伴随着输入与输出这两个概念（所以在防御时需要输入过滤、输出编码来进行防御）。在输出时不太方便过滤，如果是文章中写了3&lt;5，被过滤后就只有3 5，故在输出时常用编码防御，而不是过滤。</li><li>XSS和SQL注入类似，都是文本被当作代码执行，不同点在于XSS的代码执行在客户端，SQL注入的代码执行在服务器端。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>安全</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>xss</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>2021年1月27日-Web安全攻防之CSRF攻击与XSS攻击区别</title>
+    <link href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BCSRF%E6%94%BB%E5%87%BB%E4%B8%8EXSS%E6%94%BB%E5%87%BB%E5%8C%BA%E5%88%AB/"/>
+    <url>/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BCSRF%E6%94%BB%E5%87%BB%E4%B8%8EXSS%E6%94%BB%E5%87%BB%E5%8C%BA%E5%88%AB/</url>
+    
+    <content type="html"><![CDATA[<p>反射型XSS和CSRF的相同点：</p><ul><li>都需要用户点击链接，访问恶意构造的链接。</li></ul><p>反射型XSS和CSRF的不同点：</p><ul><li>XSS偏向于代码执行。代码可以被黑客构造，能够实现复杂的功能，更加的危险。</li><li>CSRF则偏向于结果。通常情况是利用系统自带的功能来实现黑客想要达到的结果，比如刷访问量、发布文章。<br>XSS也能实现CSRF的功能，不过能GetShell，你会只用来刷访问量？（逃🤡</li></ul><p>参考教程：</p><ol><li>用大白话谈谈XSS与CSRF：<a href="https://segmentfault.com/a/1190000007059639">https://segmentfault.com/a/1190000007059639</a></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>安全</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>《Web安全攻防》</tag>
+      
+      <tag>XSS</tag>
+      
+      <tag>CSRF</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Web安全攻防之SQLmap使用</title>
     <link href="/2021/01/26/2021%E5%B9%B41%E6%9C%8826%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BSQLmap%E4%BD%BF%E7%94%A8/"/>
     <url>/2021/01/26/2021%E5%B9%B41%E6%9C%8826%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BSQLmap%E4%BD%BF%E7%94%A8/</url>
@@ -47,9 +101,9 @@
     
     <tags>
       
-      <tag>xss</tag>
-      
       <tag>《Web安全攻防》</tag>
+      
+      <tag>XSS</tag>
       
     </tags>
     
@@ -210,31 +264,6 @@
       <tag>docker</tag>
       
       <tag>kali</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>XSS基础基本概念以及比较 from 《Web安全攻防》</title>
-    <link href="/2021/01/22/2021%E5%B9%B41%E6%9C%8822%E6%97%A5-XSS%E5%9F%BA%E7%A1%80%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%A5%E5%8F%8A%E6%AF%94%E8%BE%83-from-%E3%80%8AWeb%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E3%80%8B/"/>
-    <url>/2021/01/22/2021%E5%B9%B41%E6%9C%8822%E6%97%A5-XSS%E5%9F%BA%E7%A1%80%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E4%BB%A5%E5%8F%8A%E6%AF%94%E8%BE%83-from-%E3%80%8AWeb%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E3%80%8B/</url>
-    
-    <content type="html"><![CDATA[<h1 id="1-简介与对比"><a href="#1-简介与对比" class="headerlink" title="1 简介与对比"></a>1 简介与对比</h1><p>XSS攻击可以分为三种</p><ol><li>反射型：一次性、通过邮件传播、需要经过服务器</li><li>Dom 型（文档对象模型，Document Object Model）：一次性、不需经过服务器（不发送消息）</li><li>存储型：持久性、通常出现在留言板中、通常是处于信任的链接中（熟悉的论坛网站）</li></ol><p>反射型和存储型都需要向外部发送信息，经过服务器后传回，而 DOM 型由本地的浏览器进行解析执行。</p><p>区别反射型和 DOM 型最简单的检验方法就是「Burp 抓包」，如果 Burp 抓到数据就是反射型，抓不到数据就是DOM型。（面试时童童师傅教的</p><p>DOM 型和反射型通常都是攻击者构造 URL，存储型则是构造 Payload 测试网站的输入点。</p><ul><li>DOM型：数据=&gt;客户端</li><li>反射型：数据=&gt;服务器=&gt;客户端</li><li>存储型：数据=&gt;服务器=&gt;数据库=&gt;客户端</li></ul><h1 id="2-防御XSS"><a href="#2-防御XSS" class="headerlink" title="2 防御XSS"></a>2 防御XSS</h1><p>XSS 的修复分为输入和输出两部分。通过过滤将输入的恶意代码拦截到外面（类似乘飞机的安检）。在输出时也必须要留意，否则过去输入的恶意代码可能也会造成 XSS。</p><ol><li>过滤’、“、&lt;、&gt;、on*等非法字符。</li><li>输出的到页面的数据，需要进行HTML实体编码、Javascript编码。</li></ol>]]></content>
-    
-    
-    <categories>
-      
-      <category>安全</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>xss</tag>
       
     </tags>
     

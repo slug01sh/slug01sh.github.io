@@ -17,25 +17,9 @@
   <meta name="description" content="cter, web security, red team">
   <meta name="author" content="slug01sh">
   <meta name="keywords" content="生活,安全,编程,英语">
-  <title>XSS基础基本概念以及比较 from 《Web安全攻防》 - slug01sh&#39;s blog</title>
+  <title>归档 - slug01sh&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
 
 
 
@@ -63,7 +47,7 @@
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -174,46 +158,9 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="XSS基础基本概念以及比较 from 《Web安全攻防》">
+            <span class="h2" id="subtitle" title="归档">
               
             </span>
-
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-22 17:24" pubdate>
-        2021年1月22日 下午
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      356 字
-    </span>
-  
-
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      3
-       分钟
-    </span>
-  
-
-  
-  
-</div>
 
             
           </div>
@@ -226,109 +173,52 @@
 
   <main>
     
+      <div class="container nopadding-x-md">
+        <div class="py-5" id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+<div class="list-group">
+  <p class="h4">共计 26 篇文章</p>
+  <hr>
+  
+  
+    
       
+      <p class="h5">2021</p>
+    
+    <a href="/2021/01/04/2021%E5%B9%B41%E6%9C%884%E6%97%A5-MacOS%E5%88%87%E6%8D%A2JDK%E7%89%88%E6%9C%AC%E7%9A%84%E6%9C%80%E4%BD%B3%E5%A7%BF%E5%8A%BF/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">MacOS切换JDK版本的最佳姿势</span>
+      <time style="float: right;">01-04</time>
+    </a>
+  
+</div>
 
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">XSS基础基本概念以及比较 from 《Web安全攻防》</h1>
-            
-            <div class="markdown-body">
-              <h1 id="1-简介与对比"><a href="#1-简介与对比" class="headerlink" title="1 简介与对比"></a>1 简介与对比</h1><p>XSS攻击可以分为三种</p>
-<ol>
-<li>反射型：一次性、通过邮件传播、需要经过服务器</li>
-<li>Dom 型（文档对象模型，Document Object Model）：一次性、不需经过服务器（不发送消息）</li>
-<li>存储型：持久性、通常出现在留言板中、通常是处于信任的链接中（熟悉的论坛网站）</li>
-</ol>
-<p>反射型和存储型都需要向外部发送信息，经过服务器后传回，而 DOM 型由本地的浏览器进行解析执行。</p>
-<p>区别反射型和 DOM 型最简单的检验方法就是「Burp 抓包」，如果 Burp 抓到数据就是反射型，抓不到数据就是DOM型。（面试时童童师傅教的</p>
-<p>DOM 型和反射型通常都是攻击者构造 URL，存储型则是构造 Payload 测试网站的输入点。</p>
-<ul>
-<li>DOM型：数据=&gt;客户端</li>
-<li>反射型：数据=&gt;服务器=&gt;客户端</li>
-<li>存储型：数据=&gt;服务器=&gt;数据库=&gt;客户端</li>
-</ul>
-<h1 id="2-防御XSS"><a href="#2-防御XSS" class="headerlink" title="2 防御XSS"></a>2 防御XSS</h1><p>XSS 的修复分为输入和输出两部分。通过过滤将输入的恶意代码拦截到外面（类似乘飞机的安检）。在输出时也必须要留意，否则过去输入的恶意代码可能也会造成 XSS。</p>
-<ol>
-<li>过滤’、“、&lt;、&gt;、on*等非法字符。</li>
-<li>输出的到页面的数据，需要进行HTML实体编码、Javascript编码。</li>
-</ol>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/%E5%AE%89%E5%85%A8/">安全</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/xss/">xss</a>
-                    
-                  </div>
-                
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/archives/2021/01/page/3/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/archives/2021/01/">1</a><a class="page-number" href="/archives/2021/01/page/2/">2</a><a class="page-number" href="/archives/2021/01/page/3/">3</a><span class="page-number current">4</span>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
+
+
               </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2021/01/22/2021%E5%B9%B41%E6%9C%8822%E6%97%A5-docker-compose%E4%BB%8B%E7%BB%8D%E4%BB%A5%E5%8F%8A%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">docker-compose介绍以及简单使用</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2021/01/22/2021%E5%B9%B41%E6%9C%8822%E6%97%A5-Linux-Or-Mac%E5%AE%89%E8%A3%85pip2-Or-pip3/">
-                        <span class="hidden-mobile">Linux Or Mac安装pip2 Or pip3</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
             </div>
-
-            
-          </article>
+          </div>
         </div>
       </div>
-    </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-      </div>
-    
-  </div>
-</div>
-
-<!-- Custom -->
-
-
     
 
     
@@ -435,15 +325,9 @@
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
 
 
 
