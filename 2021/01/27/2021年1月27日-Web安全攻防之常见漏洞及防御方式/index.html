@@ -17,9 +17,25 @@
   <meta name="description" content="cter, web security, red team">
   <meta name="author" content="slug01sh">
   <meta name="keywords" content="生活,安全,编程,英语">
-  <title>归档 - slug01sh&#39;s blog</title>
+  <title>Web安全攻防之常见漏洞及防御方式 - slug01sh&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
 
@@ -47,7 +63,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -158,9 +174,46 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="归档">
+            <span class="h2" id="subtitle" title="Web安全攻防之常见漏洞及防御方式">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-27 15:45" pubdate>
+        2021年1月27日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      748 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      7
+       分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -173,76 +226,153 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 28 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2021</p>
-    
-    <a href="/2021/01/28/2021%E5%B9%B41%E6%9C%8828%E6%97%A5-%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%B0%9D%E8%AF%95%E6%8C%96%E6%B4%9E%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">第一次尝试挖洞信息搜集</span>
-      <time style="float: right;">01-28</time>
-    </a>
-  
-    
-    <a href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BXSS%E5%9F%BA%E7%A1%80%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Web安全攻防之XSS基础基本概念和基本思想</span>
-      <time style="float: right;">01-27</time>
-    </a>
-  
-    
-    <a href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8B%E5%B8%B8%E8%A7%81%E6%BC%8F%E6%B4%9E%E5%8F%8A%E9%98%B2%E5%BE%A1%E6%96%B9%E5%BC%8F/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Web安全攻防之常见漏洞及防御方式</span>
-      <time style="float: right;">01-27</time>
-    </a>
-  
-    
-    <a href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BCSRF%E6%94%BB%E5%87%BB%E4%B8%8EXSS%E6%94%BB%E5%87%BB%E5%8C%BA%E5%88%AB/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">2021年1月27日-Web安全攻防之CSRF攻击与XSS攻击区别</span>
-      <time style="float: right;">01-27</time>
-    </a>
-  
-    
-    <a href="/2021/01/26/2021%E5%B9%B41%E6%9C%8826%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BSQLmap%E4%BD%BF%E7%94%A8/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Web安全攻防之SQLmap使用</span>
-      <time style="float: right;">01-26</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Web安全攻防之常见漏洞及防御方式</h1>
+            
+            <div class="markdown-body">
+              <h1 id="1-SSRF"><a href="#1-SSRF" class="headerlink" title="1 SSRF"></a>1 SSRF</h1><p>SSRF漏洞的产生原因：服务器提供了从其他服务器获取数据的功能，并且没有对地址和协议进行过滤和限制。比如：2020年10月ByteCTF的easy_scrapy。</p>
+<p>这种漏洞在CTF中也很常见，可以用来攻击内网中的应用，如：Redis、discuz7、fastcgi、memcache、webdav、struts、jboss、axis2等应用。</p>
+<p>防御方式：</p>
+<ul>
+<li>限制请求的端口只能是Web端口</li>
+<li>限制不能访问内网的IP（IPTable）</li>
+<li>屏蔽返回的内容</li>
+</ul>
+<p>参考文章：</p>
+<ol>
+<li>浅析SSRF原理及利用方式：<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/145519">https://www.anquanke.com/post/id/145519</a></li>
+</ol>
+<h1 id="2-文件上传"><a href="#2-文件上传" class="headerlink" title="2 文件上传"></a>2 文件上传</h1><p>文件上传漏洞产生原因：文件上传的路径和文件类型没有进行限制，导致上传后的文件可以被当作代码执行。</p>
+<p>文件上传的绕过方式：</p>
+<ol>
+<li>JS检测绕过</li>
+<li>文件后缀绕过</li>
+<li>文件类型绕过（HTTP包的Conten-Type）</li>
+<li>竞争条件（在删除文件前另外创建一个文件）</li>
+</ol>
+<p>防御方式</p>
+<ul>
+<li>白名单判断文件后缀是否合法（黑名单容易过滤不全）</li>
+<li>对上传后的文件进行重命名。</li>
+</ul>
+<h1 id="3-暴力破解"><a href="#3-暴力破解" class="headerlink" title="3 暴力破解"></a>3 暴力破解</h1><p>暴力破解产生的原因：服务器没有做访问限制，攻击者可以进行逐个测试（弱密码）。</p>
+<p>常见的暴力破解方式：</p>
+<ul>
+<li>用户名和密码错误次数都无限制（可以随便暴力破解）</li>
+<li>单时间段内用户的密码错误次数限制（例如：锁QQ。只限制了单个用户的密码次数，可以考虑更换用户名再进行暴力破解，只需要用一个用户列表即可）</li>
+<li>单时间段内IP登陆错误次数限制（IP池绕过）</li>
+</ul>
+<p>暴力破解的关键在于字典，如果想要提升暴力破解的成功率，就需要缩小破解范围（例如：获取学号的列表范围，然后使用默认密码爆破，如果密码是生日，那字典的生成最好符合日期的范围）。</p>
+<p>防御方法：</p>
+<ul>
+<li>使用较高级别的验证码</li>
+<li>使用多因素验证</li>
+<li>用户登陆次数超过设置的阀值，则锁定账号。</li>
+<li>单个IP登陆次数超过设置的阀值，则锁定IP。</li>
+</ul>
+<h1 id="4-命令执行"><a href="#4-命令执行" class="headerlink" title="4 命令执行"></a>4 命令执行</h1><p>命令执行的原因：类似SQL注入、XSS漏洞，都是将文本当作代码进行执行。</p>
+<p>防御方法：</p>
+<ul>
+<li>尽量不要使用直接命令执行的函数，可以考虑找封装后的包来用。</li>
+<li>执行函数前进行过滤。</li>
+</ul>
+<h1 id="5-XXE漏洞"><a href="#5-XXE漏洞" class="headerlink" title="5 XXE漏洞"></a>5 XXE漏洞</h1><p>XXE漏洞的原因：类似SQL注入、XSS漏洞、命令执行，都是将文本当作代码进行执行（为什么能代码执行呢？XML文件被导入时能引入外部实体）。</p>
+<p>XXE漏洞的危害有很多，比如可以文件读取、命令执行、内网端口扫描、攻击内网网站、发起dos攻击等。</p>
+<p>防御方法</p>
+<ul>
+<li>禁止引用外部实体</li>
+<li>过滤XML中的数据</li>
+</ul>
 
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/6/">6</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
-  
-  <script>
-    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
-      ele.href += '#board';
-    }
-  </script>
-
-
-
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AE%89%E5%85%A8/">安全</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">文件上传</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E3%80%8AWeb%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E3%80%8B/">《Web安全攻防》</a>
+                    
+                      <a class="hover-with-bg" href="/tags/SSRF/">SSRF</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/">暴力破解</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/">命令执行</a>
+                    
+                      <a class="hover-with-bg" href="/tags/XXE/">XXE</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BXSS%E5%9F%BA%E7%A1%80%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Web安全攻防之XSS基础基本概念和基本思想</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BCSRF%E6%94%BB%E5%87%BB%E4%B8%8EXSS%E6%94%BB%E5%87%BB%E5%8C%BA%E5%88%AB/">
+                        <span class="hidden-mobile">2021年1月27日-Web安全攻防之CSRF攻击与XSS攻击区别</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -349,9 +479,15 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
 
 
 

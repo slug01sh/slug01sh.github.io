@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>第一次尝试挖洞信息搜集</title>
+    <link href="/2021/01/28/2021%E5%B9%B41%E6%9C%8828%E6%97%A5-%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%B0%9D%E8%AF%95%E6%8C%96%E6%B4%9E%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/"/>
+    <url>/2021/01/28/2021%E5%B9%B41%E6%9C%8828%E6%97%A5-%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%B0%9D%E8%AF%95%E6%8C%96%E6%B4%9E%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/</url>
+    
+    <content type="html"><![CDATA[<p>在看书的时候觉得信息收集的手法都应该差不多了吧，但是到真正上手的时候，才发现难点重重。</p><p>今天尝试挖教育SRC来进行测试自己的能力，发现并没有想象中的那么好挖。一个学校的子域名非常的多，有些网站虽然能看到报错点，但是无从下手。</p><p>感觉只收集了一堆隐私信息，还得学习学习人家大佬的挖洞经验</p><p>待续……</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>安全</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>实战</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Web安全攻防之XSS基础基本概念和基本思想</title>
     <link href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BXSS%E5%9F%BA%E7%A1%80%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3/"/>
     <url>/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BXSS%E5%9F%BA%E7%A1%80%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3/</url>
@@ -29,11 +54,46 @@
   
   
   <entry>
+    <title>Web安全攻防之常见漏洞及防御方式</title>
+    <link href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8B%E5%B8%B8%E8%A7%81%E6%BC%8F%E6%B4%9E%E5%8F%8A%E9%98%B2%E5%BE%A1%E6%96%B9%E5%BC%8F/"/>
+    <url>/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8B%E5%B8%B8%E8%A7%81%E6%BC%8F%E6%B4%9E%E5%8F%8A%E9%98%B2%E5%BE%A1%E6%96%B9%E5%BC%8F/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-SSRF"><a href="#1-SSRF" class="headerlink" title="1 SSRF"></a>1 SSRF</h1><p>SSRF漏洞的产生原因：服务器提供了从其他服务器获取数据的功能，并且没有对地址和协议进行过滤和限制。比如：2020年10月ByteCTF的easy_scrapy。</p><p>这种漏洞在CTF中也很常见，可以用来攻击内网中的应用，如：Redis、discuz7、fastcgi、memcache、webdav、struts、jboss、axis2等应用。</p><p>防御方式：</p><ul><li>限制请求的端口只能是Web端口</li><li>限制不能访问内网的IP（IPTable）</li><li>屏蔽返回的内容</li></ul><p>参考文章：</p><ol><li>浅析SSRF原理及利用方式：<a href="https://www.anquanke.com/post/id/145519">https://www.anquanke.com/post/id/145519</a></li></ol><h1 id="2-文件上传"><a href="#2-文件上传" class="headerlink" title="2 文件上传"></a>2 文件上传</h1><p>文件上传漏洞产生原因：文件上传的路径和文件类型没有进行限制，导致上传后的文件可以被当作代码执行。</p><p>文件上传的绕过方式：</p><ol><li>JS检测绕过</li><li>文件后缀绕过</li><li>文件类型绕过（HTTP包的Conten-Type）</li><li>竞争条件（在删除文件前另外创建一个文件）</li></ol><p>防御方式</p><ul><li>白名单判断文件后缀是否合法（黑名单容易过滤不全）</li><li>对上传后的文件进行重命名。</li></ul><h1 id="3-暴力破解"><a href="#3-暴力破解" class="headerlink" title="3 暴力破解"></a>3 暴力破解</h1><p>暴力破解产生的原因：服务器没有做访问限制，攻击者可以进行逐个测试（弱密码）。</p><p>常见的暴力破解方式：</p><ul><li>用户名和密码错误次数都无限制（可以随便暴力破解）</li><li>单时间段内用户的密码错误次数限制（例如：锁QQ。只限制了单个用户的密码次数，可以考虑更换用户名再进行暴力破解，只需要用一个用户列表即可）</li><li>单时间段内IP登陆错误次数限制（IP池绕过）</li></ul><p>暴力破解的关键在于字典，如果想要提升暴力破解的成功率，就需要缩小破解范围（例如：获取学号的列表范围，然后使用默认密码爆破，如果密码是生日，那字典的生成最好符合日期的范围）。</p><p>防御方法：</p><ul><li>使用较高级别的验证码</li><li>使用多因素验证</li><li>用户登陆次数超过设置的阀值，则锁定账号。</li><li>单个IP登陆次数超过设置的阀值，则锁定IP。</li></ul><h1 id="4-命令执行"><a href="#4-命令执行" class="headerlink" title="4 命令执行"></a>4 命令执行</h1><p>命令执行的原因：类似SQL注入、XSS漏洞，都是将文本当作代码进行执行。</p><p>防御方法：</p><ul><li>尽量不要使用直接命令执行的函数，可以考虑找封装后的包来用。</li><li>执行函数前进行过滤。</li></ul><h1 id="5-XXE漏洞"><a href="#5-XXE漏洞" class="headerlink" title="5 XXE漏洞"></a>5 XXE漏洞</h1><p>XXE漏洞的原因：类似SQL注入、XSS漏洞、命令执行，都是将文本当作代码进行执行（为什么能代码执行呢？XML文件被导入时能引入外部实体）。</p><p>XXE漏洞的危害有很多，比如可以文件读取、命令执行、内网端口扫描、攻击内网网站、发起dos攻击等。</p><p>防御方法</p><ul><li>禁止引用外部实体</li><li>过滤XML中的数据</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>安全</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>文件上传</tag>
+      
+      <tag>《Web安全攻防》</tag>
+      
+      <tag>SSRF</tag>
+      
+      <tag>暴力破解</tag>
+      
+      <tag>命令执行</tag>
+      
+      <tag>XXE</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>2021年1月27日-Web安全攻防之CSRF攻击与XSS攻击区别</title>
     <link href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BCSRF%E6%94%BB%E5%87%BB%E4%B8%8EXSS%E6%94%BB%E5%87%BB%E5%8C%BA%E5%88%AB/"/>
     <url>/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BCSRF%E6%94%BB%E5%87%BB%E4%B8%8EXSS%E6%94%BB%E5%87%BB%E5%8C%BA%E5%88%AB/</url>
     
-    <content type="html"><![CDATA[<p>反射型XSS和CSRF的相同点：</p><ul><li>都需要用户点击链接，访问恶意构造的链接。</li></ul><p>反射型XSS和CSRF的不同点：</p><ul><li>XSS偏向于代码执行。代码可以被黑客构造，能够实现复杂的功能，更加的危险。</li><li>CSRF则偏向于结果。通常情况是利用系统自带的功能来实现黑客想要达到的结果，比如刷访问量、发布文章。<br>XSS也能实现CSRF的功能，不过能GetShell，你会只用来刷访问量？（逃🤡</li></ul><p>参考教程：</p><ol><li>用大白话谈谈XSS与CSRF：<a href="https://segmentfault.com/a/1190000007059639">https://segmentfault.com/a/1190000007059639</a></li></ol>]]></content>
+    <content type="html"><![CDATA[<p>反射型XSS和CSRF的相同点：</p><ul><li>都需要用户点击链接，访问恶意构造的链接。</li></ul><p>反射型XSS和CSRF的不同点：</p><ul><li>XSS偏向于代码执行。代码可以被黑客构造，能够实现复杂的功能，更加的危险。</li><li>CSRF则偏向于结果。通常情况是利用系统自带的功能来实现黑客想要达到的结果，比如刷访问量、发布文章。</li></ul><p>XSS也能实现CSRF的功能，不过能GetShell，你会只用来刷访问量？（逃🤡</p><p>防御方式：</p><ul><li>验证Refer</li><li>验证token<ul><li>CSRF tokens是防护CSRF的关键</li><li>CSRF tokens现在通常是一个秘钥或者salt的hash</li></ul></li></ul><p>参考教程：</p><ol><li>用大白话谈谈XSS与CSRF：<a href="https://segmentfault.com/a/1190000007059639">https://segmentfault.com/a/1190000007059639</a></li></ol>]]></content>
     
     
     <categories>
