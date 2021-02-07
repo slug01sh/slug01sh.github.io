@@ -193,6 +193,74 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/02/07/2021%E5%B9%B42%E6%9C%887%E6%97%A5-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8CRLF%E6%8E%A7%E5%88%B6FTP%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91%E7%9A%84mongodb%E6%9D%A5%E5%A4%8D%E7%8E%B0Flask%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">如何使用CRLF控制FTP攻击内网的mongodb来复现Flask反序列化漏洞</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/02/07/2021%E5%B9%B42%E6%9C%887%E6%97%A5-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8CRLF%E6%8E%A7%E5%88%B6FTP%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91%E7%9A%84mongodb%E6%9D%A5%E5%A4%8D%E7%8E%B0Flask%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">
+          
+          
+            
+          
+          
+
+1 背景最近在尝试做 starCTF 中的 oh-my-bet，需要使用 CRLF 漏洞来控制 FTP 向 mongodb 中发送数据包来修改 mongodb 中的内容。我尝试着自己手动构建了一个简易的环境来实现大致的流程。
+2 环境搭建使用虚拟机 + 主机两台机器来实现整个流程：
+
+宿主机（Web 服务器）
+虚拟机（用来攻击的服务器）
+
+2.1 搭建mongo环境（宿主机和虚拟机）在宿主机和
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-07 19:52" pubdate>
+              2021-02-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%AE%89%E5%85%A8/">安全</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/flask/">flask</a>
+            
+              <a href="/tags/ssrf/">ssrf</a>
+            
+              <a href="/tags/crlf/">crlf</a>
+            
+              <a href="/tags/ftp/">ftp</a>
+            
+              <a href="/tags/mongodb/">mongodb</a>
+            
+              <a href="/tags/session/">session</a>
+            
+              <a href="/tags/unserialize/">unserialize</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/02/07/2021%E5%B9%B42%E6%9C%887%E6%97%A5-%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8BDocker%E4%B8%ADmongodb%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%9F/">如何查看Docker中mongodb的内容？</a>
       </h1>
 
@@ -523,9 +591,9 @@ XSS也能实现CSRF的功能，不过能GetShell，你会只用来刷访问量�
             
               <a href="/tags/%E3%80%8AWeb%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E3%80%8B/">《Web安全攻防》</a>
             
-              <a href="/tags/XSS/">XSS</a>
+              <a href="/tags/xss/">xss</a>
             
-              <a href="/tags/CSRF/">CSRF</a>
+              <a href="/tags/csrf/">csrf</a>
             
           </div>
         
@@ -709,63 +777,11 @@ MySQL运行环境
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/25/2021%E5%B9%B41%E6%9C%8825%E6%97%A5-%E8%A7%A3%E5%86%B3MySQL%E5%90%AF%E5%8A%A8%E9%97%AE%E9%A2%98/">解决MySQL启动问题</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/25/2021%E5%B9%B41%E6%9C%8825%E6%97%A5-%E8%A7%A3%E5%86%B3MySQL%E5%90%AF%E5%8A%A8%E9%97%AE%E9%A2%98/">
-          
-          
-            
-          
-          1 报错信息今天在启动MySQL时，发现启动失败。MxSrvs的报错信息如下：
-12MySQL Start Failure,Please check the related logsMySQL Start Failure,Please check the related logs
-
-2 查看日志定位到今天的ERROR日志具体的错误信息如下：
-1232021-01-14T10:05:04.82162
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-25 16:07" pubdate>
-              2021-01-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%BC%96%E7%A8%8B/">编程</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/mysql/">mysql</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
