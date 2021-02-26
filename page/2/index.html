@@ -228,6 +228,132 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8B%E5%B8%B8%E8%A7%81%E6%BC%8F%E6%B4%9E%E5%8F%8A%E9%98%B2%E5%BE%A1%E6%96%B9%E5%BC%8F/">Web安全攻防之常见漏洞及防御方式</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8B%E5%B8%B8%E8%A7%81%E6%BC%8F%E6%B4%9E%E5%8F%8A%E9%98%B2%E5%BE%A1%E6%96%B9%E5%BC%8F/">
+          
+          
+            
+          
+          1 SSRFSSRF漏洞的产生原因：服务器提供了从其他服务器获取数据的功能，并且没有对地址和协议进行过滤和限制。比如：2020年10月ByteCTF的easy_scrapy。
+这种漏洞在CTF中也很常见，可以用来攻击内网中的应用，如：Redis、discuz7、fastcgi、memcache、webdav、struts、jboss、axis2等应用。
+防御方式：
+
+限制请求的端口只能是Web端口
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-27 15:45" pubdate>
+              2021-01-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%AE%89%E5%85%A8/">安全</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">文件上传</a>
+            
+              <a href="/tags/%E3%80%8AWeb%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E3%80%8B/">《Web安全攻防》</a>
+            
+              <a href="/tags/SSRF/">SSRF</a>
+            
+              <a href="/tags/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/">暴力破解</a>
+            
+              <a href="/tags/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/">命令执行</a>
+            
+              <a href="/tags/XXE/">XXE</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BCSRF%E6%94%BB%E5%87%BB%E4%B8%8EXSS%E6%94%BB%E5%87%BB%E5%8C%BA%E5%88%AB/">Web安全攻防之CSRF攻击与XSS攻击区别</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BCSRF%E6%94%BB%E5%87%BB%E4%B8%8EXSS%E6%94%BB%E5%87%BB%E5%8C%BA%E5%88%AB/">
+          
+          
+            
+          
+          反射型XSS和CSRF的相同点：
+
+都需要用户点击链接，访问恶意构造的链接。
+
+反射型XSS和CSRF的不同点：
+
+XSS偏向于代码执行。代码可以被黑客构造，能够实现复杂的功能，更加的危险。
+CSRF则偏向于结果。通常情况是利用系统自带的功能来实现黑客想要达到的结果，比如刷访问量、发布文章。
+
+XSS也能实现CSRF的功能，不过能GetShell，你会只用来刷访问量？（逃🤡
+防御方式：
+
+验证R
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-27 14:36" pubdate>
+              2021-01-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%AE%89%E5%85%A8/">安全</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E3%80%8AWeb%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E3%80%8B/">《Web安全攻防》</a>
+            
+              <a href="/tags/xss/">xss</a>
+            
+              <a href="/tags/csrf/">csrf</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/01/26/2021%E5%B9%B41%E6%9C%8826%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BSQLmap%E4%BD%BF%E7%94%A8/">Web安全攻防之SQLmap使用</a>
       </h1>
 
@@ -653,116 +779,6 @@ RST 是 Reset 的简称。在我看来，RST 有点类似于手机的强制重�
               <a href="/tags/docker/">docker</a>
             
               <a href="/tags/kali/">kali</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/22/2021%E5%B9%B41%E6%9C%8822%E6%97%A5-Linux-Or-Mac%E5%AE%89%E8%A3%85pip2-Or-pip3/">Linux Or Mac安装pip2 Or pip3</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/22/2021%E5%B9%B41%E6%9C%8822%E6%97%A5-Linux-Or-Mac%E5%AE%89%E8%A3%85pip2-Or-pip3/">
-          
-          
-            
-          
-          🙃为什么 Kali 的 Python 不自带 pip？为什么？为什么？
-1 Python21234567# 下载代码wget https://bootstrap.pypa.io/2.6/get-pip.py# python 进行安装python2 get-pip.py# 验证是否安装成功pip -V
-2 Python31234567# 下载代码wget https://bootstrap.pyp
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-22 17:16" pubdate>
-              2021-01-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%BC%96%E7%A8%8B/">编程</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/python/">python</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/22/2021%E5%B9%B41%E6%9C%8822%E6%97%A5-Python%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8Bsocket%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">Python网络编程之socket简单使用</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/22/2021%E5%B9%B41%E6%9C%8822%E6%97%A5-Python%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E4%B9%8Bsocket%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">
-          
-          
-            
-          
-          1 简介Python 提供两个级别的服务：
-
-Socket（低级别）
-SocketServer（高级别）
-
-什么是 Socket？俗称「套接字」，对 TCP 协议的抽象，可以用于主机之间或者进程之间的通信。
-首先用一个简单实例来了解 socket 创建、连接、通信的基本步骤。server 端的基本步骤：
-
-绑定 hostname、port
-使用 accept 方法进行等待
-将消息发送给 clien
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-22 16:55" pubdate>
-              2021-01-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%BC%96%E7%A8%8B/">编程</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/python/">python</a>
-            
-              <a href="/tags/socket/">socket</a>
             
           </div>
         
