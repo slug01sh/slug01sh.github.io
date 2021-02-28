@@ -17,7 +17,7 @@
   <meta name="description" content="cter, web security, red team">
   <meta name="author" content="slug01sh">
   <meta name="keywords" content="生活,安全,编程,英语">
-  <title>常见Web漏洞原理以及搭建简单环境 - slug01sh&#39;s blog</title>
+  <title>网络安全面试题2：工作组和域的区别是什么？ - slug01sh&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -204,12 +204,12 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210227002538.png') no-repeat center center;
+         style="background: url('https://rmt.dogedoge.com/fetch/fluid/storage/bg/dojm2h.png?w=1920&q=100&fmt=webp') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="常见Web漏洞原理以及搭建简单环境">
+            <span class="h2" id="subtitle" title="网络安全面试题2：工作组和域的区别是什么？">
               
             </span>
 
@@ -219,8 +219,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-02-27 00:22" pubdate>
-        2021年2月27日 凌晨
+      <time datetime="2021-02-28 18:13" pubdate>
+        2021年2月28日 晚上
       </time>
     </span>
   
@@ -231,7 +231,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      746 字
+      0 字
     </span>
   
 
@@ -241,7 +241,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      1
        分钟
     </span>
   
@@ -271,75 +271,15 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">常见Web漏洞原理以及搭建简单环境</h1>
+            <h1 style="display: none">网络安全面试题2：工作组和域的区别是什么？</h1>
             
             <div class="markdown-body">
-              <p>开始新一轮的 CTF 学习，从其他地方学到很多的思想，顺便总结在第一篇文章中吧。</p>
-<hr>
-<h1 id="1-深度和广度之辩"><a href="#1-深度和广度之辩" class="headerlink" title="1 深度和广度之辩"></a>1 深度和广度之辩</h1><h2 id="1-1-广度？"><a href="#1-1-广度？" class="headerlink" title="1.1 广度？"></a>1.1 广度？</h2><p>前段时间常常只关注单一的漏洞。具体的做法就是，先了解一种漏洞，然后去网上寻找这种漏洞的小分类，最后按照某些比较详细的 blog 进行练习。</p>
-<blockquote>
-<p>按照这样的步骤，一种漏洞就需要练习几周甚至几个月。</p>
-</blockquote>
-<p>我最近在极客时间的《10x程序员工作法》中，了解到了思维框架：</p>
-<ol>
-<li>以终为始（以）</li>
-<li>任务分解</li>
-<li>沟通交流</li>
-<li>自动化</li>
-</ol>
-<p>用这种思想去思考我前面的做法，我得到的结论是：</p>
-<blockquote>
-<p>我的行为只能看见树木，不能看见森林。</p>
-<p>在安全中有很多相似的漏洞，相似的手法。比如 SQL 注入和 XSS 漏洞的本质就是类似的，都是由于将用户的输入当成代码执行。</p>
-<p>我如果以一种整体的视角来进行学习，进行分类和对比，那我就能迅速识别这些关键点，从而举一反三。</p>
-</blockquote>
-<p>（简而言之：不能学得太深入）</p>
-<hr>
-<h2 id="1-2-深度？"><a href="#1-2-深度？" class="headerlink" title="1.2 深度？"></a>1.2 深度？</h2><p>当然在我脑中还有另一个词在反驳，那就是竞争力的关键在于“一专多能”。“多能”是建立在“一专”基础上的。</p>
-<h2 id="1-3-全都要"><a href="#1-3-全都要" class="headerlink" title="1.3 全都要"></a>1.3 全都要</h2><p>我认为主要在于专的「方向」。需要辨别你目前的方向是牛角尖，还是对社会有价值的。</p>
-<p>我将 1.1 所提到的两种学习方式列在下面：</p>
-<ol>
-<li>把别人的 blog 再复现一遍。</li>
-<li>将不同漏洞进行分类和对比，探索内部的联系。</li>
-</ol>
-<p>第 1 种方式并不是没有价值，而是处于一种为了学而学，是一种在高中或初中形成的思维定势（将一类题做懂就能得分）。在高中，做题时没有手机和电脑，知识点都是那几本书上的。现在我们身处大学，我们面对的问题更加的复杂、更加的多样化。想简单的利用刷题，太难了也没必要（价值不高）。</p>
-<blockquote>
-<p>总结：<br>我对于学习 CTF 的看法：</p>
-<ol>
-<li>要有目的性。（不想进 Defcon 的 CTFer 不是好 CTFer）根据目的来思考自己应该做什么。</li>
-<li>平时多提问。通过提问将困难的问题逐步分解。</li>
-<li>过于深入的问题，可以暂时不用研究，除非有需要（CTF 比赛碰见、工作需要、挖洞需要）</li>
-</ol>
-</blockquote>
-<hr>
-<h1 id="2-CTF之我见"><a href="#2-CTF之我见" class="headerlink" title="2 CTF之我见"></a>2 CTF之我见</h1><p>需要提出一些好的问题，才能更好的发展自己的 CTF 技能。（自学</p>
-<p>比较好的一些问题：</p>
-<ol>
-<li>别人是怎么测试出那个漏洞的？</li>
-<li>我怎么没测出来？</li>
-<li>哪些技能还不够？（这时候就可以稍微再深入一点）</li>
-</ol>
-<hr>
-<h1 id="3-漏洞原理以及环境搭建"><a href="#3-漏洞原理以及环境搭建" class="headerlink" title="3 漏洞原理以及环境搭建"></a>3 漏洞原理以及环境搭建</h1><h1 id="4-漏洞利用环境"><a href="#4-漏洞利用环境" class="headerlink" title="4 漏洞利用环境"></a>4 漏洞利用环境</h1>
+              
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E5%AE%89%E5%85%A8/">网络空间安全</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/CTF/">CTF</a>
-                    
-                  </div>
                 
               </div>
               
@@ -354,8 +294,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/02/26/2021%E5%B9%B42%E6%9C%8826%E6%97%A5-2021%E5%B9%B42%E6%9C%88%E5%9B%9B%E5%8F%B6%E8%8D%89CTF/">
-                        <span class="hidden-mobile">2021年2月四叶草CTF</span>
+                      <a href="/2021/02/27/2021%E5%B9%B42%E6%9C%8827%E6%97%A5-%E3%80%90CTF%E7%B3%BB%E5%88%97%E3%80%91%E5%B8%B8%E8%A7%81Web%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A%E6%90%AD%E5%BB%BA%E7%AE%80%E5%8D%95%E7%8E%AF%E5%A2%83/">
+                        <span class="hidden-mobile">【CTF系列】常见Web漏洞原理以及搭建简单环境</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
