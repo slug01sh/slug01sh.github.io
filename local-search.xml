@@ -4,13 +4,25 @@
   
   
   <entry>
-    <title>网络安全面试题2：工作组和域的区别是什么？</title>
-    <link href="/2021/02/28/2021%E5%B9%B42%E6%9C%8828%E6%97%A5-%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E9%9D%A2%E8%AF%95%E9%A2%982%EF%BC%9A%E5%B7%A5%E4%BD%9C%E7%BB%84%E5%92%8C%E5%9F%9F%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F/"/>
-    <url>/2021/02/28/2021%E5%B9%B42%E6%9C%8828%E6%97%A5-%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E9%9D%A2%E8%AF%95%E9%A2%982%EF%BC%9A%E5%B7%A5%E4%BD%9C%E7%BB%84%E5%92%8C%E5%9F%9F%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F/</url>
+    <title>网络安全面试题2：正向代理和反向代理的区别是什么？</title>
+    <link href="/2021/02/28/2021%E5%B9%B42%E6%9C%8828%E6%97%A5-%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E9%9D%A2%E8%AF%95%E9%A2%982%EF%BC%9A%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E6%9C%89%E5%93%AA%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4%EF%BC%9F/"/>
+    <url>/2021/02/28/2021%E5%B9%B42%E6%9C%8828%E6%97%A5-%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E9%9D%A2%E8%AF%95%E9%A2%982%EF%BC%9A%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E6%9C%89%E5%93%AA%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4%EF%BC%9F/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<blockquote><p>题目来源：<a href="https://whale3070.github.io/interview/2020/05/19/11-x">https://whale3070.github.io/interview/2020/05/19/11-x</a></p></blockquote><p>正向代理是为了帮助客户端访问其无法访问（有阻碍，如 WAF 或者内网）的服务器资源而产生的技术，在程序员中被广泛使用。例如：科学上网、VPN。</p><p>反向代理是为了替服务器收发请求而产生的技术。由代理服务器接收消息，在把消息分给其他服务器（可能背后有几百台）。这样做有很多好处，比如：</p><ol><li>保护真实服务器的安全；</li><li>减少单台服务器的压力（负载均衡）；</li></ol><p>类似上一个题目，提出关键问题，并逐一解答</p><h1 id="1-Why？"><a href="#1-Why？" class="headerlink" title="1 Why？"></a>1 Why？</h1><p><font color="red">问1:为什么面试官要问这个问题？</font></p><p>考察对于网站架构及基本原理的熟悉程度。我虽然有一点网站开发的经验，但是没探究过这方面的原理，可以稍微补充一下。</p><blockquote><p>参考文章：<a href="https://www.zhihu.com/question/20657269">传送门</a></p></blockquote><p>明天再写吧！！！休息</p><!-- todo --><p><font color="red">问2:为什么</font></p><h1 id="2-What？"><a href="#2-What？" class="headerlink" title="2 What？"></a>2 What？</h1><h1 id="3-How"><a href="#3-How" class="headerlink" title="3 How"></a>3 How</h1><h1 id="花絮"><a href="#花絮" class="headerlink" title="花絮"></a>花絮</h1><p>本来第 2 个面试题是想写：工作组和域的区别是什么？</p><blockquote><p>题目来源：<a href="https://whale3070.github.io/interview/2020/05/19/11-x">https://whale3070.github.io/interview/2020/05/19/11-x</a></p></blockquote><p>但是我仔细思考了下面的几个问题，重新选择了现在的问题。我并不是为了面试而面试，我整理面试题是为了帮助自己理清发展方向上的基本概念。</p><blockquote><p>目前自己的能力栈偏向于开发，不过我相信 <code>时间可以让平凡的事情，变得不平凡。——削微寒</code>。</p></blockquote><p><font color="red">问1:我期望的发展方向是什么？</font></p><ol><li>进击国际 CTF 竞赛，认识大佬。</li><li>挖掘漏洞（Web/PWN），为安全作出自己的绵薄之力。<blockquote><p>Be patient.</p></blockquote></li></ol><p><font color="red">问2:这个问题在问什么？</font></p><p>这个问题在问内网安全相关的基础知识。</p><p><font color="red">问3:这个问题符合我自己的发展方向吗？</font></p><p>不符合，几乎不会用到，用到了再学。</p><blockquote><p>PS：不符合就不学了吗？<br>根据我在另一篇文章<a href="http://localhost:4000/2021/02/27/2021%E5%B9%B42%E6%9C%8827%E6%97%A5-%E3%80%90CTF%E7%B3%BB%E5%88%97%E3%80%91%E5%B8%B8%E8%A7%81Web%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A%E6%90%AD%E5%BB%BA%E7%AE%80%E5%8D%95%E7%8E%AF%E5%A2%83/">【CTF系列】常见Web漏洞原理以及搭建简单环境-深度和广度之辩</a>中提到的原则，我选择不学。</p></blockquote>]]></content>
     
     
+    <categories>
+      
+      <category>计算机基础</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>内网安全</tag>
+      
+    </tags>
     
   </entry>
   
