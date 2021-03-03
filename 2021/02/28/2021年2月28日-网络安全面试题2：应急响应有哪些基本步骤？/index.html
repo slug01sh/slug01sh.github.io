@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      1.5k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      12
+      16
        分钟
     </span>
   
@@ -292,10 +292,32 @@
 <p>参考文章：<a target="_blank" rel="noopener" href="https://my.oschina.net/zhangxufeng/blog/3081423">传送门</a></p>
 <p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210302191858.png" srcset="/img/loading.gif"></p>
 <p>（图片说明：应用服务器增加，并添加负载均衡服务器来进行调度）</p>
+<p><font color="orange">阶段4:数据库读写分离化</font></p>
+<p>在上一个阶段解决了应用服务器的压力问题，那么随着流量的增大，数据库是最有可能出现瓶颈的地方。</p>
+<p>数据库的读取和写入是两个相互不相关的功能，应该可以放在不同的服务器上实现吧？那怎么实现呢？主从复制，如下图所示。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210303224726.png" srcset="/img/loading.gif"></p>
+<p>（图片说明：数据库被分为主库和从库，主库写入，从库读取，主库和从库的数据使用工具保持同步）</p>
+<p>从库不一定只有一台服务器，可以部署多台从服务器，和主服务器进行同步。这样就可以承担更大负荷的读取操作。</p>
+<p>常见的解决方案：</p>
+<ol>
+<li>MySQL 自带的主从复制</li>
+<li>MyCat 中间件<blockquote>
+<p>这种中间件漏洞没搜到漏洞……</p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li><font color="orange">阶段5:用搜索引擎缓解读库的压力</font></li>
+<li><font color="orange">阶段6:用缓存缓解读库的压力</font></li>
+<li><font color="orange">阶段7:数据库水平拆分与垂直拆分（数据过多）</font></li>
+<li><font color="orange">阶段8:将应用按微服务拆分</font></li>
+</ul>
+<p>（注：后面的阶段都更偏向于性能拓展，需要时再学习）</p>
 <p><font color="red">问2:学习网络安全为什么要学这个？</font></p>
-<p>不熟悉 Web 的结构，怎么能理解 Web 中数据的流向？不理解 Web 数据的流向，怎么能更好的挖到好漏洞？？？？</p>
-<p>明天继续吧，今天写了 2000 多个字。</p>
-<h1 id="2-What？"><a href="#2-What？" class="headerlink" title="2 What？"></a>2 What？</h1><h1 id="3-How"><a href="#3-How" class="headerlink" title="3 How"></a>3 How</h1><h1 id="花絮"><a href="#花絮" class="headerlink" title="花絮"></a>花絮</h1><p>本来第 2 个面试题是想写：工作组和域的区别是什么？</p>
+<p>熟悉 Web 的结构，能帮助理解网站的全貌，更容易理解漏洞。</p>
+<h1 id="2-What？"><a href="#2-What？" class="headerlink" title="2 What？"></a>2 What？</h1><p><font color="red">问1:这个问题的答案是什么？</font></p>
+<p>正向代理和反向代理的根本区别：代理对象不同。正向代理为客户端服务，反向代理为服务器服务，如下图所示。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210303234108.png" srcset="/img/loading.gif"></p>
+<p><font color="red">问2:还有什么类似的题目？</font><br>暂时无</p>
+<h1 id="花絮"><a href="#花絮" class="headerlink" title="花絮"></a>花絮</h1><p>本来第 2 个面试题是想写：工作组和域的区别是什么？</p>
 <blockquote>
 <p>题目来源：<a target="_blank" rel="noopener" href="https://whale3070.github.io/interview/2020/05/19/11-x">https://whale3070.github.io/interview/2020/05/19/11-x</a></p>
 </blockquote>
@@ -316,8 +338,10 @@
 <p><font color="red">问3:这个问题符合我自己的发展方向吗？</font></p>
 <p>不符合，几乎不会用到，用到了再学。</p>
 <blockquote>
-<p>PS：不符合就不学了吗？<br>根据我在另一篇文章<a target="_blank" rel="noopener" href="http://localhost:4000/2021/02/27/2021%E5%B9%B42%E6%9C%8827%E6%97%A5-%E3%80%90CTF%E7%B3%BB%E5%88%97%E3%80%91%E5%B8%B8%E8%A7%81Web%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A%E6%90%AD%E5%BB%BA%E7%AE%80%E5%8D%95%E7%8E%AF%E5%A2%83/">【CTF系列】常见Web漏洞原理以及搭建简单环境-深度和广度之辩</a>中提到的原则，我选择不学。</p>
+<p>PS：不符合就不学了吗？<br>根据我在另一篇文章<a target="_blank" rel="noopener" href="https://slug01sh.github.io/2021/02/27/2021%E5%B9%B42%E6%9C%8827%E6%97%A5-%E3%80%90CTF%E7%B3%BB%E5%88%97%E3%80%91%E5%B8%B8%E8%A7%81Web%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A%E6%90%AD%E5%BB%BA%E7%AE%80%E5%8D%95%E7%8E%AF%E5%A2%83/">【CTF系列】常见Web漏洞原理以及搭建简单环境-深度和广度之辩</a>中提到的原则，我选择不学。</p>
 </blockquote>
+<hr>
+<p>有点乱……。不过面试题的答案还是梳理得非常清楚的，下次多关注一下问题本身。</p>
 
             </div>
             <hr>
