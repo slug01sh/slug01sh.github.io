@@ -2,7 +2,7 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>http://example.com/</loc>
+        <loc>https://slug01sh.github.io/</loc>
         <changefreq>daily</changefreq>
         <priority>1</priority>
     </url>
@@ -10,7 +10,7 @@
     
     
     <url>
-        <loc>http://example.com/about/</loc>
+        <loc>https://slug01sh.github.io/about/</loc>
         <lastmod>2021-03-04T02:59:20.415Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
@@ -19,7 +19,7 @@
     
     
     <url>
-        <loc>http://example.com/ctf/</loc>
+        <loc>https://slug01sh.github.io/ctf/</loc>
         <lastmod>2021-02-26T16:19:47.838Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
@@ -28,7 +28,7 @@
     
     
     <url>
-        <loc>http://example.com/apt/</loc>
+        <loc>https://slug01sh.github.io/apt/</loc>
         <lastmod>2021-02-26T13:20:40.462Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
@@ -37,7 +37,7 @@
     
     
     <url>
-        <loc>http://example.com/web/</loc>
+        <loc>https://slug01sh.github.io/web/</loc>
         <lastmod>2021-02-26T13:13:33.395Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
@@ -46,7 +46,7 @@
     
     
     <url>
-        <loc>http://example.com/binary/</loc>
+        <loc>https://slug01sh.github.io/binary/</loc>
         <lastmod>2021-02-26T13:13:00.435Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
@@ -55,7 +55,7 @@
     
     
     <url>
-        <loc>http://example.com/tags/</loc>
+        <loc>https://slug01sh.github.io/tags/</loc>
         <lastmod>2020-10-27T15:49:28.536Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
@@ -64,7 +64,7 @@
     
     
     <url>
-        <loc>http://example.com/categories/</loc>
+        <loc>https://slug01sh.github.io/categories/</loc>
         <lastmod>2020-09-14T11:07:28.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>

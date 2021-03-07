@@ -2,42 +2,42 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>http://example.com/</loc>
+        <loc>https://slug01sh.github.io/</loc>
         <changefreq>daily</changefreq>
         <priority>1</priority>
     </url>
 
 
     <url>
-        <loc>http://example.com/categories/CTF/</loc>
+        <loc>https://slug01sh.github.io/categories/CTF/</loc>
         <lastmod>2021-03-04T06:43:24.073Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://example.com/categories/%25E8%25AE%25A1%25E7%25AE%2597%25E6%259C%25BA%25E5%259F%25BA%25E7%25A1%2580/</loc>
+        <loc>https://slug01sh.github.io/categories/%25E8%25AE%25A1%25E7%25AE%2597%25E6%259C%25BA%25E5%259F%25BA%25E7%25A1%2580/</loc>
         <lastmod>2021-03-04T05:03:33.340Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://example.com/categories/%25E7%25BD%2591%25E7%25BB%259C%25E7%25A9%25BA%25E9%2597%25B4%25E5%25AE%2589%25E5%2585%25A8/</loc>
+        <loc>https://slug01sh.github.io/categories/%25E7%25BD%2591%25E7%25BB%259C%25E7%25A9%25BA%25E9%2597%25B4%25E5%25AE%2589%25E5%2585%25A8/</loc>
         <lastmod>2021-03-03T03:19:46.987Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://example.com/categories/%25E7%25BB%258F%25E9%25AA%258C%25E5%2588%2586%25E4%25BA%25AB/</loc>
+        <loc>https://slug01sh.github.io/categories/%25E7%25BB%258F%25E9%25AA%258C%25E5%2588%2586%25E4%25BA%25AB/</loc>
         <lastmod>2021-03-03T03:19:40.092Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://example.com/categories/%25E9%25AB%2598%25E6%2595%2588%25E7%258E%2587%25E5%25B7%25A5%25E5%2585%25B7/</loc>
+        <loc>https://slug01sh.github.io/categories/%25E9%25AB%2598%25E6%2595%2588%25E7%258E%2587%25E5%25B7%25A5%25E5%2585%25B7/</loc>
         <lastmod>2021-03-03T03:17:09.036Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
