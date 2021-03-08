@@ -3,6 +3,20 @@
 
 
     <url>
+        <loc>https://slug01sh.github.io/tags/%E6%B1%A1%E7%82%B9%E5%88%86%E6%9E%90/</loc>
+        <lastmod>2021-03-08T07:42:19.739Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://slug01sh.github.io/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</loc>
+        <lastmod>2021-03-08T07:42:19.739Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://slug01sh.github.io/tags/CTF/</loc>
         <lastmod>2021-03-04T06:43:24.073Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -327,13 +341,6 @@
     <url>
         <loc>https://slug01sh.github.io/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/</loc>
         <lastmod>2021-03-03T03:16:50.102Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://slug01sh.github.io/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</loc>
-        <lastmod>2021-03-03T03:16:38.646Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

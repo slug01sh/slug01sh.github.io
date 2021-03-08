@@ -9,6 +9,13 @@
 
 
     <url>
+        <loc>https://slug01sh.github.io/categories/%25E7%25BD%2591%25E7%25BB%259C%25E7%25A9%25BA%25E9%2597%25B4%25E5%25AE%2589%25E5%2585%25A8/</loc>
+        <lastmod>2021-03-08T07:42:19.739Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://slug01sh.github.io/categories/CTF/</loc>
         <lastmod>2021-03-04T06:43:24.073Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -18,13 +25,6 @@
     <url>
         <loc>https://slug01sh.github.io/categories/%25E8%25AE%25A1%25E7%25AE%2597%25E6%259C%25BA%25E5%259F%25BA%25E7%25A1%2580/</loc>
         <lastmod>2021-03-04T05:03:33.340Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://slug01sh.github.io/categories/%25E7%25BD%2591%25E7%25BB%259C%25E7%25A9%25BA%25E9%2597%25B4%25E5%25AE%2589%25E5%2585%25A8/</loc>
-        <lastmod>2021-03-03T03:19:46.987Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

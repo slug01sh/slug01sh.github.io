@@ -51,7 +51,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>小杰的安全小窝</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>积淀｜小杰的个人博客</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -193,11 +193,77 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/02/07/2021%E5%B9%B42%E6%9C%887%E6%97%A5-%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8BDocker%E4%B8%ADmongodb%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%9F/">如何查看Docker中mongodb的内容？</a>
+        <a href="/2021%E5%B9%B42%E6%9C%887%E6%97%A5-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8CRLF%E6%8E%A7%E5%88%B6FTP%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91%E7%9A%84mongodb%E6%9D%A5%E5%A4%8D%E7%8E%B0Flask%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">如何使用CRLF控制FTP攻击内网的mongodb来复现Flask反序列化漏洞</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/02/07/2021%E5%B9%B42%E6%9C%887%E6%97%A5-%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8BDocker%E4%B8%ADmongodb%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%9F/">
+        <a href="/2021%E5%B9%B42%E6%9C%887%E6%97%A5-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8CRLF%E6%8E%A7%E5%88%B6FTP%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91%E7%9A%84mongodb%E6%9D%A5%E5%A4%8D%E7%8E%B0Flask%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">
+          
+          
+            
+          
+          1 背景最近在尝试做 starCTF 中的 oh-my-bet，需要使用 CRLF 漏洞来控制 FTP 向 mongodb 中发送数据包来修改 mongodb 中的内容。我尝试着自己手动构建了一个简易的环境来实现大致的流程。
+2 环境搭建使用虚拟机 + 主机两台机器来实现整个流程：
+
+宿主机（Web 服务器）
+虚拟机（用来攻击的服务器）
+
+2.1 搭建mongo环境（宿主机和虚拟机）在宿主机和虚拟
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-07 19:52" pubdate>
+              2021-02-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E5%AE%89%E5%85%A8/">网络空间安全</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/flask/">flask</a>
+            
+              <a href="/tags/ssrf/">ssrf</a>
+            
+              <a href="/tags/crlf/">crlf</a>
+            
+              <a href="/tags/ftp/">ftp</a>
+            
+              <a href="/tags/mongodb/">mongodb</a>
+            
+              <a href="/tags/session/">session</a>
+            
+              <a href="/tags/unserialize/">unserialize</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021%E5%B9%B42%E6%9C%887%E6%97%A5-%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8BDocker%E4%B8%ADmongodb%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%9F/">如何查看Docker中mongodb的内容？</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021%E5%B9%B42%E6%9C%887%E6%97%A5-%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8BDocker%E4%B8%ADmongodb%E7%9A%84%E5%86%85%E5%AE%B9%EF%BC%9F/">
           
           
             
@@ -249,11 +315,11 @@ Docker-compose 文件中的配置如下：
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/01/30/2021%E5%B9%B41%E6%9C%8830%E6%97%A5-%E6%8A%80%E6%9C%AF%E7%B1%BB%E4%B9%A6%E7%B1%8D%E5%92%8C%E6%80%9D%E7%BB%B4%E7%B1%BB%E4%B9%A6%E7%B1%8D%E6%80%8E%E4%B9%88%E9%98%85%E8%AF%BB%EF%BC%9F/">技术类书籍和思维类书籍怎么阅读？</a>
+        <a href="/2021%E5%B9%B41%E6%9C%8830%E6%97%A5-%E6%8A%80%E6%9C%AF%E7%B1%BB%E4%B9%A6%E7%B1%8D%E5%92%8C%E6%80%9D%E7%BB%B4%E7%B1%BB%E4%B9%A6%E7%B1%8D%E6%80%8E%E4%B9%88%E9%98%85%E8%AF%BB%EF%BC%9F/">技术类书籍和思维类书籍怎么阅读？</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/01/30/2021%E5%B9%B41%E6%9C%8830%E6%97%A5-%E6%8A%80%E6%9C%AF%E7%B1%BB%E4%B9%A6%E7%B1%8D%E5%92%8C%E6%80%9D%E7%BB%B4%E7%B1%BB%E4%B9%A6%E7%B1%8D%E6%80%8E%E4%B9%88%E9%98%85%E8%AF%BB%EF%BC%9F/">
+        <a href="/2021%E5%B9%B41%E6%9C%8830%E6%97%A5-%E6%8A%80%E6%9C%AF%E7%B1%BB%E4%B9%A6%E7%B1%8D%E5%92%8C%E6%80%9D%E7%BB%B4%E7%B1%BB%E4%B9%A6%E7%B1%8D%E6%80%8E%E4%B9%88%E9%98%85%E8%AF%BB%EF%BC%9F/">
           
           
             
@@ -306,11 +372,11 @@ Docker-compose 文件中的配置如下：
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/01/28/2021%E5%B9%B41%E6%9C%8828%E6%97%A5-%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%B0%9D%E8%AF%95%E6%8C%96%E6%B4%9E%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">第一次尝试挖洞信息搜集</a>
+        <a href="/2021%E5%B9%B41%E6%9C%8828%E6%97%A5-%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%B0%9D%E8%AF%95%E6%8C%96%E6%B4%9E%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">第一次尝试挖洞信息搜集</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/01/28/2021%E5%B9%B41%E6%9C%8828%E6%97%A5-%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%B0%9D%E8%AF%95%E6%8C%96%E6%B4%9E%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">
+        <a href="/2021%E5%B9%B41%E6%9C%8828%E6%97%A5-%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%B0%9D%E8%AF%95%E6%8C%96%E6%B4%9E%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">
           
           
             
@@ -358,11 +424,11 @@ Docker-compose 文件中的配置如下：
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BXSS%E5%9F%BA%E7%A1%80%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3/">Web安全攻防之XSS基础基本概念和基本思想</a>
+        <a href="/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BXSS%E5%9F%BA%E7%A1%80%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3/">Web安全攻防之XSS基础基本概念和基本思想</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BXSS%E5%9F%BA%E7%A1%80%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3/">
+        <a href="/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BXSS%E5%9F%BA%E7%A1%80%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3/">
           
           
             
@@ -413,11 +479,11 @@ Dom 型（文档对象模型，Document Object Model）：一次性、不需经�
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8B%E5%B8%B8%E8%A7%81%E6%BC%8F%E6%B4%9E%E5%8F%8A%E9%98%B2%E5%BE%A1%E6%96%B9%E5%BC%8F/">Web安全攻防之常见漏洞及防御方式</a>
+        <a href="/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8B%E5%B8%B8%E8%A7%81%E6%BC%8F%E6%B4%9E%E5%8F%8A%E9%98%B2%E5%BE%A1%E6%96%B9%E5%BC%8F/">Web安全攻防之常见漏洞及防御方式</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8B%E5%B8%B8%E8%A7%81%E6%BC%8F%E6%B4%9E%E5%8F%8A%E9%98%B2%E5%BE%A1%E6%96%B9%E5%BC%8F/">
+        <a href="/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8B%E5%B8%B8%E8%A7%81%E6%BC%8F%E6%B4%9E%E5%8F%8A%E9%98%B2%E5%BE%A1%E6%96%B9%E5%BC%8F/">
           
           
             
@@ -475,11 +541,11 @@ Dom 型（文档对象模型，Document Object Model）：一次性、不需经�
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BCSRF%E6%94%BB%E5%87%BB%E4%B8%8EXSS%E6%94%BB%E5%87%BB%E5%8C%BA%E5%88%AB/">Web安全攻防之CSRF攻击与XSS攻击区别</a>
+        <a href="/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BCSRF%E6%94%BB%E5%87%BB%E4%B8%8EXSS%E6%94%BB%E5%87%BB%E5%8C%BA%E5%88%AB/">Web安全攻防之CSRF攻击与XSS攻击区别</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/01/27/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BCSRF%E6%94%BB%E5%87%BB%E4%B8%8EXSS%E6%94%BB%E5%87%BB%E5%8C%BA%E5%88%AB/">
+        <a href="/2021%E5%B9%B41%E6%9C%8827%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BCSRF%E6%94%BB%E5%87%BB%E4%B8%8EXSS%E6%94%BB%E5%87%BB%E5%8C%BA%E5%88%AB/">
           
           
             
@@ -539,11 +605,11 @@ XSS也能实现CSRF的功能，不过能GetShell，你会只用来刷访问量�
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/01/26/2021%E5%B9%B41%E6%9C%8826%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BSQLmap%E4%BD%BF%E7%94%A8/">Web安全攻防之SQLmap使用</a>
+        <a href="/2021%E5%B9%B41%E6%9C%8826%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BSQLmap%E4%BD%BF%E7%94%A8/">Web安全攻防之SQLmap使用</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/01/26/2021%E5%B9%B41%E6%9C%8826%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BSQLmap%E4%BD%BF%E7%94%A8/">
+        <a href="/2021%E5%B9%B41%E6%9C%8826%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BSQLmap%E4%BD%BF%E7%94%A8/">
           
           
             
@@ -600,11 +666,11 @@ SQL注入的基本步骤：
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/01/26/2021%E5%B9%B41%E6%9C%8826%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BXSS%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/">Web安全攻防之XSS平台搭建</a>
+        <a href="/2021%E5%B9%B41%E6%9C%8826%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BXSS%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/">Web安全攻防之XSS平台搭建</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/01/26/2021%E5%B9%B41%E6%9C%8826%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BXSS%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/">
+        <a href="/2021%E5%B9%B41%E6%9C%8826%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8BXSS%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/">
           
           
             
@@ -658,11 +724,11 @@ XSS game：有XSS漏洞的游戏，用来训练XSS技术。
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/01/25/2021%E5%B9%B41%E6%9C%8825%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8B%E6%90%AD%E5%BB%BADVWA%E6%BC%8F%E6%B4%9E%E7%8E%AF%E5%A2%83/">Web安全攻防之搭建DVWA漏洞环境</a>
+        <a href="/2021%E5%B9%B41%E6%9C%8825%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8B%E6%90%AD%E5%BB%BADVWA%E6%BC%8F%E6%B4%9E%E7%8E%AF%E5%A2%83/">Web安全攻防之搭建DVWA漏洞环境</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/01/25/2021%E5%B9%B41%E6%9C%8825%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8B%E6%90%AD%E5%BB%BADVWA%E6%BC%8F%E6%B4%9E%E7%8E%AF%E5%A2%83/">
+        <a href="/2021%E5%B9%B41%E6%9C%8825%E6%97%A5-Web%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E4%B9%8B%E6%90%AD%E5%BB%BADVWA%E6%BC%8F%E6%B4%9E%E7%8E%AF%E5%A2%83/">
           
           
             
@@ -709,63 +775,11 @@ MySQL运行环境
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/01/25/2021%E5%B9%B41%E6%9C%8825%E6%97%A5-%E8%A7%A3%E5%86%B3MySQL%E5%90%AF%E5%8A%A8%E9%97%AE%E9%A2%98/">解决MySQL启动问题</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/01/25/2021%E5%B9%B41%E6%9C%8825%E6%97%A5-%E8%A7%A3%E5%86%B3MySQL%E5%90%AF%E5%8A%A8%E9%97%AE%E9%A2%98/">
-          
-          
-            
-          
-          1 报错信息今天在启动MySQL时，发现启动失败。MxSrvs的报错信息如下：
-12MySQL Start Failure,Please check the related logsMySQL Start Failure,Please check the related logs
-
-2 查看日志定位到今天的ERROR日志具体的错误信息如下：
-1232021-01-14T10:05:04.82162
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-25 16:07" pubdate>
-              2021-01-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/mysql/">mysql</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
