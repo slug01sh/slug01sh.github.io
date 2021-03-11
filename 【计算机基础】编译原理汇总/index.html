@@ -17,9 +17,25 @@
   <meta name="description" content="最爱 Python，会一点开发，CTF 卑微的 Web 手。 主攻代码审计、程序分析。">
   <meta name="author" content="slug01sh">
   <meta name="keywords" content="网络空间安全,高效率工具,计算机基础,经验分享,CTF">
-  <title>归档 - 积淀｜小杰的个人博客</title>
+  <title>【计算机基础】编译原理汇总 - 积淀｜小杰的个人博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
 
@@ -47,7 +63,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -165,14 +181,51 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('https://rmt.dogedoge.com/fetch/fluid/storage/bg/1cm6iu.png?w=1920&fmt=webp') no-repeat center center;
+         style="background: url('https://rmt.dogedoge.com/fetch/fluid/storage/bg/dojm2h.png?w=1920&q=100&fmt=webp') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="归档">
+            <span class="h2" id="subtitle" title="【计算机基础】编译原理汇总">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-12 00:17" pubdate>
+        2021年3月12日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      795 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      8
+       分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -185,76 +238,148 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【计算机基础】编译原理汇总</h1>
+            
+            <div class="markdown-body">
+              <h1 id="1-开篇词"><a href="#1-开篇词" class="headerlink" title="1 开篇词"></a>1 开篇词</h1><p><font color="red">0x01 为什么要学习编译原理？</font></p>
+<p>编程语言是所有程序的基础。而语言的核心就在于「编译原理」。我曾经记得某位大佬说过，漏洞的本质就是利用「特殊手段」可以控制程序的运行结果。</p>
+<blockquote>
+<p>如果不了解整个程序运行的机制，怎么能对其进行控制呢？</p>
+</blockquote>
+<p>对于代码审计的深层技术，肯定是向着细粒度更小的方向发展，也就是根据语义和语法上进行分析，而非单纯靠阅读代码后凭直觉的判断。</p>
+<hr>
+<h1 id="2-脚本语言"><a href="#2-脚本语言" class="headerlink" title="2 脚本语言"></a>2 脚本语言</h1><h2 id="2-1-原理"><a href="#2-1-原理" class="headerlink" title="2.1 原理"></a>2.1 原理</h2><p><font color="red">0x02 什么是编译原理的「前端」和「后端」</font></p>
+<p>有点类似 Web 中的前后端。Web 的前端并不指代操作系统和浏览器，Web 后端通常都是运行在服务器中。</p>
+<p>这里的“前端”是指与执行代码的机器无关的部分，即词法分析、语法分析、语义分析等。</p>
+<p>这里的“后端”是指与执行代码的机器有关的部分，即生成中间代码、优化、生成目标代码。</p>
+<hr>
+<p><font color="red">0x03 什么是词法分析？</font></p>
+<p>我们都知道编程语言也是一种语言，可以用学习英语的单词来类比。</p>
+<p>尝试一下阅读下面的句子：</p>
+<blockquote>
+<p>we are family.</p>
+</blockquote>
+<p>我们会将这个句子先分成三个单词 we，are，family。我们是怎么划分的呢？通过空格和标点符号。编程语言也需要做类似的分析，但是划分方式会稍微复杂一点。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> a=<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<p>编程语言会按照规则将 <code>let</code>，<code>a</code>，<code>=</code>，<code>1</code> 分开，也就是我们常说的「分词」。</p>
+<hr>
+<p><font color="red">0x04 什么是语法分析？</font></p>
+<p>这里的语法，和我们学习英语的语法也是类似的。我们在生活中使用语法可能不太多，但是当遇到复杂的句子或者很长的句子，就肯定需要使用到语法。</p>
+<p>我们使用语法分析句子的大概步骤：划分句子成分。</p>
+<p>对于编程语言也是类似的，他需要将「词法分析」获得的「词」进行成分划分，并且记录下来（人类会自动记录，所以通常不需要思考如何记录）。记录语法分析结果的结构就叫做<strong>抽象语法树</strong>。</p>
+<blockquote>
+<p>为什么是树呢？</p>
+<ul>
+<li>待续……</li>
+</ul>
+</blockquote>
+<p>语法分析其实就是构建抽象语法树的过程（语法解析、文件解析），有一些现成的工具可以进行利用。</p>
+<hr>
+<p><font color="red">0x05 常见的语法分析工具有哪些？是怎么实现的？</font></p>
+<p>工具列表：<a target="_blank" rel="noopener" href="https://blog.csdn.net/gongwx/article/details/99645305">传送门</a></p>
+<ul>
+<li>Yacc（或 GNU 的版本，Bison）</li>
+<li>Antlr</li>
+<li>JavaCC </li>
+</ul>
+<p>实现方法：</p>
+<ul>
+<li>自顶向下</li>
+<li>自底向上</li>
+</ul>
+<hr>
+<p><font color="red">0x06 什么是语法分析？</font></p>
+<p>语法分析就是理解抽象语法树（机器上的理解）。有几个比较关键点：</p>
+<ul>
+<li>做什么操作？赋值、加法、减法、调用函数</li>
+<li>变量是哪个？局部变量还是全局变量？需要结合代码的上下文分析。</li>
+<li>细节处理：代码位于xx行？是否类型转换。</li>
+</ul>
+<p>完善抽象语法树的过程，比较复杂。</p>
+<hr>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/">编译原理</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E3%80%90%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E7%B3%BB%E5%88%97%E3%80%91JavaScript%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%94%BB%E5%87%BB%E6%80%BB%E7%BB%93/">
+                        <span class="hidden-mobile">【网络安全系列】JavaScript原型链污染攻击总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
                 
 
-<div class="list-group">
-  <p class="h4">共计 44 篇文章</p>
-  <hr>
-  
-  
-    
-      
-      <p class="h5">2020</p>
-    
-    <a href="/N1CTF/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">2020年10月N1CTF部分web题解</span>
-      <time style="float: right;">10-17</time>
-    </a>
-  
-    
-    <a href="/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%91/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">2020年10月西湖论剑CTF部分web题解</span>
-      <time style="float: right;">10-14</time>
-    </a>
-  
-    
-    <a href="/2020-09-2020%E5%B9%B49%E6%9C%8830%E6%97%A5-DownUnderCTF/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">2020年9月DownUnderCTF</span>
-      <time style="float: right;">09-30</time>
-    </a>
-  
-    
-    <a href="/2020-09-2020%E5%B9%B49%E6%9C%8830%E6%97%A5-%E5%8D%B0%E8%B1%A1%E7%AC%94%E8%AE%B0/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">解决印象笔记粘贴代码缩进混乱的问题</span>
-      <time style="float: right;">09-30</time>
-    </a>
-  
-    
-    <a href="/2020-09-2020%E5%B9%B49%E6%9C%8814%E6%97%A5-DDCTF/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">2020年9月DDCTF题解</span>
-      <time style="float: right;">09-14</time>
-    </a>
-  
-</div>
-
-
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/archives/2020/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/archives/2020/">1</a><span class="page-number current">2</span>
-    </span>
-  </nav>
-  
-  <script>
-    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
-      ele.href += '#board';
-    }
-  </script>
-
-
-
-
-              </div>
-            </div>
-          </div>
+              </article>
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -358,9 +483,15 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
 
 
 
