@@ -28,26 +28,8 @@
     
     
     <url>
-        <loc>https://slug01sh.github.io/apt/</loc>
-        <lastmod>2021-02-26T13:20:40.462Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    
-    
-    <url>
         <loc>https://slug01sh.github.io/web/</loc>
         <lastmod>2021-02-26T13:13:33.395Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    
-    
-    <url>
-        <loc>https://slug01sh.github.io/binary/</loc>
-        <lastmod>2021-02-26T13:13:00.435Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
