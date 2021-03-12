@@ -208,7 +208,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      1.7k 字
     </span>
   
 
@@ -218,7 +218,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17
+      22
        分钟
     </span>
   
@@ -257,10 +257,10 @@
 
 <p>当「方法」的 prototype 指定对象原型之后，当试图访问该类的对象属性时，它不仅仅在该对象上搜寻，还会搜寻该对象的原型，以及该对象的原型的原型，依次层层向上搜索，直到找到一个名字匹配的属性或到达原型链的末尾。下面是一个修改 prototype 的案例：</p>
 <blockquote>
-<p>注意：prototype 是「方法特有的」</p>
+<p>注意：prototype 是「方法特有的」（需要大概了解，后面需要使用到）</p>
 <ul>
-<li>方法：类似 C++ 中的类。除了有属性 <code>__proto__</code>,还有属性 prototype，prototype 指向该方法的原型对象。propotype 指定其他对象之后，会包含所有原型对象的属性和方法</li>
-<li>对象：类似 C++ 中的对象。对象有属性 <code>__proto__</code>, 指向该对象的构造函数的原型对象。</li>
+<li>方法：类似 C++ 中的类。除了有属性 <code>__proto__</code>, 还有属性 prototype，prototype 指向该方法的原型对象。propotype 指定其他对象之后，会包含所有原型对象的属性和方法</li>
+<li>对象：类似 C++ 中的对象。对象只有属性 <code>__proto__</code> 指向该对象的构造函数的原型对象。对象有 <code>constructor</code> 里面包含该类的 prototype。</li>
 </ul>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 让我们从一个函数里创建一个对象o，它自身拥有属性a和b的：</span><br><span class="hljs-keyword">let</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>   <span class="hljs-built_in">this</span>.a = <span class="hljs-number">1</span>;<br>   <span class="hljs-built_in">this</span>.b = <span class="hljs-number">2</span>;<br>&#125;<br><span class="hljs-comment">/* 这么写也一样</span><br><span class="hljs-comment">function f() &#123;</span><br><span class="hljs-comment">  this.a = 1;</span><br><span class="hljs-comment">  this.b = 2;</span><br><span class="hljs-comment">&#125;</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">let</span> o = <span class="hljs-keyword">new</span> f(); <span class="hljs-comment">// &#123;a: 1, b: 2&#125;</span><br><br><span class="hljs-comment">// 在f函数的原型上定义属性</span><br>f.prototype.b = <span class="hljs-number">3</span>;<br>f.prototype.c = <span class="hljs-number">4</span>;<br><br><span class="hljs-comment">// 不要在 f 函数的原型上直接定义 f.prototype = &#123;b:3,c:4&#125;;这样会直接打破原型链</span><br><span class="hljs-comment">// o.[[Prototype]] 有属性 b 和 c</span><br><span class="hljs-comment">//  (其实就是 o.__proto__ 或者 o.constructor.prototype)</span><br><span class="hljs-comment">// o.[[Prototype]].[[Prototype]] 是 Object.prototype.</span><br><span class="hljs-comment">// 最后o.[[Prototype]].[[Prototype]].[[Prototype]]是null</span><br><span class="hljs-comment">// 这就是原型链的末尾，即 null，</span><br><span class="hljs-comment">// 根据定义，null 就是没有 [[Prototype]]。</span><br><br><span class="hljs-comment">// 综上，整个原型链如下:</span><br><br><span class="hljs-comment">// &#123;a:1, b:2&#125; ---&gt; &#123;b:3, c:4&#125; ---&gt; Object.prototype---&gt; null</span><br><br><span class="hljs-built_in">console</span>.log(o.a); <span class="hljs-comment">// 1</span><br><span class="hljs-comment">// a是o的自身属性吗？是的，该属性的值为 1</span><br><br><span class="hljs-built_in">console</span>.log(o.b); <span class="hljs-comment">// 2</span><br><span class="hljs-comment">// b是o的自身属性吗？是的，该属性的值为 2</span><br><span class="hljs-comment">// 原型上也有一个&#x27;b&#x27;属性，但是它不会被访问到。</span><br><span class="hljs-comment">// 这种情况被称为&quot;属性遮蔽 (property shadowing)&quot;</span><br><br><span class="hljs-built_in">console</span>.log(o.c); <span class="hljs-comment">// 4</span><br><span class="hljs-comment">// c是o的自身属性吗？不是，那看看它的原型上有没有</span><br><span class="hljs-comment">// c是o.[[Prototype]]的属性吗？是的，该属性的值为 4</span><br><br><span class="hljs-built_in">console</span>.log(o.d); <span class="hljs-comment">// undefined</span><br><span class="hljs-comment">// d 是 o 的自身属性吗？不是，那看看它的原型上有没有</span><br><span class="hljs-comment">// d 是 o.[[Prototype]] 的属性吗？不是，那看看它的原型上有没有</span><br><span class="hljs-comment">// o.[[Prototype]].[[Prototype]] 为 null，停止搜索</span><br><span class="hljs-comment">// 找不到 d 属性，返回 undefined</span><br></code></pre></td></tr></table></figure>
@@ -286,13 +286,36 @@
 <p>按照 Java 中正常的继承，child2.names 应该和原对象一样，数组中只有 2 个数据。</p>
 <h1 id="2-利用"><a href="#2-利用" class="headerlink" title="2 利用"></a>2 利用</h1><p><font color="red">问：怎么判断是否有原型链污染？</font></p>
 <ul>
-<li>字符串可以被解析为方法或对象。例如：Json.parse 进行解析。</li>
+<li>字符串可以被解析为方法或对象。例如：Json.parse 进行解析、shvl 库使用点对属性操作。</li>
 <li>对象的键和值都可控。target[key] = value，其中 key 和 value 均可控制。</li>
 </ul>
 <p>下面是一个原型链污染的简单案例：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">merge</span>(<span class="hljs-params">target, source</span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;merge&#x27;</span>, target, source);<br>    <span class="hljs-comment">// 遍历 source 中的 key。</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> source) &#123;<br>        <span class="hljs-keyword">if</span> (key <span class="hljs-keyword">in</span> source &amp;&amp; key <span class="hljs-keyword">in</span> target) &#123;<br>            merge(target[key], source[key])<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            target[key] = source[key]<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">let</span> o1 = &#123;&#125;         <span class="hljs-comment">// &#123;&#125; 是一个对象，存在 __proto__ 的 key。</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span>(o1));<br><span class="hljs-built_in">console</span>.log(o1);    <span class="hljs-comment">// object</span><br><span class="hljs-keyword">let</span> o2 = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-string">&#x27;&#123;&quot;a&quot;: 1, &quot;__proto__&quot;: &#123;&quot;b&quot;: 2&#125;&#125;&#x27;</span>)<br><span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span>(o2));<br><span class="hljs-built_in">console</span>.log(o2);    <span class="hljs-comment">// object</span><br><br>merge(o1, o2)<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;o1 proto:&#x27;</span>, o1.__proto__);<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;o2 proto:&#x27;</span>, o2.__proto__);<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;&#123;&#125; proto:&#x27;</span>, &#123;&#125;.__proto__);<br><span class="hljs-built_in">console</span>.log(o1, o2);    <span class="hljs-comment">// 对象 &#123;&#125; 的原型对象变为 &#123; a: 1 &#125;。</span><br><br>o3 = &#123;&#125;<br><span class="hljs-built_in">console</span>.log(o3)<br></code></pre></td></tr></table></figure>
 
-<p><font color="red">问：原型链污染能做什么？</font></p>
+<p>实战1:在 antCTF 中，使用 shvl 库对键值进行操作。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs js">email: <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>&#123;<br>    <span class="hljs-keyword">let</span> contents = &#123;&#125;;<br><br>    <span class="hljs-built_in">Object</span>.keys(req.body).forEach(<span class="hljs-function">(<span class="hljs-params">key</span>) =&gt;</span> &#123;<br>      shvl.set(contents, key, req.body[key]);<br>    &#125;);<br>    <span class="hljs-comment">// 遍历请求参数中所有的 key</span><br>    <span class="hljs-comment">// 将键和值赋值为 contents（shvl 库的 set 函数）</span><br><br>    contents.from = <span class="hljs-string">&#x27;&quot;admin&quot; &lt;admin@8-bit.pub&gt;&#x27;</span>;<br><br>    <span class="hljs-keyword">try</span> &#123;<br>      <span class="hljs-keyword">await</span> send(contents);<br>      <span class="hljs-keyword">return</span> res.json(&#123;<br>        message: <span class="hljs-string">&quot;Success.&quot;</span><br>      &#125;);<br>    &#125; <span class="hljs-keyword">catch</span> (err) &#123;<br>      <span class="hljs-keyword">return</span> res.status(<span class="hljs-number">500</span>).json(&#123;<br>        message: err.message<br>      &#125;);<br>    &#125;<br>  &#125;<br></code></pre></td></tr></table></figure>
+
+<p><font color="red">问：常见的原型链污染方法有哪些？</font></p>
+<ul>
+<li><code>function.__proto__.polluted</code>。</li>
+<li><code>function.prototype.polluted</code>。</li>
+<li><code>obj.__proto__.pollluted</code>。例如：shvl 只禁用了 <code>__proto__</code>，传送门<a target="_blank" rel="noopener" href="https://github.com/robinvdvleuten/shvl/pull/35">Security Fix for Prototype Pollution - huntr.dev</a></li>
+<li><code>obj.constructor.polluted</code>。</li>
+</ul>
+<p>案例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">person</span>(<span class="hljs-params">fullName</span>) </span>&#123;<br>    <span class="hljs-built_in">this</span>.fullName = fullName;<br>&#125;<br><span class="hljs-keyword">var</span> person1 = <span class="hljs-keyword">new</span> person(<span class="hljs-string">&quot;Satoshi&quot;</span>);<br><span class="hljs-comment">// function：prototype, __prototype</span><br>person.prototype.sayHello = <span class="hljs-number">1</span><br><span class="hljs-built_in">console</span>.log(person1.__proto__);<br>person.prototype.newConstant = <span class="hljs-number">2</span><br><span class="hljs-built_in">console</span>.log(person1.__proto__); <br><br><span class="hljs-comment">// object: __prototype__, constructor</span><br>person1.__proto__.sayHi= <span class="hljs-number">3</span><br><span class="hljs-built_in">console</span>.log(person1.__proto__);<br>person1.constructor.prototype.oldConstant = <span class="hljs-number">4</span><br><span class="hljs-built_in">console</span>.log(person1.__proto__);<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">person &#123; sayHello: 1 &#125;</span><br><span class="hljs-comment">person &#123; sayHello: 1, newConstant: 2 &#125;</span><br><span class="hljs-comment">person &#123; sayHello: 1, newConstant: 2, sayHi: 3 &#125;</span><br><span class="hljs-comment">person &#123; sayHello: 1, newConstant: 2, sayHi: 3, oldConstant: 4 &#125;</span><br><span class="hljs-comment">*/</span><br> <br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>推荐一个非常 nice 的网站：<a target="_blank" rel="noopener" href="https://book.hacktricks.xyz/">https://book.hacktricks.xyz/</a> 。收集 hack 中的 tricks</p>
+</blockquote>
+<hr>
+<p><font color="red">问：原型链污染链怎么挖掘？</font></p>
+<ol>
+<li>寻找 JavaScript 中的危险关键字。如：<ol>
+<li>模块：child_process</li>
+<li>函数：eval, spwn, exec, setTimeout, setInteval, Function</li>
+</ol>
+</li>
+</ol>
 <p><font color="red">问：原型链污染怎么防御？怎么绕过防御呢？</font></p>
 <p>参考教程：</p>
 <ol>
@@ -300,7 +323,7 @@
 <li><a target="_blank" rel="noopener" href="https://www.huaweicloud.com/articles/588bbccfd343112b66fba197a74dd245.html">JS中的prototype、__proto__与constructor-Huawei</a></li>
 <li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain#%E5%9F%BA%E4%BA%8E%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%9A%84%E7%BB%A7%E6%89%BF">继承与原型链 - JavaScript | MDN</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/javascript-prototype-pollution-attack.html">深入理解 JavaScript Prototype 污染攻击-phithon</a></li>
-<li></li>
+<li><a target="_blank" rel="noopener" href="https://book.hacktricks.xyz/pentesting-web/deserialization/nodejs-proto-prototype-pollution#basic-example">NodeJS - <strong>proto</strong> &amp; prototype Pollution-HackTricks</a></li>
 </ol>
 
             </div>
