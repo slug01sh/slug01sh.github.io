@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>【个人感悟】走近王垠</title>
+    <link href="/3b8002e7a287/"/>
+    <url>/3b8002e7a287/</url>
+    
+    <content type="html"><![CDATA[<h1 id="0-前言"><a href="#0-前言" class="headerlink" title="0 前言"></a>0 前言</h1><p>今天的我，本来在学习学姐推荐的 <a href="https://www.bilibili.com/video/av91858985/">南京大学《软件分析》</a> 的课程，这个课程是关于程序的静态分析的。</p><p>静态分析只是 PL（program language） 当中一个比较小的领域，但对于后期的代码审计应该会有很大的帮助。我在课间的时候就去搜了一下相关的内容，而知乎上最热的搜索是 【如何评价王垠新文章《我为什么不再做PL人》? - 知乎】。</p><p>从一些比较表象的评论中，我得到了一些关于这个人的标签：</p><ul><li>天才程序员。</li><li>保研清华。</li><li>三次博士退学。</li><li>在 Google 开发代码分析工具，沿用至今。</li><li>Python 静态分析工具作者。</li><li>各种吐槽文章。</li></ul><p>我开始思考：是不是这个人心理有问题？但是随着我越来越深入的了解，我打消了这种思考。</p><h1 id="1-正文"><a href="#1-正文" class="headerlink" title="1 正文"></a>1 正文</h1><p><font color="red">0x01 我为什么停止批判？</font></p><ol><li><p>当我读到下面这个评论</p><blockquote><p>王垠的才能和品德都超过我，我是没有资格。</p></blockquote></li><li><p>他是我的前辈，我现在学到的某些理论和方法可能就来自他。或者我需要从他过去的项目中学到其他的东西。</p></li></ol><p><font color="red">0x02 我在他的博客或其他人的评论中看到了什么？</font></p><p><strong>在评论中，批判的声音还是比较多。</strong>（大概率是通过各种信息了解的，而不是真是接触到真人）</p><blockquote><ul><li>从他退学的经历和退出 Google 的经历总结出：眼高手低。</li><li>从他开培训班总结出：割韭菜。</li><li>一把好牌打的稀烂</li><li>自以为是</li></ul></blockquote><p><strong>在评论中，也有一些赞许的声音。</strong></p><blockquote><ul><li>极客</li><li>独立思考</li></ul></blockquote><p>从我的角度看的话，他有强迫症+完美主义，他在追求他认为美的事物，他的行动也在证明这一切。知乎其中一个评论所说：</p><blockquote><p>蔑视所有技术权威和IT暴发户，追求自由和兴趣的特立独行。</p></blockquote><p>他对于完美的追求大于对于名利的追求，所以才能做出如此高的成就，所以才能做出让「普通人」无法理解的行动。</p><p>他的追求不是一般人能做到的，能坚持的。他在贯彻着赫尔曼·黑塞的那句话。</p><blockquote><p>每个人的生活都是一条通向自身的道路。每个人的真正职责只有一个：找到自我。然后在心中坚守一生，全心全意，永不停息。所有其它的路都是不完整的，是人的逃避方式，是对社会角色的懦弱伪装，是随波逐流，是对内心的恐惧。——赫尔曼·黑塞</p></blockquote><hr><h1 id="2-学习"><a href="#2-学习" class="headerlink" title="2 学习"></a>2 学习</h1><p>值得学习的地方：</p><ul><li><strong>独立思考</strong>以及会思考（这应该是最为重要和关键的）。</li><li>有自己的<strong>追求</strong>。（找到自我）</li><li><strong>坚持</strong>自己的追求。（坚守自我）</li><li><strong>Better。</strong></li></ul><p>需要避免的地方：</p><ul><li><strong>接受现实，懂得理解他人，学会与人合作</strong>。需要清楚的知道这世界是不完美的，有比自己更强的人，也有比自己更弱的人，我需要在自己的领域做得更好，接纳别人的缺点和自己的缺点。</li></ul><p>这上面都只是指出学习的大体方向，并没有指出具体的内容，每个点都需要很长时间的努力和挣扎，还需要以后耐心的研读大佬的巨作来理解其内涵和思想。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>个人感悟</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>【CTF系列】2021年3月-AntCTF Web题解</title>
     <link href="/4c08a869bcad/"/>
     <url>/4c08a869bcad/</url>
@@ -401,9 +420,9 @@
       
       <tag>docker</tag>
       
-      <tag>mongo</tag>
-      
       <tag>kali</tag>
+      
+      <tag>mongo</tag>
       
     </tags>
     
