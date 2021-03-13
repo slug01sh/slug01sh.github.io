@@ -123,11 +123,11 @@
   
   
   <entry>
-    <title>【网络安全系列】程序分析学习笔记</title>
+    <title>【网络安全系列】程序分析总结</title>
     <link href="/016f20c17d1b/"/>
     <url>/016f20c17d1b/</url>
     
-    <content type="html"><![CDATA[<p>前几天面试阿里的 SDL 部门，面试小姐姐人非常好。大致给我讲了里面工作的大致分类。</p><ul><li>白盒审计：</li><li>黑盒测试</li></ul><p>我也基本确定了自己的发展方向，CTF 的内容也偏向于这方面，以后的主要学习内容都尽量偏向于这两个方向。</p><blockquote><p>我深知，技术是为了解决问题而生，各种各样的技术会不断进步，永远是学不完的。我需要积淀自己的核心能力。</p></blockquote><hr><hr><p>参考文章：</p><ol><li><a href="http://www.jos.org.cn/html/2019/1/5651.htm#outline_anchor_11">程序分析研究进展</a></li></ol>]]></content>
+    <content type="html"><![CDATA[<h1 id="0-前言"><a href="#0-前言" class="headerlink" title="0 前言"></a>0 前言</h1><p>前几天面试阿里的 SDL 部门，面试小姐姐人非常好。大致给我讲了里面工作的大致分类。</p><ul><li>白盒审计：</li><li>黑盒测试</li></ul><p>我也基本确定了自己的发展方向，CTF 的内容也偏向于这方面，以后的主要学习内容都尽量偏向于这两个方向。</p><blockquote><p>我深知，技术是为了解决问题而生，各种各样的技术会不断进步，永远是学不完的。我需要积淀自己的核心能力。</p></blockquote><p>后面的内容是学习了南京大学的《软件分析》课程之后，思考总结的笔记。</p><h1 id="1-第一课"><a href="#1-第一课" class="headerlink" title="1 第一课"></a>1 第一课</h1><p><font color="red">0x01 Program Language、编译原理、程序分析、静态分析、动态分析的关系是什么？</font></p><pre><code class=" mermaid">graph TD;    classDef default fill: orange;    id1(Program Language);    id2(编译原理);    id3(程序分析);    id4(静态分析);    id5(动态分析);    id1--&gt;id2 &amp; id3;    id2--&gt;id4    id3--&gt;id4 &amp; id5;</code></pre><p>（图片说明：也就是说程序分析和编译原理都处于 PL 的一个小分支，编译原理更偏向于静态分析）</p><ul><li>PL：即 Program Language，是研究编程语言的一个领域，编译原理和程序分析都只是其中的研究方向。</li><li>编译原理：高级编程语言翻译成机器代码的科学技术。</li><li>程序分析：自动分析程序的包括正确性、健壮性、安全性和活跃性等特征的过程。</li><li>静态分析：在代码未运行时，进行代码特征分析的方法。在编译原理中会使用到静态词法分析、语法分析、语义分析。</li><li>动态分析：在代码执行时，进行分析。</li></ul><p><font color="red">0x02 soundness（稳健）、completeness（完整）、false negatives（假阴性、漏报率）、false positives（假阳性、错报率）</font></p><p>soundness 和 completeness 都是用来描述程序分析最后结果的形容词。</p><ul><li>soundness 代表把所有的异常都找到，但是有假阴性。</li><li>completeness 代表找到的异常都是真实存在的，但是有些异常没有找到</li></ul><p>soundness 和 completeness 也就有了不同的衡量指标：</p><ul><li>假阴性（漏报率）：只要感染病毒，核酸检测就应该是阳性；如果检查是阴性，就说明没有感染新冠肺炎。 然而，事实并不是这样的。 一些患者是新型冠状病毒感染者，但是核酸检测报告阴性，我们把这种情况称之为“假阴性”。只会存在于 soundness。</li><li>假阳性（错报率）：没患病但是检测出来患病，就是假阳性。只会用来描述 completeness。</li></ul><p>单从「漏」和「错」来看，我会认为错报率更严重，但实际来看漏洞才是最危险的，「漏报」就很容易导致进一步导致病毒进一步传播，对于程序分析亦是如此，「漏报」就有更大的概率导致出现安全隐患。</p><p>我们在研究的时候，通常是先保证 soundness，然后在 soundness 的基础上提高精度（减少误报率）和速度。</p><hr><p><font color="red">0x03 如何理解 abstraction（抽象） 和 over-approximation（近似）？</font></p><p>抽象和近似，是静态分析中常用的两种技术手段。</p><ul><li>抽象：对情景进行提炼和总结，抽象出关键词（0、1、unknown、undefined）。</li><li>近似：利用转换函数（可以进行分类的函数）、分析控制流来将代码中的要素归类到前面抽象的关键词中。</li></ul><hr><p>参考文章：</p><ol><li><a href="http://www.jos.org.cn/html/2019/1/5651.htm#outline_anchor_11">程序分析研究进展</a></li></ol>]]></content>
     
     
     <categories>
@@ -522,11 +522,11 @@
     
     <tags>
       
-      <tag>文件上传</tag>
-      
       <tag>《Web安全攻防》</tag>
       
       <tag>SSRF</tag>
+      
+      <tag>文件上传</tag>
       
       <tag>暴力破解</tag>
       
@@ -719,11 +719,11 @@
     
     <tags>
       
+      <tag>《Web安全攻防》</tag>
+      
       <tag>渗透测试</tag>
       
       <tag>信息搜集</tag>
-      
-      <tag>《Web安全攻防》</tag>
       
     </tags>
     
@@ -960,9 +960,9 @@
       
       <tag>ctf</tag>
       
-      <tag>php弱类型</tag>
-      
       <tag>文件上传</tag>
+      
+      <tag>php弱类型</tag>
       
     </tags>
     
@@ -1043,11 +1043,11 @@
     
     <tags>
       
+      <tag>代码审计</tag>
+      
       <tag>php反序列化</tag>
       
       <tag>phar</tag>
-      
-      <tag>代码审计</tag>
       
     </tags>
     
