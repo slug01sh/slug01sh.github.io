@@ -251,7 +251,8 @@
             <h1 style="display: none">【网络安全系列】JavaScript原型链污染攻击总结</h1>
             
             <div class="markdown-body">
-              <h1 id="0-前言"><a href="#0-前言" class="headerlink" title="0 前言"></a>0 前言</h1><h1 id="1-原理"><a href="#1-原理" class="headerlink" title="1 原理"></a>1 原理</h1><h2 id="1-1-基本概念"><a href="#1-1-基本概念" class="headerlink" title="1.1 基本概念"></a>1.1 基本概念</h2><p><font color="red">0x01 问：原型链有什么作用？</font></p>
+              <h1 id="0-前言"><a href="#0-前言" class="headerlink" title="0 前言"></a>0 前言</h1><p>原型链污染，是 NodeJs 中常见的漏洞，在做 antCTF 时也遇到的原型链污染题目，在此记录自己学习原型链污染的过程。</p>
+<h1 id="1-原理"><a href="#1-原理" class="headerlink" title="1 原理"></a>1 原理</h1><p><font color="red">0x01 问：原型链有什么作用？</font></p>
 <p>用来做继承，也就是基于原有的代码做一定的修改。下面是一个使用原型链实现继承的案例：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">this</span>.name = <span class="hljs-string">&#x27;kevin&#x27;</span>;<br>&#125;<br>Parent.prototype.getName = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.name);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span> (<span class="hljs-params"></span>) </span>&#123;<br><br>&#125;<br>Child.prototype = <span class="hljs-keyword">new</span> Parent();<br><br><span class="hljs-keyword">var</span> child1 = <span class="hljs-keyword">new</span> Child();<br><span class="hljs-built_in">console</span>.log(child1.getName()) <span class="hljs-comment">// kevin</span><br></code></pre></td></tr></table></figure>
 
@@ -363,9 +364,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/">原型链污染</a>
-                    
                       <a class="hover-with-bg" href="/tags/Javascript/">Javascript</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/">原型链污染</a>
                     
                   </div>
                 
