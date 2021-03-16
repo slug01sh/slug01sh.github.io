@@ -295,7 +295,7 @@
 <p><font color="red">0x04：挖矿是什么？</font></p>
 <p>挖矿就是记录区块头 Hash 值生成下一个区块的过程。</p>
 <p>不过并没有那么简单，中本聪的发明者故意让区块的生成非常的困难，区块的哈希值需要小于目标值才会被接受。在区块头大部分都是特征值，但其中有一个 <code>nonce</code> 的属性，可以用于修改，使得区块头生成的哈希小于目标值。</p>
-<p>这个目标值还具有动态调节功能，当前两周区块的平均生成时间小于 10，会将目标值降低，使得挖矿难度更难。</p>
+<p>这个目标值还具有动态调节功能，当前两周区块的平均生成时间小于 10 分钟，会将目标值降低，使得挖矿难度更难。</p>
 <blockquote>
 <p>感觉挖矿有些浪费资源，不过确实是极大的保证了区块链的安全性。</p>
 </blockquote>
@@ -381,7 +381,9 @@
 <p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210316121027.png" srcset="/img/loading.gif"><br>（图片说明：这是我创建的合约在 Ropsten 网络上的记录，创建和 AddBalance 都花费了 ETH，但是查询操作没有花费 ETH）</p>
 <p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210316123031.png" srcset="/img/loading.gif"><br>（图片说明：调用 CaptureTheFlag 函数后，emit 方法会把参数使用 log 的方式返回）</p>
 <hr>
-<h1 id="2-安全"><a href="#2-安全" class="headerlink" title="2 安全"></a>2 安全</h1><hr>
+<h1 id="2-安全"><a href="#2-安全" class="headerlink" title="2 安全"></a>2 安全</h1><p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210316190003.png" srcset="/img/loading.gif"></p>
+<p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210316190313.png" srcset="/img/loading.gif"></p>
+<hr>
 <h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><ol>
 <li>大话区块链【Blockchain】：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/sunsky303/p/11778553.html">https://www.cnblogs.com/sunsky303/p/11778553.html</a></li>
 <li>区块链入门教程-阮一峰的网络日志：<a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2017/12/blockchain-tutorial.html">https://www.ruanyifeng.com/blog/2017/12/blockchain-tutorial.html</a></li>
