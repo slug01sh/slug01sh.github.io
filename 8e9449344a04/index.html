@@ -208,7 +208,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      2.4k 字
     </span>
   
 
@@ -218,7 +218,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      14
+      26
        分钟
     </span>
   
@@ -318,6 +318,69 @@
 </blockquote>
 <p>还可以考虑采用麻将来比喻区块链（每次并不支付筹码，只是做数字的运算）<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210316012028.png" srcset="/img/loading.gif"></p>
 <hr>
+<p><font color="red">0x06 以太坊和比特币有什么相同点和不同点呢？</font></p>
+<p>在网站 CoinMarketCap 中列出了所有的加密货币。 <a target="_blank" rel="noopener" href="https://coinmarketcap.com/zh/all/views/all/">传送门</a></p>
+<p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210316093958.png" srcset="/img/loading.gif"><br>（图片说明：所有加密货币中排行前三的货币，能看出比特币和以太坊远超第二名）</p>
+<p>相同点：</p>
+<ol>
+<li>都基于区块链技术构建。</li>
+<li>都采用公钥体系来认证交易。</li>
+</ol>
+<p>不同点：</p>
+<ol>
+<li>作用<ol>
+<li>比特币：交易货币。</li>
+<li>以太坊：是一个开源的有智能合约功能的公共区块链平台，以太坊可以充当其他加密货币的平台，以「以太坊」为平台的「以太币」交易的区块确认时间更短。</li>
+</ol>
+</li>
+<li>智能合约：使用代码编写的交易规则，具有广泛的使用场景。<ol>
+<li>区块链：不具有智能合约</li>
+<li>以太坊：具有智能合约，能处理更复杂的问题，该系统能够制定基本规则并强制执行合约，这是在实际合约和没有中间人的情况下是不可能发生的。</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p>智能合约的使用场景：<br>1.具有嵌入式指令的银行账户：类似银行的自动扣费，不过需要自己进行编写。</p>
+<ul>
+<li>资金控制权：银行是银行账户的最终维护者，它拥有完全的控制权，可以随意地向我的账户添加资金或者扣除资金，或者冻结资金</li>
+<li>透明性：逻辑代码在所有参与的计算机上并行运行，结果由所有参与者进行比对。只有当参与者都同意结果，他们才会更新自己的账本版本。理论上没有人可以欺骗区块链。</li>
+</ul>
+<p>2.用计算机代码取代法律术语：严格的，没有争议。</p>
+<ul>
+<li>共享账本将在消除多方协议之间的信任需求方面发挥作用。比如：租赁合同。</li>
+</ul>
+</blockquote>
+<p>在我看来比特币和智能合约都解决了信任问题，极大的降低了信任成本。</p>
+<ul>
+<li>比特币：将货币数字化去中心化，解决了简单的交易问题（不能解决复杂的条款）。</li>
+<li>智能合约：将合约数字化，还可利用区块链的信任体系来减少对于中间人的依赖</li>
+</ul>
+<hr>
+<p><font color="red">0x07 如何编写并运行自己的智能合约？</font></p>
+<blockquote>
+<p>具体教程参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/KRDecad3/p/10798383.html">传送门</a></p>
+</blockquote>
+<p>大概步骤：（只记录关键部分）</p>
+<ol>
+<li><strong>拥有自己的加密货币</strong>。ETH除了主网络，还有很多测试网络，可以在测试网络中免费获得。<blockquote>
+<p>我最初认为需要花钱购买，Too young too simple.<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210316114236.png" srcset="/img/loading.gif"><br>（图片说明：我在 Ropsten 测试网络的测试水龙头中获得了 2 个 ETH 币）</p>
+</blockquote>
+</li>
+<li><strong>部署智能合约</strong>。</li>
+</ol>
+<p>在网站 <a target="_blank" rel="noopener" href="http://remix.ethereum.org/">http://remix.ethereum.org/</a> 中进行网站的部署。<br>测试代码如下：（教程中的代码有不明的符号……）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs solidity">pragma solidity ^0.4.23;<br><br>contract Test &#123;<br>  mapping (address &#x3D;&gt; uint) balances;<br>  <br>  constructor() public &#123;<br>    balances[tx.origin] &#x3D; 0;<br>  &#125;<br>  event FLAG(string b64email, string slogan);<br>  <br>  function getbalance() public constant returns (uint)&#123;<br>      return balances[tx.origin];<br>  &#125;<br>  function AddBalance(uint f) public &#123;<br>    if(f&#x3D;&#x3D;1)&#123;<br>        balances[tx.origin]++;<br>    &#125;<br>  &#125;<br>  function CaptureTheFlag(string b64email) public&#123;<br>    require (balances[tx.origin]&gt;0);<br>    emit FLAG(b64email, &quot;you will get flag!&quot;);<br>  &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>部署完成的效果图：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210316115804.png" srcset="/img/loading.gif"><br>（图片说明：在 MetaMask 中的活动一栏可以看到合约的部署情况）</p>
+<ol start="3">
+<li><strong>和智能合约进行交互</strong>。</li>
+</ol>
+<p>在与合约进行交互之前，我们需要先知道合约的具体地址。</p>
+<p>合约地址可以在 Ropsten 的 Transaction Details 中看到，也可以在 Remix 编辑器的左侧找到，根据合约的地址我们才能与合约进行交互。</p>
+<p>在合约中如果有运算操作（加减、逻辑操作），就需要使用 ETH 来支付相关的运算费用（给矿工），例如 <code>balances[tx.origin]++;</code>。如果只是查询就不需要费用，例如 <code>return balances[tx.origin];</code>。</p>
+<p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210316121027.png" srcset="/img/loading.gif"><br>（图片说明：这是我创建的合约在 Ropsten 网络上的记录，创建和 AddBalance 都花费了 ETH，但是查询操作没有花费 ETH）</p>
+<p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210316123031.png" srcset="/img/loading.gif"><br>（图片说明：调用 CaptureTheFlag 函数后，emit 方法会把参数使用 log 的方式返回）</p>
+<hr>
 <h1 id="2-安全"><a href="#2-安全" class="headerlink" title="2 安全"></a>2 安全</h1><hr>
 <h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><ol>
 <li>大话区块链【Blockchain】：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/sunsky303/p/11778553.html">https://www.cnblogs.com/sunsky303/p/11778553.html</a></li>
@@ -326,6 +389,7 @@
 <li>智能合约攻击面及ctf出题指南：<a target="_blank" rel="noopener" href="https://doublemice.github.io/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E6%94%BB%E5%87%BB%E9%9D%A2%E5%8F%8Actf%E5%87%BA%E9%A2%98%E6%8C%87%E5%8D%97/">https://doublemice.github.io/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E6%94%BB%E5%87%BB%E9%9D%A2%E5%8F%8Actf%E5%87%BA%E9%A2%98%E6%8C%87%E5%8D%97/</a></li>
 <li>[论文阅读笔记]智能合约安全漏洞挖掘技术研究：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/144382236">https://zhuanlan.zhihu.com/p/144382236</a></li>
 <li>CTF中智能合约部署交互基础：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41429081/article/details/104321258">https://blog.csdn.net/qq_41429081/article/details/104321258</a></li>
+<li>实现CTF智能合约题目的环境部署:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/KRDecad3/p/10798383.html">https://www.cnblogs.com/KRDecad3/p/10798383.html</a></li>
 </ol>
 
             </div>
