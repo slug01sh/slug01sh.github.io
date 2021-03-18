@@ -208,7 +208,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.4k 字
+      2.6k 字
     </span>
   
 
@@ -218,7 +218,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      26
+      27
        分钟
     </span>
   
@@ -381,7 +381,36 @@
 <p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210316121027.png" srcset="/img/loading.gif"><br>（图片说明：这是我创建的合约在 Ropsten 网络上的记录，创建和 AddBalance 都花费了 ETH，但是查询操作没有花费 ETH）</p>
 <p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210316123031.png" srcset="/img/loading.gif"><br>（图片说明：调用 CaptureTheFlag 函数后，emit 方法会把参数使用 log 的方式返回）</p>
 <hr>
-<h1 id="2-安全"><a href="#2-安全" class="headerlink" title="2 安全"></a>2 安全</h1><p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210316190003.png" srcset="/img/loading.gif"></p>
+<h1 id="2-安全"><a href="#2-安全" class="headerlink" title="2 安全"></a>2 安全</h1><h2 id="2-1-智能合约安全"><a href="#2-1-智能合约安全" class="headerlink" title="2.1 智能合约安全"></a>2.1 智能合约安全</h2><p><font color="red">0x01 “漏洞挖掘思路”的含义是什么？</font></p>
+<p>需要先了解这些词汇的含义：</p>
+<ol>
+<li>漏洞：事情有破绽，不周密的地方。在网络安全领域通常是指系统或程序有破绽的代码，不周密。（这里是名词）</li>
+<li>挖掘：探求，寻找。</li>
+<li>思路：思考的条理、线索。</li>
+</ol>
+<p>“漏洞挖掘”换句话就是，找出系统或者程序破绽的代码的思考线索。这里其实有两种不同类型的思考线索。 </p>
+<ul>
+<li>自动化：适用于任何漏洞。<ul>
+<li>补丁对比</li>
+</ul>
+</li>
+</ul>
+<p>黑盒测试：</p>
+<ul>
+<li>Fuzz</li>
+</ul>
+<p>白盒测试：</p>
+<ul>
+<li>动态分析</li>
+<li>静态分析<ul>
+<li>过程间分析</li>
+<li>数据流分析</li>
+<li>符号执行</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210316190003.png" srcset="/img/loading.gif"></p>
 <p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210316190313.png" srcset="/img/loading.gif"></p>
 <hr>
 <h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><ol>
