@@ -205,6 +205,70 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/d6a9774cd6ea/">攻防世界-bug</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/d6a9774cd6ea/">
+          
+          
+            
+          
+          1 越权改密码大概熟悉一下整个网站的功能。
+
+注册
+找回密码
+登陆
+查询个人信息
+
+测试注册功能。我使用SQLmap测试是否有SQL注入，发现并没有找到注入。注册点可能会有二次注入，使用SQLmap测不出来就尝试下一个点。
+测试找回密码功能。首先是将用户信息进行输入，然后输入新密码。查看源码能看见当前正在找回的用户名1
+
+填入新密码后，HTTP请求头会同时发送用户名和密码。如果系统用此时的用户名来
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-12-27 12:37" pubdate>
+              2020-12-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/CTF/">CTF</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/ctf/">ctf</a>
+            
+              <a href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/">攻防世界</a>
+            
+              <a href="/tags/%E6%B0%B4%E5%B9%B3%E8%B6%8A%E6%9D%83/">水平越权</a>
+            
+              <a href="/tags/XFF%E4%BC%AA%E9%80%A0/">XFF伪造</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/f5754670b401/">解决mac中pip3对应python2</a>
       </h1>
 
