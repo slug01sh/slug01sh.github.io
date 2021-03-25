@@ -208,7 +208,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      900 字
+      966 字
     </span>
   
 
@@ -253,7 +253,7 @@
             <div class="markdown-body">
               <h1 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a>0x01 简介</h1><p>Fastjson 是一个阿里巴巴的开源 Java 库，可以将 Java 对象转换为 JSON 格式，当然它也可以将 JSON 字符串转换为 Java 对象。</p>
 <h1 id="0x02-漏洞概述"><a href="#0x02-漏洞概述" class="headerlink" title="0x02 漏洞概述"></a>0x02 漏洞概述</h1><p><strong>编号：CVE-2017-18349</strong></p>
-<p>Fastjson 提供了 autotype 功能，允许用户在反序列化数据中通过“@type”指定反序列化的类型，其次，Fastjson自定义的反序列化机制时会调用指定类中的setter方法及部分getter方法，那么当组件开启了autotype功能并且反序列化不可信数据时，攻击者可以构造数据，使目标应用的代码执行流程进入特定类的特定setter或者getter方法中，若指定类的指定方法中有可被恶意利用的逻辑（也就是通常所指的“Gadget”），则会造成一些严重的安全问题。并且在Fastjson 1.2.47及以下版本中，利用其缓存机制可实现对未开启autotype功能的绕过。</p>
+<p>Fastjson 提供了 autotype 功能，允许用户在反序列化数据中通过“@type”指定反序列化的类型，其次，Fastjson 自定义的反序列化机制时会调用指定类中的 setter 方法及部分 getter 方法，那么当组件开启了 autotype 功能并且反序列化不可信数据时，攻击者可以构造数据，使目标应用的代码执行流程进入特定类的特定 setter 或者 getter 方法中，若指定类的指定方法中有可被恶意利用的逻辑（也就是通常所指的“Gadget”），则会造成一些严重的安全问题。并且在Fastjson 1.2.47及以下版本中，利用其缓存机制可实现对未开启 autotype 功能的绕过。</p>
 <h1 id="0x03-影响版本"><a href="#0x03-影响版本" class="headerlink" title="0x03 影响版本"></a>0x03 影响版本</h1><p>Fastjson1.2.47以及之前的所有版本</p>
 <h1 id="0x04-环境搭建"><a href="#0x04-环境搭建" class="headerlink" title="0x04 环境搭建"></a>0x04 环境搭建</h1><ol>
 <li><p>启动环境</p>
@@ -303,7 +303,8 @@
 <p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210305133353.png" srcset="/img/loading.gif"></p>
 <p>成功 GET shell<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210305134426.png" srcset="/img/loading.gif"></p>
 <p>整体流程图：</p>
-<h1 id="0x06-漏洞分析"><a href="#0x06-漏洞分析" class="headerlink" title="0x06 漏洞分析"></a>0x06 漏洞分析</h1><h1 id="0x07-修复方式"><a href="#0x07-修复方式" class="headerlink" title="0x07 修复方式"></a>0x07 修复方式</h1><h1 id="0x08-坑"><a href="#0x08-坑" class="headerlink" title="0x08 坑"></a>0x08 坑</h1><ol>
+<h1 id="0x06-漏洞分析"><a href="#0x06-漏洞分析" class="headerlink" title="0x06 漏洞分析"></a>0x06 漏洞分析</h1><p>我复现完整个流程后，其实是非常懵逼的，这些教程为什么写到这里就结束了，难道他们都会吗？我是太菜了吗？原理是什么？怎么都没讲清楚？</p>
+<h2 id="1-Fastjson怎么使用？"><a href="#1-Fastjson怎么使用？" class="headerlink" title="1 Fastjson怎么使用？"></a>1 Fastjson怎么使用？</h2><h1 id="0x07-修复方式"><a href="#0x07-修复方式" class="headerlink" title="0x07 修复方式"></a>0x07 修复方式</h1><h1 id="0x08-坑"><a href="#0x08-坑" class="headerlink" title="0x08 坑"></a>0x08 坑</h1><ol>
 <li></li>
 <li>编译恶意代码时，需要 Java 8。</li>
 </ol>

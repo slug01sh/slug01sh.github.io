@@ -17,9 +17,25 @@
   <meta name="description" content="最爱 Python，会一点开发，CTF 卑微的 Web 手。 主攻代码审计、程序分析。">
   <meta name="author" content="slug01sh">
   <meta name="keywords" content="网络空间安全,高效率工具,计算机基础,经验分享,CTF">
-  <title>归档 - 积淀｜小杰的个人博客</title>
+  <title>【计算机基础】Java审计基础学习 - 积淀｜小杰的个人博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
 
@@ -47,7 +63,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -165,14 +181,51 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('https://rmt.dogedoge.com/fetch/fluid/storage/bg/1cm6iu.png?w=1920&fmt=webp') no-repeat center center;
+         style="background: url('https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210325162534.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="归档">
+            <span class="h2" id="subtitle" title="【计算机基础】Java审计基础学习">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-25 16:25" pubdate>
+        2021年3月25日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      454 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      5
+       分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -185,82 +238,98 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【计算机基础】Java审计基础学习</h1>
+            
+            <div class="markdown-body">
+              <p>最近开始尝试进行 Java 代码审计，但是很多 Java 方面的基础概念不太够。开始逐渐补一补 Java 的基础。</p>
+<p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210325162534.png" srcset="/img/loading.gif"></p>
+<h1 id="1-网络编程"><a href="#1-网络编程" class="headerlink" title="1 网络编程"></a>1 网络编程</h1><h2 id="0x01-RMI-是什么？"><a href="#0x01-RMI-是什么？" class="headerlink" title="0x01 RMI 是什么？"></a>0x01 RMI 是什么？</h2><p>RMI 是 Remote Method Invocation 的缩写，也就是远程方法调用，是一种运行机制。</p>
+<p>远程方法调用 RMI（Remote Method Invocation），是允许运行在一个Java 虚拟机的对象调用运行在另一个 Java 虚拟机上的对象的方法。 这两个虚拟机可以是运行在相同计算机上的不同进程中，也可以是运行在网络上的不同计算机中。</p>
+<p>与 RMI 非常相似的还有 RPC（Remote Process Call），即远程过程调用。</p>
+<ul>
+<li>RMI：调用另一台计算机上 JVM 中的方法。只适用于 Java，无法跨语言。<strong>是 JDK1.2 引入的一套 Java 自带 RPC 实现方案。</strong>。</li>
+<li>RPC：调用另一台计算机上的服务（具体的程序）。是网络服务协议，与操作系统和语言无关。</li>
+</ul>
+<p>执行流程：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210325170241.png" srcset="/img/loading.gif"></p>
+<ul>
+<li>Registry（注册表）是放置所有服务器对象的命名空间。 每次服务端创建一个对象时，它都会使用 bind() 或 rebind() 方法注册该对象。 这些是使用称为绑定名称的唯一名称注册的。</li>
+<li>要调用远程对象，客户端需要该对象的引用。即通过服务端绑定的名称从注册表中获取对象（lookup() 方法。</li>
+</ul>
+<h2 id="0x02-LDAP-是什么？"><a href="#0x02-LDAP-是什么？" class="headerlink" title="0x02 LDAP 是什么？"></a>0x02 LDAP 是什么？</h2><h2 id="0x03-RMI-和-LDAP-的区别和联系"><a href="#0x03-RMI-和-LDAP-的区别和联系" class="headerlink" title="0x03 RMI 和 LDAP 的区别和联系"></a>0x03 RMI 和 LDAP 的区别和联系</h2><p>在反序列化漏洞中，经常会使用到 RMI 和 LDAP。</p>
+<h2 id="0x04-marshalsec-的原理是什么？"><a href="#0x04-marshalsec-的原理是什么？" class="headerlink" title="0x04 marshalsec 的原理是什么？"></a>0x04 marshalsec 的原理是什么？</h2><h1 id="附录"><a href="#附录" class="headerlink" title="#附录"></a>#附录</h1><p>参考教程：</p>
+<ol>
+<li>Java RMI远程方法调用详解：<a target="_blank" rel="noopener" href="https://blog.csdn.net/guyuealian/article/details/51992182">https://blog.csdn.net/guyuealian/article/details/51992182</a></li>
+<li>总结：详解RMI与RPC的区别：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/50678735">https://zhuanlan.zhihu.com/p/50678735</a></li>
+<li>RMI实现RPC：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u014565127/article/details/113583536">https://blog.csdn.net/u014565127/article/details/113583536</a></li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/3aae222bb2c3/">
+                        <span class="hidden-mobile">【经验分享】效率提升总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
                 
 
-<div class="list-group">
-  <p class="h4">共计 50 篇文章</p>
-  <hr>
-  
-  
-    
-      
-      <p class="h5">2021</p>
-    
-    <a href="/0724234561f0/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">计算机基础2：正向代理和反向代理的区别是什么？</span>
-      <time style="float: right;">02-28</time>
-    </a>
-  
-    
-    <a href="/30d0eafedca3/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">【CTF系列】深度和广度之辨</span>
-      <time style="float: right;">02-27</time>
-    </a>
-  
-    
-    <a href="/4df6a2708f77/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">【CTF系列】2021年2月四叶草CTF</span>
-      <time style="float: right;">02-26</time>
-    </a>
-  
-    
-    <a href="/55416b06e2d8/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">局域网传输神器Snapdrop（电脑、手机均可）</span>
-      <time style="float: right;">02-26</time>
-    </a>
-  
-    
-    <a href="/9aad0866ce62/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">计算机基础1：TCP和UDP的区别是什么？</span>
-      <time style="float: right;">02-26</time>
-    </a>
-  
-    
-    <a href="/d43c52ab99ce/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">在Windows中的存储长度命名是什么的缩写？</span>
-      <time style="float: right;">02-23</time>
-    </a>
-  
-    
-    <a href="/e312f4147bd5/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">如何使用CRLF控制FTP攻击内网的mongodb来复现Flask反序列化漏洞</span>
-      <time style="float: right;">02-07</time>
-    </a>
-  
-    
-    <a href="/0dc114d8c403/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">如何查看Docker中mongodb的内容？</span>
-      <time style="float: right;">02-07</time>
-    </a>
-  
-</div>
-
-
-
-
-
-              </div>
-            </div>
-          </div>
+              </article>
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -364,9 +433,15 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
 
 
 
@@ -411,6 +486,13 @@
 
 
 
+
+  <script  src="https://cdn.jsdelivr.net/npm/mermaid@8.8.3/dist/mermaid.min.js" ></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"default"});
+    }
+  </script>
 
 
 
