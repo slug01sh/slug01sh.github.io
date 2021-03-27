@@ -145,9 +145,9 @@
       
       <tag>SQL注入</tag>
       
-      <tag>任意文件读取</tag>
-      
       <tag>原型链污染</tag>
+      
+      <tag>任意文件读取</tag>
       
     </tags>
     
@@ -197,9 +197,9 @@
     
     <tags>
       
-      <tag>原型链污染</tag>
-      
       <tag>Javascript</tag>
+      
+      <tag>原型链污染</tag>
       
     </tags>
     
