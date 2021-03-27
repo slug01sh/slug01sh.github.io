@@ -524,9 +524,9 @@
       
       <tag>docker</tag>
       
-      <tag>kali</tag>
-      
       <tag>mongo</tag>
+      
+      <tag>kali</tag>
       
     </tags>
     
@@ -823,11 +823,11 @@
     
     <tags>
       
-      <tag>《Web安全攻防》</tag>
-      
       <tag>渗透测试</tag>
       
       <tag>信息搜集</tag>
+      
+      <tag>《Web安全攻防》</tag>
       
     </tags>
     
