@@ -8,7 +8,7 @@
     <link href="/e66d3ad04164/"/>
     <url>/e66d3ad04164/</url>
     
-    <content type="html"><![CDATA[<p>我曾经在阅读《Web安全攻防》是摘录过一些SSRF的笔记，不过我觉得博客还是要写出自己的思考和经验才好。</p><blockquote><p>况且我现在正在统一自己的写作风格，采用问答的方式，仅提供关键思路，而不是教科书式的一步一步的写。</p></blockquote><h1 id="1-协议"><a href="#1-协议" class="headerlink" title="1 协议"></a>1 协议</h1><h2 id="0x01-gopher协议是什么？有什么用？"><a href="#0x01-gopher协议是什么？有什么用？" class="headerlink" title="0x01 gopher协议是什么？有什么用？"></a>0x01 gopher协议是什么？有什么用？</h2><h2 id="0x02-gopher协议怎么发送GET？"><a href="#0x02-gopher协议怎么发送GET？" class="headerlink" title="0x02 gopher协议怎么发送GET？"></a>0x02 gopher协议怎么发送GET？</h2><h2 id="0x03-gopher协议怎么发送POST？"><a href="#0x03-gopher协议怎么发送POST？" class="headerlink" title="0x03 gopher协议怎么发送POST？"></a>0x03 gopher协议怎么发送POST？</h2><h2 id="0x03-gopher协议怎么攻击redis？"><a href="#0x03-gopher协议怎么攻击redis？" class="headerlink" title="0x03 gopher协议怎么攻击redis？"></a>0x03 gopher协议怎么攻击redis？</h2>]]></content>
+    <content type="html"><![CDATA[<p>我曾经在阅读《Web安全攻防》是摘录过一些SSRF的笔记，不过我觉得博客还是要写出自己的思考和经验才好。</p><blockquote><p>况且我现在正在统一自己的写作风格，采用问答的方式，仅提供关键思路，而不是教科书式的一步一步的写。</p></blockquote><h1 id="1-协议"><a href="#1-协议" class="headerlink" title="1 协议"></a>1 协议</h1><h2 id="0x01-gopher协议是什么？有什么用？"><a href="#0x01-gopher协议是什么？有什么用？" class="headerlink" title="0x01 gopher协议是什么？有什么用？"></a>0x01 gopher协议是什么？有什么用？</h2><p>gopher协议就像是是HTTP协议的前身，所以很多HTTP能做到的事情，gopher也能做到。</p><p>SSRF能利用这个协议拓展攻击面，如：</p><ul><li>发送GET请求</li><li>发送POST请求<br>使用上面的方法可以做到很多事情。</li><li>探测内网IP和端口</li><li>攻击内网的网站</li><li>攻击内网redis、memcache、mysql、fastcgi或其他服务</li></ul><h2 id="0x02-gopher协议怎么发送GET？"><a href="#0x02-gopher协议怎么发送GET？" class="headerlink" title="0x02 gopher协议怎么发送GET？"></a>0x02 gopher协议怎么发送GET？</h2><h2 id="0x03-gopher协议怎么发送POST？"><a href="#0x03-gopher协议怎么发送POST？" class="headerlink" title="0x03 gopher协议怎么发送POST？"></a>0x03 gopher协议怎么发送POST？</h2><h2 id="0x03-gopher协议怎么攻击redis？"><a href="#0x03-gopher协议怎么攻击redis？" class="headerlink" title="0x03 gopher协议怎么攻击redis？"></a>0x03 gopher协议怎么攻击redis？</h2>]]></content>
     
     
     <categories>
@@ -199,9 +199,9 @@
     
     <tags>
       
-      <tag>SQL注入</tag>
-      
       <tag>原型链污染</tag>
+      
+      <tag>SQL注入</tag>
       
       <tag>任意文件读取</tag>
       
