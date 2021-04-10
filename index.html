@@ -753,10 +753,16 @@ SSRF能利用这个协议拓展攻击面，如：
   <div class="row mx-auto index-card">
     
     
-    <article class="col-12 col-md-12 mx-auto index-info">
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/4c08a869bcad/" target="_self">
+          <img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210409133847.png" srcset="/img/loading.gif" alt="【CTF系列】2021年3月-AntCTF Web WriteUp">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/4c08a869bcad/">【CTF系列】2021年3月-AntCTF Web题解</a>
+        <a href="/4c08a869bcad/">【CTF系列】2021年3月-AntCTF Web WriteUp</a>
       </h1>
 
       <p class="index-excerpt">
@@ -766,8 +772,10 @@ SSRF能利用这个协议拓展攻击面，如：
             
           
           0 前言
-1 8-bit-pub1.1 SQL注入1.2 任意文件读取1.3 原型链污染用来测试原型链污染是否存在的 POST 包。
-123456789101112131415POST /admin/email HTTP/1.1Host: slug01sh.com:3000Content-Length: 32Accept: */*X-Requested-With: XMLHttpRequestUs
+1 8-bit-pub根据页面信息可知，需要登陆admin，才能进行进一步的操作。猜测可能存在session伪造或者SQL注入漏洞。
+session伪造有一个条件缺失（文件上传），所以只能考虑SQL注入。
+1.1 SQL注入查看题目中所用到的mysql。（图片说明：题目中使用到的SQL语句）根据转义字符的文档可知，mysql在进行参数绑定时会进行自动类型转换。如下所示：
+123456va
         </a>
       </p>
 
