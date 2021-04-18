@@ -9,8 +9,16 @@
 
 
     <url>
+        <loc>https://slug01sh.github.io/4c08a869bcad/</loc>
+        <lastmod>2021-04-18T09:31:30.500Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://slug01sh.github.io/9c416611969b/</loc>
-        <lastmod>2021-04-18T08:46:09.295Z</lastmod>
+        <lastmod>2021-04-18T08:48:09.515Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -35,14 +43,6 @@
     <url>
         <loc>https://slug01sh.github.io/d3de666e8195/</loc>
         <lastmod>2021-04-18T08:45:43.588Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://slug01sh.github.io/4c08a869bcad/</loc>
-        <lastmod>2021-04-09T07:08:14.759Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 

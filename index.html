@@ -698,14 +698,14 @@ Pwn：应用和底层。
     
       <div class="col-12 col-md-4 m-auto index-img">
         <a href="/4c08a869bcad/" target="_self">
-          <img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210409133847.png" srcset="/img/loading.gif" alt="【CTF系列】2021年3月-AntCTF Web WriteUp">
+          <img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210409133847.png" srcset="/img/loading.gif" alt="【CTF系列】2021年3月-AntCTF Web WP - Exploit">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/4c08a869bcad/">【CTF系列】2021年3月-AntCTF Web WriteUp</a>
+        <a href="/4c08a869bcad/">【CTF系列】2021年3月-AntCTF Web WP - Exploit</a>
       </h1>
 
       <p class="index-excerpt">
@@ -714,11 +714,15 @@ Pwn：应用和底层。
           
             
           
-          0 前言
-1 8-bit-pub根据页面信息可知，需要登陆admin，才能进行进一步的操作。猜测可能存在session伪造或者SQL注入漏洞。
-session伪造有一个条件缺失（文件上传），所以只能考虑SQL注入。
-1.1 SQL注入查看题目中所用到的mysql。（图片说明：题目中使用到的SQL语句）根据转义字符的文档可知，mysql在进行参数绑定时会进行自动类型转换。如下所示：
-123456va
+          
+使用 docker-compose up --build 启动环境。题目传送门
+修改 exp 相关配置，运行 exp。
+在服务器监听 9999 端口，即使用命令 nc -lvnp 9999。执行 readflag。
+备注：该题共 3 种做法，其他做法的 exp 请查看 Github 项目 ctf-writeups)
+
+
+
+1234567891011121314151617181920212223
         </a>
       </p>
 
