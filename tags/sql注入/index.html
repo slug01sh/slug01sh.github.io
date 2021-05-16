@@ -4,7 +4,7 @@
   <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="keywords" content="" />
+  <meta name="keywords" content="ctfer" />
   <meta name="author" content="slug01sh" />
   <meta name="description" content="" />
   
@@ -376,6 +376,23 @@
       });
       $(document).on('click', '#search-close-icon', function() {
         $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+    </div>
+  </body>
+</html>
+al('');
         $('#search-result').html('');
       });
     }
