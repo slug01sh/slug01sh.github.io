@@ -1,965 +1,503 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN">
 
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="网络空间安全,高效率工具,计算机基础,经验分享,CTF" />
+  <meta name="author" content="slug01sh" />
+  <meta name="description" content="最爱 Python，会一点开发，CTF 卑微的 Web 手。 主攻代码审计、程序分析。" />
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="最爱 Python，会一点开发，CTF 卑微的 Web 手。 主攻代码审计、程序分析。">
-  <meta name="author" content="slug01sh">
-  <meta name="keywords" content="网络空间安全,高效率工具,计算机基础,经验分享,CTF">
-  <title>积淀｜小杰的个人博客</title>
+    <meta name="robots" content="noindex" />
+  
+  
+  <title>
+    
+     积淀｜小杰的个人博客
+  </title>
 
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
 
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
 
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"slug01sh.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":"G-WTRCMZDFLE","gtag":"G-WTRCMZDFLE","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.1.1"></head>
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
 
 
-<body>
-  <header style="height: 100vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>积淀｜小杰的个人博客</strong>&nbsp;</a>
+  <!-- jquery3.3.1 -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
+  <!-- fancybox -->
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <script async src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
 
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/ctf/">
-                <i class="iconfont icon-user-fill"></i>
-                学习资源导航
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/">
-                <i class="iconfont icon-link-fill"></i>
-                友链
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
+
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WTRCMZDFLE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-WTRCMZDFLE');
+    </script>
+  
+
+<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="积淀｜小杰的个人博客" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">Oranges</a></div>
   </div>
-</nav>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/categories/">
+          <a href="/categories/">Categories</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">Friends</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210226230957.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="一个人如果将他自己描述得很好的话，他十有八九是在撒谎，因为任何生命从内部审视都只不过是一系列的失败。">
-              
-            </span>
 
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <div class="container index">
+  <div class="post-list">
+    <!-- 遍历渲染文章 -->
+    
+      <div class="post-item" title="Web安全攻防之CSRF攻击与XSS攻击区别">
+        <div class="time-m-d">2021-01-27</div>
+        <div class="title">
+          <a href="/45766d76d1c8/">
             
-          </div>
-
-          
-            <div class="scroll-down-bar">
-              <i class="iconfont icon-arrowdown"></i>
-            </div>
-          
+              
+                <span>Web安全攻防之CSRF攻击与XSS攻击区别</span>
+              
+            
+          </a>
         </div>
       </div>
-    </div>
-  </header>
-
-  <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          style=margin-top:0>
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/c58286e959c7/">Web安全攻防之SQLmap使用</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/c58286e959c7/">
-          
-          
+      <div class="post-item" title="Web安全攻防之SQLmap使用">
+        <div class="time-m-d">2021-01-26</div>
+        <div class="title">
+          <a href="/c58286e959c7/">
             
-          
-          《Web安全攻防》使用sqli-labs来熟悉一下SQLmap这个神器，我也大致的熟悉一下这个工具的使用吧。
-SQL注入的基本步骤：
-
-判断注入类型
-获取数据库名
-获取数据表名
-获取字段名
-获取数据
-
-1 判断注入类型1.1 Get类型使用 -u 参数指定url（sqlmap关卡1）
-1sqlmap -u &quot;http://localhost:4000/Less-1?id=1&quot;
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-26 19:10" pubdate>
-              2021-01-26
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
+              
+                <span>Web安全攻防之SQLmap使用</span>
+              
             
-              <a href="/categories/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E5%AE%89%E5%85%A8/">网络空间安全</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/sql%E6%B3%A8%E5%85%A5/">sql注入</a>
-            
-              <a href="/tags/%E3%80%8AWeb%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E3%80%8B/">《Web安全攻防》</a>
-            
-          </div>
-        
+          </a>
+        </div>
       </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
     
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/1ac52a60b69f/">Web安全攻防之XSS平台搭建</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/1ac52a60b69f/">
-          
-          
+      <div class="post-item" title="Web安全攻防之XSS平台搭建">
+        <div class="time-m-d">2021-01-26</div>
+        <div class="title">
+          <a href="/1ac52a60b69f/">
             
-          
-          
-XSS测试平台：主要用与接收测试XSS得到的cookie，或者托管 exp（在打CTF时可能会需要使用这种平台。
-XSS game：有XSS漏洞的游戏，用来训练XSS技术。
-
-不推荐自己搭建，建议使用 https://xs.sb/ 平台。自己在本地搭建了只能收到自己的Cookie，作用不大。
-如果自己搭建则需要准备：
-
-一个可用域名（越短越好）；
-如果你需要测试HTTPS网站，请准备SSL证书（
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-26 14:46" pubdate>
-              2021-01-26
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
+              
+                <span>Web安全攻防之XSS平台搭建</span>
+              
             
-              <a href="/categories/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E5%AE%89%E5%85%A8/">网络空间安全</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E3%80%8AWeb%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E3%80%8B/">《Web安全攻防》</a>
-            
-              <a href="/tags/XSS/">XSS</a>
-            
-          </div>
-        
+          </a>
+        </div>
       </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
     
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/afef5eced7c4/">Web安全攻防之搭建DVWA漏洞环境</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/afef5eced7c4/">
-          
-          
+      <div class="post-item" title="Web安全攻防之搭建DVWA漏洞环境">
+        <div class="time-m-d">2021-01-25</div>
+        <div class="title">
+          <a href="/afef5eced7c4/">
             
-          
-          DVWA（Damn Vulnerable Web Application）漏洞环境是开源的漏洞测试平台，其中包含SQL注入、XSS、文件上传、文件包含、CSRF等基本的漏洞环境。
-1 准备工作搭建环境需要的其他环境
-
-VScode（配置运行PHP的插件）
-PHP运行环境
-MySQL运行环境
-
-2 搭建漏洞环境并没有在kali中搭建环境，而是在自己的物理机上，在虚拟机中搭建每次都要打开虚拟机，太烦了
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-25 17:43" pubdate>
-              2021-01-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
+              
+                <span>Web安全攻防之搭建DVWA漏洞环境</span>
+              
             
-              <a href="/categories/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E5%AE%89%E5%85%A8/">网络空间安全</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E3%80%8AWeb%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E3%80%8B/">《Web安全攻防》</a>
-            
-              <a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">环境搭建</a>
-            
-          </div>
-        
+          </a>
+        </div>
       </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
     
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/24b09f4a0cd3/">解决MySQL启动问题</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/24b09f4a0cd3/">
-          
-          
+      <div class="post-item" title="解决MySQL启动问题">
+        <div class="time-m-d">2021-01-25</div>
+        <div class="title">
+          <a href="/24b09f4a0cd3/">
             
-          
-          1 报错信息今天在启动MySQL时，发现启动失败。MxSrvs的报错信息如下：
-12MySQL Start Failure,Please check the related logsMySQL Start Failure,Please check the related logs
-
-2 查看日志定位到今天的ERROR日志具体的错误信息如下：
-1232021-01-14T10:05:04.82162
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-25 16:07" pubdate>
-              2021-01-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
+              
+                <span>解决MySQL启动问题</span>
+              
             
-              <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/mysql/">mysql</a>
-            
-          </div>
-        
+          </a>
+        </div>
       </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
     
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/d678a06bc8c8/">RST攻击扫盲</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/d678a06bc8c8/">
-          
-          
+      <div class="post-item" title="RST攻击扫盲">
+        <div class="time-m-d">2021-01-25</div>
+        <div class="title">
+          <a href="/d678a06bc8c8/">
             
-          
-          RST 攻击也叫 TCP 重置攻击。TCP 重置攻击是指黑客伪造 TCP 的 RST 包来断开用户与网站的连接，这个技术也被运用在防火墙中，例如著名的 GFW。
-什么是RST？
-RST 是 Reset 的简称。在我看来，RST 有点类似于手机的强制重启。当我们手机死机时，我们通常会长按电源键来将手机直接关机，这时手机不会保存任何内容。RST 也类似与这样，当 A 和 B 正在通信时，B 收到 A 
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-25 16:04" pubdate>
-              2021-01-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
+              
+                <span>RST攻击扫盲</span>
+              
             
-              <a href="/categories/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E5%AE%89%E5%85%A8/">网络空间安全</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/php/">php</a>
-            
-              <a href="/tags/tcp%E9%87%8D%E7%BD%AE%E6%94%BB%E5%87%BB/">tcp重置攻击</a>
-            
-          </div>
-        
+          </a>
+        </div>
       </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
     
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/522ce06c11f8/">Web安全攻防之信息搜集</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/522ce06c11f8/">
-          
-          
+      <div class="post-item" title="Web安全攻防之信息搜集">
+        <div class="time-m-d">2021-01-25</div>
+        <div class="title">
+          <a href="/522ce06c11f8/">
             
-          
-          收集信息采用一种由外到内的收集方式，保证信息的收集尽可能的全面。在渗透测试过程中，我们从各个角度进行测试，需要尽可能的找出网站中的漏洞来编写测试报告，所以只要是与目标网站相关的信息，我们都要尽可能的去收集。
-我们得到一个网站的地址，以 https://www.baidu.com 为例。
-
-直观信息：利用Google搜索语法搜索网站的信息，可能可以找到后台，或者找到注入点。
-应用层：我们需要收集网站
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-25 14:27" pubdate>
-              2021-01-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
+              
+                <span>Web安全攻防之信息搜集</span>
+              
             
-              <a href="/categories/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E5%AE%89%E5%85%A8/">网络空间安全</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E3%80%8AWeb%E5%AE%89%E5%85%A8%E6%94%BB%E9%98%B2%E3%80%8B/">《Web安全攻防》</a>
-            
-              <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a>
-            
-              <a href="/tags/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">信息搜集</a>
-            
-          </div>
-        
+          </a>
+        </div>
       </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
     
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/3fa3403da2ba/">网络安全行业个人发展浅析</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/3fa3403da2ba/">
-          
-          
+      <div class="post-item" title="网络安全行业个人发展浅析">
+        <div class="time-m-d">2021-01-24</div>
+        <div class="title">
+          <a href="/3fa3403da2ba/">
             
-          
-          2020年9月的时候，凭借着个人兴趣的驱使。我放弃了自己开发的经历，开始慢慢的转向安全方向。当时没有什么眉目，就只盯着CTF方向开始钻研，开始慢慢懂得了一些漏洞的利用方式。最近在思考自己的安全之路时，我的眼光是迷茫，我不知道自己该学习什么，应该往哪个方向去学习，所以尝试了自己回答以下的问题来帮助自己看清自己的路线。
-0x01 网络安全有哪些工作类型？我想去哪个方向？
-
-安全研发：工作主要是开发用于
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-24 12:11" pubdate>
-              2021-01-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
+              
+                <span>网络安全行业个人发展浅析</span>
+              
             
-              <a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/">经验分享</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%80%9D%E8%80%83/">思考</a>
-            
-          </div>
-        
+          </a>
+        </div>
       </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
     
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/90f3483c9d34/">docker-compose介绍以及简单使用</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/90f3483c9d34/">
-          
-          
+      <div class="post-item" title="docker-compose介绍以及简单使用">
+        <div class="time-m-d">2021-01-22</div>
+        <div class="title">
+          <a href="/90f3483c9d34/">
             
-          
-          1 安装1.1 docker按照下面的步骤进行安装：
-123456789101112131415161718192021222324# 更新现有的包sudo apt update# 添加Docker PGP公钥curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -# 配置Docker APT库echo
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-22 17:31" pubdate>
-              2021-01-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
+              
+                <span>docker-compose介绍以及简单使用</span>
+              
             
-              <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/docker/">docker</a>
-            
-              <a href="/tags/kali/">kali</a>
-            
-          </div>
-        
+          </a>
+        </div>
       </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
     
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/9c6d4c3c0aab/">Linux Or Mac安装pip2 Or pip3</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/9c6d4c3c0aab/">
-          
-          
+      <div class="post-item" title="Linux Or Mac安装pip2 Or pip3">
+        <div class="time-m-d">2021-01-22</div>
+        <div class="title">
+          <a href="/9c6d4c3c0aab/">
             
-          
-          🙃为什么 Kali 的 Python 不自带 pip？为什么？为什么？
-1 Python21234567# 下载代码wget https://bootstrap.pypa.io/2.6/get-pip.py# python 进行安装python2 get-pip.py# 验证是否安装成功pip -V
-2 Python31234567# 下载代码wget https://bootstrap.pyp
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-22 17:16" pubdate>
-              2021-01-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
+              
+                <span>Linux Or Mac安装pip2 Or pip3</span>
+              
             
-              <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/python/">python</a>
-            
-          </div>
-        
+          </a>
+        </div>
       </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
     
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/45648d0cead8/">Python网络编程之socket简单使用</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/45648d0cead8/">
-          
-          
-            
-          
-          1 简介Python 提供两个级别的服务：
-
-Socket（低级别）
-SocketServer（高级别）
-
-什么是 Socket？俗称「套接字」，对 TCP 协议的抽象，可以用于主机之间或者进程之间的通信。
-首先用一个简单实例来了解 socket 创建、连接、通信的基本步骤。server 端的基本步骤：
-
-绑定 hostname、port
-使用 accept 方法进行等待
-将消息发送给 clien
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-01-22 16:55" pubdate>
-              2021-01-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/python/">python</a>
-            
-              <a href="/tags/socket/">socket</a>
-            
-          </div>
-        
-      </div>
-    </article>
   </div>
-
-
-
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/3/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/"><i class="iconfont icon-arrowright"></i></a>
-    </span>
+  <nav class="post-navigation">
+    
+      <a href="/page/3/"><i class="iconfont icon-angleleft"></i></a>
+    
+    <span class="page-num">4 / 6</span>
+    
+      <a href="/page/5/"><i class="iconfont icon-angleright"></i></a>
+    
   </nav>
+</div>
+
+        <div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/slug01sh">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="email" href="mailto:slug01sh@gmail.com">
+            <i class="iconfont icon-envelope"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="rss" href="/atom.xml">
+            <i class="iconfont icon-rss"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
   
-  <script>
-    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
-      ele.href += '#board';
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © Oranges 2021</a>
+        
+    </div>
+  
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="back-to-top hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+      
+  <div class="search-icon" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="搜索...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>首次搜索，正在载入索引文件，请稍后……<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>没有找到内容，请尝试更换检索词。<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>未找到search.xml文件，具体请参考：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>请求失败，尝试重新刷新页面或稍后重试。<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
     }
   </script>
 
 
 
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    
 
-    
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
     </div>
-  </div>
-</div>
-    
-
-    
-  </main>
-
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-  <div class="statistics">
-    
-    
-
-    
-      
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
-  </div>
-
-
-  
-
-  
-</footer>
-
-<!-- SCRIPTS -->
-
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
-
-
-
-  
-
-
-
-
-
-
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-    <!-- Google Analytics -->
-    <script defer>
-      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
-      ga.l = +new Date;
-      ga('create', 'G-WTRCMZDFLE', 'auto');
-      ga('send', 'pageview');
-    </script>
-    <script async src='https://www.google-analytics.com/analytics.js'></script>
-  
-
-  
-    <!-- Google gtag.js -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WTRCMZDFLE"></script>
-    <script defer>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-WTRCMZDFLE');
-    </script>
-  
-
-  
-
-  
-
-  
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
-
-
-
-</body>
+  </body>
 </html>

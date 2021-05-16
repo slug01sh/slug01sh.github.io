@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>积淀｜小杰的个人博客</title>
+  <icon>https://slug01sh.github.io/icon.png</icon>
+  <subtitle>这个世上只有一种真正的英雄主义，那就是认清生活的真相，并且仍然热爱它。</subtitle>
+  <link href="https://slug01sh.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://slug01sh.github.io/"/>
+  <updated>2021-05-16T05:14:51.904Z</updated>
+  <id>https://slug01sh.github.io/</id>
+  
+  <author>
+    <name>slug01sh</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>2021年 CISCN writeup</title>
+    <link href="https://slug01sh.github.io/17ffd8ef2cd0/"/>
+    <id>https://slug01sh.github.io/17ffd8ef2cd0/</id>
+    <published>2021-05-16T05:13:59.000Z</published>
+    <updated>2021-05-16T05:14:51.904Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;2021年-CISCN-writeup&quot;&gt;&lt;a href=&quot;#2021年-CISCN-writeup&quot; class=&quot;headerlink&quot; title=&quot;2021年 CISCN writeup&quot;&gt;&lt;/a&gt;2021年 CISCN writeup&lt;/h1&gt;&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>AWD入门12问</title>
+    <link href="https://slug01sh.github.io/88e5b482994b/"/>
+    <id>https://slug01sh.github.io/88e5b482994b/</id>
+    <published>2021-05-06T01:08:49.000Z</published>
+    <updated>2021-05-06T12:17:14.014Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>博客新见解：发布即完结</title>
+    <link href="https://slug01sh.github.io/9c416611969b/"/>
+    <id>https://slug01sh.github.io/9c416611969b/</id>
+    <published>2021-04-18T08:46:09.000Z</published>
+    <updated>2021-04-18T08:48:09.515Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;发布即完结。也就是，当文章发布后，这篇博客就不能进行修改。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;最理想的情况是不做任何的修改。不过如果有错别字或者其他问题，可以考虑进行微调（不要纵容自己）或者进行适当的补充。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;PS：我并没有对这</summary>
+        
+      
+    
+    
+    
+    <category term="经验分享" scheme="https://slug01sh.github.io/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/"/>
+    
+    
+    <category term="blog" scheme="https://slug01sh.github.io/tags/blog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【网络空间安全】服务器端请求伪造笔记（SSRF）</title>
+    <link href="https://slug01sh.github.io/e66d3ad04164/"/>
+    <id>https://slug01sh.github.io/e66d3ad04164/</id>
+    <published>2021-04-04T11:58:50.000Z</published>
+    <updated>2021-04-05T15:41:59.614Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;我曾经在阅读《Web安全攻防》是摘录过一些SSRF的笔记，不过我觉得博客还是要写出自己的思考和经验才好。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;况且我现在正在统一自己的写作风格，采用问答的方式，仅提供关键思路，而不是教科书式的一步一步的写。&lt;/p&gt;
+&lt;/blockquot</summary>
+        
+      
+    
+    
+    
+    <category term="网络空间安全" scheme="https://slug01sh.github.io/categories/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="ssrf" scheme="https://slug01sh.github.io/tags/ssrf/"/>
+    
+    <category term="gopher" scheme="https://slug01sh.github.io/tags/gopher/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【计算机基础】网络抓包分析笔记</title>
+    <link href="https://slug01sh.github.io/d1b122c9a430/"/>
+    <id>https://slug01sh.github.io/d1b122c9a430/</id>
+    <published>2021-04-04T11:18:05.000Z</published>
+    <updated>2021-04-04T12:09:13.827Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在SSRF中经常会用到Gopher协议或者其他协议，来对内网的服务进行攻击。在使用Gopher协议的时候，我们需要将其他服务的数据包进行重放（使用Gopher协议重放）。&lt;/p&gt;
+&lt;p&gt;这也就意味着必须通过抓包来获得其他服务（MySQL、Redis）的数据包。&lt;/p&gt;
+&lt;h</summary>
+        
+      
+    
+    
+    
+    <category term="计算机基础" scheme="https://slug01sh.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
+    
+    
+    <category term="wireshark" scheme="https://slug01sh.github.io/tags/wireshark/"/>
+    
+    <category term="socat" scheme="https://slug01sh.github.io/tags/socat/"/>
+    
+    <category term="tcpdump" scheme="https://slug01sh.github.io/tags/tcpdump/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【计算机基础】Java审计基础学习</title>
+    <link href="https://slug01sh.github.io/10aa19681a6d/"/>
+    <id>https://slug01sh.github.io/10aa19681a6d/</id>
+    <published>2021-03-25T08:25:00.000Z</published>
+    <updated>2021-04-19T07:37:28.024Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近开始尝试进行 Java 代码审计，但是很多 Java 方面的基础概念不太够。开始逐渐补一补 Java 的基础。&lt;/p&gt;
+&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="计算机基础" scheme="https://slug01sh.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
+    
+    
+    <category term="Java" scheme="https://slug01sh.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【经验分享】效率提升总结</title>
+    <link href="https://slug01sh.github.io/3aae222bb2c3/"/>
+    <id>https://slug01sh.github.io/3aae222bb2c3/</id>
+    <published>2021-03-23T15:44:17.000Z</published>
+    <updated>2021-03-24T15:57:48.021Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;决定将《左耳听风-极客时间》中的「时间规划」方面的分享应用到自己的实际生活当中，并且记录自己的实践经历。&lt;/p&gt;
+&lt;p&gt;基本思想：反转控制，被动变主动。&lt;/p&gt;
+&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="经验分享" scheme="https://slug01sh.github.io/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/"/>
+    
+    
+    <category term="时间规划" scheme="https://slug01sh.github.io/tags/%E6%97%B6%E9%97%B4%E8%A7%84%E5%88%92/"/>
+    
+    <category term="效率提升" scheme="https://slug01sh.github.io/tags/%E6%95%88%E7%8E%87%E6%8F%90%E5%8D%87/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【经验分享】面试总结</title>
+    <link href="https://slug01sh.github.io/23f0f03d99ed/"/>
+    <id>https://slug01sh.github.io/23f0f03d99ed/</id>
+    <published>2021-03-20T05:42:55.000Z</published>
+    <updated>2021-03-20T08:24:22.863Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;以下是我的面试经历，我对于面试的看法，和我对于某些现象的看法。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;0x01-常见的面试过程是怎样的？&quot;&gt;&lt;a href=&quot;#0x01-常见的面试过程是怎样的？&quot; class=&quot;headerlink&quot; title=&quot;0x01</summary>
+        
+      
+    
+    
+    
+    <category term="经验分享" scheme="https://slug01sh.github.io/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/"/>
+    
+    
+    <category term="面试" scheme="https://slug01sh.github.io/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【网络安全系列】区块链安全总结</title>
+    <link href="https://slug01sh.github.io/8e9449344a04/"/>
+    <id>https://slug01sh.github.io/8e9449344a04/</id>
+    <published>2021-03-15T12:40:39.000Z</published>
+    <updated>2021-04-18T08:46:03.523Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;0-前言&quot;&gt;&lt;a href=&quot;#0-前言&quot; class=&quot;headerlink&quot; title=&quot;0 前言&quot;&gt;&lt;/a&gt;0</summary>
+        
+      
+    
+    
+    
+    <category term="网络空间安全" scheme="https://slug01sh.github.io/categories/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="区块链" scheme="https://slug01sh.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+    <category term="智能合约" scheme="https://slug01sh.github.io/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【个人感悟】走近王垠</title>
+    <link href="https://slug01sh.github.io/3b8002e7a287/"/>
+    <id>https://slug01sh.github.io/3b8002e7a287/</id>
+    <published>2021-03-12T08:05:30.000Z</published>
+    <updated>2021-03-18T15:14:49.819Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;0-前言&quot;&gt;&lt;a href=&quot;#0-前言&quot; class=&quot;headerlink&quot; title=&quot;0 前言&quot;&gt;&lt;/a&gt;0 前言&lt;/h1&gt;&lt;p&gt;今天的我，本来在学习学姐推荐的 &lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="个人感悟" scheme="https://slug01sh.github.io/categories/%E4%B8%AA%E4%BA%BA%E6%84%9F%E6%82%9F/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>【CTF系列】2021年3月-AntCTF Web WP - Exploit</title>
+    <link href="https://slug01sh.github.io/4c08a869bcad/"/>
+    <id>https://slug01sh.github.io/4c08a869bcad/</id>
+    <published>2021-03-12T02:23:43.000Z</published>
+    <updated>2021-04-18T09:32:31.087Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Web&quot;&gt;&lt;a href=&quot;#Web&quot; class=&quot;headerlink&quot; title=&quot;Web&quot;&gt;&lt;/a&gt;Web&lt;/h1&gt;&lt;h2 id=&quot;1-8-bit-pub&quot;&gt;&lt;a href=&quot;#1-8-bit-pub&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="CTF" scheme="https://slug01sh.github.io/categories/CTF/"/>
+    
+    
+    <category term="SQL注入" scheme="https://slug01sh.github.io/tags/SQL%E6%B3%A8%E5%85%A5/"/>
+    
+    <category term="原型链污染" scheme="https://slug01sh.github.io/tags/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/"/>
+    
+    <category term="任意文件读取" scheme="https://slug01sh.github.io/tags/%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【计算机基础】编译原理总结</title>
+    <link href="https://slug01sh.github.io/fdf6e02b1ae5/"/>
+    <id>https://slug01sh.github.io/fdf6e02b1ae5/</id>
+    <published>2021-03-11T16:17:28.000Z</published>
+    <updated>2021-03-13T06:23:48.756Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;0-前言&quot;&gt;&lt;a href=&quot;#0-前言&quot; class=&quot;headerlink&quot; title=&quot;0 前言&quot;&gt;&lt;/a&gt;0 前言&lt;/h1&gt;&lt;h1 id=&quot;1-开篇词&quot;&gt;&lt;a href=&quot;#1-开篇词&quot; class=&quot;headerlink&quot; title=&quot;1</summary>
+        
+      
+    
+    
+    
+    <category term="计算机基础" scheme="https://slug01sh.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
+    
+    
+    <category term="编译原理" scheme="https://slug01sh.github.io/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【网络安全系列】JavaScript原型链污染攻击总结</title>
+    <link href="https://slug01sh.github.io/a53ac9b162e0/"/>
+    <id>https://slug01sh.github.io/a53ac9b162e0/</id>
+    <published>2021-03-11T02:15:52.000Z</published>
+    <updated>2021-04-18T08:45:52.687Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;0-前言&quot;&gt;&lt;a href=&quot;#0-前言&quot; class=&quot;headerlink&quot; title=&quot;0 前言&quot;&gt;&lt;/a&gt;0 前言&lt;/h1&gt;&lt;p&gt;原型链污染，是 NodeJs 中常见的漏洞，在做 antCTF</summary>
+        
+      
+    
+    
+    
+    <category term="网络空间安全" scheme="https://slug01sh.github.io/categories/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="Javascript" scheme="https://slug01sh.github.io/tags/Javascript/"/>
+    
+    <category term="原型链污染" scheme="https://slug01sh.github.io/tags/%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【网络安全系列】SQL注入总结</title>
+    <link href="https://slug01sh.github.io/d3de666e8195/"/>
+    <id>https://slug01sh.github.io/d3de666e8195/</id>
+    <published>2021-03-10T15:17:01.000Z</published>
+    <updated>2021-04-18T08:45:43.588Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;0-前言&quot;&gt;&lt;a href=&quot;#0-前言&quot; class=&quot;headerlink&quot; title=&quot;0 前言&quot;&gt;&lt;/a&gt;0 前言&lt;/h1&gt;&lt;p&gt;SQL 注入是一种常见的通用漏洞，在 CTF</summary>
+        
+      
+    
+    
+    
+    
+    <category term="SQL注入" scheme="https://slug01sh.github.io/tags/SQL%E6%B3%A8%E5%85%A5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【网络安全系列】程序分析总结</title>
+    <link href="https://slug01sh.github.io/016f20c17d1b/"/>
+    <id>https://slug01sh.github.io/016f20c17d1b/</id>
+    <published>2021-03-08T01:34:26.000Z</published>
+    <updated>2021-03-14T00:34:25.496Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;0-前言&quot;&gt;&lt;a href=&quot;#0-前言&quot; class=&quot;headerlink&quot; title=&quot;0 前言&quot;&gt;&lt;/a&gt;0 前言&lt;/h1&gt;&lt;p&gt;前几天面试阿里的 SDL</summary>
+        
+      
+    
+    
+    
+    <category term="网络空间安全" scheme="https://slug01sh.github.io/categories/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="代码审计" scheme="https://slug01sh.github.io/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+    
+    <category term="污点分析" scheme="https://slug01sh.github.io/tags/%E6%B1%A1%E7%82%B9%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【网络安全系列】CVE-2017-18349：Fastjson 任意代码执行</title>
+    <link href="https://slug01sh.github.io/f8dd72d9678b/"/>
+    <id>https://slug01sh.github.io/f8dd72d9678b/</id>
+    <published>2021-03-04T08:45:45.000Z</published>
+    <updated>2021-03-25T08:17:16.440Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;0x01-简介&quot;&gt;&lt;a href=&quot;#0x01-简介&quot; class=&quot;headerlink&quot; title=&quot;0x01 简介&quot;&gt;&lt;/a&gt;0x01 简介&lt;/h1&gt;&lt;p&gt;Fastjson 是一个阿里巴巴的开源 Java 库，可以将 Java 对象转换为 JSON</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>【网络安全系列】浅谈应急响应</title>
+    <link href="https://slug01sh.github.io/d9a63af06d5a/"/>
+    <id>https://slug01sh.github.io/d9a63af06d5a/</id>
+    <published>2021-03-02T19:19:01.000Z</published>
+    <updated>2021-03-11T01:59:20.501Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;应急响应包含组织为了应对突发/重大信息安全事件的发生所做的准备，以及在事件发生后所采取的措施。，是信息安全从业者的常见工作之一。应急响应并非仅仅是在系统被黑之后做一系列的补救措施，而是需要在平时就进行被黑的准备和避免被黑。&lt;/p&gt;
+&lt;p&gt;各大厂商通常的做法就是成立应急响应中</summary>
+        
+      
+    
+    
+    
+    <category term="网络空间安全" scheme="https://slug01sh.github.io/categories/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E5%AE%89%E5%85%A8/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>【CTF系列】攻防世界-nizhuansiwei</title>
+    <link href="https://slug01sh.github.io/fb094f6e84fe/"/>
+    <id>https://slug01sh.github.io/fb094f6e84fe/</id>
+    <published>2021-03-02T00:40:33.000Z</published>
+    <updated>2021-03-11T01:59:20.458Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;相关信息:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;hint：无&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;进入网站后，便能显示源码，是一道代码审计题目。&lt;/p&gt;
+&lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    <category term="CTF" scheme="https://slug01sh.github.io/categories/CTF/"/>
+    
+    
+    <category term="文件包含" scheme="https://slug01sh.github.io/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"/>
+    
+    <category term="PHP反序列化" scheme="https://slug01sh.github.io/tags/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>计算机基础2：正向代理和反向代理的区别是什么？</title>
+    <link href="https://slug01sh.github.io/0724234561f0/"/>
+    <id>https://slug01sh.github.io/0724234561f0/</id>
+    <published>2021-02-28T10:13:38.000Z</published>
+    <updated>2021-03-12T12:53:25.552Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;题目来源：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="计算机基础" scheme="https://slug01sh.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
+    
+    
+    <category term="正向代理" scheme="https://slug01sh.github.io/tags/%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86/"/>
+    
+    <category term="反向代理" scheme="https://slug01sh.github.io/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/"/>
+    
+    <category term="nginx" scheme="https://slug01sh.github.io/tags/nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【CTF系列】深度和广度之辨</title>
+    <link href="https://slug01sh.github.io/30d0eafedca3/"/>
+    <id>https://slug01sh.github.io/30d0eafedca3/</id>
+    <published>2021-02-26T16:22:17.000Z</published>
+    <updated>2021-03-11T01:59:14.851Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;开始新一轮的 CTF 学习，从其他地方学到很多的思想，顺便总结在第一篇文章中吧。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;1-广度？&quot;&gt;&lt;a href=&quot;#1-广度？&quot; class=&quot;headerlink&quot; title=&quot;1 广度？&quot;&gt;&lt;/a&gt;1</summary>
+        
+      
+    
+    
+    
+    <category term="CTF" scheme="https://slug01sh.github.io/categories/CTF/"/>
+    
+    
+    <category term="CTF" scheme="https://slug01sh.github.io/tags/CTF/"/>
+    
+  </entry>
+  
+</feed>

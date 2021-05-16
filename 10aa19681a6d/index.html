@@ -1,258 +1,176 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN">
 
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="网络空间安全,高效率工具,计算机基础,经验分享,CTF" />
+  <meta name="author" content="slug01sh" />
+  <meta name="description" content="最爱 Python，会一点开发，CTF 卑微的 Web 手。 主攻代码审计、程序分析。" />
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="最爱 Python，会一点开发，CTF 卑微的 Web 手。 主攻代码审计、程序分析。">
-  <meta name="author" content="slug01sh">
-  <meta name="keywords" content="网络空间安全,高效率工具,计算机基础,经验分享,CTF">
-  <title>【计算机基础】Java审计基础学习 - 积淀｜小杰的个人博客</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
   
+  <title>
     
-    
+      【计算机基础】Java审计基础学习 
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+      
+      |
     
-  
+     积淀｜小杰的个人博客
+  </title>
 
   
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
   
 
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
 
 
-<!-- 主题依赖的图标库，不要自行修改 -->
+  <!-- jquery3.3.1 -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
+  <!-- fancybox -->
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <script async src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
 
 
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"slug01sh.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":"G-WTRCMZDFLE","gtag":"G-WTRCMZDFLE","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.1.1"></head>
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WTRCMZDFLE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-WTRCMZDFLE');
+    </script>
+  
+
+<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="积淀｜小杰的个人博客" type="application/atom+xml">
+</head>
 
 
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>积淀｜小杰的个人博客</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/ctf/">
-                <i class="iconfont icon-user-fill"></i>
-                学习资源导航
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/">
-                <i class="iconfont icon-link-fill"></i>
-                友链
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">Oranges</a></div>
   </div>
-</nav>
-
-    <div class="banner" id="banner" parallax=true
-         style="background: url('https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210325162534.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="【计算机基础】Java审计基础学习">
-              
-            </span>
-
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-25 16:25" pubdate>
-        2021年3月25日 下午
-      </time>
-    </span>
-  
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/categories/">
+          <a href="/categories/">Categories</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">Friends</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
 </div>
 
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      5.1k 字
-    </span>
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+
+
+
   
 
   
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      65
-       分钟
-    </span>
+
   
 
   
-  
-</div>
-
-            
-          </div>
-
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">【计算机基础】Java审计基础学习</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="更新时间"></i>
+          2021-03-25 16:25:00
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="分类"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" title="计算机基础">
+                    <b>#</b> 计算机基础
+                  </a>
+                </span>
+                
+              </span>
           
-        </div>
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="标签"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/Java/" title="Java">
+                    <b>#</b> Java
+                  </a>
+                </span>
+                
+              </span>
+          
       </div>
-    </div>
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">【计算机基础】Java审计基础学习</h1>
-            
-            <div class="markdown-body">
-              <p>最近开始尝试进行 Java 代码审计，但是很多 Java 方面的基础概念不太够。开始逐渐补一补 Java 的基础。</p>
-<p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210325162534.png" srcset="/img/loading.gif"></p>
+      <div class="markdown-body">
+        <p>最近开始尝试进行 Java 代码审计，但是很多 Java 方面的基础概念不太够。开始逐渐补一补 Java 的基础。</p>
+<p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210325162534.png"></p>
 <h1 id="1-Java-基础"><a href="#1-Java-基础" class="headerlink" title="1 Java 基础"></a>1 Java 基础</h1><h2 id="0x01-Java-SE、Java-EE、Java-ME有何关系？"><a href="#0x01-Java-SE、Java-EE、Java-ME有何关系？" class="headerlink" title="0x01 Java SE、Java EE、Java ME有何关系？"></a>0x01 Java SE、Java EE、Java ME有何关系？</h2><p>简单来说，Java SE就是标准版，包含标准的JVM和标准库，而Java EE是企业版，它只是在Java SE的基础上加上了大量的API和库，以便方便开发Web应用、数据库、消息服务等，Java EE的应用使用的虚拟机和Java SE完全相同。</p>
 <p>Java ME就和Java SE不同，它是一个针对嵌入式设备的“瘦身版”，Java SE的标准库无法在Java ME上使用，Java ME的虚拟机也是“瘦身版”。</p>
 <p>根本区别：</p>
@@ -260,14 +178,14 @@
 <li>标准库不同</li>
 <li>出发点不同。</li>
 </ol>
-<p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210325192543.png" srcset="/img/loading.gif"><br>（图片说明：Java EE&gt;Java SE&gt;Java ME）</p>
-<h2 id="0x02-如何寻找合适的-Java-版本？"><a href="#0x02-如何寻找合适的-Java-版本？" class="headerlink" title="0x02 如何寻找合适的 Java 版本？"></a>0x02 如何寻找合适的 Java 版本？</h2><p>有些人说 Java 1.8，有些人说 Java 8.0。如果想要正确的下载 Java 版本，就需要使用到下面的表格：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210325192952.png" srcset="/img/loading.gif"></p>
+<p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210325192543.png"><br>（图片说明：Java EE&gt;Java SE&gt;Java ME）</p>
+<h2 id="0x02-如何寻找合适的-Java-版本？"><a href="#0x02-如何寻找合适的-Java-版本？" class="headerlink" title="0x02 如何寻找合适的 Java 版本？"></a>0x02 如何寻找合适的 Java 版本？</h2><p>有些人说 Java 1.8，有些人说 Java 8.0。如果想要正确的下载 Java 版本，就需要使用到下面的表格：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210325192952.png"></p>
 <h2 id="0x03-JDK-和-JRE-是什么？"><a href="#0x03-JDK-和-JRE-是什么？" class="headerlink" title="0x03 JDK 和 JRE 是什么？"></a>0x03 JDK 和 JRE 是什么？</h2><ul>
 <li>JDK：Java Development Kit</li>
 <li>JRE：Java Runtime Environment</li>
 </ul>
 <p>简单地说，JRE就是运行Java字节码的虚拟机（运行 Java 程序的必须条件）。但是，如果只有Java源码，要编译成Java字节码，就需要JDK，因为JDK除了包含JRE，还提供了编译器、调试器等开发工具。</p>
-<p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210325193819.png" srcset="/img/loading.gif"><br>（图片说明：JDK&gt;JRE&gt;JVM）</p>
+<p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210325193819.png"><br>（图片说明：JDK&gt;JRE&gt;JVM）</p>
 <h2 id="0x04-JDK-中可用的命令行工具有哪些？"><a href="#0x04-JDK-中可用的命令行工具有哪些？" class="headerlink" title="0x04 JDK 中可用的命令行工具有哪些？"></a>0x04 JDK 中可用的命令行工具有哪些？</h2><ul>
 <li>java：这个可执行程序其实就是JVM，运行Java程序，就是启动JVM，然后让JVM执行指定的编译后的代码；</li>
 <li>javac：这是Java的编译器，它用于把Java源码文件（以.java后缀结尾）编译为Java字节码文件（以.class后缀结尾）；</li>
@@ -314,8 +232,8 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**  </span><br><span class="hljs-comment"> * 自定义的序列化与反序列化操作</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Title</span> Defined_Serializable.java  </span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Package</span> io_Opt  </span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> flo@t</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@date</span> 2019年9月3日  </span><br><span class="hljs-comment"> * <span class="hljs-doctag">@version</span> V1.0  </span><br><span class="hljs-comment"> */</span>  <br><span class="hljs-keyword">package</span> io_Opt;<br><br><span class="hljs-keyword">import</span> java.io.File;<br><span class="hljs-keyword">import</span> java.io.FileInputStream;<br><span class="hljs-keyword">import</span> java.io.FileOutputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectInputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectOutputStream;<br><span class="hljs-keyword">import</span> java.io.Serializable;<br><br><span class="hljs-meta">@SuppressWarnings(&quot;serial&quot;)</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Car</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span> </span>&#123;<br>	<span class="hljs-keyword">private</span> String brand;<br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> cost;<br>	<br>	<span class="hljs-comment">/**   </span><br><span class="hljs-comment">	* <span class="hljs-doctag">@param</span> brand</span><br><span class="hljs-comment">	* <span class="hljs-doctag">@param</span> cost</span><br><span class="hljs-comment">	*/</span>  <br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Car</span><span class="hljs-params">(String brand, <span class="hljs-keyword">int</span> cost)</span> </span>&#123;<br>		<span class="hljs-keyword">super</span>();<br>		<span class="hljs-keyword">this</span>.brand = brand;<br>		<span class="hljs-keyword">this</span>.cost = cost;<br>	&#125;<br>	<br>	<span class="hljs-meta">@Override</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;品牌: &quot;</span> + brand + <span class="hljs-string">&quot;、售价: &quot;</span> + cost;<br>	&#125;<br>	<br>	<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">readObject</span><span class="hljs-params">(ObjectInputStream in)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br>		<span class="hljs-keyword">try</span> &#123;<br>			in.defaultReadObject();<br>			System.out.println(<span class="hljs-string">&quot;Read Object Over&quot;</span>);<br>		&#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>			e.printStackTrace();<br>		&#125;<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">writeObject</span><span class="hljs-params">(ObjectOutputStream out)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br>		<span class="hljs-keyword">try</span> &#123;<br>			out.defaultWriteObject();<br>			System.out.println(<span class="hljs-string">&quot;Write Object Over&quot;</span>);<br>		&#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>			e.printStackTrace();<br>		&#125;<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">/**  </span><br><span class="hljs-comment"> * 进行自定义的Java序列化与反序列化</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@ClassName</span>: Baby_Serializable  </span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span>: flo@t</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Defined_Serializable</span> </span>&#123;<br><br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> File SAVE_FILE = <span class="hljs-keyword">new</span> File(<span class="hljs-string">&quot;serial.Car&quot;</span>);<br>	<br>	<span class="hljs-comment">/**  </span><br><span class="hljs-comment">	 * </span><br><span class="hljs-comment">	 * <span class="hljs-doctag">@Title</span>: main  </span><br><span class="hljs-comment">	*/</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br>		Car car = <span class="hljs-keyword">new</span> Car(<span class="hljs-string">&quot;奔驰&quot;</span>, <span class="hljs-number">200000</span>);<br>		<br>		System.out.println(car.toString());<br>		<br>		saveObject(car);<br>		<br>		Car myCar = (Car) loadObject();<br>		System.out.println(myCar.toString());<br>	&#125;<br>	<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">saveObject</span><span class="hljs-params">(Object obj)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br>		ObjectOutputStream os = <span class="hljs-keyword">new</span> ObjectOutputStream(<span class="hljs-keyword">new</span> FileOutputStream(SAVE_FILE));<br>		os.writeObject(obj);  		<span class="hljs-comment">//序列化</span><br>		os.close();<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title">loadObject</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br>		ObjectInputStream ois = <span class="hljs-keyword">new</span> ObjectInputStream(<span class="hljs-keyword">new</span> FileInputStream(SAVE_FILE));<br>		Object obj = ois.readObject();		<span class="hljs-comment">//反序列化</span><br>		ois.close();<br>		<span class="hljs-keyword">return</span> obj;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h2 id="0x08-File-对象和-ByteArrayOutputStream-对象的区别与联系"><a href="#0x08-File-对象和-ByteArrayOutputStream-对象的区别与联系" class="headerlink" title="0x08 File 对象和 ByteArrayOutputStream 对象的区别与联系"></a>0x08 File 对象和 ByteArrayOutputStream 对象的区别与联系</h2><p>在反序列化前，通常会创建 ByteArrayOutputStream 类或者 File 类来存储序列化后的数据。</p>
-<p>ByteArrayOutputStream 是一种 Java 字节型输出流。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210327173652.png" srcset="/img/loading.gif"><br>（图片说明：Java 中的 IO 流思维导图）</p>
-<p>ByteArrayOutputStream 既然是输出流，为什么在运行时没有创建文件呢？我查看了一下这个类的源码，原来这个类在初始化时，创建了一个长度为 32 的 byte[] 数组。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210327174709.png" srcset="/img/loading.gif"><br>（图片说明：ByteArrayOutputStream 的构造函数）</p>
+<p>ByteArrayOutputStream 是一种 Java 字节型输出流。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210327173652.png"><br>（图片说明：Java 中的 IO 流思维导图）</p>
+<p>ByteArrayOutputStream 既然是输出流，为什么在运行时没有创建文件呢？我查看了一下这个类的源码，原来这个类在初始化时，创建了一个长度为 32 的 byte[] 数组。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210327174709.png"><br>（图片说明：ByteArrayOutputStream 的构造函数）</p>
 <p>OutputStream 并非像文章《<a target="_blank" rel="noopener" href="https://www.javazhiyin.com/46874.html">你真的会用Java io流吗？</a>》所说的那样：</p>
 <blockquote>
 <p>将数据从外存中读取到内存中的称为输入流，将数据从内存写入外存中的称为输出流。</p>
@@ -332,7 +250,7 @@
 <li>RMI：调用另一台计算机上 JVM 中的方法。只适用于 Java，无法跨语言。<strong>是 JDK 1.2 引入的一套 Java 自带 RPC 实现方案。</strong>。（简而言之，RMI 是一种 RPC）</li>
 <li>RPC：调用另一台计算机上的服务（具体的程序）。是网络服务协议，与操作系统和语言无关。</li>
 </ul>
-<p>执行流程：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210325170241.png" srcset="/img/loading.gif"></p>
+<p>执行流程：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210325170241.png"></p>
 <ul>
 <li>Registry（注册表）是放置所有服务器对象的命名空间。 每次服务端创建一个对象时，它都会使用 bind() 或 rebind() 方法注册该对象。 这些是使用称为绑定名称的唯一名称注册的。</li>
 <li>要调用远程对象，客户端需要该对象的引用。即通过服务端绑定的名称从注册表中获取对象（lookup() 方法。</li>
@@ -343,9 +261,9 @@
 <li>WarehouseImpl.java<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Title</span>: WarehouseImpl.java</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Package</span> warehouse</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Description</span>: 服务器端来实现在远程接口中声明的工作。该类是远程方法调用的目标，因为扩展了UnicastRemoteObject类。</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> flo@t</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@date</span> 2019年8月25日</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@version</span> V1.0</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-keyword">import</span> java.rmi.*;<br><span class="hljs-keyword">import</span> java.rmi.server.*;<br><span class="hljs-keyword">import</span> java.util.*;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 实现 remote Warehouse的接口。</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@ClassName</span>: WarehouseImpl</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span>: flo@t</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * 补充：RMI的一个特点是服务的接口定义和其实现是分开的</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * UnicastRemoteObject类的定义：</span><br><span class="hljs-comment"> * public class UnicastRemoteObject extends RemoteServer</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * public abstract class RemoteServer extends RemoteObject</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * public abstract class RemoteObject implements Remote, java.io.Serializable</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-meta">@SuppressWarnings(&quot;serial&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WarehouseImpl</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">UnicastRemoteObject</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Warehouse</span> </span>&#123;<br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * 定义一个键值对集合用于存放商品价格及其他信息</span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-keyword">private</span> Map&lt;String, Double&gt; prices;<br><br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * 构造方法</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@author</span> flo@t</span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">WarehouseImpl</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> RemoteException </span>&#123;<br>    <span class="hljs-comment">//创建一个Map对象并存入存入数据</span><br>    prices = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();<br>    prices.put(<span class="hljs-string">&quot;Toaster&quot;</span>, <span class="hljs-number">24.5</span>);<br>    prices.put(<span class="hljs-string">&quot;water&quot;</span>, <span class="hljs-number">2.0</span>);<br>  &#125;<br><br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * 接受用户要查询的商品的名称，返回商品的价格</span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-meta">@Override</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">getPrice</span><span class="hljs-params">(String description)</span> <span class="hljs-keyword">throws</span> RemoteException </span>&#123;<br>    Double price = prices.get(description);<br>    <span class="hljs-keyword">return</span> price == <span class="hljs-keyword">null</span> ? <span class="hljs-number">0</span> : price;<br>  &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure></li>
 <li>WarehouseServer.java<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**  </span><br><span class="hljs-comment">* <span class="hljs-doctag">@Title</span>: WarehouseServer.java  </span><br><span class="hljs-comment">* <span class="hljs-doctag">@Package</span> warehouse  </span><br><span class="hljs-comment">* <span class="hljs-doctag">@Description</span>: 直接构造并且注册一个WarehouseImpl对象</span><br><span class="hljs-comment">* <span class="hljs-doctag">@author</span> flo@t</span><br><span class="hljs-comment">* <span class="hljs-doctag">@date</span> 2019年8月25日  </span><br><span class="hljs-comment">* <span class="hljs-doctag">@version</span> V1.0  </span><br><span class="hljs-comment">*/</span>  <br><br><span class="hljs-keyword">import</span> java.rmi.registry.LocateRegistry;<br><span class="hljs-keyword">import</span> java.rmi.Naming;<br><span class="hljs-keyword">import</span> java.rmi.RemoteException;<br><span class="hljs-keyword">import</span> java.net.MalformedURLException;<br><span class="hljs-keyword">import</span> java.rmi.AlreadyBoundException;<br><br><br><span class="hljs-comment">/**  </span><br><span class="hljs-comment">* <span class="hljs-doctag">@ClassName</span>: WarehouseServer  </span><br><span class="hljs-comment">* <span class="hljs-doctag">@Description</span>: 实例化WarehouseImpl对象，并用naming service来将它注册，并等待客户端来调用</span><br><span class="hljs-comment">* <span class="hljs-doctag">@author</span>: flo@t</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WarehouseServer</span> </span>&#123;<br><br>	<span class="hljs-comment">/**  </span><br><span class="hljs-comment">	 * 使用LocateRegistry和Naming两个类来完成一个简单的RMI Demo</span><br><span class="hljs-comment">	 * <span class="hljs-doctag">@Title</span>: main  </span><br><span class="hljs-comment">	 * <span class="hljs-doctag">@Description</span>: </span><br><span class="hljs-comment">	 * <span class="hljs-doctag">@author</span> flo@t</span><br><span class="hljs-comment">	 * <span class="hljs-doctag">@param</span> args </span><br><span class="hljs-comment">	 * <span class="hljs-doctag">@throws</span> RemoteException </span><br><span class="hljs-comment">	 * <span class="hljs-doctag">@throws</span> NamingException </span><br><span class="hljs-comment">	 */</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>		<span class="hljs-keyword">try</span> &#123;<br>			System.out.print(<span class="hljs-string">&quot;Constructing server implemention...&quot;</span>);<br>			WarehouseImpl centralWarehouse = <span class="hljs-keyword">new</span> WarehouseImpl();<br>			System.out.println(<span class="hljs-string">&quot;Ok&quot;</span>);<br>			<br>			<span class="hljs-comment">/*</span><br><span class="hljs-comment">			 * LocateRegistry is used to obtain a reference to a bootstrap</span><br><span class="hljs-comment">			 * remote object registry on a particular host (including the local host), or</span><br><span class="hljs-comment">			 * to create a remote object registry that accepts calls on a specific port.</span><br><span class="hljs-comment">			 */</span><br>			<br>			<span class="hljs-comment">//创建远程对象的注册表，指明其服务的端口。</span><br>			LocateRegistry.createRegistry(<span class="hljs-number">8888</span>);<br>			<br>			<span class="hljs-comment">//Sets the system property indicated by the specified key.设置系统属性</span><br>			System.setProperty(<span class="hljs-string">&quot;rmi:central_warehouse&quot;</span>, <span class="hljs-string">&quot;127.0.0.1&quot;</span>);		<br>			<span class="hljs-comment">//这里前面的键值对的键名可以去掉&quot;rmi&quot;(实测)，为了区别还是加上吧</span><br>			<br>			<span class="hljs-comment">//绑定远程对象到注册表，这里的&quot;rmi://&quot;必须要加上，提供一个URL来访问你的远程对象</span><br>			System.out.print(<span class="hljs-string">&quot;Binding server implemention to registry...&quot;</span>);<br>			<br>			<span class="hljs-comment">//The Naming class provides methods for storing and obtaining references to remote objects in a remote object registry. </span><br>			Naming.bind(<span class="hljs-string">&quot;rmi://localhost:8888/central_warehouse&quot;</span>, centralWarehouse);<br>			System.out.println(<span class="hljs-string">&quot;Ok&quot;</span>);<br>			<br>			<span class="hljs-comment">//等待客户端的连接</span><br>			System.out.println(<span class="hljs-string">&quot;waiting for invocations from clients&quot;</span>);		<br>		<br>		&#125; <span class="hljs-keyword">catch</span> (RemoteException e) &#123;<br>			System.out.println(<span class="hljs-string">&quot;创建远程对象发生异常&quot;</span>);<br>			e.printStackTrace();<br>		&#125; <span class="hljs-keyword">catch</span> (AlreadyBoundException e) &#123;<br>			System.out.println(<span class="hljs-string">&quot;发生重复绑定对象异常&quot;</span>);<br>			e.printStackTrace();<br>		&#125; <span class="hljs-keyword">catch</span> (MalformedURLException e) &#123;<br>			System.out.println(<span class="hljs-string">&quot;发生URL畸形异常&quot;</span>);<br>			e.printStackTrace();<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 <li>WarehouseClient.java<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**  </span><br><span class="hljs-comment">* <span class="hljs-doctag">@Title</span>: WarehouseClient.java  </span><br><span class="hljs-comment">* <span class="hljs-doctag">@Package</span> warehouse  </span><br><span class="hljs-comment">* <span class="hljs-doctag">@Description</span>: 客户端获取指定服务器和远程对象的名字</span><br><span class="hljs-comment">* <span class="hljs-doctag">@author</span> flo@t</span><br><span class="hljs-comment">* <span class="hljs-doctag">@date</span> 2019年8月25日  </span><br><span class="hljs-comment">* <span class="hljs-doctag">@version</span> V1.0  </span><br><span class="hljs-comment">*/</span>  <br><br><span class="hljs-keyword">import</span> java.rmi.NotBoundException;<br><span class="hljs-keyword">import</span> java.rmi.RemoteException;<br><span class="hljs-keyword">import</span> java.rmi.registry.LocateRegistry;<br><span class="hljs-keyword">import</span> java.rmi.registry.Registry;<br><br><span class="hljs-comment">/**  </span><br><span class="hljs-comment">* <span class="hljs-doctag">@ClassName</span>: WarehouseClient  </span><br><span class="hljs-comment">* <span class="hljs-doctag">@author</span>: flo@t</span><br><span class="hljs-comment">* <span class="hljs-doctag">@Description</span>: 客户端实现远程调用方法</span><br><span class="hljs-comment">*    </span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WarehouseClient</span> </span>&#123;<br><br>	<span class="hljs-comment">/**  </span><br><span class="hljs-comment">	* <span class="hljs-doctag">@Title</span>: main  </span><br><span class="hljs-comment">	* <span class="hljs-doctag">@Description</span>: TODO</span><br><span class="hljs-comment">	* <span class="hljs-doctag">@author</span>: flo@t</span><br><span class="hljs-comment">	* <span class="hljs-doctag">@param</span> args </span><br><span class="hljs-comment">	 * <span class="hljs-doctag">@throws</span> NamingException </span><br><span class="hljs-comment">	 * <span class="hljs-doctag">@throws</span> RemoteException </span><br><span class="hljs-comment">	*/</span><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>		<span class="hljs-keyword">try</span> &#123;<br>			<span class="hljs-comment">//获得指定主机和指定端口上的注册表对象</span><br>			Registry registry = LocateRegistry.getRegistry(<span class="hljs-string">&quot;localhost&quot;</span>,<span class="hljs-number">8888</span>);<br>			<span class="hljs-comment">//Returns a reference to the remote object Registry on the specified host and port.</span><br>			<br>			<span class="hljs-comment">//返回的是Remote接口类型，这里进行一个向下的转型</span><br>			Warehouse centralWarehouse = (Warehouse) registry.lookup(<span class="hljs-string">&quot;central_warehouse&quot;</span>);	<br>			String descr = <span class="hljs-string">&quot;Toaster&quot;</span>;<br>			<span class="hljs-keyword">double</span> price = centralWarehouse.getPrice(descr);<br>			System.out.println(descr + <span class="hljs-string">&quot;: &quot;</span> + price);<br>		&#125; <span class="hljs-keyword">catch</span> (NotBoundException e) &#123;<br>			e.printStackTrace();<br>		&#125; <span class="hljs-keyword">catch</span> (RemoteException e) &#123;<br>			e.printStackTrace();<br>		&#125;<br><br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-使用 WarehouseClient.java 的运行结果：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210401143757.png" srcset="/img/loading.gif"><br>成功调用 getPrice 方法获取到 24.5。</li>
+使用 WarehouseClient.java 的运行结果：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210401143757.png"><br>成功调用 getPrice 方法获取到 24.5。</li>
 </ol>
-<p>下面给出RMI工作的流程图:<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210401143901.png" srcset="/img/loading.gif"></p>
+<p>下面给出RMI工作的流程图:<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210401143901.png"></p>
 <ul>
 <li>服务器：将实例化后的对象绑定在注册表中，并等待客户端的调用。</li>
 <li>客户端：使用lookup方法获取对象的引用，<strong>客户端所得到的结果实际上是在服务端那里执行完成的，服务端只是将这个结果返回给了请求者</strong>。<blockquote>
@@ -366,12 +284,12 @@
 <li>Java Naming：键值对的绑定，应用程序可通过键检索值</li>
 <li>Java Directory：是对Java Naming的补充扩张。差别为Java Directory可以根据属性搜索对象。在目录服务中，JNDI允许访问文件系统中的文件，绑定在RMI服务器的对象，LDAP服务与其他组件。</li>
 </ul>
-<p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210401125932.png" srcset="/img/loading.gif"></p>
+<p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210401125932.png"></p>
 <p>JNDI将名字与对象绑定，可以通过名字检索存储在RMI、LDAP服务器上的对象，所以提供了绑定与检索方法。</p>
 <p>JNDI与RMI的关系可以理解为，JDBC和MySQL Driver的关系。</p>
 <h2 id="0x07-SPI是什么？"><a href="#0x07-SPI是什么？" class="headerlink" title="0x07 SPI是什么？"></a>0x07 SPI是什么？</h2><p>SPI是Service Provider Interface的缩写，是JDK内置的服务发现协议。</p>
 <p>SPI是一种动态替换发现的机制， 比如有个接口，想运行时动态的给它添加实现，你只需要添加一个实现。我们经常遇到的就是java.sql.Driver接口，其他不同厂商可以针对同一接口做出不同的实现，mysql和postgresql都有不同的实现提供给用户，而Java的SPI机制可以为某个接口寻找服务实现。</p>
-<p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210401131153.png" srcset="/img/loading.gif"></p>
+<p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210401131153.png"></p>
 <p>也就是一种典型的面向接口编程，让程序的鲁棒性和可拓展性更高。</p>
 <p>问题6中的JDNI SPI也就是一个接口，可以连接LDAP和RMI等服务。</p>
 <h2 id="0x06-为什么-Java-反序列化时和上面的各种协议紧密关联？"><a href="#0x06-为什么-Java-反序列化时和上面的各种协议紧密关联？" class="headerlink" title="0x06 为什么 Java 反序列化时和上面的各种协议紧密关联？"></a>0x06 为什么 Java 反序列化时和上面的各种协议紧密关联？</h2><h2 id="0x04-marshalsec-的原理是什么？"><a href="#0x04-marshalsec-的原理是什么？" class="headerlink" title="0x04 marshalsec 的原理是什么？"></a>0x04 marshalsec 的原理是什么？</h2><h1 id=""><a href="#" class="headerlink" title=""></a></h1><h1 id="附录"><a href="#附录" class="headerlink" title="#附录"></a>#附录</h1><p>参考教程：</p>
@@ -392,288 +310,332 @@
 <li>java远程调用之RMI（终于可以自己写代码控制别人电脑了）：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/80686193">https://zhuanlan.zhihu.com/p/80686193</a></li>
 </ol>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/d1b122c9a430/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【计算机基础】网络抓包分析笔记</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/3aae222bb2c3/">
-                        <span class="hidden-mobile">【经验分享】效率提升总结</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-
-              </article>
-            
-          </article>
-        </div>
       </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/3aae222bb2c3/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="更新时间"></i>
+              2021-03-25 16:25:00
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="分类"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" title="计算机基础">
+                        <b>#</b> 计算机基础
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="标签"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Java/" title="Java">
+                        <b>#</b> Java
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/d1b122c9a430/" target="_self">
+                <span>下一页</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
     </div>
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-      </div>
-    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
   </div>
-</div>
-
-<!-- Custom -->
-
-
-    
-
-    
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Java-%E5%9F%BA%E7%A1%80"><span class="toc-text">1 Java 基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-Java-SE%E3%80%81Java-EE%E3%80%81Java-ME%E6%9C%89%E4%BD%95%E5%85%B3%E7%B3%BB%EF%BC%9F"><span class="toc-text">0x01 Java SE、Java EE、Java ME有何关系？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-%E5%A6%82%E4%BD%95%E5%AF%BB%E6%89%BE%E5%90%88%E9%80%82%E7%9A%84-Java-%E7%89%88%E6%9C%AC%EF%BC%9F"><span class="toc-text">0x02 如何寻找合适的 Java 版本？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-JDK-%E5%92%8C-JRE-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">0x03 JDK 和 JRE 是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-JDK-%E4%B8%AD%E5%8F%AF%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="toc-text">0x04 JDK 中可用的命令行工具有哪些？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05-main-%E6%96%B9%E6%B3%95%E4%B8%BA%E4%BB%80%E4%B9%88%E9%82%A3%E4%B9%88%E4%B8%91%EF%BC%9F"><span class="toc-text">0x05 main 方法为什么那么丑？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x06-Java-%E5%A6%82%E4%BD%95%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%EF%BC%9F"><span class="toc-text">0x06 Java 如何反序列化？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x07-%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8-Java-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E8%BF%9B%E8%A1%8C%E6%94%BB%E5%87%BB%EF%BC%9F"><span class="toc-text">0x07 如何利用 Java 反序列化进行攻击？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x08-File-%E5%AF%B9%E8%B1%A1%E5%92%8C-ByteArrayOutputStream-%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB"><span class="toc-text">0x08 File 对象和 ByteArrayOutputStream 对象的区别与联系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x09-java%E4%B8%ADextends%E5%92%8Cimplements%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">0x09 java中extends和implements的区别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B"><span class="toc-text">2 网络编程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-RMI-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">0x01 RMI 是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-LDAP-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">0x02 LDAP 是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-RMI-%E5%92%8C-LDAP-%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E8%81%94%E7%B3%BB"><span class="toc-text">0x03 RMI 和 LDAP 的区别和联系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-RMP-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">0x04 RMP 是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05-JDNI-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">0x05 JDNI 是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x07-SPI%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">0x07 SPI是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x06-%E4%B8%BA%E4%BB%80%E4%B9%88-Java-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%97%B6%E5%92%8C%E4%B8%8A%E9%9D%A2%E7%9A%84%E5%90%84%E7%A7%8D%E5%8D%8F%E8%AE%AE%E7%B4%A7%E5%AF%86%E5%85%B3%E8%81%94%EF%BC%9F"><span class="toc-text">0x06 为什么 Java 反序列化时和上面的各种协议紧密关联？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-marshalsec-%E7%9A%84%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">0x04 marshalsec 的原理是什么？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text"></span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%84%E5%BD%95"><span class="toc-text">#附录</span></a></li></ol>
     </div>
   </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        <div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/slug01sh">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="email" href="mailto:slug01sh@gmail.com">
+            <i class="iconfont icon-envelope"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="rss" href="/atom.xml">
+            <i class="iconfont icon-rss"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © Oranges 2021</a>
+        
+    </div>
+  
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
 </div>
-    
 
-    
-  </main>
+      </div>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-  <div class="statistics">
-    
-    
+      <div class="back-to-top hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
 
-    
+
+<script src="/js/backtotop.js"></script>
+
+
+
       
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
+  <div class="search-icon" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
   </div>
 
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="搜索...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
 
-  
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
 
-  
-</footer>
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
 
-<!-- SCRIPTS -->
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
 
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
-
-
-
-  
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
       }
-    })()
-  </script>
+    }
 
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
 
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
 
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>首次搜索，正在载入索引文件，请稍后……<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
 
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
 
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
 
+                  if (start < 0) {
+                    start = 0;
+                  }
 
+                  if (start == 0) {
+                    end = 100;
+                  }
 
+                  if (end > content.length) {
+                    end = content.length;
+                  }
 
-  <script  src="https://cdn.jsdelivr.net/npm/mermaid@8.8.3/dist/mermaid.min.js" ></script>
-  <script>
-    if (window.mermaid) {
-      mermaid.initialize({"theme":"default"});
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>没有找到内容，请尝试更换检索词。<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>未找到search.xml文件，具体请参考：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>请求失败，尝试重新刷新页面或稍后重试。<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
     }
   </script>
 
 
 
 
-  
-
-  
-    <!-- Google Analytics -->
-    <script defer>
-      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
-      ga.l = +new Date;
-      ga('create', 'G-WTRCMZDFLE', 'auto');
-      ga('send', 'pageview');
-    </script>
-    <script async src='https://www.google-analytics.com/analytics.js'></script>
-  
-
-  
-    <!-- Google gtag.js -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WTRCMZDFLE"></script>
-    <script defer>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-WTRCMZDFLE');
-    </script>
-  
-
-  
-
-  
-
-  
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
-
-
-
-</body>
+    </div>
+  </body>
 </html>

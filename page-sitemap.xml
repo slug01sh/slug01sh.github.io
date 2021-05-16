@@ -10,6 +10,24 @@
     
     
     <url>
+        <loc>https://slug01sh.github.io/friends/</loc>
+        <lastmod>2021-05-16T05:48:21.047Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
+        <loc>https://slug01sh.github.io/categories/</loc>
+        <lastmod>2021-05-16T05:27:05.074Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    
+    
+    <url>
         <loc>https://slug01sh.github.io/about/</loc>
         <lastmod>2021-04-18T07:14:48.645Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -30,15 +48,6 @@
     <url>
         <loc>https://slug01sh.github.io/tags/</loc>
         <lastmod>2020-10-27T15:49:28.536Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    
-    
-    <url>
-        <loc>https://slug01sh.github.io/categories/</loc>
-        <lastmod>2020-09-14T11:07:28.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
