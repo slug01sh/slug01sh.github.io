@@ -4,9 +4,9 @@
   <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="keywords" content="网络空间安全,高效率工具,计算机基础,经验分享,CTF" />
+  <meta name="keywords" content="" />
   <meta name="author" content="slug01sh" />
-  <meta name="description" content="最爱 Python，会一点开发，CTF 卑微的 Web 手。 主攻代码审计、程序分析。" />
+  <meta name="description" content="" />
   
   
   <title>
@@ -16,7 +16,7 @@
       
       |
     
-     积淀｜小杰的个人博客
+     slug01sh
   </title>
 
   
@@ -57,7 +57,7 @@
     </script>
   
 
-<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="积淀｜小杰的个人博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="slug01sh" type="application/atom+xml">
 </head>
 
 
@@ -184,18 +184,18 @@ MathJax = {
         <p>在SSRF中经常会用到Gopher协议或者其他协议，来对内网的服务进行攻击。在使用Gopher协议的时候，我们需要将其他服务的数据包进行重放（使用Gopher协议重放）。</p>
 <p>这也就意味着必须通过抓包来获得其他服务（MySQL、Redis）的数据包。</p>
 <h1 id="1-抓包"><a href="#1-抓包" class="headerlink" title="1 抓包"></a>1 抓包</h1><h2 id="0x01-如何抓Redis的数据包？"><a href="#0x01-如何抓Redis的数据包？" class="headerlink" title="0x01 如何抓Redis的数据包？"></a>0x01 如何抓Redis的数据包？</h2><p>当redis在本地时，需要抓取ol相关的网络接口（本地回环包），可以使用下面的命令找到相关的设备名：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ifconfig -a<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig -a</span><br></pre></td></tr></table></figure>
 <p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210404193614.png"><br>（图片说明：lo0就是我的电脑的本地回环接口，即Loop back address）</p>
 <p>使用socat进行端口转发。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">socat -v tcp-listen:4444,fork tcp-connect:localhost:6379<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socat -v tcp-listen:4444,fork tcp-connect:localhost:6379</span><br></pre></td></tr></table></figure>
 <p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210404194207.png"><br>（图片说明：打开另一个窗口，使用redis-cli和redis进行交互，即可抓到上图的数据包，第一个命令是<code>keys *</code>）</p>
 <p>如果比较熟悉wireshark，可以考虑采用tcpdump。命令可能类似下面的命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tcpdump -i lo0 port 4444 -w mysql.pcapng<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcpdump -i lo0 port 4444 -w mysql.pcapng</span><br></pre></td></tr></table></figure>
 <p>（ps：记得将上面的设备换成自己的本地回环接口，可能是ol）</p>
 <h2 id="0x02-如何抓MySQL的数据包？"><a href="#0x02-如何抓MySQL的数据包？" class="headerlink" title="0x02 如何抓MySQL的数据包？"></a>0x02 如何抓MySQL的数据包？</h2><p>大部分的步骤都和redis相似。</p>
 <p>MySQL的数据包有一个比较坑的点：mysql命令可能使用mysql.sock文件和数据库进行交互，而不是tcp。所以可能使用tcpdump抓不到包。</p>
 <p>具体解决办法：指定host和port，使用下面的命令进行登陆</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">mysql -u root -h 127.0.0.1 -P 3306<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -h 127.0.0.1 -P 3306</span><br></pre></td></tr></table></figure>
 <p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210404194739.png"><br>（图片说明：使用 -P（大P）来指定端口）</p>
 <h1 id="2-分析"><a href="#2-分析" class="headerlink" title="2 分析"></a>2 分析</h1><h2 id="0x01-如何快速获得所有请求包的二进制？"><a href="#0x01-如何快速获得所有请求包的二进制？" class="headerlink" title="0x01 如何快速获得所有请求包的二进制？"></a>0x01 如何快速获得所有请求包的二进制？</h2><p>（获得数据包二进制码相当于获得了请求包文件）</p>
 <p>拿到流量包，随便选一个包，追踪TCP流。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210404195209.png"><br>（图片说明：打开pcapng的流量包）<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210404195237.png"><br>（图片说明：注意下方的红色标注，选中后即可获得所有数据包的二进制数据）</p>

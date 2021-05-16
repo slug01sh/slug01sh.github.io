@@ -4,9 +4,9 @@
   <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="keywords" content="网络空间安全,高效率工具,计算机基础,经验分享,CTF" />
+  <meta name="keywords" content="" />
   <meta name="author" content="slug01sh" />
-  <meta name="description" content="最爱 Python，会一点开发，CTF 卑微的 Web 手。 主攻代码审计、程序分析。" />
+  <meta name="description" content="" />
   
   
   <title>
@@ -16,7 +16,7 @@
       
       |
     
-     积淀｜小杰的个人博客
+     slug01sh
   </title>
 
   
@@ -57,7 +57,7 @@
     </script>
   
 
-<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="积淀｜小杰的个人博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="slug01sh" type="application/atom+xml">
 </head>
 
 
@@ -171,26 +171,26 @@ MathJax = {
       <div class="markdown-body">
         <p>jEnv 是 MacOS 一个管理 Java 版本的开源工具，这是它的<a target="_blank" rel="noopener" href="https://www.jenv.be/">官方文档</a>，同时支持 Linux 和 MacOS。我最近在更新 Burp Suite 的时候用到了这个工具觉得挺不错的。</p>
 <h1 id="1-安装"><a href="#1-安装" class="headerlink" title="1 安装"></a>1 安装</h1><p>Linux / OS X</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ git <span class="hljs-built_in">clone</span> https://github.com/jenv/jenv.git ~/.jenv<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/jenv/jenv.git ~/.jenv</span><br></pre></td></tr></table></figure>
 <p>Mac OS 使用 Homebrew 安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ brew install jenv<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install jenv</span><br></pre></td></tr></table></figure>
 
 <h1 id="2-基本用法"><a href="#2-基本用法" class="headerlink" title="2 基本用法"></a>2 基本用法</h1><p>jEnv 并不具备安装 Java 版本和删除版本的功能，只是省去了像<a target="_blank" rel="noopener" href="https://juejin.cn/post/6871959224314757134">这个教程</a>一样配置环境变量的麻烦，所以教程中依然使用 HomeBrew 安装 JDK。</p>
 <h2 id="2-1-JDK安装"><a href="#2-1-JDK安装" class="headerlink" title="2.1 JDK安装"></a>2.1 JDK安装</h2><p>2019 年之后, Oracle 对 Java 的商业模式进行了一系列改革, 多种版本的 JDK 开始出现在开发者的视野中.</p>
-<p>整体来看, 存在三个版本的 JDK, 分别是 <strong>Oracle JDK</strong>、<strong>Oracle 编译的 OpenJDK **和</strong>第三方厂商编译的 OpenJDK**. 其实三者在功能上并<strong>没有明显的差异</strong>。</p>
+<p>整体来看, 存在三个版本的 JDK, 分别是 <strong>Oracle JDK</strong>、<strong>Oracle 编译的 OpenJDK <strong>和</strong>第三方厂商编译的 OpenJDK</strong>. 其实三者在功能上并<strong>没有明显的差异</strong>。</p>
 <p>其中 OpenJDK 提供的版本更为全面，AdoptOpenJDK 是完全免费的、无品牌的 OpenJDK 版本，基于 GPL 开源协议(+Classpath Extension), 以免费软件的形式提供社区版的 OpenJDK 二进制包, 公司也可安全且放心使用。</p>
 <p>即使用下面的命令即可安装各种版本的 jdk。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 选择自己需要的版本</span><br>$ brew install AdoptOpenJDK/openjdk/adoptopenjdk8<br>$ brew install AdoptOpenJDK/openjdk/adoptopenjdk9<br>$ brew install AdoptOpenJDK/openjdk/adoptopenjdk10<br>$ brew install AdoptOpenJDK/openjdk/adoptopenjdk11<br>$ brew install AdoptOpenJDK/openjdk/adoptopenjdk12<br><br><span class="hljs-comment"># 安装最新版本 OpenJDK</span><br>$ brew install AdoptOpenJDK/openjdk/adoptopenjdk<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 选择自己需要的版本</span></span><br><span class="line">$ brew install AdoptOpenJDK/openjdk/adoptopenjdk8</span><br><span class="line">$ brew install AdoptOpenJDK/openjdk/adoptopenjdk9</span><br><span class="line">$ brew install AdoptOpenJDK/openjdk/adoptopenjdk10</span><br><span class="line">$ brew install AdoptOpenJDK/openjdk/adoptopenjdk11</span><br><span class="line">$ brew install AdoptOpenJDK/openjdk/adoptopenjdk12</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装最新版本 OpenJDK</span></span><br><span class="line">$ brew install AdoptOpenJDK/openjdk/adoptopenjdk</span><br></pre></td></tr></table></figure>
 <p>安装目录通常在<code>/Library/Java/JavaVirtualMachines</code>下，在配置 jEnv 的时候需要使用 JDK 的 HOME 目录。</p>
 <h2 id="2-2-配置jEnv"><a href="#2-2-配置jEnv" class="headerlink" title="2.2 配置jEnv"></a>2.2 配置jEnv</h2><p>查看当前 jEnv 可管理的 Java 版本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ jenv versions<br>  system<br>  oracle64-1.6.0.39<br>* oracle64-1.7.0.11 (<span class="hljs-built_in">set</span> by /Users/hikage/.jenv/version)<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ jenv versions</span><br><span class="line">  system</span><br><span class="line">  oracle64-1.6.0.39</span><br><span class="line">* oracle64-1.7.0.11 (<span class="built_in">set</span> by /Users/hikage/.jenv/version)</span><br></pre></td></tr></table></figure>
 <p>将 JDK 的 HOME 目录添加到 jEnv 中，只需要添加一次，以后就可以秒换 Java 环境。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ jenv add /Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jenv add /Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home</span><br></pre></td></tr></table></figure>
 <p>再次使用<code>jenv versions</code>后，就可以看到刚刚添加的 Java 的版本号。</p>
 <h2 id="2-3-切换-Java-版本"><a href="#2-3-切换-Java-版本" class="headerlink" title="2.3 切换 Java 版本"></a>2.3 切换 Java 版本</h2><p>配置全局的 JDK 版本，把下面的<code>oracle64-1.6.0.39</code>替换成你的 jEnv 列出的 JDK 的版本信息。（如果不确定的话，可以到最下面看效果图）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ jenv global oracle64-1.6.0.39<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jenv global oracle64-1.6.0.39</span><br></pre></td></tr></table></figure>
 <p>配置局部的 JDK 版本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ jenv <span class="hljs-built_in">local</span> oracle64-1.6.0.39<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jenv <span class="built_in">local</span> oracle64-1.6.0.39</span><br></pre></td></tr></table></figure>
 
 <h1 id="3-最后的效果"><a href="#3-最后的效果" class="headerlink" title="3 最后的效果"></a>3 最后的效果</h1><p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210104200111.png"></p>
 <p>参考博客：</p>

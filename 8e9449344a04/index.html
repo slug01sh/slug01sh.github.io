@@ -4,9 +4,9 @@
   <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="keywords" content="网络空间安全,高效率工具,计算机基础,经验分享,CTF" />
+  <meta name="keywords" content="" />
   <meta name="author" content="slug01sh" />
-  <meta name="description" content="最爱 Python，会一点开发，CTF 卑微的 Web 手。 主攻代码审计、程序分析。" />
+  <meta name="description" content="" />
   
   
   <title>
@@ -16,7 +16,7 @@
       
       |
     
-     积淀｜小杰的个人博客
+     slug01sh
   </title>
 
   
@@ -57,7 +57,7 @@
     </script>
   
 
-<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="积淀｜小杰的个人博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="slug01sh" type="application/atom+xml">
 </head>
 
 
@@ -293,7 +293,7 @@ MathJax = {
 <li><strong>部署智能合约</strong>。</li>
 </ol>
 <p>在网站 <a target="_blank" rel="noopener" href="http://remix.ethereum.org/">http://remix.ethereum.org/</a> 中进行网站的部署。<br>测试代码如下：（教程中的代码有不明的符号……）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs solidity">pragma solidity ^0.4.23;<br><br>contract Test &#123;<br>  mapping (address &#x3D;&gt; uint) balances;<br>  <br>  constructor() public &#123;<br>    balances[tx.origin] &#x3D; 0;<br>  &#125;<br>  event FLAG(string b64email, string slogan);<br>  <br>  function getbalance() public constant returns (uint)&#123;<br>      return balances[tx.origin];<br>  &#125;<br>  function AddBalance(uint f) public &#123;<br>    if(f&#x3D;&#x3D;1)&#123;<br>        balances[tx.origin]++;<br>    &#125;<br>  &#125;<br>  function CaptureTheFlag(string b64email) public&#123;<br>    require (balances[tx.origin]&gt;0);<br>    emit FLAG(b64email, &quot;you will get flag!&quot;);<br>  &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.4.23;</span><br><span class="line"></span><br><span class="line">contract Test &#123;</span><br><span class="line">  mapping (address &#x3D;&gt; uint) balances;</span><br><span class="line">  </span><br><span class="line">  constructor() public &#123;</span><br><span class="line">    balances[tx.origin] &#x3D; 0;</span><br><span class="line">  &#125;</span><br><span class="line">  event FLAG(string b64email, string slogan);</span><br><span class="line">  </span><br><span class="line">  function getbalance() public constant returns (uint)&#123;</span><br><span class="line">      return balances[tx.origin];</span><br><span class="line">  &#125;</span><br><span class="line">  function AddBalance(uint f) public &#123;</span><br><span class="line">    if(f&#x3D;&#x3D;1)&#123;</span><br><span class="line">        balances[tx.origin]++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  function CaptureTheFlag(string b64email) public&#123;</span><br><span class="line">    require (balances[tx.origin]&gt;0);</span><br><span class="line">    emit FLAG(b64email, &quot;you will get flag!&quot;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>部署完成的效果图：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210316115804.png"><br>（图片说明：在 MetaMask 中的活动一栏可以看到合约的部署情况）</p>
 <ol start="3">

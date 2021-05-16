@@ -4,9 +4,9 @@
   <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="keywords" content="网络空间安全,高效率工具,计算机基础,经验分享,CTF" />
+  <meta name="keywords" content="" />
   <meta name="author" content="slug01sh" />
-  <meta name="description" content="最爱 Python，会一点开发，CTF 卑微的 Web 手。 主攻代码审计、程序分析。" />
+  <meta name="description" content="" />
   
   
   <title>
@@ -16,7 +16,7 @@
       
       |
     
-     积淀｜小杰的个人博客
+     slug01sh
   </title>
 
   
@@ -57,7 +57,7 @@
     </script>
   
 
-<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="积淀｜小杰的个人博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="slug01sh" type="application/atom+xml">
 </head>
 
 
@@ -200,13 +200,13 @@ MathJax = {
 </ol>
 <p>配置的下方有配置的方法。</p>
 <h2 id="3-1-配置allow-url-include"><a href="#3-1-配置allow-url-include" class="headerlink" title="3.1 配置allow_url_include"></a>3.1 配置allow_url_include</h2><p>allow_url_include 没有开启，修改 php.ini，参考最下面的提示进行修改。</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment">; Whether to allow the treatment of URLs (like http:// or ftp://) as files.</span><br><span class="hljs-comment">; http://php.net/allow-url-fopen</span><br><span class="hljs-attr">allow_url_fopen</span> = <span class="hljs-literal">On</span><br><br><br><span class="hljs-comment">; Whether to allow include/require to open URLs (like http:// or ftp://) as files.</span><br><span class="hljs-comment">; http://php.net/allow-url-include</span><br><span class="hljs-attr">allow_url_include</span> = <span class="hljs-literal">On</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">; Whether to allow the treatment of URLs (like http:// or ftp://) as files.</span></span><br><span class="line"><span class="comment">; http://php.net/allow-url-fopen</span></span><br><span class="line"><span class="attr">allow_url_fopen</span> = <span class="literal">On</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">; Whether to allow include/require to open URLs (like http:// or ftp://) as files.</span></span><br><span class="line"><span class="comment">; http://php.net/allow-url-include</span></span><br><span class="line"><span class="attr">allow_url_include</span> = <span class="literal">On</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="3-2-reCAPTCHA"><a href="#3-2-reCAPTCHA" class="headerlink" title="3.2 reCAPTCHA"></a>3.2 reCAPTCHA</h2><p>key 可以自己生成，地址是 <a target="_blank" rel="noopener" href="https://www.google.com/recaptcha/admin/create">https://www.google.com/recaptcha/admin/create</a> ，需要注意注册 reCAPTCHA 时选用 V3版，在DVWA中会提示错误，使用 V2 版正常。</p>
 <p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/C305329E-4C8F-414A-9F3C-2B03AA7206B3.png"></p>
 <p>标签按照自己的喜好设置，reCAPTCHA类型设置为第二版的第一个。保存之后即可得到公钥和私钥。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/1EA13BE6-BE48-4C94-96FE-D4989E66E8E1.png"></p>
 <p>编辑 dvwa/config/config.inc.php这个配置文件</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php">$_DVWA[ <span class="hljs-string">&#x27;recaptcha_public_key&#x27;</span> ] = <span class="hljs-string">&#x27;6LeaSDsaAAAAADdDGBCByaqcBLrWa6oKr-aKqBg4&#x27;</span>;<br>$_DVWA[ <span class="hljs-string">&#x27;recaptcha_private_key&#x27;</span> ] = <span class="hljs-string">&#x27;6LeaSDsaAAAAAIkRd3FVpb1bE5YkIgbmOis297fe&#x27;</span>;<br></code></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$_DVWA[ <span class="string">&#x27;recaptcha_public_key&#x27;</span> ] = <span class="string">&#x27;6LeaSDsaAAAAADdDGBCByaqcBLrWa6oKr-aKqBg4&#x27;</span>;</span><br><span class="line">$_DVWA[ <span class="string">&#x27;recaptcha_private_key&#x27;</span> ] = <span class="string">&#x27;6LeaSDsaAAAAAIkRd3FVpb1bE5YkIgbmOis297fe&#x27;</span>;</span><br></pre></td></tr></table></figure>
 
 <h1 id="4-效果图"><a href="#4-效果图" class="headerlink" title="4 效果图"></a>4 效果图</h1><p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/C0466D62-AC9F-41E0-8DCA-6CFBF2E804C3.png"></p>
 

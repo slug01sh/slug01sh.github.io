@@ -4,9 +4,9 @@
   <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="keywords" content="网络空间安全,高效率工具,计算机基础,经验分享,CTF" />
+  <meta name="keywords" content="" />
   <meta name="author" content="slug01sh" />
-  <meta name="description" content="最爱 Python，会一点开发，CTF 卑微的 Web 手。 主攻代码审计、程序分析。" />
+  <meta name="description" content="" />
   
   
   <title>
@@ -16,7 +16,7 @@
       
       |
     
-     积淀｜小杰的个人博客
+     slug01sh
   </title>
 
   
@@ -57,7 +57,7 @@
     </script>
   
 
-<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="积淀｜小杰的个人博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="slug01sh" type="application/atom+xml">
 </head>
 
 
@@ -170,10 +170,10 @@ MathJax = {
       </div>
       <div class="markdown-body">
         <h1 id="1-报错信息"><a href="#1-报错信息" class="headerlink" title="1 报错信息"></a>1 报错信息</h1><p>今天在启动MySQL时，发现启动失败。MxSrvs的报错信息如下：</p>
-<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs smali">MySQL Start Failure,Please<span class="hljs-built_in"> check </span>the related logs<br>MySQL Start Failure,Please<span class="hljs-built_in"> check </span>the related logs<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MySQL Start Failure,Please check the related logs</span><br><span class="line">MySQL Start Failure,Please check the related logs</span><br></pre></td></tr></table></figure>
 
 <h1 id="2-查看日志"><a href="#2-查看日志" class="headerlink" title="2 查看日志"></a>2 查看日志</h1><p>定位到今天的ERROR日志<br><img src="https://img-blog.csdnimg.cn/20210114104933306.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMDg1NjEx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>具体的错误信息如下：</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-14</span>T10:<span class="hljs-number">05</span>:<span class="hljs-number">04.821628</span>+<span class="hljs-number">08</span>:<span class="hljs-number">00</span> <span class="hljs-number">0</span> [ERROR] [MY<span class="hljs-number">-010259</span>] [Server] Another process with pid <span class="hljs-number">1033</span> <span class="hljs-keyword">is</span> using unix socket file.<br><span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-14</span>T10:<span class="hljs-number">05</span>:<span class="hljs-number">04.822136</span>+<span class="hljs-number">08</span>:<span class="hljs-number">00</span> <span class="hljs-number">0</span> [ERROR] [MY<span class="hljs-number">-010268</span>] [Server] Unable to setup unix socket lock file.<br><span class="hljs-number">2021</span><span class="hljs-number">-01</span><span class="hljs-number">-14</span>T10:<span class="hljs-number">05</span>:<span class="hljs-number">04.823013</span>+<span class="hljs-number">08</span>:<span class="hljs-number">00</span> <span class="hljs-number">0</span> [ERROR] [MY<span class="hljs-number">-010119</span>] [Server] Aborting<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2021-01-14T10:05:04.821628+08:00 0 [ERROR] [MY-010259] [Server] Another process with pid 1033 is using unix socket file.</span><br><span class="line">2021-01-14T10:05:04.822136+08:00 0 [ERROR] [MY-010268] [Server] Unable to setup unix socket lock file.</span><br><span class="line">2021-01-14T10:05:04.823013+08:00 0 [ERROR] [MY-010119] [Server] Aborting</span><br></pre></td></tr></table></figure>
 <p><code>mysql.lock</code>文件的作用：mysql的主机和客户机在同一host（物理服务器）上的时候，使用unix domain socket做为通讯协议的载体，它比tcp快。</p>
 <h1 id="3-解决办法"><a href="#3-解决办法" class="headerlink" title="3 解决办法"></a>3 解决办法</h1><ul>
 <li><p>在日志文件中找到 <code>mysql.lock</code>文件。<br><img src="https://img-blog.csdnimg.cn/20210114105437875.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzMDg1NjEx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>（如果害怕出问题，可以先备份一下再删除）</p>

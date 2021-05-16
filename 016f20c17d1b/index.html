@@ -4,9 +4,9 @@
   <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="keywords" content="网络空间安全,高效率工具,计算机基础,经验分享,CTF" />
+  <meta name="keywords" content="" />
   <meta name="author" content="slug01sh" />
-  <meta name="description" content="最爱 Python，会一点开发，CTF 卑微的 Web 手。 主攻代码审计、程序分析。" />
+  <meta name="description" content="" />
   
   
   <title>
@@ -16,7 +16,7 @@
       
       |
     
-     积淀｜小杰的个人博客
+     slug01sh
   </title>
 
   
@@ -57,7 +57,7 @@
     </script>
   
 
-<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="积淀｜小杰的个人博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="slug01sh" type="application/atom+xml">
 </head>
 
 
@@ -186,7 +186,7 @@ MathJax = {
 </blockquote>
 <p>后面的内容是学习了南京大学的《软件分析》课程之后，思考总结的笔记。</p>
 <h1 id="1-第一课"><a href="#1-第一课" class="headerlink" title="1 第一课"></a>1 第一课</h1><p><font color="red">0x01 Program Language、编译原理、程序分析、静态分析、动态分析的关系是什么？</font></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs mermaid">graph TD;<br>    classDef default fill: orange;<br>    id1(Program Language);<br>    id2(编译原理);<br>    id3(程序分析);<br>    id4(静态分析);<br>    id5(动态分析);<br>    id1--&gt;id2 &amp; id3;<br>    id2--&gt;id4<br>    id3--&gt;id4 &amp; id5;<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    classDef default fill: orange;</span><br><span class="line">    id1(Program Language);</span><br><span class="line">    id2(编译原理);</span><br><span class="line">    id3(程序分析);</span><br><span class="line">    id4(静态分析);</span><br><span class="line">    id5(动态分析);</span><br><span class="line">    id1--&gt;id2 &amp; id3;</span><br><span class="line">    id2--&gt;id4</span><br><span class="line">    id3--&gt;id4 &amp; id5;</span><br></pre></td></tr></table></figure>
 <p>（图片说明：也就是说程序分析和编译原理都处于 PL 的一个小分支，编译原理更偏向于静态分析）</p>
 <ul>
 <li>PL：即 Program Language，是研究编程语言的一个领域，编译原理和程序分析都只是其中的研究方向。</li>

