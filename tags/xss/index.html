@@ -4,15 +4,15 @@
   <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="keywords" content="ctfer" />
+  <meta name="keywords" content="网络空间安全,高效率工具,计算机基础,经验分享,CTF" />
   <meta name="author" content="slug01sh" />
-  <meta name="description" content="" />
+  <meta name="description" content="最爱 Python，会一点开发，CTF 卑微的 Web 手。 主攻代码审计、程序分析。" />
   
   
   <title>
     
       标签 
-       : xss
+       : XSS
       
       |
     
@@ -115,24 +115,15 @@
 <div class="container tag-details">
   <div class="content-title">
     <h2>
-      <span>xss</span>
+      <span>XSS</span>
     </h2>
   </div>
   
     <div class="post-list">
-      <div class="post-item" title="Web安全攻防之XSS基础基本概念和基本思想">
-        <span class="time-m-d">2021-01-27</span>
-        <a href="/eee80eb68cdd/">
-          <span>Web安全攻防之XSS基础基本概念和基本思想</span>
-        </a>
-      </div>
-    </div>
-  
-    <div class="post-list">
-      <div class="post-item" title="Web安全攻防之CSRF攻击与XSS攻击区别">
-        <span class="time-m-d">2021-01-27</span>
-        <a href="/45766d76d1c8/">
-          <span>Web安全攻防之CSRF攻击与XSS攻击区别</span>
+      <div class="post-item" title="Web安全攻防之XSS平台搭建">
+        <span class="time-m-d">2021-01-26</span>
+        <a href="/1ac52a60b69f/">
+          <span>Web安全攻防之XSS平台搭建</span>
         </a>
       </div>
     </div>
@@ -373,6 +364,26 @@
             $resultContent.innerHTML = "<ul><span class='local-search-empty'>请求失败，尝试重新刷新页面或稍后重试。<span></ul>";
           }
         }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+    </div>
+  </body>
+</html>
+
       });
       $(document).on('click', '#search-close-icon', function() {
         $('#search-input').val('');

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>slug01sh</title>
   <icon>https://slug01sh.github.io/icon.png</icon>
-  
+  <subtitle>这个世上只有一种真正的英雄主义，那就是认清生活的真相，并且仍然热爱它。</subtitle>
   <link href="https://slug01sh.github.io/atom.xml" rel="self"/>
   
   <link href="https://slug01sh.github.io/"/>
