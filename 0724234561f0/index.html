@@ -372,6 +372,27 @@ MathJax = {
         
 
 
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+  <div id="vcomments"></div>
+
+  <script>
+    new Valine({
+      el: '#vcomments',
+      appId: 'ikvSzWGgS2Gj6eMcU18rNJ0T-gzGzoHsz',
+      appKey: '8JFk6edtiIlTX0CcOOnneFWO',
+      placeholder: 'Welcome!',
+      avatar: 'retro',
+      lang: 'zh-CN'
+    })
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
 
 
 

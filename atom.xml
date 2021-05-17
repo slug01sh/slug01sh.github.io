@@ -6,7 +6,7 @@
   <link href="https://slug01sh.github.io/atom.xml" rel="self"/>
   
   <link href="https://slug01sh.github.io/"/>
-  <updated>2021-05-16T06:30:40.460Z</updated>
+  <updated>2021-05-17T11:34:22.712Z</updated>
   <id>https://slug01sh.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>2021 VNCTF realezjvav复现</title>
+    <link href="https://slug01sh.github.io/3aec5f27ec11/"/>
+    <id>https://slug01sh.github.io/3aec5f27ec11/</id>
+    <published>2021-05-17T11:30:38.000Z</published>
+    <updated>2021-05-17T11:34:22.712Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;hint：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;不会有web手电脑里没IDA吧，不会吧不会吧&lt;/li&gt;
+&lt;li&gt;仔细阅读package.json哦/汪汪&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;1-1-基于运行时的报错注入&quot;&gt;&lt;a href=&quot;#1-1-基于运行时的报错注入&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>2021年 CISCN writeup</title>
@@ -515,33 +541,6 @@
     <category term="反向代理" scheme="https://slug01sh.github.io/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/"/>
     
     <category term="nginx" scheme="https://slug01sh.github.io/tags/nginx/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【CTF系列】深度和广度之辨</title>
-    <link href="https://slug01sh.github.io/30d0eafedca3/"/>
-    <id>https://slug01sh.github.io/30d0eafedca3/</id>
-    <published>2021-02-26T16:22:17.000Z</published>
-    <updated>2021-03-04T06:43:10.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;开始新一轮的 CTF 学习，从其他地方学到很多的思想，顺便总结在第一篇文章中吧。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&quot;1-广度？&quot;&gt;&lt;a href=&quot;#1-广度？&quot; class=&quot;headerlink&quot; title=&quot;1 广度？&quot;&gt;&lt;/a&gt;1</summary>
-        
-      
-    
-    
-    
-    <category term="CTF" scheme="https://slug01sh.github.io/categories/CTF/"/>
-    
-    
-    <category term="CTF" scheme="https://slug01sh.github.io/tags/CTF/"/>
     
   </entry>
   
