@@ -6,7 +6,7 @@
   <link href="https://slug01sh.github.io/atom.xml" rel="self"/>
   
   <link href="https://slug01sh.github.io/"/>
-  <updated>2021-05-17T11:41:03.260Z</updated>
+  <updated>2021-05-23T14:50:05.246Z</updated>
   <id>https://slug01sh.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CTF Web题的工作流</title>
+    <link href="https://slug01sh.github.io/5bd315f0e878/"/>
+    <id>https://slug01sh.github.io/5bd315f0e878/</id>
+    <published>2021-05-23T14:48:50.000Z</published>
+    <updated>2021-05-23T14:50:05.246Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;CTF-Web题的工作流&quot;&gt;&lt;a href=&quot;#CTF-Web题的工作流&quot; class=&quot;headerlink&quot; title=&quot;CTF Web题的工作流&quot;&gt;&lt;/a&gt;CTF</summary>
+        
+      
+    
+    
+    
+    <category term="CTF" scheme="https://slug01sh.github.io/categories/CTF/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>2021年 VNCTF realezjvav复现</title>
@@ -511,36 +534,6 @@
     <category term="文件包含" scheme="https://slug01sh.github.io/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"/>
     
     <category term="PHP反序列化" scheme="https://slug01sh.github.io/tags/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>计算机基础2：正向代理和反向代理的区别是什么？</title>
-    <link href="https://slug01sh.github.io/0724234561f0/"/>
-    <id>https://slug01sh.github.io/0724234561f0/</id>
-    <published>2021-02-28T10:13:38.000Z</published>
-    <updated>2021-03-04T05:03:33.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;题目来源：&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="计算机基础" scheme="https://slug01sh.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="正向代理" scheme="https://slug01sh.github.io/tags/%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86/"/>
-    
-    <category term="反向代理" scheme="https://slug01sh.github.io/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/"/>
-    
-    <category term="nginx" scheme="https://slug01sh.github.io/tags/nginx/"/>
     
   </entry>
   

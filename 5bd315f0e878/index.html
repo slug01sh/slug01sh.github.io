@@ -11,6 +11,11 @@
   
   <title>
     
+      CTF Web题的工作流 
+      
+      
+      |
+    
      slug01sh
   </title>
 
@@ -105,149 +110,171 @@
 
 
       <div class="flex-container">
-        <div class="container index">
-  <div class="post-list">
-    <!-- 遍历渲染文章 -->
-    
-      <div class="post-item" title="CTF Web题的工作流">
-        <div class="time-m-d">2021-05-23</div>
-        <div class="title">
-          <a href="/5bd315f0e878/">
-            
-              
-                <span>CTF Web题的工作流</span>
-              
-            
-          </a>
-        </div>
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">CTF Web题的工作流</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="更新时间"></i>
+          2021-05-23 22:48:50
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="分类"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/CTF/" title="CTF">
+                    <b>#</b> CTF
+                  </a>
+                </span>
+                
+              </span>
+          
       </div>
-    
-      <div class="post-item" title="2021年 VNCTF realezjvav复现">
-        <div class="time-m-d">2021-05-17</div>
-        <div class="title">
-          <a href="/3aec5f27ec11/">
-            
-              
-                <span>2021年 VNCTF realezjvav复现</span>
-              
-            
-          </a>
-        </div>
+      <div class="markdown-body">
+        <h1 id="CTF-Web题的工作流"><a href="#CTF-Web题的工作流" class="headerlink" title="CTF Web题的工作流"></a>CTF Web题的工作流</h1><p>采用工作流的方式，让自己减少失误。避免出现在简单题耗费大量的时间。</p>
+<ul>
+<li>疏忽大意</li>
+<li>收集信息不齐</li>
+</ul>
+<h2 id="1-信息搜集"><a href="#1-信息搜集" class="headerlink" title="1 信息搜集"></a>1 信息搜集</h2><h3 id="1-1-这个网站使用了技术"><a href="#1-1-这个网站使用了技术" class="headerlink" title="1.1 这个网站使用了技术"></a>1.1 这个网站使用了技术</h3><p>这个问题是非常有必要的，在 Python 中的模版注入会多于 PHP 中。</p>
+<p>可以使用网页的拓展来测试属于什么语言，例如类似下面的拓展：</p>
+<ul>
+<li>index.php</li>
+<li>index.html</li>
+<li>index.cgi</li>
+<li>…</li>
+</ul>
+<p>如果不起作用，可能采用了类似 Django 的 URL 分离的技术。</p>
+<p>我们还可以根据网站的 404 页面来确认自己的猜想，404 页面还可以获取到 web server 的信息。即访问一个不存在的地址 /THIS_PAGE_DOESNT_EXIST，判断网站使用了 Apache 还是 Nginx？</p>
+<p>另外，Web server 还可以通过网站的响应头获得。</p>
+<p>最后，还可以考虑使用 Chrome 插件 Wappalyzer 来识别网站所使用的技术。</p>
+<h3 id="1-2-理解网站是怎么工作的"><a href="#1-2-理解网站是怎么工作的" class="headerlink" title="1.2 理解网站是怎么工作的"></a>1.2 理解网站是怎么工作的</h3><p>在这一阶段，我们需要了解 Web 应用程序是怎么工作的。有哪些功能可以使用？如何使用这些功能？</p>
+<p>浏览整个网站过后，想象网站的代码大致是怎样的？网站提供的功能容易出现哪些漏洞？</p>
+<h3 id="1-3-测试常见的目录和文件"><a href="#1-3-测试常见的目录和文件" class="headerlink" title="1.3 测试常见的目录和文件"></a>1.3 测试常见的目录和文件</h3><p>在国外，CTFs 通常不允许使用自动化的扫描工具，网站的目录通常是显而易见的。</p>
+<p>但在国内，最好多收集一点字典和拓展后缀，指不定来个 <code>.index.php.swo</code> 或 <code>.listing</code>。</p>
+<p>最好的路径爆破工具：burpsuite，不接受反驳。</p>
+<h3 id="1-4-检查源文件和请求头"><a href="#1-4-检查源文件和请求头" class="headerlink" title="1.4 检查源文件和请求头"></a>1.4 检查源文件和请求头</h3><h4 id="1-4-1-源文件"><a href="#1-4-1-源文件" class="headerlink" title="1.4.1 源文件"></a>1.4.1 源文件</h4><p>分析每一个文件（HTML, JavaScript, CSS），获得有趣的注释、隐藏的特性、奇怪的脚本。我通常使用 burpsuite 来分析源码和请求头。</p>
+<blockquote>
+<p>Note：CSS 文件也需要进行审计，可能通过 background 语句包含其他链接。</p>
+</blockquote>
+<h4 id="1-4-2-HTTP包审计"><a href="#1-4-2-HTTP包审计" class="headerlink" title="1.4.2 HTTP包审计"></a>1.4.2 HTTP包审计</h4><p>当经过每个文件的时候，检查请求和响应头是否有不正常的内容。</p>
+<blockquote>
+<p>Note：你CTF题做得越多，你就越能确定什么是重要的，什么不是。</p>
+</blockquote>
+<h3 id="1-5-笔记模版"><a href="#1-5-笔记模版" class="headerlink" title="1.5 笔记模版"></a>1.5 笔记模版</h3><p>简单而清晰的模版，能让人快速找到信息之间的联系。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Backend : </span><br><span class="line">- Server : Apache 2.4.6 (CentOS)</span><br><span class="line">- Language : PHP</span><br><span class="line"></span><br><span class="line">Webapp description :</span><br><span class="line">- The app is a messaging system, you can send messages to specific users and read messages.</span><br><span class="line"></span><br><span class="line">Site map :</span><br><span class="line">- &#x2F;register.php (GET&#x2F;POST)</span><br><span class="line">- &#x2F;login.php (GET&#x2F;POST)</span><br><span class="line">- &#x2F;read_message.php (GET)</span><br><span class="line">  - &#x2F;read_message.php?messages&#x3D;2 (GET)</span><br><span class="line">- &#x2F;send_message.php (GET&#x2F;POST)</span><br><span class="line">- &#x2F;users.php (GET)</span><br><span class="line">- &#x2F;admin (Unauthorized)</span><br><span class="line"></span><br><span class="line">- &#x2F;js&#x2F; (Directory listing enabled)</span><br><span class="line">- &#x2F;css&#x2F; (Directory listing enabled)</span><br><span class="line">- &#x2F;images&#x2F; (Directory listing enabled)</span><br><span class="line"></span><br><span class="line">Interesting Headers :</span><br><span class="line">- Access-Control-Allow-Origin: http:&#x2F;&#x2F;127.0.0.1:9876</span><br></pre></td></tr></table></figure>
+
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p>参考文章：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/Corb3nik/Web-Exploitation-Workflow#ctf-tactics">https://github.com/Corb3nik/Web-Exploitation-Workflow#ctf-tactics</a></li>
+</ul>
+
       </div>
-    
-      <div class="post-item" title="2021年 CISCN writeup">
-        <div class="time-m-d">2021-05-16</div>
-        <div class="title">
-          <a href="/17ffd8ef2cd0/">
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
             
-              
-                <span>2021年 CISCN writeup</span>
-              
+              <a href="/3aec5f27ec11/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
             
-          </a>
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="更新时间"></i>
+              2021-05-23 22:48:50
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="分类"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/CTF/" title="CTF">
+                        <b>#</b> CTF
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
         </div>
-      </div>
+      
+    </div>
     
-      <div class="post-item" title="AWD入门12问">
-        <div class="time-m-d">2021-05-06</div>
-        <div class="title">
-          <a href="/88e5b482994b/">
-            
-              
-                <span>AWD入门12问</span>
-              
-            
-          </a>
-        </div>
-      </div>
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CTF-Web%E9%A2%98%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="toc-text">CTF Web题的工作流</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-text">1 信息搜集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E8%BF%99%E4%B8%AA%E7%BD%91%E7%AB%99%E4%BD%BF%E7%94%A8%E4%BA%86%E6%8A%80%E6%9C%AF"><span class="toc-text">1.1 这个网站使用了技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E7%90%86%E8%A7%A3%E7%BD%91%E7%AB%99%E6%98%AF%E6%80%8E%E4%B9%88%E5%B7%A5%E4%BD%9C%E7%9A%84"><span class="toc-text">1.2 理解网站是怎么工作的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E6%B5%8B%E8%AF%95%E5%B8%B8%E8%A7%81%E7%9A%84%E7%9B%AE%E5%BD%95%E5%92%8C%E6%96%87%E4%BB%B6"><span class="toc-text">1.3 测试常见的目录和文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E6%A3%80%E6%9F%A5%E6%BA%90%E6%96%87%E4%BB%B6%E5%92%8C%E8%AF%B7%E6%B1%82%E5%A4%B4"><span class="toc-text">1.4 检查源文件和请求头</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-1-%E6%BA%90%E6%96%87%E4%BB%B6"><span class="toc-text">1.4.1 源文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-2-HTTP%E5%8C%85%E5%AE%A1%E8%AE%A1"><span class="toc-text">1.4.2 HTTP包审计</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-%E7%AC%94%E8%AE%B0%E6%A8%A1%E7%89%88"><span class="toc-text">1.5 笔记模版</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%99%84%E5%BD%95"><span class="toc-text">附录</span></a></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-      <div class="post-item" title="博客新见解：发布即完结">
-        <div class="time-m-d">2021-04-18</div>
-        <div class="title">
-          <a href="/9c416611969b/">
-            
-              
-                <span>博客新见解：发布即完结</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="【网络空间安全】服务器端请求伪造笔记（SSRF）">
-        <div class="time-m-d">2021-04-04</div>
-        <div class="title">
-          <a href="/e66d3ad04164/">
-            
-              
-                <span>【网络空间安全】服务器端请求伪造笔记（SSRF）</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="【计算机基础】网络抓包分析笔记">
-        <div class="time-m-d">2021-04-04</div>
-        <div class="title">
-          <a href="/d1b122c9a430/">
-            
-              
-                <span>【计算机基础】网络抓包分析笔记</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="【计算机基础】Java审计基础学习">
-        <div class="time-m-d">2021-03-25</div>
-        <div class="title">
-          <a href="/10aa19681a6d/">
-            
-              
-                <span>【计算机基础】Java审计基础学习</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="【经验分享】效率提升总结">
-        <div class="time-m-d">2021-03-23</div>
-        <div class="title">
-          <a href="/3aae222bb2c3/">
-            
-              
-                <span>【经验分享】效率提升总结</span>
-              
-            
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="【经验分享】面试总结">
-        <div class="time-m-d">2021-03-20</div>
-        <div class="title">
-          <a href="/23f0f03d99ed/">
-            
-              
-                <span>【经验分享】面试总结</span>
-              
-            
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+  <div id="vcomments"></div>
+
+  <script>
+    new Valine({
+      el: '#vcomments',
+      appId: 'ikvSzWGgS2Gj6eMcU18rNJ0T-gzGzoHsz',
+      appKey: '8JFk6edtiIlTX0CcOOnneFWO',
+      placeholder: 'Welcome!',
+      avatar: 'retro',
+      lang: 'zh-CN'
+    })
+  </script>
+
+
+
+
       </div>
     
   </div>
-  <nav class="post-navigation">
-    
-    <span class="page-num">1 / 6</span>
-    
-      <a href="/page/2/"><i class="iconfont icon-angleright"></i></a>
-    
-  </nav>
-</div>
+
 
         <div class="footer">
   <div class="social">
