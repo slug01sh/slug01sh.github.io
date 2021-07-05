@@ -88,10 +88,6 @@
           <a href="/categories/">Categories</a>
         </li>
       
-        <li class="nav-item" data-path="/tags/">
-          <a href="/tags/">Tags</a>
-        </li>
-      
         <li class="nav-item" data-path="/friends/">
           <a href="/friends/">Friends</a>
         </li>
@@ -376,23 +372,6 @@
       });
       $(document).on('click', '#search-close-icon', function() {
         $('#search-input').val('');
-        $('#search-result').html('');
-      });
-    }
-
-    var getSearchFile = function() {
-        var path = "/search.xml";
-        searchFunc(path, 'search-input', 'search-result');
-    }
-  </script>
-
-
-
-
-    </div>
-  </body>
-</html>
-al('');
         $('#search-result').html('');
       });
     }
