@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>开源项目-aoiawd一键部署</title>
+      <link href="028c8d8c5311/"/>
+      <url>028c8d8c5311/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>Note：guardian.phar、tapeworm.phar、roundworm等文件将会在部署时保存到当前目录下的 tmp 文件夹中。</p></blockquote><ul><li><p>下载源码</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/slug01sh/AoiAWD</span><br></pre></td></tr></table></figure></li><li><p>构建镜像</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose build</span><br></pre></td></tr></table></figure></li><li><p>部署镜像（不建议直接使用 -d，需要查看网站密钥和运行情况）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up</span><br></pre></td></tr></table></figure></li><li><p>关闭并清理</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose down</span><br></pre></td></tr></table></figure></li></ul><p>演示视频（OSX 11）：<br><a href="https://asciinema.org/a/424571"><img src="https://asciinema.org/a/424571.svg" alt="asciicast"></a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> ctf </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> tools </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>blog的时间线</title>
       <link href="e3bb9d03d772/"/>
       <url>e3bb9d03d772/</url>

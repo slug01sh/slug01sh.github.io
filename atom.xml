@@ -6,7 +6,7 @@
   <link href="https://slug01sh.github.io/atom.xml" rel="self"/>
   
   <link href="https://slug01sh.github.io/"/>
-  <updated>2021-07-06T05:45:23.196Z</updated>
+  <updated>2021-07-08T17:29:50.934Z</updated>
   <id>https://slug01sh.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>开源项目-aoiawd一键部署</title>
+    <link href="https://slug01sh.github.io/028c8d8c5311/"/>
+    <id>https://slug01sh.github.io/028c8d8c5311/</id>
+    <published>2021-07-08T17:02:39.000Z</published>
+    <updated>2021-07-08T17:29:50.934Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;Note：guardian.phar、tapeworm.phar、roundworm等文件将会在部署时保存到当前目录下的 tmp 文件夹中。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;下载源码&lt;/p&gt;
+&lt;figure</summary>
+        
+      
+    
+    
+    
+    <category term="ctf" scheme="https://slug01sh.github.io/categories/ctf/"/>
+    
+    
+    <category term="tools" scheme="https://slug01sh.github.io/tags/tools/"/>
+    
+  </entry>
   
   <entry>
     <title>blog的时间线</title>
