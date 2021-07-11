@@ -2,7 +2,7 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>https://slug01sh.github.io/</loc>
+        <loc>https://blog.codesec.work/</loc>
         <changefreq>daily</changefreq>
         <priority>1</priority>
     </url>
@@ -10,7 +10,7 @@
     
     
     <url>
-        <loc>https://slug01sh.github.io/about/</loc>
+        <loc>https://blog.codesec.work/about/</loc>
         <lastmod>2021-07-11T13:04:19.486Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
@@ -19,7 +19,7 @@
     
     
     <url>
-        <loc>https://slug01sh.github.io/tags/</loc>
+        <loc>https://blog.codesec.work/tags/</loc>
         <lastmod>2021-07-05T05:16:36.398Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
@@ -28,7 +28,7 @@
     
     
     <url>
-        <loc>https://slug01sh.github.io/friends/</loc>
+        <loc>https://blog.codesec.work/friends/</loc>
         <lastmod>2021-05-16T05:48:21.047Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
@@ -37,7 +37,7 @@
     
     
     <url>
-        <loc>https://slug01sh.github.io/categories/</loc>
+        <loc>https://blog.codesec.work/categories/</loc>
         <lastmod>2021-05-16T05:27:05.074Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>

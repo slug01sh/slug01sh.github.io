@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>slug01sh</title>
-  <icon>https://slug01sh.github.io/icon.png</icon>
+  <icon>https://blog.codesec.work/icon.png</icon>
   <subtitle>这个世上只有一种真正的英雄主义，那就是认清生活的真相，并且仍然热爱它。</subtitle>
-  <link href="https://slug01sh.github.io/atom.xml" rel="self"/>
+  <link href="https://blog.codesec.work/atom.xml" rel="self"/>
   
-  <link href="https://slug01sh.github.io/"/>
+  <link href="https://blog.codesec.work/"/>
   <updated>2021-07-11T13:15:18.887Z</updated>
-  <id>https://slug01sh.github.io/</id>
+  <id>https://blog.codesec.work/</id>
   
   <author>
     <name>slug01sh</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>php文件包含-CTFshow-web78</title>
-    <link href="https://slug01sh.github.io/b1c7d97662f2/"/>
-    <id>https://slug01sh.github.io/b1c7d97662f2/</id>
+    <link href="https://blog.codesec.work/b1c7d97662f2/"/>
+    <id>https://blog.codesec.work/b1c7d97662f2/</id>
     <published>2021-07-11T11:33:07.000Z</published>
     <updated>2021-07-11T13:15:18.887Z</updated>
     
@@ -35,17 +35,17 @@
     
     
     
-    <category term="ctf" scheme="https://slug01sh.github.io/categories/ctf/"/>
+    <category term="ctf" scheme="https://blog.codesec.work/categories/ctf/"/>
     
     
-    <category term="php文件包含" scheme="https://slug01sh.github.io/tags/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"/>
+    <category term="php文件包含" scheme="https://blog.codesec.work/tags/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"/>
     
   </entry>
   
   <entry>
     <title>开源项目-AoiAWD一键部署</title>
-    <link href="https://slug01sh.github.io/c5c098b97076/"/>
-    <id>https://slug01sh.github.io/c5c098b97076/</id>
+    <link href="https://blog.codesec.work/c5c098b97076/"/>
+    <id>https://blog.codesec.work/c5c098b97076/</id>
     <published>2021-07-08T17:02:39.000Z</published>
     <updated>2021-07-09T03:30:29.850Z</updated>
     
@@ -65,17 +65,17 @@
     
     
     
-    <category term="ctf" scheme="https://slug01sh.github.io/categories/ctf/"/>
+    <category term="ctf" scheme="https://blog.codesec.work/categories/ctf/"/>
     
     
-    <category term="tools" scheme="https://slug01sh.github.io/tags/tools/"/>
+    <category term="tools" scheme="https://blog.codesec.work/tags/tools/"/>
     
   </entry>
   
   <entry>
     <title>blog的时间线</title>
-    <link href="https://slug01sh.github.io/e3bb9d03d772/"/>
-    <id>https://slug01sh.github.io/e3bb9d03d772/</id>
+    <link href="https://blog.codesec.work/e3bb9d03d772/"/>
+    <id>https://blog.codesec.work/e3bb9d03d772/</id>
     <published>2021-07-05T06:01:36.000Z</published>
     <updated>2021-07-06T05:45:23.196Z</updated>
     
@@ -91,15 +91,15 @@
     
     
     
-    <category term="其他" scheme="https://slug01sh.github.io/categories/%E5%85%B6%E4%BB%96/"/>
+    <category term="其他" scheme="https://blog.codesec.work/categories/%E5%85%B6%E4%BB%96/"/>
     
     
   </entry>
   
   <entry>
     <title>Hello world</title>
-    <link href="https://slug01sh.github.io/2728c2e57855/"/>
-    <id>https://slug01sh.github.io/2728c2e57855/</id>
+    <link href="https://blog.codesec.work/2728c2e57855/"/>
+    <id>https://blog.codesec.work/2728c2e57855/</id>
     <published>2021-07-05T05:12:18.000Z</published>
     <updated>2021-07-05T05:51:02.659Z</updated>
     
@@ -114,7 +114,7 @@
     
     
     
-    <category term="其他" scheme="https://slug01sh.github.io/categories/%E5%85%B6%E4%BB%96/"/>
+    <category term="其他" scheme="https://blog.codesec.work/categories/%E5%85%B6%E4%BB%96/"/>
     
     
   </entry>

@@ -3,12 +3,12 @@
 
 
     <sitemap>
-        <loc>https://slug01sh.github.io/post-sitemap.xml</loc>
+        <loc>https://blog.codesec.work/post-sitemap.xml</loc>
         <lastmod>2021-07-11T13:15:18.887Z</lastmod>
     </sitemap>
 
     <sitemap>
-        <loc>https://slug01sh.github.io/page-sitemap.xml</loc>
+        <loc>https://blog.codesec.work/page-sitemap.xml</loc>
         <lastmod>2021-07-11T13:04:19.486Z</lastmod>
     </sitemap>
 
