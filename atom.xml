@@ -6,7 +6,7 @@
   <link href="https://blog.codesec.work/atom.xml" rel="self"/>
   
   <link href="https://blog.codesec.work/"/>
-  <updated>2021-07-11T13:15:18.887Z</updated>
+  <updated>2021-07-18T03:47:23.235Z</updated>
   <id>https://blog.codesec.work/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>php文件包含-CTFshow-web79</title>
+    <link href="https://blog.codesec.work/90ff66d3bd7f/"/>
+    <id>https://blog.codesec.work/90ff66d3bd7f/</id>
+    <published>2021-07-18T02:38:32.000Z</published>
+    <updated>2021-07-18T03:47:23.235Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;0-前言&quot;&gt;&lt;a href=&quot;#0-前言&quot; class=&quot;headerlink&quot; title=&quot;0 前言&quot;&gt;&lt;/a&gt;0 前言&lt;/h1&gt;&lt;p&gt;在上一篇文章，我们尝试 5 种协议来实现文件包含。但在 web79 中，代码使用</summary>
+        
+      
+    
+    
+    
+    <category term="ctf" scheme="https://blog.codesec.work/categories/ctf/"/>
+    
+    
+    <category term="php文件包含" scheme="https://blog.codesec.work/tags/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/"/>
+    
+  </entry>
   
   <entry>
     <title>php文件包含-CTFshow-web78</title>
